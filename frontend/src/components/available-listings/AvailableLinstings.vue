@@ -1,10 +1,22 @@
 <template>
   <div class="available-listings-container">
-    <h1>All listings component</h1>
+    <h1 @click="test">All listings component</h1>
   </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {};
+  },
+
+  methods: {
+    async test() {
+      console.log("Clicked test");
+      await this.$store.dispatch("test");
+    },
+  },
+};
 </script>
 
 

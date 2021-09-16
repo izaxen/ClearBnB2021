@@ -19,5 +19,11 @@ export const store = createStore({
   // this.$store.dispatch('nameOfAction')
   actions: {
 
+    async test() {
+      let res = await fetch('/api/')
+      console.log("test was fired from store!");
+      console.log(await res.json());
+    }
+
   }
 })
