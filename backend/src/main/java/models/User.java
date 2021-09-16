@@ -23,7 +23,6 @@ public class User {
     private int funds;
     private String pw;
 
-
     public User(){
 
     }

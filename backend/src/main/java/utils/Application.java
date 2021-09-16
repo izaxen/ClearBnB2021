@@ -3,6 +3,8 @@ package utils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import models.Book;
+import models.BookRepository;
 import models.User;
 import models.UserRepostitory;
 
@@ -17,7 +19,6 @@ public class Application {
         new Routes();
 
         }
-
 
     private void doExampleQuery() { //TODO erase this one
 
