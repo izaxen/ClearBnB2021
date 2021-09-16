@@ -7,6 +7,7 @@ import models.User;
 import models.UserRepostitory;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 
 public class Application {
@@ -14,18 +15,7 @@ public class Application {
     public Application() {
 
         new Routes();
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ClearbNb");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        UserRepostitory userRepostitory = new UserRepostitory(entityManager);
 
-        User user = new User("Mackan","Udd","bla@bla.com",1000,"lösen");
-        Optional<User> savedUser = userRepostitory.save(user);
-
-        userRepostitory.findAll();
-
-
-        //doExampleQuery();
-        //doExampleQuery1();
         }
 
 

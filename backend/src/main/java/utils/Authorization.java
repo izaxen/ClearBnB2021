@@ -2,7 +2,12 @@ package utils;
 
 import express.Express;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import models.User;
+import models.UserRepostitory;
+
 import static nosqlite.Database.collection;
 
 
@@ -10,6 +15,8 @@ import java.util.Map;
 
 public class Authorization {
     private Express app;
+
+    UserRepostitory userRepostitory = new UserRepostitory(entityManager);
 
     public Authorization(Express app){
         this.app=app;
