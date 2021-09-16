@@ -12,7 +12,6 @@ export default {
 
   methods: {
     async test() {
-      console.log("Clicked test");
       await this.$store.dispatch("test");
     },
   },
