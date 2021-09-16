@@ -2,9 +2,9 @@ import { createStore } from 'vuex'
 
 export const store = createStore({
 
-    // state is where we store reactive variables
+  // state is where we store reactive variables
   // this.$store.state.nameOfVariable
-  state () {
+  state() {
     return {
       user: null
       
@@ -18,24 +18,27 @@ export const store = createStore({
       state.user = user
       state.failedLogIn = false
     
-  },
+    },
 
-  //async methods that will trigger a mutation
-  // this.$store.dispatch('nameOfAction')
-  actions: {
+    //async methods that will trigger a mutation
+    // this.$store.dispatch('nameOfAction')
+    actions: {
 
-        async registerUser(store, user) {
-      let res = await fetch('/api/registerUser', {
-        method: 'POST',
-        body: JSON.stringify(user),
-      })
+      async registerUser(store, user) {
+        let res = await fetch('/api/registerUser', {
+          method: 'POST',
+          body: JSON.stringify(user),
+        })
 
-      let loggedInUser = await res.json()
-      if ('error' in loggedInUser) {
-        this.state.failedLogIn = true
-        return
+        let loggedInUser = await res.json()
+        if ('error' in loggedInUser) {
+          this.state.failedLogIn = true
+          return
+        }
+        store.commit('setUser', loggedInUser)
       }
-      store.commit('setUser', loggedInUser)
     
+    }
   }
-})
+}
+)
