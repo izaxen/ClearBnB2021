@@ -1,45 +1,52 @@
 package models;
 
-import jakarta.persistence.Entity;
-import nosqlite.annotations.Id;
+import jakarta.persistence.*;
+
 
 import java.util.Date;
 @Entity
+@Table (name="user")
+@NamedQueries({
+        @NamedQuery(name="User.findByName",
+        query = "SELECT u FROM User u WHERE u.name = :name"),
+        @NamedQuery(name = "User.findAll",
+            query ="SELECT u FROM User u")
+})
 public class User {
     @Id
     private int ID;
-
-    private String firstName;
+    @Column (name = "first_name")
+    private String name;
+    @Column (name = "sur_name")
     private String lastName;
     private String email;
     private int funds;
-    private String password;
-    private Date date_created;
+    private String pw;
+
 
     public User(){
 
     }
 
-    public User(int ID, String firstName, String lastName, String email, int funds, String password, Date date_created) {
-        this.ID = ID;
-        this.firstName = firstName;
+    public User(String firstName, String lastName, String email, int funds, String pw) {
+        //this.ID = ID;
+        this.name = firstName;
         this.lastName = lastName;
         this.email = email;
         this.funds = funds;
-        this.password = password;
-        this.date_created = date_created;
+        this.pw = pw;
+
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "ID=" + ID +
-                ", firstName='" + firstName + '\'' +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", funds=" + funds +
-                ", password='" + password + '\'' +
-                ", date_created=" + date_created +
+                ", pw='" + pw + '\'' +
                 '}';
     }
 
@@ -51,12 +58,12 @@ public class User {
         this.ID = ID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -83,19 +90,13 @@ public class User {
         this.funds = funds;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPw() {
+        return pw;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 
-    public Date getDate_created() {
-        return date_created;
-    }
 
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
-    }
 }
