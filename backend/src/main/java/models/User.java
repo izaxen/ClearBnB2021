@@ -1,12 +1,14 @@
 package models;
 
+import jakarta.persistence.Entity;
 import nosqlite.annotations.Id;
 
 import java.util.Date;
-
+@Entity
 public class User {
     @Id
     private int ID;
+
     private String firstName;
     private String lastName;
     private String email;

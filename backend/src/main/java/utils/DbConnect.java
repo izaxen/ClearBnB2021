@@ -10,6 +10,7 @@ public enum DbConnect {
     Connection sqlCon;
 
     private DbConnect(){
+
         try {
             sqlCon = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/clearbnb","root","password");
