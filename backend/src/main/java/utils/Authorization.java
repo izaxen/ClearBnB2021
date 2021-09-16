@@ -2,9 +2,6 @@ package utils;
 
 import express.Express;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import models.User;
 import models.UserRepostitory;
 
@@ -68,6 +65,7 @@ public class Authorization {
 
             res.json(Map.of("ok", "Logged out"));
         });
-    }
+
+            }
 }
 

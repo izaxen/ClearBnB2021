@@ -24,19 +24,6 @@ public class Routes {
         new Authorization(app,userRepostitory);
 
 
-        //User user = new User("Mackan","Udd","bla@bla.com",1000,"lösen");
-        //Optional<User> savedUser = userRepostitory.save(user);
-
-        List<User> users = userRepostitory.findAll();
-        System.out.println("users:");
-        users.forEach(System.out::println);
-        //userRepostitory.findById(1);
-
-        //doExampleQuery();
-        //doExampleQuery1();
-
-
-
         app.get("/api/", (req, res) -> {
             res.json("Hello World");
         });
