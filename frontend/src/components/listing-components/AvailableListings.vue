@@ -21,5 +21,7 @@ export default {
 
 <style scoped>
 .available-listings-container {
+  grid-column-start: 2;
+  background-color: aqua;
 }
 </style>
