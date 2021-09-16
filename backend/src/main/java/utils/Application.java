@@ -1,15 +1,31 @@
 package utils;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import models.User;
+import models.UserRepostitory;
+
 import java.sql.*;
+import java.util.Optional;
 
 public class Application {
-    Connection con;
 
     public Application() {
 
         new Routes();
-        doExampleQuery();
-        doExampleQuery1();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ClearbNb");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        UserRepostitory userRepostitory = new UserRepostitory(entityManager);
+
+        User user = new User("Mackan","Udd","bla@bla.com",1000,"lösen");
+        Optional<User> savedUser = userRepostitory.save(user);
+
+        userRepostitory.findAll();
+
+
+        //doExampleQuery();
+        //doExampleQuery1();
         }
 
 
