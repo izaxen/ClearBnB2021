@@ -2,8 +2,6 @@ package models;
 
 import jakarta.persistence.*;
 
-
-import java.util.Date;
 @Entity
 @Table (name="user")
 @NamedQueries({
@@ -14,25 +12,26 @@ import java.util.Date;
 })
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private int ID;
     @Column (name = "first_name")
     private String name;
     @Column (name = "sur_name")
-    private String lastName;
+    private String surName;
     private String email;
-    private int funds;
+    private int funds =10000;
     private String pw;
 
     public User(){
 
     }
 
-    public User(String firstName, String lastName, String email, int funds, String pw) {
-        //this.ID = ID;
+    public User(String firstName, String lastName, String email, String pw) {
+
         this.name = firstName;
-        this.lastName = lastName;
+        this.surName = lastName;
         this.email = email;
-        this.funds = funds;
         this.pw = pw;
 
     }
@@ -42,9 +41,8 @@ public class User {
         return "User{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + surName + '\'' +
                 ", email='" + email + '\'' +
-                ", funds=" + funds +
                 ", pw='" + pw + '\'' +
                 '}';
     }
@@ -65,12 +63,12 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getEmail() {

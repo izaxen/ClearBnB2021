@@ -49,6 +49,13 @@ public class Routes {
         //doExampleQuery();
         //doExampleQuery1();
 
+        new Authorization(app,userRepostitory);
+
+
+        app.get("/api/", (req, res) -> {
+            res.json("Hello World");
+        });
+
         app.listen(4000); // Start server on port 4000
 
         // Close the entity manager and associated factory
