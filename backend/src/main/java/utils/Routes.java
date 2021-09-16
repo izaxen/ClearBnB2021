@@ -19,10 +19,11 @@ public class Routes {
 
         Express app = new Express();
 
-        new Authorization(app);
-
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("clearbnb");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+
+        UserRepostitory userRepostitory = new UserRepostitory(entityManager);
 
         BookRepository bookRepository = new BookRepository(entityManager);
 
@@ -37,19 +38,10 @@ public class Routes {
             System.out.println(book.getID() + "-" + book.getName());
         });
 
-
-        //User user = new User("Mackan","Udd","bla@bla.com",1000,"lösen");
-        //Optional<User> savedUser = userRepostitory.save(user);
-
-      /*  List<User> users = userRepostitory.findAll();
-        System.out.println("users:");
-        users.forEach(System.out::println);*/
-        //userRepostitory.findById(1);
-
         //doExampleQuery();
         //doExampleQuery1();
 
-        new Authorization(app,userRepostitory);
+        new Authorization(app, userRepostitory);
 
 
         app.get("/api/", (req, res) -> {
