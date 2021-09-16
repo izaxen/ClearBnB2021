@@ -21,7 +21,7 @@ public class Routes {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         UserRepostitory userRepostitory = new UserRepostitory(entityManager);
 
-        new Authorization(app);
+        new Authorization(app,userRepostitory);
 
 
         //User user = new User("Mackan","Udd","bla@bla.com",1000,"lösen");

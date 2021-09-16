@@ -12,12 +12,15 @@ import static nosqlite.Database.collection;
 
 
 import java.util.Map;
+import java.util.Optional;
 
 public class Authorization {
     private Express app;
+    private UserRepostitory userRepostitory;
 
-        public Authorization(Express app){
+        public Authorization(Express app, UserRepostitory userRepostitory){
         this.app=app;
+        this.userRepostitory = userRepostitory;
         initAuthorization();
     }
 
@@ -28,7 +31,7 @@ public class Authorization {
 
             String hashedPassword = HashPassword.hash(user.getPw());
             user.setPw(hashedPassword);
-            collection("User").save(user);
+            Optional<User> savedUser = userRepostitory.save(user);
 
             req.session("current-user", user);
             res.json(user);
