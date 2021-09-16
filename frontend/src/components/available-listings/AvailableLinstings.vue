@@ -1,6 +1,6 @@
 <template>
   <div class="available-listings-container">
-    <h1>All listings</h1>
+    <h1>All listings component</h1>
   </div>
 </template>
 
