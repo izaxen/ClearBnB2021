@@ -16,9 +16,7 @@ import java.util.Map;
 public class Authorization {
     private Express app;
 
-    UserRepostitory userRepostitory = new UserRepostitory(entityManager);
-
-    public Authorization(Express app){
+        public Authorization(Express app){
         this.app=app;
         initAuthorization();
     }
