@@ -1,15 +1,18 @@
 <template>
   <div class="home-container">
     <AvailableLinstings />
+    <AddListing />
   </div>
 </template>
 
 <script>
-import AvailableLinstings from "../components/available-listings/AvailableLinstings.vue";
+import AvailableLinstings from "../components/listing-components/AvailableListings.vue";
+import AddListing from "../components/listing-components/AddListing.vue";
 
 export default {
   components: {
     AvailableLinstings,
+    AddListing,
   },
 };
 </script>
@@ -17,6 +20,6 @@ export default {
 <style scoped>
 .home-container {
   display: grid;
-  grid-template-columns: 1fr 60vw 1fr;
+  grid-template-columns: 1fr 50vw 1fr;
 }
 </style>
