@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-container">
     <AvailableLinstings />
   </div>
 </template>
@@ -15,4 +15,8 @@ export default {
 </script>
 
 <style scoped>
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 60vw 1fr;
+}
 </style>

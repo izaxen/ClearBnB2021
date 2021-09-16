@@ -20,4 +20,6 @@ export default {
 
 
 <style scoped>
+.available-listings-container {
+}
 </style>
