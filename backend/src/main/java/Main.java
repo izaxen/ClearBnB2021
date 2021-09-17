@@ -1,5 +1,6 @@
 import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
+import models.Amenities;
 import models.Listing;
 
 import repositories.ListingRepository;
@@ -30,6 +31,11 @@ public class Main {
 //        users.forEach(System.out::println);
 
         Optional<Listing> listing1 = listingRepository.findById(1);
+
+        Listing listing = new Listing(500,"desc4", "2021-10-01", "2021-11-01");
+        listingRepository.addListing(listing);
+
+
 
 
         //userRepository.findByName("Yang");

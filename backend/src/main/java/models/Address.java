@@ -9,9 +9,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String city;
-    private Date createdDate;
 
     @OneToOne
     @JoinColumn(name="listing_ID")
@@ -31,14 +29,6 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public Listing getListing() {

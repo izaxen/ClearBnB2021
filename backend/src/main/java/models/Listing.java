@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 public class Listing {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,27 +23,26 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @Column(name="date_created")
-    private String dateCreated;
-
     @OneToOne(mappedBy = "listing")
     private Address address;
+
+    @OneToOne(mappedBy = "listing")
+    private Amenities amenities;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="owner_id")
     private User user;
 
+    public Listing(){};
 
-
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, String dateCreated) {
+    public Listing(Integer price, String description, String availableStartDate, String availableEndDate) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
-        this.dateCreated = dateCreated;
     }
 
     public Integer getId() {
@@ -85,14 +85,6 @@ public class Listing {
         this.availableEndDate = availableEndDate;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -107,5 +99,13 @@ public class Listing {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Amenities getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(Amenities amenities) {
+        this.amenities = amenities;
     }
 }
