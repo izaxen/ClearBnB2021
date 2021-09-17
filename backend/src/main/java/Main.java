@@ -1,17 +1,10 @@
 import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
 import models.Listing;
-import models.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
 import repositories.ListingRepository;
 import repositories.UserRepository;
-import utils.Application;
 
-import java.awt.print.Book;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 public class Main {
@@ -37,10 +30,7 @@ public class Main {
 //        users.forEach(System.out::println);
 
         Optional<Listing> listing1 = listingRepository.findById(1);
-        User user1 = userRepository.findById(1);
-        listing1.ifPresent(a ->{
-            a.setUser(user1);
-        });
+
 
         //userRepository.findByName("Yang");
     }
