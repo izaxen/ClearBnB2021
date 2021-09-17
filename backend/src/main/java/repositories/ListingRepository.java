@@ -19,20 +19,6 @@ public class ListingRepository {
         return listing != null ? Optional.of(listing) : Optional.empty();
     }
 
-    public Optional<Listing> findByName(String name) {
-        Listing listing = entityManager.createQuery("SELECT b FROM Listing b WHERE b.name = :name", Listing.class)
-                .setParameter("name", name)
-                .getSingleResult();
-        return listing != null ? Optional.of(listing) : Optional.empty();
-    }
-
-    public Optional<Listing> findByNameNamedQuery(String name) {
-        Listing listing = entityManager.createNamedQuery("Listing.findByName", Listing.class)
-                .setParameter("name", name)
-                .getSingleResult();
-        return listing != null ? Optional.of(listing) : Optional.empty();
-    }
-
     public List<Listing> findAllListings(){
         return entityManager.createQuery("from Listing").getResultList();
     }

@@ -2,12 +2,9 @@ package models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 @Entity
-public class Listing {
+public class ListingRevision {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,35 +19,21 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @OneToOne(mappedBy = "listing")
-    private Address address;
+    @ManyToOne
+    @JoinColumn(name="listing_ID")
+    private Listing listing;
+
+//    @OneToOne(mappedBy = "listing")
+//    private Address address;
 
 //    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
 //    private List<Booking> bookings = new ArrayList<>();
-
-    @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
-    private List<ListingRevision> listingRevisions = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="owner_ID")
     private User user;
 
-    public Listing() {
-    }
-
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate) {
-        this.price = price;
-        this.description = description;
-        this.availableStartDate = availableStartDate;
-        this.availableEndDate = availableEndDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public ListingRevision() {
     }
 
     public Integer getPrice() {
@@ -85,12 +68,12 @@ public class Listing {
         this.availableEndDate = availableEndDate;
     }
 
-    public Address getAddress() {
-        return address;
+    public Listing getListing() {
+        return listing;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setListing(Listing listing) {
+        this.listing = listing;
     }
 
     public User getUser() {
@@ -101,16 +84,5 @@ public class Listing {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Listing{" +
-                "id=" + id +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", availableStartDate='" + availableStartDate + '\'' +
-                ", availableEndDate='" + availableEndDate + '\'' +
-                ", address=" + address +
-                ", user=" + user +
-                '}';
-    }
+
 }
