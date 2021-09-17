@@ -9,11 +9,12 @@ import java.util.List;
 @Table(name="user")
 @NamedQueries({
         @NamedQuery(name = "User.findByName",
-        query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
+        query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName"),
 
-        @NamedQuery(name = "User.findAllUsers",
-        query = "SELECT u FROM User u")
+//        @NamedQuery(name = "User.findAllUsers",
+//        query = "SELECT u FROM User u")
 })
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +27,15 @@ public class User {
     private String lastName;
     private String email;
     private int funds;
+
     private String password;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Listing> listings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, int funds, String password) {
         this.firstName = firstName;
@@ -90,14 +96,14 @@ public class User {
         this.password = password;
     }
 
-    public List<Listing> getListings() {
-        return listings;
-    }
-
-    public void addListings(Listing listing) {
-        listings.add(listing);
-        listing.setUser(this);
-    }
+//    public List<Listing> getListings() {
+//        return listings;
+//    }
+//
+//    public void addListings(Listing listing) {
+//        listings.add(listing);
+//        listing.setUser(this);
+//    }
 
     @Override
     public String toString() {
@@ -108,7 +114,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", funds=" + funds +
                 ", password='" + password + '\'' +
-                ", listings=" + listings +
                 '}';
     }
 }

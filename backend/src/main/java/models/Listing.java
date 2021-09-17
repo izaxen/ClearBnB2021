@@ -2,7 +2,9 @@ package models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Listing {
@@ -26,9 +28,14 @@ public class Listing {
     @OneToOne(mappedBy = "listing")
     private Address address;
 
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
 
     public Listing(Integer price, String description, String availableStartDate, String availableEndDate, String dateCreated) {
         this.price = price;

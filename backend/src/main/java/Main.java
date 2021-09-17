@@ -24,13 +24,23 @@ public class Main {
         ListingRepository listingRepository = new ListingRepository(entityManager);
         UserRepository userRepository = new UserRepository(entityManager);
         // Create a user
-        User user = new User("Yang","Li","odielee@hotmail.com",10000,"daitsuki");
-        Optional<User> savedUser = userRepository.addUser(user);
-        System.out.println("Saved User: " + savedUser.get());
+//        User user = new User("Yang","Li","odielee@hotmail.com",10000,"daitsuki");
+//        Optional<User> savedUser = userRepository.addUser(user);
+//        System.out.println("Saved User: " + savedUser.get());
 
-        List<User> users = userRepository.findAllUsers();
-        System.out.println("Users:");
-        users.forEach(System.out::println);
+//        List<User> users = userRepository.findAllUsers();
+//        System.out.println("Users:");
+//        users.forEach(System.out::println);
+
+//        List<User> users = userRepository.findByFullNameQuery("Yang","Li");
+//        System.out.println("Users:");
+//        users.forEach(System.out::println);
+
+        Optional<Listing> listing1 = listingRepository.findById(1);
+        User user1 = userRepository.findById(1);
+        listing1.ifPresent(a ->{
+            a.setUser(user1);
+        });
 
         //userRepository.findByName("Yang");
     }
