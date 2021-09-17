@@ -1,46 +1,51 @@
 package models;
 
-import jakarta.persistence.Entity;
-import nosqlite.annotations.Id;
-
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
+@Table(name="user")
+@NamedQueries({
+        @NamedQuery(name = "User.findByName",
+        query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName"),
+
+//        @NamedQuery(name = "User.findAllUsers",
+//        query = "SELECT u FROM User u")
+})
+
 public class User {
     @Id
-    private int ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer ID;
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "sur_name")
     private String lastName;
     private String email;
     private int funds;
+
     private String password;
-    private Date date_created;
 
-    public User(){
 
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Listing> listings = new ArrayList<>();
 
-    public User(int ID, String firstName, String lastName, String email, int funds, String password, Date date_created) {
-        this.ID = ID;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
+
+    public User(String firstName, String lastName, String email, int funds, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.funds = funds;
         this.password = password;
-        this.date_created = date_created;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", funds=" + funds +
-                ", password='" + password + '\'' +
-                ", date_created=" + date_created +
-                '}';
+    public User() {
     }
 
     public int getID() {
@@ -91,11 +96,24 @@ public class User {
         this.password = password;
     }
 
-    public Date getDate_created() {
-        return date_created;
-    }
+//    public List<Listing> getListings() {
+//        return listings;
+//    }
+//
+//    public void addListings(Listing listing) {
+//        listings.add(listing);
+//        listing.setUser(this);
+//    }
 
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", funds=" + funds +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
