@@ -2,7 +2,6 @@ package models;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 
 @Entity
 public class Address {
@@ -11,10 +10,16 @@ public class Address {
     private Integer id;
 
     private String city;
+    private String address;
 
     @OneToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
+
+    public Address(String city, String address) {
+        this.city = city;
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;
@@ -38,5 +43,13 @@ public class Address {
 
     public void setListing(Listing listing) {
         this.listing = listing;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

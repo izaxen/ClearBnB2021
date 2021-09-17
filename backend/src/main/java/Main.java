@@ -1,10 +1,12 @@
 import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
+import models.Address;
 import models.Listing;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import repositories.AddressRepository;
 import repositories.ListingRepository;
 import repositories.UserRepository;
 import utils.Application;
@@ -23,11 +25,12 @@ public class Main {
         // Create our repositories
         ListingRepository listingRepository = new ListingRepository(entityManager);
         UserRepository userRepository = new UserRepository(entityManager);
+        AddressRepository addressRepository = new AddressRepository(entityManager);
         // Create a user
-//        User user = new User("Yang","Li","odielee@hotmail.com",10000,"daitsuki");
+//        User user = new User("Yanni","Li","odielee@hotmail.com",10000,"daitsuki");
 //        Optional<User> savedUser = userRepository.addUser(user);
 //        System.out.println("Saved User: " + savedUser.get());
-
+//
 //        List<User> users = userRepository.findAllUsers();
 //        System.out.println("Users:");
 //        users.forEach(System.out::println);
@@ -35,13 +38,13 @@ public class Main {
 //        List<User> users = userRepository.findByFullNameQuery("Yang","Li");
 //        System.out.println("Users:");
 //        users.forEach(System.out::println);
-
-        Listing listing = new Listing(8000,"100m to stripclub","2021-10-10","2022-10-10");
-        listingRepository.addListing(listing);
-
-        List<Listing> listings = listingRepository.findAllListings();
-        System.out.println("Users:");
-        listings.forEach(System.out::println);
+//
+//        Listing listing = new Listing(100,"100m to stripclub","2021-10-10","2022-10-10");
+//        listingRepository.addListing(listing);
+//
+//        List<Listing> listings = listingRepository.findAllListings();
+//        System.out.println("Users:");
+//        listings.forEach(System.out::println);
 
 //          Optional<Listing> listing = listingRepository.findById(1);
 //          listing.ifPresent(System.out::println);
@@ -54,6 +57,23 @@ public class Main {
 //        });
 
         //userRepository.findByName("Yang");
+
+
+//        Address address = new Address("Malmö","test");
+//        Optional<Address> savedAddress = addressRepository.addAddress(address);
+//
+//
+//        Listing listing = new Listing(200,"i own the stripclub","2021-10-10","2022-10-10",new Address("Malmö","test"));
+//        Optional<Listing> savedListing = listingRepository.addListing(listing);
+//
+//        User user = new User("Ling","Long","lucifera@hotmail.com",10000,"dsadw22");
+//        user.addListings(listing);
+//        Optional<User> savedUser = userRepository.addUser(user);
+//        System.out.println("Saved User: " + savedUser.get());
+//
+//        List<Listing> listings = listingRepository.findAllListings();
+//        System.out.println("Listings:");
+//        listings.forEach(System.out::println);
     }
 
 }

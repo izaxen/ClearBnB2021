@@ -96,14 +96,14 @@ public class User {
         this.password = password;
     }
 
-//    public List<Listing> getListings() {
-//        return listings;
-//    }
-//
-//    public void addListings(Listing listing) {
-//        listings.add(listing);
-//        listing.setUser(this);
-//    }
+    public List<Listing> getListings() {
+        return listings;
+    }
+
+    public void addListings(Listing listing) {
+        listings.add(listing);
+        listing.setUser(this);
+    }
 
     @Override
     public String toString() {

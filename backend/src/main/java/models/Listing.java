@@ -35,11 +35,12 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate) {
+    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, Address address) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
+        this.address = address;
     }
 
     public Integer getId() {
