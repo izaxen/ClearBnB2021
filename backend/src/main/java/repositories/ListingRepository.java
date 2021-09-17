@@ -34,7 +34,7 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-        return entityManager.createQuery("from Listings").getResultList();
+        return entityManager.createQuery("from Listing").getResultList();
     }
 
     public Optional<Listing> addListing(Listing listing){

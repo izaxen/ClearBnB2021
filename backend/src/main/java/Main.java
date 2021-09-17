@@ -36,11 +36,22 @@ public class Main {
 //        System.out.println("Users:");
 //        users.forEach(System.out::println);
 
-        Optional<Listing> listing1 = listingRepository.findById(1);
-        User user1 = userRepository.findById(1);
-        listing1.ifPresent(a ->{
-            a.setUser(user1);
-        });
+        Listing listing = new Listing(8000,"100m to stripclub","2021-10-10","2022-10-10");
+        listingRepository.addListing(listing);
+
+        List<Listing> listings = listingRepository.findAllListings();
+        System.out.println("Users:");
+        listings.forEach(System.out::println);
+
+//          Optional<Listing> listing = listingRepository.findById(1);
+//          listing.ifPresent(System.out::println);
+
+//        Optional<Listing> listing1 = listingRepository.findById(1);
+//        Optional<User> user1 = userRepository.findById(2);
+//        System.out.println(listing1.toString());
+//        listing1.ifPresent(a ->{
+//            a.setUser(user1);
+//        });
 
         //userRepository.findByName("Yang");
     }
