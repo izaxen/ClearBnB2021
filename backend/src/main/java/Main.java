@@ -3,6 +3,7 @@ import jakarta.persistence.Persistence;
 import models.Amenities;
 import models.Listing;
 
+import repositories.AmenitiesRepository;
 import repositories.ListingRepository;
 import repositories.UserRepository;
 
@@ -17,26 +18,17 @@ public class Main {
         // Create our repositories
         ListingRepository listingRepository = new ListingRepository(entityManager);
         UserRepository userRepository = new UserRepository(entityManager);
-        // Create a user
-//        User user = new User("Yang","Li","odielee@hotmail.com",10000,"daitsuki");
-//        Optional<User> savedUser = userRepository.addUser(user);
-//        System.out.println("Saved User: " + savedUser.get());
+        AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
 
-//        List<User> users = userRepository.findAllUsers();
-//        System.out.println("Users:");
-//        users.forEach(System.out::println);
 
-//        List<User> users = userRepository.findByFullNameQuery("Yang","Li");
-//        System.out.println("Users:");
-//        users.forEach(System.out::println);
 
         Optional<Listing> listing1 = listingRepository.findById(1);
 
-        Listing listing = new Listing(500,"desc4", "2021-10-01", "2021-11-01");
+        Listing listing = new Listing(500,"desc", "2021-10-01", "2021-11-01");
         listingRepository.addListing(listing);
 
-
-
+        Amenities amenities = new Amenities((listing), true, true, true, true, false, false, true);
+        amenitiesRepository.addAmenities(amenities);
 
         //userRepository.findByName("Yang");
     }
