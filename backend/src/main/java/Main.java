@@ -1,9 +1,11 @@
 import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
 import models.Amenities;
+import models.CurrentChat;
 import models.Listing;
 
 import repositories.AmenitiesRepository;
+import repositories.CurrentChatRepository;
 import repositories.ListingRepository;
 import repositories.UserRepository;
 
@@ -19,16 +21,20 @@ public class Main {
         ListingRepository listingRepository = new ListingRepository(entityManager);
         UserRepository userRepository = new UserRepository(entityManager);
         AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
+        CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
 
 
 
         Optional<Listing> listing1 = listingRepository.findById(1);
 
-        Listing listing = new Listing(500,"desc", "2021-10-01", "2021-11-01");
-        listingRepository.addListing(listing);
+        /*Listing listing = new Listing(500,"desc", "2021-10-01", "2021-11-01");
+        listingRepository.addListing(listing);*/
 
-        Amenities amenities = new Amenities((listing), true, true, true, true, false, false, true);
-        amenitiesRepository.addAmenities(amenities);
+       /* Amenities amenities = new Amenities(listing, true, true, true, true, false, false, true);
+        amenitiesRepository.addAmenities(amenities);*/
+
+        CurrentChat currentChat = new CurrentChat();
+        currentChatRepository.addCurrentChat(currentChat);
 
         //userRepository.findByName("Yang");
     }
