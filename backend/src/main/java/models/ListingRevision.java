@@ -23,8 +23,8 @@ public class ListingRevision {
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
-//    @OneToOne(mappedBy = "listing")
-//    private Address address;
+    @OneToOne(mappedBy = "listingRevision")
+    private AddressRevision addressRevision;
 
 //    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
 //    private List<Booking> bookings = new ArrayList<>();
