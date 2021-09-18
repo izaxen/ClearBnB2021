@@ -32,6 +32,9 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name="owner_id")
     private User user;

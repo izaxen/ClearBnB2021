@@ -1,13 +1,8 @@
 import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
-import models.Amenities;
-import models.CurrentChat;
-import models.Listing;
+import models.*;
 
-import repositories.AmenitiesRepository;
-import repositories.CurrentChatRepository;
-import repositories.ListingRepository;
-import repositories.UserRepository;
+import repositories.*;
 
 import java.util.Optional;
 
@@ -22,6 +17,7 @@ public class Main {
         UserRepository userRepository = new UserRepository(entityManager);
         AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
         CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
+        ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
 
 
 
@@ -33,8 +29,21 @@ public class Main {
        /* Amenities amenities = new Amenities(listing, true, true, true, true, false, false, true);
         amenitiesRepository.addAmenities(amenities);*/
 
-        CurrentChat currentChat = new CurrentChat();
-        currentChatRepository.addCurrentChat(currentChat);
+        /*CurrentChat currentChat = new CurrentChat();
+        currentChatRepository.addCurrentChat(currentChat);*/
+
+        Optional<User> optUser = userRepository.findById(2);
+        User user = optUser.get();
+
+        Optional<CurrentChat> optionalCurrentChat = currentChatRepository.findById(1);
+        CurrentChat currentChat = optionalCurrentChat.get();
+
+        System.out.println(user);
+
+        ChatMessage chatMessage = new ChatMessage(currentChat, user, "Hej på dig!");
+        chatMessageRepository.addChatMessage(chatMessage);
+
+
 
         //userRepository.findByName("Yang");
     }

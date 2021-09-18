@@ -2,6 +2,7 @@ package repositories;
 
 import jakarta.persistence.EntityManager;
 import models.CurrentChat;
+import models.User;
 
 import java.util.Optional;
 
@@ -11,6 +12,11 @@ public class CurrentChatRepository {
 
     public CurrentChatRepository(EntityManager entityManager){
         this.entityManager = entityManager;
+    }
+
+    public Optional<CurrentChat> findById(Integer id){
+        CurrentChat currentChat = entityManager.find(CurrentChat.class, id);
+        return currentChat != null ? Optional.of(currentChat) : Optional.empty();
     }
 
     public Optional<CurrentChat> addCurrentChat(CurrentChat currentChat){
