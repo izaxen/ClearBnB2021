@@ -18,6 +18,7 @@ public class Main {
         AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
         CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
         ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
+        RatingRepository ratingRepository = new RatingRepository(entityManager);
 
 
 
@@ -32,16 +33,25 @@ public class Main {
         /*CurrentChat currentChat = new CurrentChat();
         currentChatRepository.addCurrentChat(currentChat);*/
 
-        Optional<User> optUser = userRepository.findById(2);
+        Optional<User> optUser = userRepository.findById(1);
         User user = optUser.get();
 
-        Optional<CurrentChat> optionalCurrentChat = currentChatRepository.findById(1);
+        Optional<User> optUser2 = userRepository.findById(2);
+        User user2 = optUser2.get();
+
+        /*Optional<CurrentChat> optionalCurrentChat = currentChatRepository.findById(1);
         CurrentChat currentChat = optionalCurrentChat.get();
 
         System.out.println(user);
 
         ChatMessage chatMessage = new ChatMessage(currentChat, user, "Hej på dig!");
-        chatMessageRepository.addChatMessage(chatMessage);
+        chatMessageRepository.addChatMessage(chatMessage);*/
+
+        Rating rating = new Rating(user, user2, 4,"My first review!");
+        ratingRepository.addRating(rating);
+
+
+
 
 
 
