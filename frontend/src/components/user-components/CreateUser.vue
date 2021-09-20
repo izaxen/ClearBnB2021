@@ -1,18 +1,25 @@
 <template>
-  <br />
-  <h3>Create a new user</h3>
-  <form @submit.prevent="addUser" ref="clearForm">
-    <input
-      v-model="firstName"
-      required
-      type="text"
-      placeholder="Enter firstname"
-    />
-    <input v-model="surName" required type="text" placeholder="Enter surname" />
-    <input v-model="email" required type="text" placeholder="Enter email" />
-    <input v-model="pw" required type="text" placeholder="Enter password" />
-    <button>Create new account</button>
-  </form>
+  <div class="createNewUserContainer">
+    <br />
+    <h3>Create a new user</h3>
+    <form @submit.prevent="addUser" ref="clearForm">
+      <input
+        v-model="firstName"
+        required
+        type="text"
+        placeholder="Enter firstname"
+      />
+      <input
+        v-model="surName"
+        required
+        type="text"
+        placeholder="Enter surname"
+      />
+      <input v-model="email" required type="text" placeholder="Enter email" />
+      <input v-model="pw" required type="text" placeholder="Enter password" />
+      <button>Create new account</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -47,6 +54,11 @@ export default {
 </script>
 
 <style scoped>
+.createNewUserContainer {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
 input {
   display: flex;
   flex-direction: column;
