@@ -35,3 +35,4 @@ dist-ssr
 /nbdist/
 /.nb-gradle/
 *.class
+.vscode/settings.json
