@@ -1,9 +1,11 @@
 package models;
 
 import jakarta.persistence.*;
-import utils.HashPassword;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name="user")
@@ -25,6 +27,14 @@ public class User {
     private String email;
     private int funds =10000;
     private String pw;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_created")
+    private Date date_created;
+
+    @OneToMany(mappedBy = "user")
+    private List<Listing> listings = new ArrayList<>();
 
 
     public User(){

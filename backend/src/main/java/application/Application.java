@@ -20,7 +20,7 @@ public class Application {
         UserRepository userRepository = new UserRepository(entityManager);
         //ListingRepository listingRepository = new ListingRepository(entityManager);
 
-        new Authorization(app);
+        new Authorization(app, userRepository);
 
 
         app.listen(4000); // Start server on port 4000

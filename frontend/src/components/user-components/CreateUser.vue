@@ -26,7 +26,7 @@ required
 type="text"
 placeholder="Enter password"
 />
-<button v-on:click= addUser>Create new account</button>
+<button>Create new account</button>
 </form>
 
 </template>

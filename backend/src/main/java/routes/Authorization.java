@@ -4,6 +4,7 @@ import application.UserAccess;
 import express.Express;
 
 import models.User;
+import repositories.UserRepository;
 import utils.HashPassword;
 
 import static nosqlite.Database.collection;
@@ -16,9 +17,9 @@ public class Authorization {
     private UserAccess userAccess;
 
 
-        public Authorization(Express app){
+        public Authorization(Express app, UserRepository repository){
         this.app=app;
-
+        userAccess = new UserAccess(repository);
         initAuthorization();
     }
 
