@@ -22,10 +22,11 @@ public class Booking {
     @JoinColumn(name="listing_id")
     private Listing listing;
 
-    public Booking(String startDate, String endDate, User user) {
+    public Booking(User user, Listing listing, String startDate, String endDate) {
+        this.user = user;
+        this.listing = listing;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.user = user;
     }
 
     public Integer getId() {
