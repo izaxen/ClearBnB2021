@@ -7,37 +7,37 @@ export const store = createStore({
   state() {
     return {
       user: null
-      
+
     }
   },
   // we cannot update state directly, so we use mutation methods to do that
   // this.$store.commit('nameOfMutation', data)
   mutations: {
-   // setUser(state, user) {
-     // state.user = user
-     // state.failedLogIn = false
-    
-    },
+    // setUser(state, user) {
+    // state.user = user
+    // state.failedLogIn = false
 
-    //async methods that will trigger a mutation
-    // this.$store.dispatch('nameOfAction')
+  },
+
+  //async methods that will trigger a mutation
+  // this.$store.dispatch('nameOfAction')
   actions: {
-      
+
     async registerUser(store, user) {
       let res = await fetch('/api/registerUser', {
-      method: 'POST',
-      body: JSON.stringify(user),
+        method: 'POST',
+        body: JSON.stringify(user),
       })
       let loggedInUser = await res.json()
-     
-        if ('error' in loggedInUser) {
-          this.state.failedLogIn = true
-          return
-        }
-        store.commit('setUser', loggedInUser)
 
-      },
-    }
-  })
+      if ('error' in loggedInUser) {
+        this.state.failedLogIn = true
+        return
+      }
+      /* store.commit('setUser', loggedInUser) */
+
+    },
+  }
+})
 
 
