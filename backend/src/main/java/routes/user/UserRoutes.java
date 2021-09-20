@@ -31,7 +31,6 @@ public class UserRoutes {
         app.post("/api/registerUser", (req, res) -> {   //Create user
             User user = userAccess.createNewUser(req.body(User.class));
             req.session("current-user", user);
-            System.out.println(user.toString());
             res.json(user);
         });
 

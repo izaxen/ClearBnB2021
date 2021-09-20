@@ -14,9 +14,14 @@ public class UserAccess {
         this.userRepository = userRepository;
     }
 
-        public User createNewUser(User user){
-            String hashedPassword = HashPassword.hash(user.getPw());
-            user.setPw(hashedPassword);
-            return userRepository.save(user);
+        public User createNewUser(User user) {
+
+            if (userRepository.emailNotExist(user.getEmail())) {
+                String hashedPassword = HashPassword.hash(user.getPw());
+                user.setPw(hashedPassword);
+                return userRepository.save(user);
+
+            }
+            return null;
         }
 }
