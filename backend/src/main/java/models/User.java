@@ -37,8 +37,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Rating> ratings = new ArrayList<>();
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
+    private List<Rating> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
+    private List<Rating> rating = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, int funds, String password) {
         this.firstName = firstName;

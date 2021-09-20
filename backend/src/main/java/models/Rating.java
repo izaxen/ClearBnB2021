@@ -12,9 +12,11 @@ public class Rating {
     private Integer ID;
 
     @ManyToOne
+    @JoinColumn(name="reviewer_ID")
     private User reviewer;
 
     @ManyToOne
+    @JoinColumn(name="recipient_ID")
     private User recipient;
 
     private Integer rating;
