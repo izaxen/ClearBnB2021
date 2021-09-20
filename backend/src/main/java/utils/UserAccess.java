@@ -1,4 +1,4 @@
-package application;
+package utils;
 
 import models.User;
 import repositories.UserRepository;
@@ -14,13 +14,9 @@ public class UserAccess {
         this.userRepository = userRepository;
     }
 
-
         public User createNewUser(User user){
-
             String hashedPassword = HashPassword.hash(user.getPw());
             user.setPw(hashedPassword);
             return userRepository.save(user);
         }
-
-
 }

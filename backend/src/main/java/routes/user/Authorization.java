@@ -1,6 +1,6 @@
-package routes;
+package routes.user;
 
-import application.UserAccess;
+import utils.UserAccess;
 import express.Express;
 
 import models.User;
@@ -16,7 +16,6 @@ public class Authorization {
     private Express app;
     private UserAccess userAccess;
 
-
         public Authorization(Express app, UserRepository repository){
         this.app=app;
         userAccess = new UserAccess(repository);
@@ -31,8 +30,6 @@ public class Authorization {
             System.out.println(user.toString());
             res.json(user);
         });
-
-
 
         app.post("/api/login", (req, res) -> {
             User user = req.body(User.class);
