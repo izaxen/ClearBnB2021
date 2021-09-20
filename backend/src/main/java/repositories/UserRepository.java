@@ -22,12 +22,19 @@ public class UserRepository {
         return entityManager.createQuery("from User").getResultList();
     }
 
-    public Optional<User> findByName(String name){
-        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
-                .setParameter("name", name)
+    public Boolean findByEmail(String email){
+        try{
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
                 .getSingleResult();
-        return user != null ? Optional.of(user) : Optional.empty();
+        return true;
+
         }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return false;
+    }
 
     public Optional<User> findByNameNamedQuery(String name){
         User user = entityManager.createNamedQuery("User.findByName", User.class)

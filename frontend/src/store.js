@@ -6,17 +6,20 @@ export const store = createStore({
   // this.$store.state.nameOfVariable
   state() {
     return {
-      user: null
+      user: null,
+      failedLogIn:false,
       
     }
   },
   // we cannot update state directly, so we use mutation methods to do that
   // this.$store.commit('nameOfMutation', data)
   mutations: {
-   // setUser(state, user) {
-     // state.user = user
-     // state.failedLogIn = false
-    
+    setUser(state, user) {
+      state.user = user;
+      state.failedLogIn = false;
+  },
+    setFailedLogin(state, value) {
+      state.failedLogIn = value
     },
 
     //async methods that will trigger a mutation
