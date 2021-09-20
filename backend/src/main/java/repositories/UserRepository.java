@@ -6,10 +6,10 @@ import models.User;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepostitory {
+public class UserRepository {
     private EntityManager entityManager;
 
-    public UserRepostitory(EntityManager entityManager){
+    public UserRepository(EntityManager entityManager){
         this.entityManager =entityManager;
     }
 
@@ -36,17 +36,16 @@ public class UserRepostitory {
         return user !=null ? Optional.of(user) : Optional.empty();
     }
 
-    public Optional<User> save(User user){
+    public User save(User user){
         try{
             entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
-            return Optional.of(user);
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return Optional.empty();
+        return user;
     }
 
     public void updateName(String name, User user){

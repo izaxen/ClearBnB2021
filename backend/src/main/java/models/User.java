@@ -1,6 +1,9 @@
 package models;
 
 import jakarta.persistence.*;
+import utils.HashPassword;
+
+import java.util.Optional;
 
 @Entity
 @Table (name="user")
@@ -95,6 +98,7 @@ public class User {
     public void setPw(String pw) {
         this.pw = pw;
     }
+
 
 
 }

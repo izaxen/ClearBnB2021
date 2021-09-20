@@ -4,7 +4,7 @@ import express.Express;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import repositories.UserRepostitory;
+import repositories.UserRepository;
 import routes.Authorization;
 
 
@@ -17,10 +17,10 @@ public class Application {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ClearbNb");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        UserRepostitory userRepostitory = new UserRepostitory(entityManager);
+        UserRepository userRepository = new UserRepository(entityManager);
         //ListingRepository listingRepository = new ListingRepository(entityManager);
 
-        new Authorization(app,userRepostitory);
+        new Authorization(app);
 
 
         app.listen(4000); // Start server on port 4000

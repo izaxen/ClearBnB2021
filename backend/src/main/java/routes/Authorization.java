@@ -1,39 +1,35 @@
 package routes;
 
+import application.UserAccess;
 import express.Express;
 
 import models.User;
-import repositories.UserRepostitory;
 import utils.HashPassword;
 
 import static nosqlite.Database.collection;
 
 
 import java.util.Map;
-import java.util.Optional;
 
 public class Authorization {
     private Express app;
-    private UserRepostitory userRepostitory;
+    private UserAccess userAccess;
 
-        public Authorization(Express app, UserRepostitory userRepostitory){
+
+        public Authorization(Express app){
         this.app=app;
-        this.userRepostitory = userRepostitory;
+
         initAuthorization();
     }
 
     private void initAuthorization() {
 
         app.post("/api/registerUser", (req, res) -> {   //Create user
-            User user = req.body(User.class);
-
-            String hashedPassword = HashPassword.hash(user.getPw());
-            user.setPw(hashedPassword);
-            Optional<User> savedUser = userRepostitory.save(user);
-
+            User user = userAccess.createNewUser(req.body(User.class));
             req.session("current-user", user);
             res.json(user);
         });
+
 
 
         app.post("/api/login", (req, res) -> {
