@@ -38,7 +38,6 @@ export const store = createStore({
         })
 
         let loggedInUser = await res.json()
-        console.log(loggedinUser);
         if ('error' in loggedInUser) {
           this.state.failedLogIn = true
           return
