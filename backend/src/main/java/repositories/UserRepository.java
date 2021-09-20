@@ -15,7 +15,7 @@ public class UserRepository {
 
     public Optional<User> findById(Integer id){
         User user = entityManager.find(User.class, id);
-        System.out.println(user.getFirstName());
+        System.out.println(user);
         return user != null ? Optional.of(user) : Optional.empty();
     }
 
@@ -33,7 +33,6 @@ public class UserRepository {
                 .getResultList();
     }
 
-
     public List<User> findAllUsers(){
         return entityManager.createQuery("from User").getResultList();
     }
@@ -48,6 +47,43 @@ public class UserRepository {
         catch (Exception ex){
             ex.printStackTrace();
         }
-        return Optional.empty();
+        return user != null ? Optional.of(user):Optional.empty();
     }
+
+
+    public List<User> findAll(){
+        return entityManager.createQuery("from User").getResultList();
+    }
+
+    public Optional<User> findByName(String name){
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+        }
+
+    public Optional<User> findByNameNamedQuery(String name){
+        User user = entityManager.createNamedQuery("User.findByName", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return user !=null ? Optional.of(user) : Optional.empty();
+    }
+
+    public User save(User user){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public void updateName(String name, User user){
+        
+
+    }
+
 }
