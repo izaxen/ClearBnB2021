@@ -1,6 +1,8 @@
-package models;
+package repositories;
 
 import jakarta.persistence.EntityManager;
+import models.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +39,7 @@ public class UserRepostitory {
     public Optional<User> save(User user){
         try{
             entityManager.getTransaction().begin();
-            entityManager.persist(user);
+            entityManager.merge(user);
             entityManager.getTransaction().commit();
             return Optional.of(user);
         }
@@ -46,4 +48,10 @@ public class UserRepostitory {
         }
         return Optional.empty();
     }
+
+    public void updateName(String name, User user){
+
+
+    }
+
 }

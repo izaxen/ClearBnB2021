@@ -1,7 +1,5 @@
 
-import utils.Application;
-
-import java.lang.module.Configuration;
+import application.Application;
 
 public class Main {
     public static void main(String[] args) {

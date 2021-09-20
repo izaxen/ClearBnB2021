@@ -1,9 +1,10 @@
-package utils;
+package routes;
 
 import express.Express;
 
 import models.User;
-import models.UserRepostitory;
+import repositories.UserRepostitory;
+import utils.HashPassword;
 
 import static nosqlite.Database.collection;
 
