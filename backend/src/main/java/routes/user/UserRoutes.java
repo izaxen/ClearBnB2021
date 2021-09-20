@@ -37,23 +37,21 @@ public class UserRoutes {
         app.post("/api/login", (req, res) -> {
             User user = userAccess.loginUser(req.body(User.class));
             if( user != null) {
-                System.out.println(user.toString());
                 req.session("current-user", user);
                 res.json(user);
             }
             else{
-                res.json(Map.of("error", "Control login details"));}
+                res.json(Map.of("Error", "Logindetails failed"));}
         });
 
         app.get("/api/whoami", (req, res)-> {   //Control logged in user
-
             res.json(req.session("current-user"));
         });
 
         app.get("/api/logout",(req,res)->{
             req.session("current-user", null);
 
-            res.json(Map.of("ok", "Logged out"));
+            res.json(Map.of("Ok", "Logged out"));
         });
 
     }
