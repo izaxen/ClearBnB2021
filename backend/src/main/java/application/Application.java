@@ -1,9 +1,7 @@
-import express.Express;
-import models.User;
-import repositories.Repositories;
-import routes.Routes;
+package application;
 
-import java.util.Optional;
+import express.Express;
+import routes.Routes;
 
 public class Application {
 

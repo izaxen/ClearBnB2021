@@ -1,10 +1,13 @@
-package repositories;
+package application;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import repositories.*;
 
 public class Repositories {
+
+    //Is this best praxis of having a collection class ??
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ClearBnB2021");
     jakarta.persistence.EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -20,7 +23,7 @@ public class Repositories {
         return listingRepository;
     }
 
-    public UserRepository getUser() {
+    public UserRepository user() {
         return userRepository;
     }
 

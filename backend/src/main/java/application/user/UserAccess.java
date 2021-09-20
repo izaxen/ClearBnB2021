@@ -1,4 +1,4 @@
-package utils;
+package application.user;
 
 import models.User;
 import repositories.UserRepository;
