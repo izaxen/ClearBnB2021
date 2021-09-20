@@ -28,28 +28,15 @@ export const store = createStore({
       method: 'POST',
       body: JSON.stringify(user),
       })
-
-      },
-
-      async registerUser1(store, user) {
-        let res = await fetch('/api/registerUser', {
-          method: 'POST',
-          body: JSON.stringify(user),
-        })
-
-        let loggedInUser = await res.json()
+      let loggedInUser = await res.json()
+     
         if ('error' in loggedInUser) {
           this.state.failedLogIn = true
           return
         }
         store.commit('setUser', loggedInUser)
+
       },
-      async test() {
-      let res = await fetch('/api/')
-      console.log("test was fired from store!");
-      console.log(await res.json());
-    },
-    
     }
   })
 

@@ -1,7 +1,7 @@
 <template>
 <br>
 <h3>Create a new user</h3>
-<form @submit.prevent="addUser">
+<form @submit.prevent="addUser" ref="clearForm">
 <input
 v-model ="name"
 required
@@ -56,7 +56,13 @@ export default{
       }
     
     this.$store.dispatch('registerUser', newUser)
+    this.reset();
        },
+    
+  reset(){
+    console.log("Inne");
+    this.$refs.clearForm.reset();
+    }
   },
 }
 

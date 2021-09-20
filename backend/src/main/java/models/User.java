@@ -33,8 +33,8 @@ public class User {
     @Column(name = "date_created")
     private Date date_created;
 
-    @OneToMany(mappedBy = "user")
-    private List<Listing> listings = new ArrayList<>();
+/*    @OneToMany(mappedBy = "user")
+    private List<Listing> listings = new ArrayList<>();*/
 
 
     public User(){
