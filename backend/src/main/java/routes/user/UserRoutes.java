@@ -35,23 +35,14 @@ public class UserRoutes {
         });
 
         app.post("/api/login", (req, res) -> {
-            User user = req.body(User.class);
-            User userInCollection = collection("User").findOne("email==" +user.getEmail());
-
-            if(userInCollection == null){
-                res.json(Map.of("error", "Control login details")); //Console Variable
-                return;
-            }
-
-            if(HashPassword.match(user.getPw(), userInCollection.getPw())){
-                req.session("current-user", userInCollection);
-
-                res.json(userInCollection);
+            User user = userAccess.loginUser(req.body(User.class));
+            if( user != null) {
+                System.out.println(user.toString());
+                req.session("current-user", user);
+                res.json(user);
             }
             else{
-                res.json(Map.of("error", "Control login details"));
-            }
-
+                res.json(Map.of("error", "Control login details"));}
         });
 
         app.get("/api/whoami", (req, res)-> {   //Control logged in user

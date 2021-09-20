@@ -77,6 +77,22 @@ public class UserRepository {
         return (exists.getSingleResult().toString().equals("0")); // gör om Query resultat till strängvärde
     }
 
+    public Optional<User> findByEmail(String email) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
+
+    public Optional<User> login(String email, String pw) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.pw =:pw", User.class)
+                .setParameter("email", email)
+                .setParameter("pw", pw)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
 
     public User save(User user){
         try{
