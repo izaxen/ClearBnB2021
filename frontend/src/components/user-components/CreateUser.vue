@@ -56,9 +56,15 @@ export default{
       }
     
     this.$store.dispatch('registerUser', newUser)
-       },
+      this.reset();
+    },
+
+  reset(){
+    console.log("Inne");
+    this.$refs.clearForm.reset();
+    }
   },
-}
+  }
 
 
 </script>
