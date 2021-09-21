@@ -33,14 +33,12 @@ export const store = createStore({
         body: JSON.stringify(user),
       })
       let loggedInUser = await res.json()
-
       if (loggedInUser === null) {
         console.log("Failed to register account email not valid");
         this.state.failedLogIn = true
         return
       }
       store.commit('setUser', loggedInUser)
-
     },
 
     async loginUser(store, details) {
@@ -58,13 +56,13 @@ export const store = createStore({
       store.commit('setUser', loggedInUser)
     },
     async whoAmI(store) {
-      let res = await fetch('/api/whoami')
+      let res = await fetch('/api/whoAmI')
       let user = await res.json()
       store.commit('setUser', user)
     },
 
     async logOff(store) {
-      let res = await fetch('/api/logoff')
+      let res = await fetch('/api/logOff')
       store.commit('setUser', null)
       let userResponse = await res.json()
       console.log(userResponse)
