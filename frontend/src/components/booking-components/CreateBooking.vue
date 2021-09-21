@@ -1,14 +1,12 @@
 <template>
   <div class="add-booking-container">
-    <h1>Add Booking container</h1>
+    <h1 v-if="user">Add Booking as {{ this.$store.state.user.firstName }}</h1>
     <form @submit.prevent="createBooking">
-      <input v-model="ownerID" required type="number" placeholder="Owner id" />
-      <input
-        v-model="listingID"
-        required
-        type="number"
-        placeholder="listing id"
-      />
+      <select v-model="allListings">
+        <option v-for="listing in allListings" :key="listing.id">
+          {{ listing.id }}, {{ listing.description }}
+        </option>
+      </select>
       <button>Create new booking</button>
     </form>
   </div>
@@ -17,7 +15,15 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      selected: "",
+      allListings: [],
+      user: this.$store.state.user,
+    };
+  },
+
+  beforeMount() {
+    this.getAllListings();
   },
 
   methods: {
@@ -36,6 +42,12 @@ export default {
         method: "POST",
         body: JSON.stringify(newBooking),
       });
+    },
+    async getAllListings() {
+      console.log("getAllListings runned!");
+      let res = await fetch("/api/getListings");
+      this.allListings = await res.json();
+      console.log(this.allListings);
     },
   },
 };

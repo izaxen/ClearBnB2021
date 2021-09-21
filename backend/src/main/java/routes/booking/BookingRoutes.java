@@ -14,7 +14,7 @@ public class BookingRoutes {
 
     private void createBookingRoute(Express app){
         app.post("/api/createBooking", ((req, res) -> {
-            System.out.println(req.body());
+
         }));
     }
 }

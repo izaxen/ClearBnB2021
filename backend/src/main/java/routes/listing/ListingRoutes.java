@@ -5,6 +5,8 @@ import express.Express;
 import models.Listing;
 import repositories.ListingRepository;
 
+import java.util.List;
+
 public class ListingRoutes {
 
     private ListingLogic listingLogic;
@@ -14,10 +16,13 @@ public class ListingRoutes {
         listingLogic= new ListingLogic(listingRepository);
 
         app.post("/api/addListing", (req, res) -> {   //Create listing
-            System.out.println("yes1");
             Listing listing = listingLogic.createNewListing(req.body(Listing.class));
-            System.out.println("yes");
             res.json(listing);
+        });
+
+        app.get("/api/getListings", (req,res) ->{
+            List<Listing> listings = listingLogic.getAllListings();
+            res.json(listings);
         });
 
     }
