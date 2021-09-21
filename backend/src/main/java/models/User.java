@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name="user")
 @NamedQueries({
         @NamedQuery(name = "User.findByName",
-        query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName"),
+        query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.surName = :surName"),
 
 
 //        @NamedQuery(name = "User.updateUser2",
@@ -36,7 +36,7 @@ public class User {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_created")
-    private Date date_created;
+    private Date dateCreated;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Listing> listings = new ArrayList<>();
@@ -116,12 +116,14 @@ public class User {
     public void addListings(Listing listing) {
         listings.add(listing);
         listing.setUser(this);
-    public Date getDate_created() {
-        return date_created;
     }
 
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     @Override
@@ -136,3 +138,4 @@ public class User {
                 '}';
     }
 }
+

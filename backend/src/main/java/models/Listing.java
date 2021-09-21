@@ -42,11 +42,6 @@ public class Listing {
     @JoinColumn(name="owner_ID")
     private User user;
 
-    public Listing(){};
-
-
-
-
     public Listing() {
     }
 
@@ -113,6 +108,14 @@ public class Listing {
         this.user = user;
     }
 
+    public Amenities getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(Amenities amenities) {
+        this.amenities = amenities;
+    }
+
     @Override
     public String toString() {
         return "Listing{" +
@@ -124,11 +127,5 @@ public class Listing {
                 ", address=" + address +
                 ", user=" + user +
                 '}';
-    public Amenities getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(Amenities amenities) {
-        this.amenities = amenities;
-    }
 }
+    }

@@ -21,17 +21,17 @@ public class UserRepository {
         return user != null ? Optional.of(user) : Optional.empty();
     }
 
-    public List<User> findByFullName(String firstName, String lastName){
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName", User.class)
+    public List<User> findByFullName(String firstName, String surName){
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.surName = :surName", User.class)
                 .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
+                .setParameter("surName", surName)
                 .getResultList();
     }
 
-    public List<User> findByFullNameQuery(String firstName, String lastName){
+    public List<User> findByFullNameQuery(String firstName, String surName){
         return entityManager.createNamedQuery("User.findByName", User.class)
                 .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
+                .setParameter("surName", surName)
                 .getResultList();
     }
 
