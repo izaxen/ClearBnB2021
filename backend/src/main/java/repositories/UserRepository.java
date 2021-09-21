@@ -1,6 +1,8 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Query;
 import models.User;
 
 import java.util.List;
@@ -69,10 +71,33 @@ public class UserRepository {
         return user !=null ? Optional.of(user) : Optional.empty();
     }
 
+    public Boolean emailNotExist(String email){ //TODO Kolla med Dennis om denna är OK
+        Query exists = entityManager.createQuery("SELECT COUNT(email) FROM User u WHERE u.email = :email")
+        .setParameter("email", email);
+        return (exists.getSingleResult().toString().equals("0")); // gör om Query resultat till strängvärde
+    }
+
+    public Optional<User> findByEmail(String email) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
+
+    public Optional<User> login(String email, String pw) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.pw =:pw", User.class)
+                .setParameter("email", email)
+                .setParameter("pw", pw)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
+
     public User save(User user){
         try{
             entityManager.getTransaction().begin();
-            entityManager.merge(user);
+            entityManager.persist(user);
             entityManager.getTransaction().commit();
         }
         catch (Exception e){
