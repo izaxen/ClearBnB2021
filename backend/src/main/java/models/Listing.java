@@ -1,5 +1,7 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,23 +24,22 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-//    @OneToOne(mappedBy = "listing")
-//    private Address address;
+    @OneToOne(mappedBy = "listing", cascade=CascadeType.MERGE)
+    private Address address;
 
-//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-//    private List<Booking> bookings = new ArrayList<>();
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
 
-//    @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
-//    private List<ListingRevision> listingRevisions = new ArrayList<>();
-//    @OneToOne(mappedBy = "listing")
-//    private Amenities amenities;
+    @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
+    private List<ListingRevision> listingRevisions = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-//    private List<Booking> bookings = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-//    private List<Image> images = new ArrayList<>();
+    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
+    private Amenities amenities;
 
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="owner_ID")
     private User user;
@@ -93,13 +94,13 @@ public class Listing {
         this.availableEndDate = availableEndDate;
     }
 
-//    public Address getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public User getUser() {
         return user;
@@ -109,13 +110,13 @@ public class Listing {
         this.user = user;
     }
 
-//    public Amenities getAmenities() {
-//        return amenities;
-//    }
-//
-//    public void setAmenities(Amenities amenities) {
-//        this.amenities = amenities;
-//    }
+    public Amenities getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(Amenities amenities) {
+        this.amenities = amenities;
+    }
 
     @Override
     public String toString() {
@@ -125,7 +126,6 @@ public class Listing {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-//                ", address=" + address +
                 ", user=" + user +
                 '}';
 }

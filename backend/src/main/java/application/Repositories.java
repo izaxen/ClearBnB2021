@@ -18,6 +18,7 @@ public class Repositories {
     CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
     ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
     RatingRepository ratingRepository = new RatingRepository(entityManager);
+    AddressRepository addressRepository = new AddressRepository(entityManager);
 
     public BookingRepository booking() {
         return bookingRepository;
@@ -47,5 +48,9 @@ public class Repositories {
 
     public RatingRepository getRatingRepository() {
         return ratingRepository;
+    }
+
+    public AddressRepository getAddressRepository() {
+        return addressRepository;
     }
 }

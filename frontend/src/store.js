@@ -8,6 +8,7 @@ export const store = createStore({
     return {
       user: null,
       failedLogIn: false,
+      currentListing: null,
 
     }
   },
@@ -21,6 +22,9 @@ export const store = createStore({
     setFailedLogin(state, value) {
       state.failedLogIn = value
     },
+    setCurrentListing(state, listing) {
+      state.currentListing = listing
+    }
   },
 
   //async methods that will trigger a mutation
@@ -68,12 +72,21 @@ export const store = createStore({
       console.log(userResponse)
     },
 
-    async addListing(listing) {
+    async addListing(store, listing) {
       let res = await fetch('/api/addListing', {
         method: 'POST',
-        body: JSON.stringify(listing),
+        body: JSON.stringify(listing)
+      });
+      let currentListing = await res.json()
+
+      store.commit('setCurrentListing', currentListing);
+    },
+
+    async addAddress(store, address) {
+      await fetch('/api/addAddress', {
+        method: 'POST',
+        body: JSON.stringify(address)
       })
-      console.log(222);
     }
   }
 })
