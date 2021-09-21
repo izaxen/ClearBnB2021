@@ -16,8 +16,7 @@ public class UserAccess {
     }
 
     public User createNewUser(User user) {
-
-        if (userRepository.emailNotExist(user.getEmail())) {
+        if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
             String hashedPassword = HashPassword.hash(user.getPw());
             user.setPw(hashedPassword);
             return userRepository.save(user);
@@ -27,7 +26,7 @@ public class UserAccess {
 
      public User loginUser(User user){
          Optional<User> userInDB = userRepository.findByEmail(user.getEmail());
-         if(!userInDB.isPresent()){
+         if(userInDB.isEmpty()){
              return null;
          }
 
