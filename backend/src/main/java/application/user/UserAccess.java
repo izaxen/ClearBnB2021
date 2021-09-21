@@ -4,10 +4,8 @@ import models.User;
 import repositories.UserRepository;
 import utils.HashPassword;
 
-import java.util.Map;
 import java.util.Optional;
 
-import static nosqlite.Database.collection;
 
 public class UserAccess {
 

@@ -5,7 +5,6 @@ import express.Express;
 import models.User;
 import application.Repositories;
 import repositories.UserRepository;
-import utils.HashPassword;
 
 import java.util.Map;
 import java.util.Optional;

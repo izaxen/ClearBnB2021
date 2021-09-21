@@ -7,7 +7,7 @@ export const store = createStore({
   state() {
     return {
       user: null,
-      failedLogIn:false,
+      failedLogIn: false,
 
     }
   },
@@ -37,9 +37,17 @@ export const store = createStore({
         this.state.failedLogIn = true
         return
       }
-    store.commit('setUser', loggedInUser)
+      store.commit('setUser', loggedInUser)
 
     },
+
+    async addListing(listing) {
+      let res = await fetch('/api/addListing', {
+        method: 'POST',
+        body: JSON.stringify(listing),
+      })
+      console.log(222);
+    }
   }
 })
 

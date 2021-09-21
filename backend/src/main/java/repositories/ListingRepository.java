@@ -3,7 +3,6 @@ package repositories;
 import jakarta.persistence.EntityManager;
 import models.Listing;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,16 +22,15 @@ public class ListingRepository {
         return entityManager.createQuery("from Listing").getResultList();
     }
 
-    public Optional<Listing> addListing(Listing listing){
+    public Listing addListing(Listing listing){
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(listing);
             entityManager.getTransaction().commit();
-            return Optional.of(listing);
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return Optional.empty();
+        return listing;
     }
 
 
