@@ -17,7 +17,9 @@ export const store = createStore({
     setUser(state, user) {
       state.user = user
       state.failedLogIn = false
-
+    },
+    setFailedLogin(state, value) {
+      state.failedLogIn = value
     },
   },
 
@@ -54,7 +56,12 @@ export const store = createStore({
       }
       console.log("Inloggad");
       store.commit('setUser', loggedInUser)
-    }
+    },
+    async whoAmI(store) {
+      let res = await fetch('/api/whoami')
+      let user = await res.json()
+      store.commit('setUser', user)
+    },
   }
 })
 
