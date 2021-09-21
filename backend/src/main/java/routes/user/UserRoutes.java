@@ -3,14 +3,8 @@ package routes.user;
 import application.user.UserAccess;
 import express.Express;
 import models.User;
-import application.Repositories;
 import repositories.UserRepository;
-import utils.HashPassword;
-
 import java.util.Map;
-import java.util.Optional;
-
-import static nosqlite.Database.collection;
 
 public class UserRoutes {
 
@@ -19,14 +13,6 @@ public class UserRoutes {
     public UserRoutes(Express app, UserRepository userRepository) {
 
         userAccess = new UserAccess(userRepository);
-
-        app.get("/user", ((req, res) -> {
-
-            Optional<User> optUser = userRepository.findById(1);
-            User user = optUser.get();
-
-            res.json(user);
-        }));
 
         app.post("/api/registerUser", (req, res) -> {   //Create user
             User user = userAccess.createNewUser(req.body(User.class));
@@ -44,11 +30,11 @@ public class UserRoutes {
                 res.json(Map.of("Error", "Logindetails failed"));}
         });
 
-        app.get("/api/whoami", (req, res)-> {   //Control logged in user
+        app.get("/api/whoAmI", (req, res)-> {   //Control logged in user
             res.json(req.session("current-user"));
         });
 
-        app.get("/api/logout",(req,res)->{
+        app.get("/api/logOff",(req,res)->{
             req.session("current-user", null);
 
             res.json(Map.of("Ok", "Logged out"));
