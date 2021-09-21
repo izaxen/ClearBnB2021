@@ -1,4 +1,66 @@
 <template>
-<h3>Hejsan</h3>
-
+  <div class="createNewUserContainer">
+    <br />
+    <h3>Create a new user</h3>
+    <form @submit.prevent="addUser" ref="clearForm">
+      <input
+        v-model="firstName"
+        required
+        type="text"
+        placeholder="Enter firstname"
+      />
+      <input
+        v-model="surName"
+        required
+        type="text"
+        placeholder="Enter surname"
+      />
+      <input v-model="email" required type="text" placeholder="Enter email" />
+      <input v-model="pw" required type="text" placeholder="Enter password" />
+      <button>Create new account</button>
+    </form>
+  </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      firstName: "",
+      surName: "",
+      email: "",
+      pw: "",
+    };
+  },
+  methods: {
+    addUser() {
+      let newUser = {
+        firstName: this.firstName,
+        surName: this.surName,
+        email: this.email,
+        pw: this.pw,
+      };
+
+      this.$store.dispatch("registerUser", newUser);
+      this.reset();
+    },
+
+    reset() {
+      console.log("Inne");
+      this.$refs.clearForm.reset();
+    },
+  },
+};
+</script>
+
+<style scoped>
+.createNewUserContainer {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+input {
+  display: flex;
+  flex-direction: column;
+}
+</style>

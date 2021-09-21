@@ -5,6 +5,8 @@ dist-ssr
 *.local
 .idea
 */target/**
+/target/*
+/target/
 
 /target/
 /META-INF/
@@ -33,3 +35,4 @@ dist-ssr
 /nbdist/
 /.nb-gradle/
 *.class
+.vscode/settings.json
