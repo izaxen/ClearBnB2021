@@ -24,6 +24,7 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.MERGE)
     private Address address;
 

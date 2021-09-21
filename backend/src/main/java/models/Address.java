@@ -13,6 +13,7 @@ public class Address {
     private String city;
     private String addressListing;
 
+    @JsonBackReference
     @OneToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="listing_ID")
     private Listing listing;
