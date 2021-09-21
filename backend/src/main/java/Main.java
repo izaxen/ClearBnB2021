@@ -2,12 +2,14 @@ import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
 import models.Address;
 import models.Listing;
+import models.ListingRevision;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import repositories.AddressRepository;
 import repositories.ListingRepository;
+import repositories.ListingRevisionRepository;
 import repositories.UserRepository;
 import utils.Application;
 
@@ -26,6 +28,7 @@ public class Main {
         ListingRepository listingRepository = new ListingRepository(entityManager);
         UserRepository userRepository = new UserRepository(entityManager);
         AddressRepository addressRepository = new AddressRepository(entityManager);
+        ListingRevisionRepository listingRev = new ListingRevisionRepository(entityManager);
         // Create a user
 //        User user = new User("Yanni","Li","odielee@hotmail.com",10000,"daitsuki");
 //        Optional<User> savedUser = userRepository.addUser(user);
@@ -52,18 +55,18 @@ public class Main {
 //        Optional<Listing> listing1 = listingRepository.findById(1);
 //        System.out.println(listing1);
 
-        Optional<User> user1 = userRepository.findById(2);
-        User user2 = user1.get();
-        // returns an Optional
-//        user1.ifPresent(System.out::println);
-//        user1.ifPresent(user -> user.setFunds(100));
-//        System.out.println(user1);
-//        System.out.println(user1.getClass());
-//        entityManager.getTransaction().begin();
-//        user1.ifPresent(entityManager::merge);
-//        entityManager.getTransaction().commit();
-
-        user1.ifPresent(user -> userRepository.updateUserFirstName("updatedMarcus2",2));
+//        Optional<User> user1 = userRepository.findById(2);
+//        User user2 = user1.get();
+//        // returns an Optional
+////        user1.ifPresent(System.out::println);
+////        user1.ifPresent(user -> user.setFunds(100));
+////        System.out.println(user1);
+////        System.out.println(user1.getClass());
+////        entityManager.getTransaction().begin();
+////        user1.ifPresent(entityManager::merge);
+////        entityManager.getTransaction().commit();
+//
+//        user1.ifPresent(user -> userRepository.updateUserFirstName("updatedMarcus2",2));
 
 //        // won't work because system won't know which object to update?
 //        System.out.println(user1);
@@ -98,6 +101,15 @@ public class Main {
 //        List<Listing> listings = listingRepository.findAllListings();
 //        System.out.println("Listings:");
 //        listings.forEach(System.out::println);
+
+//        Listing listing = listingRepository.findById(1).get();
+//        User user = userRepository.findById(1).get();
+//        System.out.println(listing.toString());
+//        ListingRevision listingRevision = new ListingRevision(300,"Warm House","2021-01-17","2021-09-17",listing,user);
+//        listingRev.addListingRevision(listingRevision);
+
+        System.out.println(listingRev.findAllListingRevisionsByListingID(1));
+
     }
 
 }

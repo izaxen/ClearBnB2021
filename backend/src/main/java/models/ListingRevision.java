@@ -3,6 +3,7 @@ package models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "listing_revision")
 public class ListingRevision {
 
     @Id
@@ -34,6 +35,15 @@ public class ListingRevision {
     private User user;
 
     public ListingRevision() {
+    }
+
+    public ListingRevision(Integer price, String description, String availableStartDate, String availableEndDate, Listing listing, User user) {
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.listing = listing;
+        this.user = user;
     }
 
     public Integer getPrice() {
