@@ -7,7 +7,7 @@ export const store = createStore({
   state() {
     return {
       user: null,
-      failedLogIn:false,
+      failedLogIn: false,
 
     }
   },
@@ -39,7 +39,7 @@ export const store = createStore({
         this.state.failedLogIn = true
         return
       }
-    store.commit('setUser', loggedInUser)
+      store.commit('setUser', loggedInUser)
 
     },
 
@@ -49,18 +49,25 @@ export const store = createStore({
         body: JSON.stringify(details)
       })
       let loggedInUser = await res.json()
-      if (loggedInUser === null) {
+      if ('Error' in loggedInUser) {
         console.log("Login failed");
         this.state.failedLogIn = true;
         return
       }
-      console.log("Inloggad");
+      console.log("Login active");
       store.commit('setUser', loggedInUser)
     },
     async whoAmI(store) {
       let res = await fetch('/api/whoami')
       let user = await res.json()
       store.commit('setUser', user)
+    },
+
+    async logOff(store) {
+      let res = await fetch('/api/logoff')
+      store.commit('setUser', null)
+      let userResponse = await res.json()
+      console.log(userResponse)
     },
   }
 })

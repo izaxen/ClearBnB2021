@@ -11,6 +11,8 @@ placeholder="Enter password"/>
 <button>Login</button>
 </form>
 </div>
+
+  
 </template>
 <script>
 export default {

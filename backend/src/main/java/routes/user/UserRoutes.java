@@ -3,14 +3,10 @@ package routes.user;
 import application.user.UserAccess;
 import express.Express;
 import models.User;
-import application.Repositories;
 import repositories.UserRepository;
-import utils.HashPassword;
-
 import java.util.Map;
 import java.util.Optional;
 
-import static nosqlite.Database.collection;
 
 public class UserRoutes {
 
@@ -48,7 +44,7 @@ public class UserRoutes {
             res.json(req.session("current-user"));
         });
 
-        app.get("/api/logout",(req,res)->{
+        app.get("/api/logoff",(req,res)->{
             req.session("current-user", null);
 
             res.json(Map.of("Ok", "Logged out"));
