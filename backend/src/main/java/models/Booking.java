@@ -76,7 +76,7 @@ public class Booking {
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", user=" + user +
-                ", listing=" + listing +
+//                ", listing=" + listing +
                 '}';
     }
 }

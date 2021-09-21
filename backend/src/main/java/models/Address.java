@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -9,15 +11,19 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String city;
-    private String address;
+    private String addressListing;
 
-    @OneToOne
+    @JsonBackReference
+    @OneToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
     public Address(String city, String address) {
         this.city = city;
-        this.address = address;
+        this.addressListing = address;
+    }
+
+    public Address() {
     }
 
     public Integer getId() {
@@ -44,11 +50,11 @@ public class Address {
         this.listing = listing;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressListing() {
+        return addressListing;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressListing(String address) {
+        this.addressListing = address;
     }
 }

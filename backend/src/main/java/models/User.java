@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class User {
     @Column(name = "date_created")
     private Date dateCreated;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Listing> listings = new ArrayList<>();
 

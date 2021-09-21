@@ -22,16 +22,15 @@ public class AddressRepository {
         return entityManager.createQuery("from Address").getResultList();
     }
 
-    public Optional<Address> addAddress(Address address){
+    public Address addAddress(Address address){
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(address);
             entityManager.getTransaction().commit();
-            return Optional.of(address);
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
-        return Optional.empty();
+        return address;
     }
 }

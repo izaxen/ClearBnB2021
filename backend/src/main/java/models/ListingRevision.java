@@ -2,6 +2,9 @@ package models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "listing_revision")
 public class ListingRevision {
@@ -27,8 +30,8 @@ public class ListingRevision {
     @OneToOne(mappedBy = "listingRevision")
     private AddressRevision addressRevision;
 
-//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-//    private List<Booking> bookings = new ArrayList<>();
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="owner_ID")
