@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,18 +23,20 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
-
-    @Column(name = "first_name")
+    @Column(name = "id", updatable = false, nullable = false)
+    private int ID;
+    @Column (name = "first_name")
     private String firstName;
-
-    @Column(name = "sur_name")
-    private String lastName;
+    @Column (name = "sur_name")
+    private String surName;
     private String email;
-    private int funds;
+    private int funds = 10000;
+    private String pw;
 
-    private String password;
-
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_created")
+    private Date date_created;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Listing> listings = new ArrayList<>();
@@ -41,12 +44,18 @@ public class User {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Booking> bookings = new ArrayList<>();
 
-    public User(String firstName, String lastName, String email, int funds, String password) {
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
+    private List<Rating> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
+    private List<Rating> rating = new ArrayList<>();
+
+    public User(String firstName, String lastName, String email, int funds, String pw) {
         this.firstName = firstName;
-        this.lastName = lastName;
+        this.surName = lastName;
         this.email = email;
         this.funds = funds;
-        this.password = password;
+        this.pw = pw;
     }
 
     public User() {
@@ -68,12 +77,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getEmail() {
@@ -92,12 +101,12 @@ public class User {
         this.funds = funds;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPw() {
+        return pw;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 
     public List<Listing> getListings() {
@@ -107,6 +116,12 @@ public class User {
     public void addListings(Listing listing) {
         listings.add(listing);
         listing.setUser(this);
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
     }
 
     @Override
@@ -114,10 +129,10 @@ public class User {
         return "User{" +
                 "ID=" + ID +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", funds=" + funds +
-                ", password='" + password + '\'' +
+                ", password='" + pw + '\'' +
                 '}';
     }
 }

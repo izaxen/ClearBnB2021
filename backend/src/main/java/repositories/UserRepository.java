@@ -1,6 +1,8 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Query;
 import models.User;
 
 import java.util.List;
@@ -15,6 +17,7 @@ public class UserRepository {
 
     public Optional<User> findById(Integer id){
         User user = entityManager.find(User.class, id);
+        System.out.println(user);
         return user != null ? Optional.of(user) : Optional.empty();
     }
 
@@ -32,7 +35,6 @@ public class UserRepository {
                 .getResultList();
     }
 
-
     public List<User> findAllUsers(){
         return entityManager.createQuery("from User").getResultList();
     }
@@ -47,7 +49,61 @@ public class UserRepository {
         catch (Exception ex){
             ex.printStackTrace();
         }
-        return Optional.empty();
+        return user != null ? Optional.of(user):Optional.empty();
+    }
+
+
+    public List<User> findAll(){
+        return entityManager.createQuery("from User").getResultList();
+    }
+
+    public Optional<User> findByName(String name){
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+        }
+
+    public Optional<User> findByNameNamedQuery(String name){
+        User user = entityManager.createNamedQuery("User.findByName", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return user !=null ? Optional.of(user) : Optional.empty();
+    }
+
+    public Boolean emailNotExist(String email){ //TODO Kolla med Dennis om denna är OK
+        Query exists = entityManager.createQuery("SELECT COUNT(email) FROM User u WHERE u.email = :email")
+        .setParameter("email", email);
+        return (exists.getSingleResult().toString().equals("0")); // gör om Query resultat till strängvärde
+    }
+
+    public Optional<User> findByEmail(String email) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
+
+    public Optional<User> login(String email, String pw) {
+
+        User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.pw =:pw", User.class)
+                .setParameter("email", email)
+                .setParameter("pw", pw)
+                .getSingleResult();
+        return user != null ? Optional.of(user) : Optional.empty();
+    }
+
+    public User save(User user){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(user);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public void updateUserFirstName(String firstName, Integer id){
@@ -65,4 +121,9 @@ public class UserRepository {
 //                .setParameter("lastName", lastName)
 //                .getSingleResult();
 //    }
+    public void updateName(String name, User user){
+        
+
+    }
+
 }
