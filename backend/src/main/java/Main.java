@@ -50,7 +50,31 @@ public class Main {
 //          listing.ifPresent(System.out::println);
 
 //        Optional<Listing> listing1 = listingRepository.findById(1);
-//        Optional<User> user1 = userRepository.findById(2);
+//        System.out.println(listing1);
+
+        Optional<User> user1 = userRepository.findById(2);
+        User user2 = user1.get();
+        // returns an Optional
+//        user1.ifPresent(System.out::println);
+//        user1.ifPresent(user -> user.setFunds(100));
+//        System.out.println(user1);
+//        System.out.println(user1.getClass());
+//        entityManager.getTransaction().begin();
+//        user1.ifPresent(entityManager::merge);
+//        entityManager.getTransaction().commit();
+
+        user1.ifPresent(user -> userRepository.updateUserFirstName("updatedMarcus2",2));
+
+//        // won't work because system won't know which object to update?
+//        System.out.println(user1);
+//        // If it returns an optional class, i won't be able to call methods?
+
+//        entityManager.getTransaction().begin();
+//        updatedUser = entityManager.find(User.class, user1);
+//        entityManager.merge(person);
+        // modify person data entityManager.getTransaction().commit()
+
+
 //        System.out.println(listing1.toString());
 //        listing1.ifPresent(a ->{
 //            a.setUser(user1);

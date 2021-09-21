@@ -35,6 +35,10 @@ public class Listing {
     @JoinColumn(name="owner_ID")
     private User user;
 
+
+
+
+
     public Listing() {
     }
 

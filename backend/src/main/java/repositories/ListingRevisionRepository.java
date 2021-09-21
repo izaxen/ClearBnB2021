@@ -1,6 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
+import models.AddressRevision;
 import models.Listing;
 import models.ListingRevision;
 
@@ -20,8 +21,11 @@ public class ListingRevisionRepository {
         return listingRevision != null ? Optional.of(listingRevision) : Optional.empty();
     }
 
-    public List<ListingRevision> findAllListingRevisions(){
-        return entityManager.createQuery("from ListingRevision").getResultList();
+    // We will get a list of all listing revisions belonging to ONE listing, if we have listingID
+    public List<ListingRevision> findAllListingRevisionsByListingID(Integer listingID){
+        return entityManager.createQuery("SELECT lr FROM ListingRevision lr WHERE lr.listing = :listingID", ListingRevision.class)
+                .setParameter("listingID", listingID)
+                .getResultList();
     }
 
     public Optional<ListingRevision> addListingRevision(ListingRevision listingRevision){

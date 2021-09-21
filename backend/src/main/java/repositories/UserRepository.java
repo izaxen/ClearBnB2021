@@ -49,4 +49,20 @@ public class UserRepository {
         }
         return Optional.empty();
     }
+
+    public void updateUserFirstName(String firstName, Integer id){
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("UPDATE User u SET u.firstName = :firstName WHERE u.ID = :ID")
+            .setParameter("firstName", firstName)
+                .setParameter("ID", id)
+                .executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
+//    public User updateUserFirstName(String firstName, String lastName){
+//        return entityManager.createNamedQuery("User.updateUser2", User.class)
+//                .setParameter("firstName", firstName)
+//                .setParameter("lastName", lastName)
+//                .getSingleResult();
+//    }
 }

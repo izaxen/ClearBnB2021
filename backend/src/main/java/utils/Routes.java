@@ -9,6 +9,7 @@ public class Routes {
         Express app = new Express();
 
         app.get("/", (req, res) -> {
+            models.User u = req.session("current-user");
             res.send("Hello World");
         });
 
