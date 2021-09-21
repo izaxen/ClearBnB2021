@@ -10,9 +10,9 @@ public class Listing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    private Integer price;
+    private int price;
 
     private String description;
 
@@ -22,22 +22,22 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @OneToOne(mappedBy = "listing")
-    private Address address;
+//    @OneToOne(mappedBy = "listing")
+//    private Address address;
 
 //    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
 //    private List<Booking> bookings = new ArrayList<>();
 
-    @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
-    private List<ListingRevision> listingRevisions = new ArrayList<>();
-    @OneToOne(mappedBy = "listing")
-    private Amenities amenities;
+//    @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
+//    private List<ListingRevision> listingRevisions = new ArrayList<>();
+//    @OneToOne(mappedBy = "listing")
+//    private Amenities amenities;
 
-    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-    private List<Booking> bookings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
-    private List<Image> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+//    private List<Booking> bookings = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+//    private List<Image> images = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="owner_ID")
@@ -93,13 +93,13 @@ public class Listing {
         this.availableEndDate = availableEndDate;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     public User getUser() {
         return user;
@@ -109,13 +109,13 @@ public class Listing {
         this.user = user;
     }
 
-    public Amenities getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(Amenities amenities) {
-        this.amenities = amenities;
-    }
+//    public Amenities getAmenities() {
+//        return amenities;
+//    }
+//
+//    public void setAmenities(Amenities amenities) {
+//        this.amenities = amenities;
+//    }
 
     @Override
     public String toString() {
@@ -125,7 +125,7 @@ public class Listing {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", address=" + address +
+//                ", address=" + address +
                 ", user=" + user +
                 '}';
 }

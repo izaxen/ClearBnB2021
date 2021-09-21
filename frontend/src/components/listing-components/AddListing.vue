@@ -8,6 +8,8 @@
         placeholder="Enter description here"
       />
 
+      <input v-model="price" type="number" placeholder="Enter price" />
+
       <button>Save Listing</button>
     </form>
   </div>
@@ -17,16 +19,24 @@
 export default {
   data() {
     return {
-      userID: "",
+      user: null,
       description: "",
+      price: null,
+      available_start_date: "2020-10-10 13:00",
+      available_end_date: "2021-10-10 15:00",
     };
   },
+
+  computed: {},
 
   methods: {
     addListing() {
       let newListing = {
-        userID: 1,
+        user: this.$store.state.user,
         description: this.description,
+        availableStartDate: this.available_start_date,
+        availableEndDate: this.available_end_date,
+        price: this.price,
       };
 
       this.$store.dispatch("addListing", newListing);
