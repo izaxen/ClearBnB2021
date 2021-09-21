@@ -22,17 +22,17 @@ public class UserRepository {
         return user != null ? Optional.of(user) : Optional.empty();
     }
 
-    public List<User> findByFullName(String firstName, String lastName){
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName", User.class)
+    public List<User> findByFullName(String firstName, String surName){
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.surName = :surName", User.class)
                 .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
+                .setParameter("surName", surName)
                 .getResultList();
     }
 
-    public List<User> findByFullNameQuery(String firstName, String lastName){
+    public List<User> findByFullNameQuery(String firstName, String surName){
         return entityManager.createNamedQuery("User.findByName", User.class)
                 .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
+                .setParameter("surName", surName)
                 .getResultList();
     }
 
@@ -97,6 +97,21 @@ public class UserRepository {
         return user;
     }
 
+    public void updateUserFirstName(String firstName, Integer id){
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("UPDATE User u SET u.firstName = :firstName WHERE u.ID = :ID")
+            .setParameter("firstName", firstName)
+                .setParameter("ID", id)
+                .executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
+//    public User updateUserFirstName(String firstName, String lastName){
+//        return entityManager.createNamedQuery("User.updateUser2", User.class)
+//                .setParameter("firstName", firstName)
+//                .setParameter("lastName", lastName)
+//                .getSingleResult();
+//    }
     public void updateName(String name, User user){
         
 
