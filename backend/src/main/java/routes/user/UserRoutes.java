@@ -20,14 +20,6 @@ public class UserRoutes {
 
         userAccess = new UserAccess(userRepository);
 
-        app.get("/user", ((req, res) -> {
-
-            Optional<User> optUser = userRepository.findById(1);
-            User user = optUser.get();
-
-            res.json(user);
-        }));
-
         app.post("/api/registerUser", (req, res) -> {   //Create user
             User user = userAccess.createNewUser(req.body(User.class));
             req.session("current-user", user);
