@@ -40,6 +40,21 @@ export const store = createStore({
     store.commit('setUser', loggedInUser)
 
     },
+
+    async loginUser(store, details) {
+      let res = await fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify(details)
+      })
+      let loggedInUser = await res.json()
+      if (loggedInUser === null) {
+        console.log("Login failed");
+        this.state.failedLogIn = true;
+        return
+      }
+      console.log("Inloggad");
+      store.commit('setUser', loggedInUser)
+    }
   }
 })
 

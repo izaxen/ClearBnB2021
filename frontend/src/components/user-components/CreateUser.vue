@@ -1,5 +1,5 @@
 <template>
-  <br />
+  <div class="bla">
   <h3>Create a new user</h3>
   <form @submit.prevent="addUser" ref="clearForm">
     <input
@@ -13,6 +13,7 @@
     <input v-model="pw" required type="text" placeholder="Enter password" />
     <button>Create new account</button>
   </form>
+  </div>
 </template>
 
 <script>
@@ -39,7 +40,6 @@ export default {
     },
 
     reset() {
-      console.log("Inne");
       this.$refs.clearForm.reset();
     },
   },
@@ -47,8 +47,23 @@ export default {
 </script>
 
 <style scoped>
+.bla{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   border: 1px solid violet;
+  margin: 30px;
+}
+
 input {
   display: flex;
   flex-direction: column;
+  margin: 5px;
 }
+
+button{
+  margin-bottom: 10px;
+}
+
+
 </style>
