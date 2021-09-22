@@ -14,7 +14,7 @@ public class Address {
     private String addressListing;
 
     @JsonBackReference
-    @OneToOne(cascade=CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
