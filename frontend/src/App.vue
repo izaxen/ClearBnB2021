@@ -2,10 +2,31 @@
 </script>
 
 <template>
+<header>
+  <Navbar />
+
+</header>
   <main>
     <router-view />
   </main>
 </template>
+
+<script>
+import { createHydrationRenderer } from '@vue/runtime-core';
+import Navbar from './views/Navbar.vue'
+
+export default{
+components:{
+  Navbar,
+},
+async created(){
+  this.$store.dispatch('whoAmI')
+},
+
+
+}
+</script>
+
 
 <style>
 #app {
