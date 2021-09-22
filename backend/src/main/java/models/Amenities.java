@@ -36,10 +36,9 @@ public class Amenities {
     @Column (name = "sauna")
     private boolean isSauna;
 
-    public Amenities(Listing listing, boolean isBathtub, boolean isParkingLot, boolean isStove,
-                     boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
+    public Amenities(Listing listing, boolean isBathTub, boolean isParkingLot, boolean isStove, boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
         this.listing = listing;
-        this.isBathTub = isBathtub;
+        this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
         this.isDoubleBed = isDoubleBed;

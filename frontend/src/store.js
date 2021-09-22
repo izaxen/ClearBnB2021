@@ -77,19 +77,19 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      let currentListing = await res.json()
+      let currentListingId = await res.json()
 
-      store.commit('setCurrentListing', currentListing);
+      store.commit('setCurrentListing', { ...listing, id: currentListingId });
     },
 
-    async addAddress(_, address) {
+    async addAddress(store, address) {
       await fetch('/api/addAddress', {
         method: 'POST',
         body: JSON.stringify(address)
       })
     },
 
-    async addAmenity(_, amenity) {
+    async addAmenity(store, amenity) {
       await fetch('/api/addAmenity', {
         method: 'POST',
         body: JSON.stringify(amenity)

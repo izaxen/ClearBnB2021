@@ -71,7 +71,6 @@ export default {
   methods: {
     async addListing() {
       let newListing = {
-        user: this.$store.state.user,
         description: this.description,
         availableStartDate: this.available_start_date,
         availableEndDate: this.available_end_date,
@@ -88,7 +87,7 @@ export default {
       let newAddress = {
         city: this.city,
         addressListing: this.addressListing,
-        listing: this.$store.state.currentListing,
+        listing: this.$store.state.currentListing.id,
       };
       await this.$store.dispatch("addAddress", newAddress);
       this.addAmenity();

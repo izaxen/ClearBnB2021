@@ -31,7 +31,6 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
-
     @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
     private List<ListingRevision> listingRevisions = new ArrayList<>();
 
@@ -50,11 +49,12 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate) {
+    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
+        this.user = owner;
     }
 
     public Integer getId() {
