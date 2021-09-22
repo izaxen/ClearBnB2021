@@ -1,13 +1,14 @@
 <template>
-  <div class="add-booking-container">
-    <h1 v-if="user">Add Booking as {{ this.$store.state.user.firstName }}</h1>
+  <div class="add-booking-container" v-if="this.$store.state.user">
+    <h1 >Add Booking as {{ this.$store.state.user.firstName }}</h1>
     <form @submit.prevent="createBooking">
-      <select v-model="allListings">
-        <option v-for="listing in allListings" :key="listing.id">
+      <select v-model="selected">
+        <option v-for="listing in allListings" :key="listing.id" :value="listing">
           {{ listing.id }}, {{ listing.description }}
         </option>
       </select>
-      <button>Create new booking</button>
+      <h3>Selected Listing: {{selected.id}}</h3>
+      <button @click="printListing">Create new booking</button>
     </form>
   </div>
 </template>
@@ -16,7 +17,7 @@
 export default {
   data() {
     return {
-      selected: "",
+      selected: {},
       allListings: [],
       user: this.$store.state.user,
     };
@@ -49,6 +50,10 @@ export default {
       this.allListings = await res.json();
       console.log(this.allListings);
     },
+    printListing(){
+      console.log(this.selected);
+      
+    }
   },
 };
 </script>

@@ -5,6 +5,7 @@ import express.Express;
 import models.Listing;
 import repositories.ListingRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ListingRoutes {
@@ -22,6 +23,7 @@ public class ListingRoutes {
 
         app.get("/api/getListings", (req,res) ->{
             List<Listing> listings = listingLogic.getAllListings();
+            System.out.println(listings);
             res.json(listings);
         });
 
