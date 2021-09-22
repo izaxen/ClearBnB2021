@@ -12,6 +12,27 @@
 
       <input v-model="city" type="text" placeholder="Enter city here" />
 
+      <input type="checkbox" id="isBathTub" v-model="isBathTub" />
+      <label for="isBathTub">BathTub</label>
+
+      <input type="checkbox" id="isParkingLot" v-model="isParkingLot" />
+      <label for="isParkingLot">ParkingLot</label>
+
+      <input type="checkbox" id="isStove" v-model="isStove" />
+      <label for="isStove">Stove</label>
+
+      <input type="checkbox" id="isDoubleBed" v-model="isDoubleBed" />
+      <label for="isDoubleBed">DoubleBed</label>
+
+      <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
+      <label for="isBubblePool">BubblePool</label>
+
+      <input type="checkbox" id="isCycle" v-model="isCycle" />
+      <label for="isCycle">Cycle</label>
+
+      <input type="checkbox" id="isSauna" v-model="isSauna" />
+      <label for="isSauna">Sauna</label>
+
       <input
         v-model="addressListing"
         type="text"
@@ -35,6 +56,13 @@ export default {
       city: "",
       addressListing: "",
       listing: null,
+      isBathTub: false,
+      isParkingLot: false,
+      isStove: false,
+      isDoubleBed: false,
+      isBubblePool: false,
+      isCycle: false,
+      isSauna: false,
     };
   },
 
@@ -56,13 +84,28 @@ export default {
       this.addAddress();
     },
 
-    addAddress() {
+    async addAddress() {
       let newAddress = {
         city: this.city,
         addressListing: this.addressListing,
         listing: this.$store.state.currentListing,
       };
-      this.$store.dispatch("addAddress", newAddress);
+      await this.$store.dispatch("addAddress", newAddress);
+      this.addAmenity();
+    },
+
+    addAmenity() {
+      let newAmenity = {
+        listing: this.$store.state.currentListing,
+        isBathTub: this.isBathTub,
+        isParkingLot: this.isParkingLot,
+        isStove: this.isStove,
+        isDoubleBed: this.isDoubleBed,
+        isBubblePool: this.isBubblePool,
+        isCycle: this.isCycle,
+        isSauna: this.isSauna,
+      };
+      this.$store.dispatch("addAmenity", newAmenity);
     },
   },
 };

@@ -17,9 +17,7 @@ public class AddressRoutes {
         addressLogic= new AddressLogic(addressRepository);
 
         app.post("/api/addAddress", (req, res) -> {   //Create listing
-            System.out.println("Address 1");
             Address address = addressLogic.createNewAddress(req.body(Address.class));
-            System.out.println("Address 2");
             res.json(address);
         });
 

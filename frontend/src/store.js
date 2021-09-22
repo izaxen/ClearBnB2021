@@ -82,10 +82,17 @@ export const store = createStore({
       store.commit('setCurrentListing', currentListing);
     },
 
-    async addAddress(store, address) {
+    async addAddress(_, address) {
       await fetch('/api/addAddress', {
         method: 'POST',
         body: JSON.stringify(address)
+      })
+    },
+
+    async addAmenity(_, amenity) {
+      await fetch('/api/addAmenity', {
+        method: 'POST',
+        body: JSON.stringify(amenity)
       })
     }
   }

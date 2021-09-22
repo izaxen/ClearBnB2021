@@ -31,9 +31,11 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
+
     @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
     private List<ListingRevision> listingRevisions = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
     private Amenities amenities;
 
