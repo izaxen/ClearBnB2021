@@ -1,9 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import models.Amenities;
-
-import java.util.Optional;
+import entityDO.Amenities;
 
 public class AmenitiesRepository {
 

@@ -1,7 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import models.Rating;
+import entityDO.Rating;
 
 import java.util.Optional;
 
