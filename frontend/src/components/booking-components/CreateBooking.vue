@@ -18,8 +18,7 @@ export default {
   data() {
     return {
       selected: {},
-      allListings: [],
-      user: this.$store.state.user,
+      allListings: [],      
     };
   },
 
@@ -31,10 +30,10 @@ export default {
     createBooking() {
       console.log("Created booking called!");
       let newBooking = {
-        userID: this.ownerID,
-        listingID: this.listingID,
-        startDate: new Date(),
-        endDate: new Date("2021-12-12"),
+        user: this.$store.state.user,
+        listing: this.selected,
+        startDate: "2021-12-12 00:00:00",
+        endDate: "2021-12-12 00:00:00",
       };
       this.postNewBooking(newBooking);
     },
@@ -44,16 +43,10 @@ export default {
         body: JSON.stringify(newBooking),
       });
     },
-    async getAllListings() {
-      console.log("getAllListings runned!");
+    async getAllListings() {      
       let res = await fetch("/api/getListings");
-      this.allListings = await res.json();
-      console.log(this.allListings);
+      this.allListings = await res.json();      
     },
-    printListing(){
-      console.log(this.selected);
-      
-    }
   },
 };
 </script>
