@@ -34,6 +34,9 @@ public class Amenities {
     @Column (name = "sauna")
     private boolean isSauna;
 
+    public Amenities(){
+    }
+
     public Amenities(Listing listing, boolean isBathtub, boolean isParkingLot, boolean isStove,
                      boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
         this.listing = listing;
