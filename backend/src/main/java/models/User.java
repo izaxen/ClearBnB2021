@@ -1,66 +1,46 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import nosqlite.annotations.Id;
+
 import java.util.Date;
-import java.util.List;
-
 @Entity
-@Table(name="user")
-@NamedQueries({
-        @NamedQuery(name = "User.findByName",
-        query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.surName = :surName"),
-
-
-//        @NamedQuery(name = "User.updateUser2",
-//                query = "UPDATE User u SET u.firstName = :firstName u.lastName = :lastName")
-
-//        @NamedQuery(name = "User.findAllUsers",
-//        query = "SELECT u FROM User u")
-})
-
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
     private int ID;
-    @Column (name = "first_name")
+
     private String firstName;
-    @Column (name = "sur_name")
-    private String surName;
+    private String lastName;
     private String email;
-    private int funds = 10000;
-    private String pw;
+    private int funds;
+    private String password;
+    private Date date_created;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_created")
-    private Date dateCreated;
+    public User(){
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Listing> listings = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Booking> bookings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
-    private List<Rating> reviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
-    private List<Rating> rating = new ArrayList<>();
-
-    public User(String firstName, String lastName, String email, int funds, String pw) {
-        this.firstName = firstName;
-        this.surName = lastName;
-        this.email = email;
-        this.funds = funds;
-        this.pw = pw;
     }
 
-    public User() {
+    public User(int ID, String firstName, String lastName, String email, int funds, String password, Date date_created) {
+        this.ID = ID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.funds = funds;
+        this.password = password;
+        this.date_created = date_created;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", funds=" + funds +
+                ", password='" + password + '\'' +
+                ", date_created=" + date_created +
+                '}';
     }
 
     public int getID() {
@@ -79,12 +59,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -103,41 +83,19 @@ public class User {
         this.funds = funds;
     }
 
-    public String getPw() {
-        return pw;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPw(String pw) {
-        this.pw = pw;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public List<Listing> getListings() {
-        return listings;
+    public Date getDate_created() {
+        return date_created;
     }
 
-    public void addListings(Listing listing) {
-        listings.add(listing);
-        listing.setUser(this);
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + surName + '\'' +
-                ", email='" + email + '\'' +
-                ", funds=" + funds +
-                ", password='" + pw + '\'' +
-                '}';
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
     }
 }
-

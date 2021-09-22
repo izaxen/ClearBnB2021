@@ -10,7 +10,11 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    async test() {
+      await this.$store.dispatch("test");
+    },
+  },
 };
 </script>
 
