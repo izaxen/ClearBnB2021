@@ -63,7 +63,9 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String pw) {
+        this.email = email;
+        this.pw = pw;
     }
 
     public int getID() {

@@ -2,14 +2,14 @@ package dtos;
 
 public class LoginUserDTO {
     String email;
-    String password;
+    String pw;
 
     public LoginUserDTO(){
     }
 
-    public LoginUserDTO(String email, String password){
+    public LoginUserDTO(String email, String pw){
         this.email = email;
-        this.password = password;
+        this.pw = pw;
     }
 
     public String getEmail() {
@@ -20,12 +20,12 @@ public class LoginUserDTO {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPw() {
+        return pw;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 
 

@@ -17,6 +17,7 @@ public class UserRoutes {
     public UserRoutes(Express app, UserRepository userRepository) {
 
         userAccess = new UserAccess(userRepository);
+        userService = new UserService();
 
         app.post("/api/registerUser", (req, res) -> {   //Create user
             User user = userAccess.createNewUser(req.body(User.class));
@@ -25,10 +26,13 @@ public class UserRoutes {
         });
 
         app.post("/api/login", (req, res) -> {
-            User user = userService.loginUser(req.body(LoginUserDTO.class));
+            User user = userService.loginUser(
+                    userService.convertLoginUserToUser(
+                    req.body(LoginUserDTO.class)));
+
             if( user != null) {
                 req.session("current-user", user);
-                res.json(user);
+                res.json(user.getFirstName());
             }
             else{
                 res.json(Map.of("Error", "Logindetails failed"));}

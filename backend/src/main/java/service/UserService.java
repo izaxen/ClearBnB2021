@@ -12,13 +12,13 @@ public class UserService {
     LoginUserDTO loginUserDTO;
 
     public User convertLoginUserToUser(LoginUserDTO userDTO){
-        return new User(loginUserDTO.getEmail(), loginUserDTO.getPassword());
+        return new User(userDTO.getEmail(), userDTO.getPw());
     }
 
-    public User loginUser(LoginUserDTO userDTO){
+    public User loginUser(User user){
         repositories = new Repositories();
 
-        user =
+        //user =
         Optional<User> userInDB = repositories.getUserRep().findByEmail(user.getEmail());
         if(userInDB.isEmpty()){
             return null;
