@@ -14,6 +14,7 @@
    
     <Create-booking />
   </div>
+  
 </template>
 
 <script>

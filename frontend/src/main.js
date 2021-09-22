@@ -4,7 +4,6 @@ import { store } from './store'
 import router from './router.js'
 import './style.css'
 
-
 const app = createApp(App)
 app.use(store)
 app.use(router)

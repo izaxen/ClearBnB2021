@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 //Import views
 
 import Home from './views/Home.vue'
+import Test from './views/Test.vue'
 
 
 export default createRouter({
@@ -12,6 +13,12 @@ export default createRouter({
       component: Home,
       name: Home,
     },
+
+    {
+      path: '/test',
+      component: Test,
+      name: Test,
+    }
     
   ]
 })
