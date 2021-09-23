@@ -29,6 +29,7 @@ public class ListingRoutes {
             );
 
             res.json(createdListing.getId());
+            System.out.println(createdListing.getId());
         });
 
     }

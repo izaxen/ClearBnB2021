@@ -83,6 +83,7 @@ export default {
       // temp workaround : i made them into different methods and create it one by one
       await this.$store.dispatch("addListing", newListing);
       // this.addAddress();
+      console.log("current listing: " + this.$store.state.currentListing);
     },
 
     async addAddress() {

@@ -26,10 +26,10 @@ export const store = createStore({
     setCurrentListing(state, listing) {
       state.currentListing = listing
     },
-    
+
     setUserLoggedIn(state, status) {
-    state.loggedInUser = status
-},
+      state.loggedInUser = status
+    },
   },
 
   //async methods that will trigger a mutation
@@ -64,7 +64,7 @@ export const store = createStore({
       }
       console.log("Login active");
       store.commit('setUser', loggedInUser)
-      
+
     },
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
@@ -85,9 +85,12 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      let currentListingId = await res.json()
+      let currentListingId = await res.json();
 
-      store.commit('setCurrentListing', { ...listing, id: currentListingId });
+      // store.commit('setCurrentListing', { ...listing, id: currentListingId }); // an object
+      store.commit('setCurrentListing', currentListingId); // an id
+
+      console.log(this.state.currentListing);
     },
 
     async addAddress(store, address) {
