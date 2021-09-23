@@ -12,6 +12,4 @@ public class BookingService {
         return new Booking(owner, listing, dto.getStartDate(), dto.getEndDate());
     }
 
-    public <T> Object convertBookingDTOIntoBooking(T body, Listing listing) {
-    }
 }

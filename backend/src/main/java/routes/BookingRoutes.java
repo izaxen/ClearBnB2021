@@ -28,7 +28,9 @@ public class BookingRoutes {
     }
 
     private void routeCreateBooking(){
-        app.post("/api/createBooking1/:listingID", ((req, res) -> {
+
+        // TODO NOT WORKING CODE
+        /*app.post("/api/createBooking1/:listingID", ((req, res) -> {
 
             User currentUser = req.session("current-user");
             if(currentUser == null){
@@ -41,7 +43,7 @@ public class BookingRoutes {
                     currentUser,bookingService.convertBookingDTOIntoBooking(req.body(AddBookingDTO.class),
                             repositories.getListingRepository().findById(listingID).get());
 
-        }));
+        }));*/
     }
 
     private void routeCreateBookingREST(){
