@@ -22,6 +22,12 @@ public class Address {
         this.addressListing = address;
     }
 
+    public Address(String city, String addressListing, Listing listing) {
+        this.city = city;
+        this.addressListing = addressListing;
+        this.listing = listing;
+    }
+
     public Address() {
     }
 

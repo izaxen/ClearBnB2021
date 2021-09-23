@@ -10,7 +10,13 @@
 
       <input v-model="price" type="number" placeholder="Enter price here" />
 
-      <!-- <input v-model="city" type="text" placeholder="Enter city here" />
+      <input v-model="city" type="text" placeholder="Enter city here" />
+
+      <input
+        v-model="addressListing"
+        type="text"
+        placeholder="Enter address here"
+      />
 
       <input type="checkbox" id="isBathTub" v-model="isBathTub" />
       <label for="isBathTub">BathTub</label>
@@ -33,12 +39,6 @@
       <input type="checkbox" id="isSauna" v-model="isSauna" />
       <label for="isSauna">Sauna</label>
 
-      <input
-        v-model="addressListing"
-        type="text"
-        placeholder="Enter address here"
-      />
-      -->
       -->
 
       <button>Save Listing</button>
@@ -82,18 +82,20 @@ export default {
       // two thread at same session how to fix?
       // temp workaround : i made them into different methods and create it one by one
       await this.$store.dispatch("addListing", newListing);
-      // this.addAddress();
-      console.log("current listing: " + this.$store.state.currentListing);
+      console.log("after await");
+      this.addAddress();
     },
 
     async addAddress() {
+      console.log("before address");
+      console.log("currentListing.id " + this.$store.state.currentListing.id); //null
+      console.log("currentListing " + this.$store.state.currentListing); //id
       let newAddress = {
         city: this.city,
-        addressListing: this.addressListing,
-        listing: this.$store.state.currentListing.id,
+        address: this.addressListing,
       };
       await this.$store.dispatch("addAddress", newAddress);
-      this.addAmenity();
+      // this.addAmenity();
     },
 
     addAmenity() {

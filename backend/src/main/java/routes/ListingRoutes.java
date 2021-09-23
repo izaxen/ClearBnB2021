@@ -28,6 +28,10 @@ public class ListingRoutes {
                     )
             );
 
+            req.session("current-Listing", createdListing);
+
+            System.out.println("createdListing: " + createdListing);
+
             res.json(createdListing.getId());
             System.out.println(createdListing.getId());
         });
