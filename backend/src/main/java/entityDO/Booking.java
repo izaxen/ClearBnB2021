@@ -15,12 +15,14 @@ public class Booking {
     private String endDate;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="owner_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="listing_id")
+    @JoinColumn(name="listing_ID")
     private Listing listing;
+
+    public Booking(){}
 
     public Booking(User user, Listing listing, String startDate, String endDate) {
         this.user = user;

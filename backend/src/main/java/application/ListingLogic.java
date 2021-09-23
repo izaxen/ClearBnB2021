@@ -5,6 +5,8 @@ import entityDO.Listing;
 import entityDO.User;
 import repositories.ListingRepository;
 
+import java.util.List;
+
 public class ListingLogic {
 
     ListingRepository listingRepository;
@@ -20,5 +22,9 @@ public class ListingLogic {
 
     public Listing createNewListing(Listing listing) {
         return listingRepository.addListing(listing);
+    }
+
+    public List<Listing> getAllListings(){
+        return listingRepository.findAllListings();
     }
 }
