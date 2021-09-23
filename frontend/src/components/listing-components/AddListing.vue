@@ -10,7 +10,7 @@
 
       <input v-model="price" type="number" placeholder="Enter price here" />
 
-      <input v-model="city" type="text" placeholder="Enter city here" />
+      <!-- <input v-model="city" type="text" placeholder="Enter city here" />
 
       <input type="checkbox" id="isBathTub" v-model="isBathTub" />
       <label for="isBathTub">BathTub</label>
@@ -38,6 +38,8 @@
         type="text"
         placeholder="Enter address here"
       />
+      -->
+      -->
 
       <button>Save Listing</button>
     </form>
@@ -53,16 +55,16 @@ export default {
       price: null,
       available_start_date: "2020-10-10 13:00",
       available_end_date: "2021-10-10 15:00",
-      city: "",
-      addressListing: "",
-      listing: null,
-      isBathTub: false,
-      isParkingLot: false,
-      isStove: false,
-      isDoubleBed: false,
-      isBubblePool: false,
-      isCycle: false,
-      isSauna: false,
+      // city: "",
+      // addressListing: "",
+      // listing: null,
+      // isBathTub: false,
+      // isParkingLot: false,
+      // isStove: false,
+      // isDoubleBed: false,
+      // isBubblePool: false,
+      // isCycle: false,
+      // isSauna: false,
     };
   },
 
@@ -80,7 +82,7 @@ export default {
       // two thread at same session how to fix?
       // temp workaround : i made them into different methods and create it one by one
       await this.$store.dispatch("addListing", newListing);
-      this.addAddress();
+      // this.addAddress();
     },
 
     async addAddress() {
