@@ -1,20 +1,18 @@
 package dtos;
 
-public class RegisterUserDTO {
+public class NoPwUserDTO {
     private String firstName;
     private String surName;
     private String email;
-    private String pw;
 
 
-    public RegisterUserDTO(String firstName, String surName, String email, String pw) {
+    public NoPwUserDTO(String firstName, String surName, String email) {
         this.firstName = firstName;
         this.surName = surName;
         this.email = email;
-        this.pw = pw;
     }
 
-    public RegisterUserDTO(){
+    public NoPwUserDTO(){
 
     }
 
@@ -40,9 +38,5 @@ public class RegisterUserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPw() {
-        return pw;
     }
 }

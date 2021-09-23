@@ -56,7 +56,6 @@ export const store = createStore({
         body: JSON.stringify(details)
       })
       let loggedInUser = await res.json()
-      console.log('loggedin user', loggedInUser)
       if ('Error' in loggedInUser) {
         console.log("Login failed");
         this.state.failedLogIn = true;
@@ -69,7 +68,6 @@ export const store = createStore({
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
       let status = await res.json()
-      console.log(status);
       store.commit('setUserLoggedIn', status)
     },
 
@@ -77,7 +75,6 @@ export const store = createStore({
       let res = await fetch('/api/logOff')
       store.commit('setUser', null)
       let userResponse = await res.json()
-      console.log(userResponse)
     },
 
     async addListing(store, listing) {
