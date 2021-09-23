@@ -42,11 +42,12 @@ methods:{
 
 <style scoped>
 .hmm{
+  width: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid violet;
-  margin: 30px;
+  
 }
 
 input{
