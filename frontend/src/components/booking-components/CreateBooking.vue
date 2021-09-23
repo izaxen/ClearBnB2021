@@ -35,7 +35,6 @@ export default {
 
   methods: {
     createBooking() {
-      console.log("Created booking called!");
       let newBooking = {
         user: this.$store.state.user,
         listing: this.selected,

@@ -1,7 +1,6 @@
 <template>
   <div class="home-container">
     <AvailableLinstings />
-    <AddListing />
     <br>
       <div class = "user">
         <div class = "create">
@@ -18,17 +17,11 @@
 
 <script>
 import AvailableLinstings from "../components/listing-components/AvailableListings.vue";
-import AddListing from "../components/listing-components/AddListing.vue";
-import CreateUser from '../components/user-components/CreateUser.vue';
-import LoginUser from '../components/user-components/LogIn.vue'
 import CreateBooking from "../components/booking-components/CreateBooking.vue";
 
 export default {
   components: {
     AvailableLinstings,
-    AddListing,
-    CreateUser,
-    LoginUser,
     CreateBooking,
   },
 };
