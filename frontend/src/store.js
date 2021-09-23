@@ -68,7 +68,7 @@ export const store = createStore({
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
       let status = await res.json()
-      store.commit('setUserLoggedIn', status)
+      store.commit('setUser', status)
     },
 
     async logOff(store) {

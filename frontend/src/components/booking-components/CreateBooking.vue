@@ -7,7 +7,6 @@
           v-for="listing in allListings"
           :key="listing.id"
           :value="listing"
-          @click="printSelected"
         >
           {{ listing.id }}, {{ listing.description }}
         </option>
