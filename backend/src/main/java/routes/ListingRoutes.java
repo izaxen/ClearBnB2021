@@ -33,5 +33,9 @@ public class ListingRoutes {
             res.json(createdListing.getId());
         });
 
+        app.get("/api/getAllListings", (req, res) -> {
+           res.json(listingLogic.getAllListings());
+        });
+
     }
 }

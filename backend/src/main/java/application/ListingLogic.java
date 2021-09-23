@@ -18,8 +18,6 @@ public class ListingLogic {
     public ListingLogic() {
     }
 
-
-
     public Listing createNewListing(Listing listing) {
         return listingRepository.addListing(listing);
     }
