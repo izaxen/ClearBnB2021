@@ -60,7 +60,7 @@ public class BookingRoutes {
             String endDate = req.params("startDate");
 
             AddBookingDTO dto = new AddBookingDTO(startDate, endDate);
-            bookingLogic.createNewBooking(currentUser, dto, listingID);
+            res.json(bookingLogic.createNewBooking(currentUser, dto, listingID));
 
         }));
     }

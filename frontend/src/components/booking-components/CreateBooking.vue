@@ -13,7 +13,7 @@
         </option>
       </select>
       <h3>Selected Listing: {{ selected.id }}</h3>
-      <button @click="printSelected">Create new booking</button>
+      <button>Create new booking</button>
     </form>
   </div>
 </template>
@@ -24,8 +24,8 @@ export default {
     return {
       selected: {},
       allListings: [],
-      startDate: "2021-12-12 00:00:00",
-      endDate: "2021-12-13 00:00:00",
+      startDate: "2022-12-12 00:00:00",
+      endDate: "2022-12-13 00:00:00",
     };
   },
 
@@ -47,13 +47,11 @@ export default {
       let res = await fetch(
         `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
       );
+      console.log(await res.json());
     },
     async getAllListings() {
       let res = await fetch("/api/getAllListings");
       this.allListings = await res.json();
-    },
-    printSelected() {
-      console.log(this.selected);
     },
   },
 };
