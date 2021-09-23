@@ -2,6 +2,7 @@
   <div class="add-listing-container">
     <h1>Add listing container</h1>
     <form @submit.prevent="addListing">
+      <div class="inputFields">
       <input
         v-model="description"
         type="text"
@@ -17,7 +18,9 @@
         type="text"
         placeholder="Enter address here"
       />
-
+      </div>
+      <br>
+    <div class=amen>
       <input type="checkbox" id="isBathTub" v-model="isBathTub" />
       <label for="isBathTub">BathTub</label>
 
@@ -38,11 +41,14 @@
 
       <input type="checkbox" id="isSauna" v-model="isSauna" />
       <label for="isSauna">Sauna</label>
-
+    </div>
+    <br>
       -->
 
       <button>Save Listing</button>
+      
     </form>
+    
   </div>
 </template>
 
@@ -55,17 +61,7 @@ export default {
       price: null,
       available_start_date: "2020-10-10 13:00",
       available_end_date: "2021-10-10 15:00",
-      // city: "",
-      // addressListing: "",
-      // listing: null,
-      // isBathTub: false,
-      // isParkingLot: false,
-      // isStove: false,
-      // isDoubleBed: false,
-      // isBubblePool: false,
-      // isCycle: false,
-      // isSauna: false,
-    };
+       };
   },
 
   computed: {},
@@ -82,14 +78,10 @@ export default {
       // two thread at same session how to fix?
       // temp workaround : i made them into different methods and create it one by one
       await this.$store.dispatch("addListing", newListing);
-      console.log("after await");
       this.addAddress();
     },
 
     async addAddress() {
-      console.log("before address");
-      console.log("currentListing.id " + this.$store.state.currentListing.id); //null
-      console.log("currentListing " + this.$store.state.currentListing); //id
       let newAddress = {
         city: this.city,
         address: this.addressListing,
@@ -116,6 +108,17 @@ export default {
 </script>
 
 <style scoped>
+.add-listing-container{
+  display: flex;
+  flex-direction: column;
+}
+.inputFields{
+  display: flex;
+  flex-direction: column;}
+.amen{
+  display:flex;
+  flex-direction: row;
+}
 .add-listing-container {
   grid-column-start: 1;
   grid-row-start: 1;
