@@ -19,12 +19,13 @@ public class Repositories {
     ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
     RatingRepository ratingRepository = new RatingRepository(entityManager);
     AddressRepository addressRepository = new AddressRepository(entityManager);
+    BookingRepository bookingRepository = new BookingRepository(entityManager);
+
+
 
     public BookingRepository booking() {
         return bookingRepository;
     }
-
-    BookingRepository bookingRepository = new BookingRepository(entityManager);
 
     public ListingRepository getListingRepository() {
         return listingRepository;

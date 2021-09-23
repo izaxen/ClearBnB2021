@@ -1,20 +1,35 @@
 package application;
 
+import dtos.AddBookingDTO;
 import entityDO.Booking;
+import entityDO.Listing;
+import entityDO.User;
 import repositories.BookingRepository;
+import repositories.ListingRepository;
 
 public class BookingLogic {
 
-    BookingRepository bookingRepository;
+    Repositories repositories;
 
-    public BookingLogic(BookingRepository bookingRepository) {
-        this.bookingRepository = bookingRepository;
+    public BookingLogic() {
     }
 
-    public Booking createAndGetConfirmationBooking(Booking booking){
-        Booking newBooking = bookingRepository.addBooking(booking).get();
-        return newBooking;
+    public BookingLogic(Repositories repositories) {
+        this.repositories = repositories;
     }
 
+    public void createNewBooking(User user, AddBookingDTO dto, int listingID){
+        Listing listing = repositories.listingRepository.findById(listingID).get();
+        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
+
+        repositories.booking().addBooking(booking);
+    }
+
+    public void createNewBooking1(User user, AddBookingDTO dto, Listing listing){
+
+        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
+
+        repositories.booking().addBooking(booking);
+    }
 
 }
