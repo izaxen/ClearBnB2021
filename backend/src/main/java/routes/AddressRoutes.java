@@ -22,8 +22,7 @@ public class AddressRoutes {
 
         app.post("/api/addAddress", (req, res) -> {   //Create listing
 
-            Listing currentListing = req.session("current-listing");
-            System.out.println(currentListing.toString());
+            Listing currentListing = req.session("current-Listing");
             Address address = addressLogic.createNewAddress(
                     as.convertAddAddressToAddress(req.body(AddAddressDTO.class),currentListing)
             );
