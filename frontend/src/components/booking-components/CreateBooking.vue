@@ -7,20 +7,20 @@
           v-for="listing in allListings"
           :key="listing.id"
           :value="listing"
-          @click="printSelected"
         >
           {{ listing.id }}, {{ listing.description }}
         </option>
       </select>
       <h3>Selected Listing: {{ selected.id }}</h3>
 
-      <input v-model="startDate"
-      required type ="date"
-      placeholder="Startdatum"/>
+      <input
+        v-model="startDate"
+        required
+        type="date"
+        placeholder="Startdatum"
+      />
 
-      <input v-model="endDate"
-      required type ="date"
-      placeholder="Slut Datum"/>
+      <input v-model="endDate" required type="date" placeholder="Slut Datum" />
 
       <button @click="printSelected">Create new booking</button>
     </form>
@@ -38,7 +38,7 @@ export default {
     };
   },
 
-    beforeMount() {
+  beforeMount() {
     this.getAllListings();
   },
 
@@ -48,21 +48,20 @@ export default {
         user: this.$store.state.user,
         listing: this.selected,
         startDate: this.startDate,
-        endDate: this.endDate
+        endDate: this.endDate,
       };
       this.postNewBooking(newBooking);
     },
     async postNewBooking() {
+      console.log(this.startDate, this.endDate);
       let res = await fetch(
         `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
       );
+      console.log(await res.json());
     },
     async getAllListings() {
       let res = await fetch("/api/getAllListings");
       this.allListings = await res.json();
-    },
-    printSelected() {
-      console.log(this.selected);
     },
   },
 };

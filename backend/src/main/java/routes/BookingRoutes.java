@@ -50,17 +50,14 @@ public class BookingRoutes {
         app.get("/rest/createBooking/:listingID/:startDate/:endDate", ((req, res) -> {
 
             User currentUser = req.session("current-user");
-
-            if(currentUser == null){
-                return;
-            }
+            if(currentUser == null){return;}
 
             int listingID = parseInt(req.params("listingID"));
             String startDate = req.params("startDate");
-            String endDate = req.params("startDate");
+            String endDate = req.params("endDate");
 
             AddBookingDTO dto = new AddBookingDTO(startDate, endDate);
-            bookingLogic.createNewBooking(currentUser, dto, listingID);
+            res.json(bookingLogic.createNewBooking(currentUser, dto, listingID));
 
         }));
     }
