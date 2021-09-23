@@ -16,9 +16,7 @@ public class ListingLogic {
     public ListingLogic() {
     }
 
-    public Listing convertAddListingToListing(AddListingDTO dto, User owner) {
-        return new Listing(dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
-    }
+
 
     public Listing createNewListing(Listing listing) {
         return listingRepository.addListing(listing);

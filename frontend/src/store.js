@@ -9,6 +9,7 @@ export const store = createStore({
       user: null,
       failedLogIn: false,
       currentListing: null,
+      loggedInUser: false,
 
     }
   },
@@ -17,14 +18,18 @@ export const store = createStore({
   mutations: {
     setUser(state, user) {
       state.user = user
-      state.failedLogIn = false
+      state.setUserLoggedIn = true
     },
     setFailedLogin(state, value) {
       state.failedLogIn = value
     },
     setCurrentListing(state, listing) {
       state.currentListing = listing
-    }
+    },
+    
+    setUserLoggedIn(state, status) {
+    state.loggedInUser = status
+},
   },
 
   //async methods that will trigger a mutation
@@ -51,6 +56,7 @@ export const store = createStore({
         body: JSON.stringify(details)
       })
       let loggedInUser = await res.json()
+      console.log('loggedin user', loggedInUser)
       if ('Error' in loggedInUser) {
         console.log("Login failed");
         this.state.failedLogIn = true;
@@ -58,11 +64,13 @@ export const store = createStore({
       }
       console.log("Login active");
       store.commit('setUser', loggedInUser)
+      
     },
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
-      let user = await res.json()
-      store.commit('setUser', user)
+      let status = await res.json()
+      console.log(status);
+      store.commit('setUserLoggedIn', status)
     },
 
     async logOff(store) {

@@ -24,5 +24,24 @@ public class UserAccess {
         return null;
     }
 
+    public User loginUser(User user){
+        Optional<User> userInDB = userRepository.findByEmail(user.getEmail());
+        if(userInDB.isEmpty()){
+            return null;
+        }
+
+        if(HashPassword.match(user.getPw(), userInDB.get().getPw())) {
+            return userInDB.get();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public boolean userLoggedIn(User user){
+
+        return user != null;
+    }
+
 
 }

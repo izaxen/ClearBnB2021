@@ -26,20 +26,21 @@ public class UserRoutes {
         });
 
         app.post("/api/login", (req, res) -> {
-            User user = userService.loginUser(
+            User user = userAccess.loginUser(
                     userService.convertLoginUserToUser(
                     req.body(LoginUserDTO.class)));
 
             if( user != null) {
                 req.session("current-user", user);
-                res.json(user.getFirstName());
+                res.json(user);
             }
             else{
                 res.json(Map.of("Error", "Logindetails failed"));}
         });
 
         app.get("/api/whoAmI", (req, res)-> {   //Control logged in user
-            res.json(req.session("current-user"));
+
+            res.json(userAccess.userLoggedIn(req.session("current-user")));
         });
 
         app.get("/api/logOff",(req,res)->{

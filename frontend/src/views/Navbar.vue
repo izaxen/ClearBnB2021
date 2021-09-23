@@ -1,18 +1,15 @@
  <template>
  <div class = navi>
 
-   <div v-if="!user"></div>
+   <div v-if="!loggedInUser"></div>
 
   <div v-else class="user_details">
     <button v-on:click ="logoff">Logoff</button>
 
     <h3>Logged In as</h3>
-    <h3>Firstname:{{user.firstName}}</h3>
+    <h3>Firstname:{{user}}</h3>
 
   </div>
-
-
-
 
  </div>
   
@@ -22,7 +19,10 @@
 export default {
   computed:{
     user(){
-    return this.$store.state.user}
+    return this.$store.state.user},
+    loggedIn(){
+      return this.$store.state.loggedInUser
+    },
 
   },
   methods:{
