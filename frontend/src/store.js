@@ -83,11 +83,7 @@ export const store = createStore({
         body: JSON.stringify(listing)
       });
       let currentListingId = await res.json();
-
-      // store.commit('setCurrentListing', { ...listing, id: currentListingId }); // an object
       store.commit('setCurrentListing', currentListingId); // an id
-
-      console.log(this.state.currentListing);
     },
 
     async addAddress(store, address) {
@@ -102,9 +98,6 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(amenity)
       })
-
-      let res = await res.json();
-      console.log(res);
     }
   }
 })
