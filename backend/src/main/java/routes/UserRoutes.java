@@ -2,6 +2,7 @@ package routes;
 
 import application.UserAccess;
 import dtos.LoginUserDTO;
+import dtos.RegisterUserDTO;
 import express.Express;
 import entityDO.User;
 import repositories.UserRepository;
@@ -20,9 +21,9 @@ public class UserRoutes {
         userService = new UserService();
 
         app.post("/api/registerUser", (req, res) -> {   //Create user
-            User user = userAccess.createNewUser(req.body(User.class));
+            User user = userAccess.createNewUser(userService.convertRegisterUser(req.body(RegisterUserDTO.class)));
             req.session("current-user", user);
-            res.json(user);
+            res.json(userService.noPwUser(user));
         });
 
         app.post("/api/login", (req, res) -> {
@@ -32,7 +33,7 @@ public class UserRoutes {
 
             if( user != null) {
                 req.session("current-user", user);
-                res.json(user);
+                res.json(userService.noPwUser(user));
             }
             else{
                 res.json(Map.of("Error", "Logindetails failed"));}
@@ -40,7 +41,7 @@ public class UserRoutes {
 
         app.get("/api/whoAmI", (req, res)-> {   //Control logged in user
 
-            res.json(userAccess.userLoggedIn(req.session("current-user")));
+            res.json(userService.noPwUser(req.session("current-user")));
         });
 
         app.get("/api/logOff",(req,res)->{
