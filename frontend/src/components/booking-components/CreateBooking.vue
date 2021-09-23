@@ -12,7 +12,17 @@
         </option>
       </select>
       <h3>Selected Listing: {{ selected.id }}</h3>
-      <button>Create new booking</button>
+
+      <input
+        v-model="startDate"
+        required
+        type="date"
+        placeholder="Startdatum"
+      />
+
+      <input v-model="endDate" required type="date" placeholder="Slut Datum" />
+
+      <button @click="printSelected">Create new booking</button>
     </form>
   </div>
 </template>
@@ -23,8 +33,8 @@ export default {
     return {
       selected: {},
       allListings: [],
-      startDate: "2022-12-12 00:00:00",
-      endDate: "2022-12-13 00:00:00",
+      startDate: new Date(),
+      endDate: "",
     };
   },
 
@@ -37,12 +47,13 @@ export default {
       let newBooking = {
         user: this.$store.state.user,
         listing: this.selected,
-        startDate: "2021-12-12 00:00:00",
-        endDate: "2021-12-13 00:00:00",
+        startDate: this.startDate,
+        endDate: this.endDate,
       };
       this.postNewBooking(newBooking);
     },
     async postNewBooking() {
+      console.log(this.startDate, this.endDate);
       let res = await fetch(
         `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
       );
