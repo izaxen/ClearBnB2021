@@ -57,7 +57,10 @@ public class BookingRoutes {
 
             int listingID = parseInt(req.params("listingID"));
             String startDate = req.params("startDate");
-            String endDate = req.params("startDate");
+            String endDate = req.params("endDate");
+
+            System.out.println(startDate);
+            System.out.println(endDate);
 
             AddBookingDTO dto = new AddBookingDTO(startDate, endDate);
             res.json(bookingLogic.createNewBooking(currentUser, dto, listingID));
