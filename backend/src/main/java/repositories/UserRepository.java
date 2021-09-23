@@ -1,10 +1,8 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.Query;
-import models.User;
+import entityDO.User;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package models;
+package entityDO;
 
 import jakarta.persistence.*;
 

@@ -30,7 +30,7 @@ public class Repositories {
         return listingRepository;
     }
 
-    public UserRepository user() {
+    public UserRepository getUserRep() {
         return userRepository;
     }
 

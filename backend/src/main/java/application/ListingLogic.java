@@ -1,6 +1,8 @@
-package application.listing;
+package application;
 
-import models.Listing;
+import dtos.AddListingDTO;
+import entityDO.Listing;
+import entityDO.User;
 import repositories.ListingRepository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public class ListingLogic {
 
     public ListingLogic() {
     }
+
+
 
     public Listing createNewListing(Listing listing) {
         return listingRepository.addListing(listing);

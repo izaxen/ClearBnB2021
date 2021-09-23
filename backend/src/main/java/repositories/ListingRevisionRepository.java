@@ -1,9 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import models.AddressRevision;
-import models.Listing;
-import models.ListingRevision;
+import entityDO.ListingRevision;
 
 import java.util.List;
 import java.util.Optional;

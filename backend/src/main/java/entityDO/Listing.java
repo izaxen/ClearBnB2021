@@ -1,10 +1,8 @@
-package models;
+package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,7 +23,7 @@ public class Listing {
     private String availableEndDate;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "listing", cascade=CascadeType.MERGE)
+    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
     private Address address;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
@@ -34,6 +32,7 @@ public class Listing {
     @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
     private List<ListingRevision> listingRevisions = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
     private Amenities amenities;
 
@@ -48,11 +47,12 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate) {
+    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
+        this.user = owner;
     }
 
     public Integer getId() {

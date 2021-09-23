@@ -1,8 +1,8 @@
-package routes.booking;
+package routes;
 
-import application.booking.BookingLogic;
+import application.BookingLogic;
+import entityDO.Booking;
 import express.Express;
-import models.Booking;
 import repositories.BookingRepository;
 
 public class BookingRoutes {

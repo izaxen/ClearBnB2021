@@ -1,4 +1,4 @@
-package models;
+package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -24,7 +24,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private int ID;
     @Column (name = "first_name")
     private String firstName;
@@ -52,6 +52,9 @@ public class User {
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
     private List<Rating> rating = new ArrayList<>();
 
+    public User() {
+    }
+
     public User(String firstName, String lastName, String email, int funds, String pw) {
         this.firstName = firstName;
         this.surName = lastName;
@@ -60,7 +63,22 @@ public class User {
         this.pw = pw;
     }
 
-    public User() {
+    public User(String firstName, String surName, String email, String pw) {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.email = email;
+        this.pw = pw;
+    }
+
+    public User(String firstName, String surName, String email) {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.email = email;
+    }
+
+    public User(String email, String pw) {
+        this.email = email;
+        this.pw = pw;
     }
 
     public int getID() {

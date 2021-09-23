@@ -1,7 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import models.Booking;
+import entityDO.Booking;
 
 import java.util.List;
 import java.util.Optional;

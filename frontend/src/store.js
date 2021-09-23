@@ -9,6 +9,7 @@ export const store = createStore({
       user: null,
       failedLogIn: false,
       currentListing: null,
+      loggedInUser: false,
 
     }
   },
@@ -17,14 +18,18 @@ export const store = createStore({
   mutations: {
     setUser(state, user) {
       state.user = user
-      state.failedLogIn = false
+      state.setUserLoggedIn = true
     },
     setFailedLogin(state, value) {
       state.failedLogIn = value
     },
     setCurrentListing(state, listing) {
       state.currentListing = listing
-    }
+    },
+
+    setUserLoggedIn(state, status) {
+      state.loggedInUser = status
+    },
   },
 
   //async methods that will trigger a mutation
@@ -58,18 +63,18 @@ export const store = createStore({
       }
       console.log("Login active");
       store.commit('setUser', loggedInUser)
+
     },
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
-      let user = await res.json()
-      store.commit('setUser', user)
+      let status = await res.json()
+      store.commit('setUserLoggedIn', status)
     },
 
     async logOff(store) {
       let res = await fetch('/api/logOff')
       store.commit('setUser', null)
       let userResponse = await res.json()
-      console.log(userResponse)
     },
 
     async addListing(store, listing) {
@@ -77,9 +82,12 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      let currentListing = await res.json()
+      let currentListingId = await res.json();
 
-      store.commit('setCurrentListing', currentListing);
+      // store.commit('setCurrentListing', { ...listing, id: currentListingId }); // an object
+      store.commit('setCurrentListing', currentListingId); // an id
+
+      console.log(this.state.currentListing);
     },
 
     async addAddress(store, address) {
@@ -87,6 +95,16 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(address)
       })
+    },
+
+    async addAmenity(store, amenity) {
+      await fetch('/api/addAmenity', {
+        method: 'POST',
+        body: JSON.stringify(amenity)
+      })
+
+      let res = await res.json();
+      console.log(res);
     }
   }
 })

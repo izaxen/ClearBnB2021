@@ -1,8 +1,7 @@
 package repositories;
 
 import jakarta.persistence.EntityManager;
-import models.Amenities;
-import models.ChatMessage;
+import entityDO.ChatMessage;
 
 
 import java.util.Optional;

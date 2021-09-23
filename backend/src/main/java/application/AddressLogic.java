@@ -1,6 +1,6 @@
-package application.address;
+package application;
 
-import models.Address;
+import entityDO.Address;
 import repositories.AddressRepository;
 
 public class AddressLogic {

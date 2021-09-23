@@ -1,7 +1,6 @@
-package models;
+package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -14,13 +13,19 @@ public class Address {
     private String addressListing;
 
     @JsonBackReference
-    @OneToOne(cascade=CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
     public Address(String city, String address) {
         this.city = city;
         this.addressListing = address;
+    }
+
+    public Address(String city, String addressListing, Listing listing) {
+        this.city = city;
+        this.addressListing = addressListing;
+        this.listing = listing;
     }
 
     public Address() {

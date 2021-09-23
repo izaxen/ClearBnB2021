@@ -1,6 +1,6 @@
-package application.booking;
+package application;
 
-import models.Booking;
+import entityDO.Booking;
 import repositories.BookingRepository;
 
 public class BookingLogic {
