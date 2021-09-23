@@ -70,7 +70,7 @@ public class Amenities {
         return isBathTub;
     }
 
-    public void setIsBathTub(boolean bathTub) {
+    public void setBathTub(boolean bathTub) {
         isBathTub = bathTub;
     }
 
@@ -78,7 +78,7 @@ public class Amenities {
         return isParkingLot;
     }
 
-    public void setIsParkingLot(boolean parkingLot) {
+    public void setParkingLot(boolean parkingLot) {
         isParkingLot = parkingLot;
     }
 
@@ -86,7 +86,7 @@ public class Amenities {
         return isStove;
     }
 
-    public void setIsStove(boolean stove) {
+    public void setStove(boolean stove) {
         isStove = stove;
     }
 
@@ -94,7 +94,7 @@ public class Amenities {
         return isDoubleBed;
     }
 
-    public void setIsDoubleBed(boolean doubleBed) {
+    public void setDoubleBed(boolean doubleBed) {
         isDoubleBed = doubleBed;
     }
 
@@ -102,7 +102,7 @@ public class Amenities {
         return isBubblePool;
     }
 
-    public void setIsBubblePool(boolean bubblePool) {
+    public void setBubblePool(boolean bubblePool) {
         isBubblePool = bubblePool;
     }
 
@@ -110,7 +110,7 @@ public class Amenities {
         return isCycle;
     }
 
-    public void setIsCycle(boolean cycle) {
+    public void setCycle(boolean cycle) {
         isCycle = cycle;
     }
 
@@ -118,7 +118,7 @@ public class Amenities {
         return isSauna;
     }
 
-    public void setIsSauna(boolean sauna) {
+    public void setSauna(boolean sauna) {
         isSauna = sauna;
     }
 }

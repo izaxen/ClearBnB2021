@@ -102,6 +102,9 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(amenity)
       })
+
+      let res = await res.json();
+      console.log(res);
     }
   }
 })

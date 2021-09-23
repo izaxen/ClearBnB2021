@@ -95,20 +95,20 @@ export default {
         address: this.addressListing,
       };
       await this.$store.dispatch("addAddress", newAddress);
-      // this.addAmenity();
+      this.addAmenity();
     },
 
     addAmenity() {
       let newAmenity = {
-        listing: this.$store.state.currentListing,
-        isBathTub: this.isBathTub,
-        isParkingLot: this.isParkingLot,
-        isStove: this.isStove,
-        isDoubleBed: this.isDoubleBed,
-        isBubblePool: this.isBubblePool,
-        isCycle: this.isCycle,
-        isSauna: this.isSauna,
+        bathTub: this.isBathTub,
+        parkingLot: this.isParkingLot,
+        stove: this.isStove,
+        doubleBed: this.isDoubleBed,
+        bubblePool: this.isBubblePool,
+        cycle: this.isCycle,
+        sauna: this.isSauna,
       };
+
       this.$store.dispatch("addAmenity", newAmenity);
     },
   },

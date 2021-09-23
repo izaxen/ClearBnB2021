@@ -1,50 +1,83 @@
 package dtos;
 
 public class AddAmenityDTO {
-    private int price;
-    private String description;
-    private String availableStartDate;
-    private String availableEndDate;
+
+    private boolean isBathTub;
+    private boolean isParkingLot;
+    private boolean isStove;
+    private boolean isDoubleBed;
+    private boolean isBubblePool;
+    private boolean isCycle;
+    private boolean isSauna;
+
+    public AddAmenityDTO(boolean isBathTub, boolean isParkingLot, boolean isStove, boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isCycle = isCycle;
+        this.isSauna = isSauna;
+    }
 
     public AddAmenityDTO() {
+
+
     }
 
-    public AddAmenityDTO(Integer price, String description, String availableStartDate, String availableEndDate) {
-        this.price = price;
-        this.description = description;
-        this.availableStartDate = availableStartDate;
-        this.availableEndDate = availableEndDate;
+    public boolean isBathTub() {
+        return isBathTub;
     }
 
-    public int getPrice() {
-        return price;
+    public void setBathTub(boolean bathTube) {
+        isBathTub = bathTube;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public boolean isParkingLot() {
+        return isParkingLot;
     }
 
-    public String getDescription() {
-        return description;
+    public void setParkingLot(boolean parkingLot) {
+        isParkingLot = parkingLot;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public boolean isStove() {
+        return isStove;
     }
 
-    public String getAvailableStartDate() {
-        return availableStartDate;
+    public void setStove(boolean stove) {
+        isStove = stove;
     }
 
-    public void setAvailableStartDate(String availableStartDate) {
-        this.availableStartDate = availableStartDate;
+    public boolean isDoubleBed() {
+        return isDoubleBed;
     }
 
-    public String getAvailableEndDate() {
-        return availableEndDate;
+    public void setDoubleBed(boolean doubleBed) {
+        isDoubleBed = doubleBed;
     }
 
-    public void setAvailableEndDate(String availableEndDate) {
-        this.availableEndDate = availableEndDate;
+    public boolean isBubblePool() {
+        return isBubblePool;
+    }
+
+    public void setBubblePool(boolean bubblePool) {
+        isBubblePool = bubblePool;
+    }
+
+    public boolean isCycle() {
+        return isCycle;
+    }
+
+    public void setCycle(boolean cycle) {
+        isCycle = cycle;
+    }
+
+    public boolean isSauna() {
+        return isSauna;
+    }
+
+    public void setSauna(boolean sauna) {
+        isSauna = sauna;
     }
 }
