@@ -4,6 +4,8 @@ import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +30,18 @@ public class RatingRepository {
         return Optional.empty();
     }
 
+
     public List<Rating> getRatingOfUser(User user){
-        return entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
-                .setParameter("user", user)
-                .getResultList();
+
+        List<Rating> ratingList;
+
+             ratingList = entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
+                    .setParameter("user", user)
+                    .getResultList();
+
+            return ratingList;
+
+
     }
 
     public double calcAvgRatingOfUser(User user){
