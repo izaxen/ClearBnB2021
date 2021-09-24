@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import RegisterUser from './components/user-components/CreateUser.vue'
 import RegisterListing from "./components/listing-components/AddListing.vue";
+import ProfilePage from './views/ProfilePage.vue';
 
 
 export default createRouter({
@@ -18,14 +19,21 @@ export default createRouter({
     {
       path: '/reg-User',
       component: RegisterUser,
-      name:RegisterUser,
+      name: RegisterUser,
     },
 
     {
       path: '/reg-list',
       component: RegisterListing,
-      name:RegisterListing,
+      name: RegisterListing,
     },
-    
+    {
+      path: '/user',
+      component: ProfilePage,
+      name: ProfilePage,
+    },
+
+
+
   ]
 })

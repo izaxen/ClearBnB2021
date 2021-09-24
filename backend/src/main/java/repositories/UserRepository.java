@@ -14,10 +14,14 @@ public class UserRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<User> findById(Integer id){
+    public Optional<User> findById(int id){
         User user = entityManager.find(User.class, id);
         System.out.println(user);
         return user != null ? Optional.of(user) : Optional.empty();
+    }
+
+    public User findUserById(int id){
+        return entityManager.find(User.class, id);
     }
 
     public List<User> findByFullName(String firstName, String surName){

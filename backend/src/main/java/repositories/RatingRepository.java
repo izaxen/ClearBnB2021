@@ -1,8 +1,10 @@
 package repositories;
 
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
 
+import java.util.List;
 import java.util.Optional;
 
 public class RatingRepository {
@@ -24,6 +26,18 @@ public class RatingRepository {
             ex.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public List<Rating> getRatingOfUser(User user){
+        return entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
+
+    public double calcAvgRatingOfUser(User user){
+        return (double) entityManager.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
+               .setParameter("user", user)
+               .getSingleResult();
     }
 
 }

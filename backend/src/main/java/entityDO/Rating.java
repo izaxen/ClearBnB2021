@@ -23,6 +23,9 @@ public class Rating {
 
     private String message;
 
+    @Column(name="date_created")
+    private String dateCreated;
+
     public Rating(){}
 
     public Rating(User reviewer, User recipient, Integer rating, String message) {
@@ -30,5 +33,33 @@ public class Rating {
         this.recipient = recipient;
         this.rating = rating;
         this.message = message;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public User getReviewer() {
+        return reviewer;
+    }
+
+    public User getRecipient() {
+        return recipient;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

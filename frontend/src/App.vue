@@ -2,29 +2,28 @@
 </script>
 
 <template>
-<header>
-  <Navbar />
-
-</header>
-  <main>
-    <router-view />
-  </main>
+  <div class="app">
+    <header>
+      <Navbar />
+    </header>
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script>
-import { createHydrationRenderer } from '@vue/runtime-core';
-import Navbar from './views/Navbar.vue'
+import { createHydrationRenderer } from "@vue/runtime-core";
+import Navbar from "./views/Navbar.vue";
 
-export default{
-components:{
-  Navbar,
-},
-async created(){
-  this.$store.dispatch('whoAmI')
-},
-
-
-}
+export default {
+  components: {
+    Navbar,
+  },
+  async created() {
+    this.$store.dispatch("whoAmI");
+  },
+};
 </script>
 
 
