@@ -1,15 +1,17 @@
 package dtos;
 
+import java.sql.Timestamp;
+
 public class AddListingDTO {
     private int price;
     private String description;
-    private String availableStartDate;
-    private String availableEndDate;
+    private Timestamp availableStartDate;
+    private Timestamp availableEndDate;
 
     public AddListingDTO() {
     }
 
-    public AddListingDTO(Integer price, String description, String availableStartDate, String availableEndDate) {
+    public AddListingDTO(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
@@ -32,19 +34,19 @@ public class AddListingDTO {
         this.description = description;
     }
 
-    public String getAvailableStartDate() {
+    public Timestamp getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(String availableStartDate) {
+    public void setAvailableStartDate(Timestamp availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public String getAvailableEndDate() {
+    public Timestamp getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(String availableEndDate) {
+    public void setAvailableEndDate(Timestamp availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 }

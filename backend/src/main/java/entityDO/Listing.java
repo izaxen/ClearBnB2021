@@ -6,6 +6,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +35,10 @@ public class Listing {
     private String description;
 
     @Column(name="available_start_date")
-    private String availableStartDate;
+    private Timestamp availableStartDate;
 
     @Column(name="available_end_date")
-    private String availableEndDate;
+    private Timestamp availableEndDate;
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
@@ -63,12 +65,17 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
+    public Listing(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate, User owner) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.user = owner;
+    }
+
+    public Listing(Timestamp availableStartDate, Timestamp availableEndDate) {
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
     }
 
     public Integer getId() {
@@ -95,19 +102,19 @@ public class Listing {
         this.description = description;
     }
 
-    public String getAvailableStartDate() {
+    public Timestamp getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(String availableStartDate) {
+    public void setAvailableStartDate(Timestamp availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public String getAvailableEndDate() {
+    public Timestamp getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(String availableEndDate) {
+    public void setAvailableEndDate(Timestamp availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 
