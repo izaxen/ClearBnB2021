@@ -35,9 +35,14 @@ public class RatingRepository {
     }
 
     public double calcAvgRatingOfUser(User user){
-        return (double) entityManager.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
-               .setParameter("user", user)
-               .getSingleResult();
+        try{
+            return (double) entityManager.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
+                    .setParameter("user", user)
+                    .getSingleResult();
+        }catch (Exception e){
+            return 0;
+        }
+
     }
 
 }

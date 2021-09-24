@@ -22,7 +22,6 @@ public class RatingRoutes {
 
     public void getAllRatingsOfUser(){
         app.get("/rest/rating/:userID", (req, res) ->{
-            System.out.println(req.params());
             int userID = parseInt(req.params("userID"));
             res.json(ratingLogic.getAllRatingsOfUser(userID));
         });

@@ -2,7 +2,7 @@
   <div class="profile-page-container">
     <div class="search-user-container">
       <input v-model="userToShow" placeholder="Search user (user ID)" />
-      <button @click="print">Show</button>
+      <button @click="goTo">Show</button>
     </div>
     <h1>Welcome!</h1>
     <ShowRating />
@@ -29,7 +29,7 @@ export default {
     ShowRating,
   },
   methods: {
-    print() {
+    goTo() {
       router.push(`/profile_page?user=${this.userToShow}`);
     },
   },

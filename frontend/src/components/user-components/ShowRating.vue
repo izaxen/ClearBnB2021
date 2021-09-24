@@ -1,16 +1,14 @@
 <template>
   <div class="rating-container" v-if="ratings">
-    <h1>Rating as renter</h1>
+    <h1>Rating: {{ avgRating ? avgRating : "" }}</h1>
     <h3>{{ rating }}</h3>
     <div
       class="ratingItem"
       v-for="rating in ratings.slice().reverse()"
       :key="rating.dateWritten"
     >
-      <div class="rating-c">
-        <h1>{{ rating.rating }}</h1>
-        <p>Stars</p>
-      </div>
+      <h1 class="stars">{{ rating.rating }}</h1>
+      <p>Stars</p>
       <h4>{{ rating.review }}</h4>
       <p>By: {{ rating.reviewer }}, {{ rating.dateWritten }}</p>
     </div>
@@ -21,13 +19,15 @@
 export default {
   data() {
     return {
-      ratings: [],
       userID: this.$route.query.user,
+      ratings: [],
+      avgRating: null,
     };
   },
 
-  beforeMount() {
+  mounted() {
     this.getAllRatings();
+    this.getAvgRating();
     this.userID = this.$route.query.user;
   },
 
@@ -35,6 +35,11 @@ export default {
     async getAllRatings() {
       let res = await fetch(`/rest/rating/${this.userID}`);
       this.ratings = await res.json();
+    },
+    async getAvgRating() {
+      let res = await fetch(`/rest/avg-rating/${this.userID}`);
+      let x = (await res.json()) + "";
+      this.avgRating = x.substring(0, 3);
     },
   },
 };
@@ -56,7 +61,9 @@ export default {
   margin: 5px;
   padding: 10px;
 }
-
+.stars h1 {
+  display: inline;
+}
 h4 {
   margin: 20px;
 }
