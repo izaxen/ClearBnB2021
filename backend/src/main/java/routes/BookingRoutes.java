@@ -1,28 +1,64 @@
 package routes;
 
 import application.BookingLogic;
+import application.Repositories;
+import dtos.AddBookingDTO;
 import entityDO.Booking;
+import entityDO.Listing;
+import entityDO.User;
 import express.Express;
-import repositories.BookingRepository;
+import service.BookingService;
+
+import static java.lang.Integer.parseInt;
 
 public class BookingRoutes {
 
-    BookingRepository bookingRepository;
+    Repositories repositories;
     BookingLogic bookingLogic;
     Express app;
+    BookingService bookingService = new BookingService();
 
-    public BookingRoutes(Express app, BookingRepository bookingRepository) {
+    public BookingRoutes(Express app, Repositories repositories) {
         this.app = app;
-        this.bookingRepository = bookingRepository;
-        this.bookingLogic = new BookingLogic(bookingRepository);
+        this.repositories = repositories;
+        this.bookingLogic = new BookingLogic(repositories);
 
-        createBookingRoute();
+        routeCreateBooking();
+        routeCreateBookingREST();
     }
 
-    private void createBookingRoute(){
-        app.post("/api/createBooking", ((req, res) -> {
-            Booking newBooking = bookingLogic.createAndGetConfirmationBooking(req.body(Booking.class));
-            System.out.println(newBooking);
+    private void routeCreateBooking(){
+
+        // TODO NOT WORKING CODE
+        /*app.post("/api/createBooking1/:listingID", ((req, res) -> {
+
+            User currentUser = req.session("current-user");
+            if(currentUser == null){
+                return;
+            }
+
+            int listingID = parseInt(req.params("listingID"));
+
+            Booking createdBooking = bookingLogic.createNewBooking1(
+                    currentUser,bookingService.convertBookingDTOIntoBooking(req.body(AddBookingDTO.class),
+                            repositories.getListingRepository().findById(listingID).get());
+
+        }));*/
+    }
+
+    private void routeCreateBookingREST(){
+        app.get("/rest/createBooking/:listingID/:startDate/:endDate", ((req, res) -> {
+
+            User currentUser = req.session("current-user");
+            if(currentUser == null){return;}
+
+            int listingID = parseInt(req.params("listingID"));
+            String startDate = req.params("startDate");
+            String endDate = req.params("endDate");
+
+            AddBookingDTO dto = new AddBookingDTO(startDate, endDate);
+            res.json(bookingLogic.createNewBooking(currentUser, dto, listingID));
+
         }));
     }
 }
