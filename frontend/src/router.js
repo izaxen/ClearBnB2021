@@ -28,7 +28,7 @@ export default createRouter({
       name: RegisterListing,
     },
     {
-      path: '/user',
+      path: '/profile_page',
       component: ProfilePage,
       name: ProfilePage,
     },

@@ -1,26 +1,38 @@
 <template>
-  <div class="profile-page-container" v-if="user">
-    <h1>{{ user.firstName.toUpperCase() }}</h1>
+  <div class="profile-page-container">
+    <div class="search-user-container">
+      <input v-model="userToShow" placeholder="Search user (user ID)" />
+      <button @click="print">Show</button>
+    </div>
+    <h1>Welcome!</h1>
     <ShowRating />
   </div>
 </template>
 
 <script>
 import ShowRating from "../components/user-components/ShowRating.vue";
+import router from "../router.js";
 
 export default {
   data() {
-    return {};
+    return {
+      userToShow: this.$route.query.user,
+    };
   },
-  computed: {
-    user() {
-      return this.$store.state.user;
-    },
+
+  beforeMount() {
+    this.$forceUpdate();
+    this.userToShow = this.$route.query.user;
   },
+
   components: {
     ShowRating,
   },
-  methods: {},
+  methods: {
+    print() {
+      router.push(`/profile_page?user=${this.userToShow}`);
+    },
+  },
 };
 </script>
 
