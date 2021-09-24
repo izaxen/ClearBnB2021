@@ -35,7 +35,7 @@ public class UserRepository {
     }
 
     public List<User> findAllUsers(){
-        return entityManager.createQuery("from User").getResultList();
+        return entityManager.createNamedQuery("User.findAllUsers").getResultList();
     }
 
     public Optional<User> addUser(User user){

@@ -1,5 +1,6 @@
 package application;
 
+import com.mysql.cj.Session;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

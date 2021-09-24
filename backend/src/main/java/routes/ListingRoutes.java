@@ -1,10 +1,15 @@
 package routes;
 
 import application.ListingLogic;
+import com.mysql.cj.Session;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import oracle.jdbc.OracleConnection;
+import org.hibernate.annotations.Filter;
 import repositories.ListingRepository;
 import service.ListingService;
 
@@ -31,6 +36,7 @@ public class ListingRoutes {
             req.session("current-Listing", createdListing);
 
             res.json(createdListing.getId());
+
         });
 
     }

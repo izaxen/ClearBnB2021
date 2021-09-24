@@ -2,8 +2,24 @@ package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+@Filter(
+        name = "availableDateFilter",
+        condition = "available_start_date <= :availableStartDate and available_end_date >= :availableEndDate")
+    // available_start_date is our column in DB
+    //:availableStartDate is our user input sent from frontend
+
+@NamedQueries(
+        @NamedQuery(name = "Listing.findAllListings",
+                query = "SELECT l FROM Listing l")
+)
 
 @Entity
 public class Listing {
