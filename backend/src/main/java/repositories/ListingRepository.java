@@ -33,5 +33,16 @@ public class ListingRepository {
         return listing;
     }
 
+    public Listing updateListing(Listing listing){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(listing);
+            entityManager.getTransaction().commit();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return listing;
+    }
+
 
 }

@@ -28,6 +28,16 @@ public class AmenityRoutes {
             res.json(amenity);
         });
 
+        app.post("api/updateAmenity",(req, res) -> {   //Create amenity
+            Listing currentListing = req.session("current-Listing");
+
+            Amenities amenity = amenityLogic.createNewAmenity(
+                    ams.convertAddAmenitiesToAmenities(
+                            req.body(AddAmenityDTO.class), currentListing));
+
+            res.json(amenity);
+        });
+
     }
 
 

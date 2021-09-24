@@ -21,6 +21,12 @@ public class Repositories {
     AddressRepository addressRepository = new AddressRepository(entityManager);
     BookingRepository bookingRepository = new BookingRepository(entityManager);
 
+    public ListingRevisionRepository getListingRevisionRepository() {
+        return listingRevisionRepository;
+    }
+
+    ListingRevisionRepository listingRevisionRepository= new ListingRevisionRepository(entityManager);
+
 
 
     public BookingRepository booking() {

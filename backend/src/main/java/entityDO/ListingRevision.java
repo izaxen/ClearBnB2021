@@ -97,5 +97,18 @@ public class ListingRevision {
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return "ListingRevision{" +
+                "id=" + id +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", availableStartDate='" + availableStartDate + '\'' +
+                ", availableEndDate='" + availableEndDate + '\'' +
+                ", listing=" + listing +
+                ", addressRevision=" + addressRevision +
+                ", bookings=" + bookings +
+                ", user=" + user +
+                '}';
+    }
 }

@@ -55,6 +55,15 @@ public class Listing {
         this.user = owner;
     }
 
+    public Listing(int id, int price, String description, String availableStartDate, String availableEndDate, User user) {
+        this.id = id;
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
