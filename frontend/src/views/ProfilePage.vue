@@ -1,10 +1,11 @@
 <template>
   <div class="profile-page-container">
     <div class="search-user-container">
+      <h3>Go to user (user id)</h3>
       <input v-model="userToShow" placeholder="Search user (user ID)" />
       <button @click="goTo">Show</button>
     </div>
-    <h1>Welcome!</h1>
+    <h1>Profile page</h1>
     <ShowRating />
   </div>
 </template>
@@ -37,4 +38,8 @@ export default {
 </script>
 
 <style scoped>
+.search-user-container {
+  display: flex;
+  justify-content: right;
+}
 </style>
