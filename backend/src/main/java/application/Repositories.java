@@ -23,7 +23,7 @@ public class Repositories {
     BookingRepository bookingRepository = new BookingRepository(entityManager);
 
 
-
+    //TODO WHAT NAMING CONVENTION SHOULD WE USE ON REPO GETTERS??
     public BookingRepository booking() {
         return bookingRepository;
     }
