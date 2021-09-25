@@ -21,9 +21,7 @@ public class ListingRevisionRepository {
 
 
     public ListingRevision findRevIDByID(int id){
-
         List<ListingRevision> lrp;
-
         lrp = entityManager.createQuery("SELECT lr FROM ListingRevision lr WHERE lr.listing.id = :id"
                         ,ListingRevision.class)
                 .setParameter("id", id)
@@ -31,8 +29,11 @@ public class ListingRevisionRepository {
 
         ListingRevision e = lrp.get(lrp.size()-1);
         System.out.println(e.getPrice());
-
         return e;
+    }
+
+    public ListingRevision findById(int listRevId){
+
 
     }
     // We will get a list of all listing revisions belonging to ONE listing, if we have listingID

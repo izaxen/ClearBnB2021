@@ -34,7 +34,6 @@ public class ListingRoutes {
             );
 
             req.session("current-Listing", createdListing);
-
             res.json(createdListing.getId());
         });
 
@@ -50,12 +49,11 @@ public class ListingRoutes {
                             currentUser
                     )
             );
-
-            System.out.println(repo.getListingRevisionRepository().findRevIDByID(updatedListing.getId()).toString());
             req.session("current-rev-list-id", repo.getListingRevisionRepository().findRevIDByID(updatedListing.getId()));
-
             res.json(updatedListing.getId());
         });
+
+
 
     }
 }

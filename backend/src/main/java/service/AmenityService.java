@@ -11,4 +11,9 @@ public class AmenityService {
         return new Amenities(listing, add.isBathTub(), add.isParkingLot(), add.isStove(), add.isDoubleBed(),
         add.isBubblePool(), add.isCycle(), add.isSauna());
     }
+
+    public Amenities convertAddAmenties(AddAmenityDTO add, Listing listing){
+
+
+    }
 }
