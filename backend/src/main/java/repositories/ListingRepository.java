@@ -1,7 +1,10 @@
 package repositories;
 
+import entityDO.Rating;
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
+import jakarta.persistence.PersistenceException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,22 @@ public class ListingRepository {
     public List<Listing> findAllListings(){
         return entityManager.createQuery("from Listing").getResultList();
     }
+
+    public List<Listing> findAllListingsFromUser(User user){
+        List<Listing> listingList;
+        try {
+            listingList = entityManager.createQuery("SELECT l FROM Listing l WHERE l.user = :user", Listing.class)
+                    .setParameter("user", user)
+                    .getResultList();
+            return listingList;
+        }catch (PersistenceException e){
+            System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
     public Listing addListing(Listing listing){
         try{

@@ -23,12 +23,14 @@ public class UserRepository {
 
     public User findUserById(int id){
         try{
-            User user = entityManager.find(User.class, id);
-            return user;
-        }catch (PersistenceException e){
+            return entityManager.find(User.class, id);
+        }
+        //TODO REMOVE THIS CATCH? USED IT FOR FOUNDING A BUG THAT IS FIXED // MAC
+        catch (PersistenceException e){
             System.out.println("PersistenceException IN findByUser-----------:\n" + e.getMessage());
             e.printStackTrace();
         }
+        //TODO REMOVE THIS CATCH? USED IT FOR FOUNDING A BUG THAT IS FIXED // MAC
         catch (Exception e){
             System.out.println("Exception IN findByUser-----------:\n" + e.getMessage());
             e.printStackTrace();

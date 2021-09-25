@@ -1,7 +1,6 @@
 package application;
 
-import entityManager.EntityManagerCopy;
-import jakarta.persistence.EntityManager;
+import entityManager.NewEntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import repositories.*;
@@ -14,11 +13,11 @@ public class Repositories {
     jakarta.persistence.EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     ListingRepository listingRepository = new ListingRepository(entityManager);
-    UserRepository userRepository = new UserRepository(new EntityManagerCopy().getEntityManager());
+    UserRepository userRepository = new UserRepository(new NewEntityManager().getEntityManager());
     AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
     CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
     ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
-    RatingRepository ratingRepository = new RatingRepository(new EntityManagerCopy().getEntityManager());
+    RatingRepository ratingRepository = new RatingRepository(new NewEntityManager().getEntityManager());
     AddressRepository addressRepository = new AddressRepository(entityManager);
     BookingRepository bookingRepository = new BookingRepository(entityManager);
 

@@ -22,6 +22,11 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="owner_ID")
+    private User user;
+
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
     private Address address;
@@ -39,10 +44,6 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name="owner_ID")
-    private User user;
 
     public Listing() {
     }

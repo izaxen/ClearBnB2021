@@ -10,4 +10,5 @@ public class ListingService {
     public Listing convertAddListingToListing(AddListingDTO dto, User owner) {
         return new Listing(dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
     }
+
 }
