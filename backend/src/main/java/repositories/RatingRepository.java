@@ -3,6 +3,7 @@ package repositories;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
+import jakarta.persistence.PersistenceException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,14 +35,16 @@ public class RatingRepository {
     public List<Rating> getRatingOfUser(User user){
 
         List<Rating> ratingList;
-
-             ratingList = entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
+        try {
+            ratingList = entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
                     .setParameter("user", user)
                     .getResultList();
-
             return ratingList;
-
-
+        }catch (PersistenceException e){
+            System.out.println("ERROR IN getRatingOfUser (repository) ----------------: \n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public double calcAvgRatingOfUser(User user){

@@ -3,6 +3,7 @@ package repositories;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import entityDO.User;
+import jakarta.persistence.PersistenceException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,20 @@ public class UserRepository {
     }
 
     public User findUserById(int id){
-        return entityManager.find(User.class, id);
+        try{
+            User user = entityManager.find(User.class, id);
+            return user;
+        }catch (PersistenceException e){
+            System.out.println("PersistenceException IN findByUser-----------:\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        catch (Exception e){
+            System.out.println("Exception IN findByUser-----------:\n" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 
     public List<User> findByFullName(String firstName, String surName){

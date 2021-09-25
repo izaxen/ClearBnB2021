@@ -26,8 +26,10 @@ export default {
   },
 
   mounted() {
-    this.getAllRatings();
-    this.getAvgRating();
+    this.getAvgRating().then(() => {
+      this.getAllRatings();
+    });
+
     this.userID = this.$route.query.user;
   },
 

@@ -29,6 +29,7 @@ export default {
   components: {
     ShowRating,
   },
+
   methods: {
     goTo() {
       router.push(`/profile_page?user=${this.userToShow}`);

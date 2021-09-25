@@ -24,9 +24,11 @@ public class RatingLogic {
 
         ArrayList<GetRatingDTO> listOfRatingDTO = new ArrayList<>();
 
-        listOfRatings.forEach(rating -> {
-            listOfRatingDTO.add(ratingService.getRatingDTO(rating));
-        });
+        if(listOfRatings!=null){
+            listOfRatings.forEach(rating -> {
+                listOfRatingDTO.add(ratingService.getRatingDTO(rating));
+            });
+        }
 
         return listOfRatingDTO;
     }
