@@ -33,6 +33,7 @@ public class ListingRoutes {
             res.json(createdListing.getId());
         });
 
+        //TODO CHECK IF NEEDED TO USE DTO
         app.get("/api/getAllListings", (req, res) -> {
            res.json(listingLogic.getAllListings());
         });

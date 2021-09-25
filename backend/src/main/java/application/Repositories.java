@@ -1,5 +1,6 @@
 package application;
 
+import entityManager.EntityManagerCopy;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -13,16 +14,16 @@ public class Repositories {
     jakarta.persistence.EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     ListingRepository listingRepository = new ListingRepository(entityManager);
-    UserRepository userRepository = new UserRepository(entityManager);
+    UserRepository userRepository = new UserRepository(new EntityManagerCopy().getEntityManager());
     AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
     CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
     ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
-    RatingRepository ratingRepository = new RatingRepository(entityManager);
+    RatingRepository ratingRepository = new RatingRepository(new EntityManagerCopy().getEntityManager());
     AddressRepository addressRepository = new AddressRepository(entityManager);
     BookingRepository bookingRepository = new BookingRepository(entityManager);
 
 
-
+    //TODO WHAT NAMING CONVENTION SHOULD WE USE ON REPO GETTERS??
     public BookingRepository booking() {
         return bookingRepository;
     }

@@ -21,7 +21,6 @@ public class BookingRepository {
     }
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
-        System.out.println("isbooked called!");
 
         List bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.listing = :listing " +
                 "AND (b.startDate between :sDate " +
@@ -30,7 +29,6 @@ public class BookingRepository {
                 .setParameter("sDate", startDate)
                 .setParameter("eDate", endDate)
                 .getResultList();
-
 
         return bookings.size() > 0;
 
