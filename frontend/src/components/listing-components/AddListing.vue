@@ -109,16 +109,6 @@ export default {
       };
 
       await this.$store.dispatch("addAmenity", newAmenity);
-      this.getFilteredListings();
-    },
-
-    async getFilteredListings() {
-      let newFilter = {
-        availableStartDate: this.available_start_date,
-        availableEndDate: this.available_end_date,
-      };
-
-      await this.$store.dispatch("getA", newFilter);
     },
   },
 };

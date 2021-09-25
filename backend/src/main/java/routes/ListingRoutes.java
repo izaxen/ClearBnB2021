@@ -7,6 +7,7 @@ import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
+import filter.ListingFilter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import oracle.jdbc.OracleConnection;
@@ -64,7 +65,7 @@ public class ListingRoutes {
             // Kommer in nu är start & end
             //De skall verifieras och detta görs med DTO
             List<Listing> filteredListings = listingLogic.getFilteredListings(
-            ls.convertToFilteredListingsDTO(req.body(FilteredListingDTO.class)));
+            (req.body(ListingFilter.class)));
 
             //Jämnföra värden med alla och skapa en ny lista
             //getFilteredListings(Timestamp ts1, Timestamp ts2)
