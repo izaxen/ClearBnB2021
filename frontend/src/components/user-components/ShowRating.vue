@@ -21,6 +21,7 @@ export default {
     return {
       userID: this.$route.query.user,
       ratings: [],
+      rating: null,
       avgRating: null,
     };
   },
