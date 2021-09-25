@@ -59,6 +59,15 @@ export default {
       price: null,
       available_start_date: 1632393710000,
       available_end_date: 1632566510000,
+      isBathTub: false,
+      isParkingLot: false,
+      isStove: false,
+      isDoubleBed: false,
+      isBubblePool: false,
+      isCycle: false,
+      isSauna: false,
+      city: null,
+      addressListing: null,
     };
   },
 
