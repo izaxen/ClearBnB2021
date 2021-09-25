@@ -3,30 +3,60 @@
     <h1>Filters</h1>
     <form @submit.prevent="filterListings">
       <div class="filterFields">
-        <input v-model="price" type="number" placeholder="Max price" />
+        <div class="price">
+          <input v-model="price" type="number" placeholder="Max price" />
+        </div>
 
-        <input type="checkbox" id="isBathTub" v-model="isBathTub" />
-        <label for="isBathTub">BathTub</label>
+        <div class="date">
+          <div class="start">
+            <label for="startDate">Select Start Date</label>
+            <input
+              v-model="available_start_date"
+              id="startDate"
+              required
+              type="date"
+              placeholder="Start Date"
+              min="date()"
+            />
+          </div>
+          <div class="end">
+            <label for="endDate">Select End Date</label>
+            <input
+              v-model="available_end_date"
+              id="endDate"
+              required
+              type="date"
+              placeholder="End Date"
+              min="date()"
+            />
+          </div>
+        </div>
 
-        <input type="checkbox" id="isParkingLot" v-model="isParkingLot" />
-        <label for="isParkingLot">ParkingLot</label>
+        <div class="amenity">
+          <p>Choose anemities</p>
+          <input type="checkbox" id="isBathTub" v-model="isBathTub" />
+          <label for="isBathTub">BathTub</label>
 
-        <input type="checkbox" id="isStove" v-model="isStove" />
-        <label for="isStove">Stove</label>
+          <input type="checkbox" id="isParkingLot" v-model="isParkingLot" />
+          <label for="isParkingLot">ParkingLot</label>
 
-        <input type="checkbox" id="isDoubleBed" v-model="isDoubleBed" />
-        <label for="isDoubleBed">DoubleBed</label>
+          <input type="checkbox" id="isStove" v-model="isStove" />
+          <label for="isStove">Stove</label>
 
-        <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
-        <label for="isBubblePool">BubblePool</label>
+          <input type="checkbox" id="isDoubleBed" v-model="isDoubleBed" />
+          <label for="isDoubleBed">DoubleBed</label>
 
-        <input type="checkbox" id="isCycle" v-model="isCycle" />
-        <label for="isCycle">Cycle</label>
+          <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
+          <label for="isBubblePool">BubblePool</label>
 
-        <input type="checkbox" id="isSauna" v-model="isSauna" />
-        <label for="isSauna">Sauna</label>
+          <input type="checkbox" id="isCycle" v-model="isCycle" />
+          <label for="isCycle">Cycle</label>
+
+          <input type="checkbox" id="isSauna" v-model="isSauna" />
+          <label for="isSauna">Sauna</label>
+        </div>
       </div>
-      <button>Filter Listing</button>
+      <button>Find My Dream House!</button>
     </form>
   </div>
 </template>
@@ -43,18 +73,17 @@ export default {
       isCycle: null,
       isSauna: null,
       price: null,
-      available_start_date: 1632393710000,
-      available_end_date: 1632566510000,
+      available_start_date: this.available_start_date,
+      available_end_date: this.available_end_date,
+      matchedListings: [],
     };
   },
 
   methods: {
     async filterListings() {
-      console.log("Frontend Filter" + this.price);
       // if (this.price === null) {
       //   this.price = 99999;
       // }
-      console.log(this.price);
 
       let newFilter = {
         price: this.price,
@@ -74,7 +103,9 @@ export default {
       // }
 
       await this.$store.dispatch("getA", newFilter);
-      console.log(this.isBathTub);
+
+      this.matchedListings = this.$store.state.matchedListings;
+      this.$emit("updatelist", this.matchedListings);
     },
   },
 };

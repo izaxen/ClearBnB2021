@@ -77,6 +77,44 @@ public class Listing {
         this.availableEndDate = availableEndDate;
     }
 
+    public Listing(int id, int price, String description, Timestamp availableStartDate, Timestamp availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
+        this.id = id;
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.address = address;
+        this.bookings = bookings;
+        this.listingRevisions = listingRevisions;
+        this.amenities = amenities;
+        this.images = images;
+        this.user = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
     public Integer getId() {
         return id;
     }

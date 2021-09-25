@@ -5,22 +5,36 @@
       <div class="inputFields">
         <input
           v-model="description"
+          required
           type="text"
           placeholder="Enter description here"
         />
 
-        <input v-model="price" type="number" placeholder="Enter price here" />
+        <input
+          v-model="price"
+          type="number"
+          required
+          placeholder="Enter price here"
+        />
 
-        <input v-model="city" type="text" placeholder="Enter city here" />
+        <input
+          v-model="city"
+          type="text"
+          required
+          placeholder="Enter city here"
+        />
 
         <input
           v-model="addressListing"
+          required
           type="text"
           placeholder="Enter address here"
         />
       </div>
       <br />
       <div class="amen">
+        <p>Choose amenities</p>
+
         <input type="checkbox" id="isBathTub" v-model="isBathTub" />
         <label for="isBathTub">BathTub</label>
 
@@ -42,8 +56,33 @@
         <input type="checkbox" id="isSauna" v-model="isSauna" />
         <label for="isSauna">Sauna</label>
       </div>
+
+      <div class="date">
+        <div class="start">
+          <label for="startDate">Select Start Date</label>
+          <input
+            v-model="available_start_date"
+            id="startDate"
+            required
+            type="date"
+            placeholder="Start Date"
+            min="date()"
+          />
+        </div>
+        <div class="end">
+          <label for="endDate">Select End Date</label>
+          <input
+            v-model="available_end_date"
+            id="endDate"
+            required
+            type="date"
+            placeholder="End Date"
+            min="date()"
+          />
+        </div>
+      </div>
+
       <br />
-      -->
 
       <button>Save Listing</button>
     </form>
@@ -57,8 +96,8 @@ export default {
       user: null,
       description: "",
       price: null,
-      available_start_date: 1632393710000,
-      available_end_date: 1632566510000,
+      available_start_date: null,
+      available_end_date: null,
       isBathTub: false,
       isParkingLot: false,
       isStove: false,
@@ -123,10 +162,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.amen {
-  display: flex;
-  flex-direction: row;
-}
+
 .add-listing-container {
   grid-column-start: 1;
   grid-row-start: 1;

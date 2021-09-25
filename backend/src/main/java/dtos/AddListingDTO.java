@@ -14,6 +14,8 @@ public class AddListingDTO {
     private int userID;
     private String userEmail;
     private String firstName;
+    private String address;
+    private String city;
 
 
     public AddListingDTO() {
@@ -27,6 +29,8 @@ public class AddListingDTO {
         this.userID = listing.getUser().getID();
         this.userEmail = listing.getUser().getEmail();
         this.firstName = listing.getUser().getFirstName();
+        this.city = listing.getAddress().getCity();
+        this.address = listing.getAddress().getAddressListing();
     }
 
     public AddListingDTO(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate) {
@@ -37,8 +41,25 @@ public class AddListingDTO {
     }
 
 
+    public int getUserID() {
+        return userID;
+    }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
 
     public int getPrice() {
         return price;
@@ -70,5 +91,20 @@ public class AddListingDTO {
 
     public void setAvailableEndDate(Timestamp availableEndDate) {
         this.availableEndDate = availableEndDate;
+    }
+
+    @Override
+    public String toString() {
+        return "AddListingDTO{" +
+                "price=" + price +
+                ", description='" + description + '\'' +
+                ", availableStartDate=" + availableStartDate +
+                ", availableEndDate=" + availableEndDate +
+                ", userID=" + userID +
+                ", userEmail='" + userEmail + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

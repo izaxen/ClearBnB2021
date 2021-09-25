@@ -64,7 +64,7 @@ public class ListingRoutes {
 
             // Kommer in nu är start & end
             //De skall verifieras och detta görs med DTO
-            List<Listing> filteredListings = listingLogic.getFilteredListings(
+            List<AddListingDTO> filteredListings = listingLogic.getFilteredListings(
             (req.body(ListingFilter.class)));
 
             //Jämnföra värden med alla och skapa en ny lista

@@ -10,6 +10,7 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
+      matchedListings: [],
 
     }
   },
@@ -30,6 +31,10 @@ export const store = createStore({
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
     },
+
+    setMatchedListing(state, matchedListings) {
+      state.matchedListings = matchedListings;
+    }
   },
 
   //async methods that will trigger a mutation
@@ -101,11 +106,13 @@ export const store = createStore({
     },
 
     async getA(store, filters) {
-      await fetch('/api/getA', {
+      let res = await fetch('/api/getA', {
         method: 'POST',
         body: JSON.stringify(filters)
       })
-    }
+      let matchedListings = await res.json();
+      store.commit('setMatchedListing', matchedListings);
+    },
   }
 })
 

@@ -1,16 +1,17 @@
 <template>
   <div class="home-container">
     <AvailableLinstings />
-    <br>
-      <div class = "user">
-        <div class = "create">
-        <CreateUser/></div>
-        <div class = "login">
-        <LoginUser/>
-        </div>
-      </div>
     <br />
-   
+    <div class="user">
+      <div class="create">
+        <CreateUser />
+      </div>
+      <div class="login">
+        <LoginUser />
+      </div>
+    </div>
+    <br />
+
     <Create-booking />
   </div>
 </template>
@@ -33,20 +34,12 @@ export default {
   grid-template-columns: 1fr 50vw 1fr;
 }
 
-.user{
-  display: flex;
-  
-  
-}
-.login{
+.login {
   width: 300px;
   border: 2px;
-  
 }
 
-.create{
-  
+.create {
   width: 300px;
 }
-
 </style>

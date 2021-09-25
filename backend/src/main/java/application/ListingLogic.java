@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import repositories.ListingRepository;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListingLogic {
@@ -33,7 +34,7 @@ public class ListingLogic {
     }
 
 
-    public List<Listing> getFilteredListings(ListingFilter filter){
+    public List<AddListingDTO> getFilteredListings(ListingFilter filter){
         // time should send as argument
         rp = new Repositories();
         Session session = rp.entityManager.unwrap(Session.class);
@@ -55,22 +56,22 @@ public class ListingLogic {
         Boolean isSauna = filter.isSauna();
         int maxPrice = filter.getPrice();
 
-//        System.out.println("ts1: " + ts1);
-//        System.out.println("ts2: " + ts2);
-        System.out.println("isBathTub: " + isBathTub);
-        System.out.println("isParkingLot: " + isParkingLot);
-        System.out.println("isStove: " + isStove);
-        System.out.println("isDoubleBed: " + isDoubleBed);
-        System.out.println("isBubblePool: " + isBubblePool);
-        System.out.println("isCycle: " + isCycle);
-        System.out.println("isSauna: " + isSauna);
-        System.out.println("MAX price: " + maxPrice);
+        System.out.println("ts1: " + ts1);
+        System.out.println("ts2: " + ts2);
+//        System.out.println("isBathTub: " + isBathTub);
+//        System.out.println("isParkingLot: " + isParkingLot);
+//        System.out.println("isStove: " + isStove);
+//        System.out.println("isDoubleBed: " + isDoubleBed);
+//        System.out.println("isBubblePool: " + isBubblePool);
+//        System.out.println("isCycle: " + isCycle);
+//        System.out.println("isSauna: " + isSauna);
+//        System.out.println("MAX price: " + maxPrice);
 
 
         // Though this works, we don't want to return the whole list of Listing back to
         // front page, because this would send User info with it, DTO it!
 
-        List matchedListing = session.createQuery("FROM Listing as l WHERE " +
+        List<Listing> matchedListing = session.createQuery("FROM Listing as l WHERE " +
                 "(:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
                 "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate) AND " +
                         "(:isBathTub IS FALSE or l.amenities.isBathTub IS :isBathTub) AND " +
@@ -80,7 +81,7 @@ public class ListingLogic {
                         "(:isBubblePool IS FALSE or l.amenities.isBubblePool IS :isBubblePool) AND " +
                         "(:isCycle IS FALSE or l.amenities.isCycle IS :isCycle) AND " +
                         "(:isSauna IS FALSE or l.amenities.isSauna IS :isSauna) AND " +
-                        "(:maxPrice = 0 or l.price <= :maxPrice)")
+                        "(:maxPrice = 0 or l.price <= :maxPrice)", Listing.class)
                 .setParameter("selectedStartDate", ts1)
                 .setParameter("selectedEndDate", ts2)
                 .setParameter("isBathTub", isBathTub)
@@ -93,20 +94,22 @@ public class ListingLogic {
                 .setParameter("maxPrice", maxPrice)
                 .list();
 
-        for (Object l : matchedListing
-             ) {
-            System.out.println( l);
-        }
-
-//        for (Object l: matchedListing
+//        for (Object l : matchedListing
 //             ) {
-//            addListingDTO = new AddListingDTO(l);
-//             matchedListingDTO(){
-//            })
+//            System.out.println( l);
 //        }
 
+        List<AddListingDTO> matchedListingDTO = new ArrayList<>();
 
-        return matchedListing;
+        for (Listing l: matchedListing
+             ) {
+            addListingDTO = new AddListingDTO(l);
+            System.out.println("DTO " + addListingDTO.toString());
+            matchedListingDTO.add(addListingDTO);
+
+        }
+
+        return matchedListingDTO;
     }
 
 }
