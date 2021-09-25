@@ -57,10 +57,10 @@ public class ListingRoutes {
            res.json(listingLogic.getAllListings());
         });
 
-        app.get("/api/getFilteredListings", (req, res) ->{
+        app.post("/api/getA", (req, res) ->{
             System.out.println("Inne i filter");
-            Listing list = req.body(Listing.class);
-            System.out.println("List: " + list);
+           // Listing list = req.body(Listing.class);
+
             // Kommer in nu är start & end
             //De skall verifieras och detta görs med DTO
             List<Listing> filteredListings = listingLogic.getFilteredListings(
@@ -68,7 +68,7 @@ public class ListingRoutes {
 
             //Jämnföra värden med alla och skapa en ny lista
             //getFilteredListings(Timestamp ts1, Timestamp ts2)
-            System.out.println("filteredListings: " + filteredListings);
+//            System.out.println("filteredListings: " + filteredListings);
 
             res.json(filteredListings);
         });

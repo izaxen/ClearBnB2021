@@ -98,6 +98,13 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(amenity)
       })
+    },
+
+    async getA(store, filters) {
+      await fetch('/api/getA', {
+        method: 'POST',
+        body: JSON.stringify(filters)
+      })
     }
   }
 })

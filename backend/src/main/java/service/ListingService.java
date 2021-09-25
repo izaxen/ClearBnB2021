@@ -18,6 +18,6 @@ public class ListingService {
 
     public Listing convertToFilteredListingsDTO(FilteredListingDTO dto){
 
-        return new Listing (dto.getSelectedStartDate(), dto.getSelectedEndDate());
+        return new Listing (dto.getAvailableStartDate(), dto.getAvailableEndDate());
     }
 }

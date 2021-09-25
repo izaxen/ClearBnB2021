@@ -1,6 +1,6 @@
 
 
-@FilterDef(name="availableDateFilter", parameters = {
+@FilterDef(name="dateFilter", parameters = {
         // User input
         @ParamDef(name = "availableStartDate", type = "java.sql.Timestamp"),
         @ParamDef(name = "availableEndDate", type = "java.sql.Timestamp")

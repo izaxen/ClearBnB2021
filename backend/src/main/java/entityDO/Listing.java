@@ -2,9 +2,11 @@ package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import org.hibernate.annotations.*;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -12,16 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Filter(
-        name = "availableDateFilter",
-        condition = "available_start_date <= :availableStartDate and available_end_date >= :availableEndDate")
     // available_start_date is our column in DB
     //:availableStartDate is our user input sent from frontend
 
-@NamedQueries(
-        @NamedQuery(name = "Listing.findAllListings",
-                query = "SELECT l FROM Listing l")
-)
 
 @Entity
 public class Listing {
@@ -34,9 +29,13 @@ public class Listing {
 
     private String description;
 
+    @Filter(name = "dateFilter",
+            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_start_date")
     private Timestamp availableStartDate;
 
+    @Filter(name = "dateFilter",
+            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_end_date")
     private Timestamp availableEndDate;
 

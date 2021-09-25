@@ -23,7 +23,7 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-        return entityManager.createNamedQuery("Listing.findAllListings").getResultList();
+        return entityManager.createQuery("SELECT l FROM Listing l", Listing.class).getResultList();
     }
 
 
