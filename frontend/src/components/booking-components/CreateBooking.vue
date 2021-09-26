@@ -50,14 +50,14 @@ export default {
         startDate: this.startDate,
         endDate: this.endDate,
       };
-      console.log("booking " + newBooking);
+      console.log(newBooking);
       console.log("selectedStartDate " + newBooking.startDate);
-      console.log("Listing/selected " + newBooking.Listing);
+      console.log(newBooking.listing.listingID);
       this.postNewBooking(newBooking);
     },
     async postNewBooking() {
       let res = await fetch(
-        `/rest/createBooking/${this.selected.ListingID}/${this.startDate}/${this.endDate}`
+        `/rest/createBooking/${this.selected.listingID}/${this.startDate}/${this.endDate}`
       );
     },
     async getAllListings() {

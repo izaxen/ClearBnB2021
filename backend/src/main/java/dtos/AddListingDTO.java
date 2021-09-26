@@ -39,7 +39,6 @@ public class AddListingDTO {
         this.price = listing.getPrice();
         this.description = listing.getDescription();
         this.listingID = listing.getId();
-        this.function = forBooking;
 //        System.out.println("we are in constructor B");
     }
 
