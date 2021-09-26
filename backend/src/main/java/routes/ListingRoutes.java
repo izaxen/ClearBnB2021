@@ -58,7 +58,11 @@ public class ListingRoutes {
            res.json(listingLogic.getAllListings());
         });
 
-        app.post("/api/getA", (req, res) ->{
+        app.get("/rest/getAllListingsDTO", (request, response) -> {
+            response.json(listingLogic.getAllListingsDTO());
+        });
+
+        app.post("/api/getFilteredListing", (req, res) ->{
             System.out.println("Inne i filter");
            // Listing list = req.body(Listing.class);
 

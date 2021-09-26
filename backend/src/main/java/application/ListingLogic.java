@@ -33,6 +33,18 @@ public class ListingLogic {
         return listingRepository.findAllListings();
     }
 
+    public List<AddListingDTO> getAllListingsDTO(){
+        List<Listing> allListings = listingRepository.findAllListings();
+        List<AddListingDTO> allListingsDTO = new ArrayList<>();
+        for ( Listing l: allListings
+             ) {
+            addListingDTO = new AddListingDTO(l);
+            allListingsDTO.add(addListingDTO);
+//            System.out.println(addListingDTO);
+        }
+        return allListingsDTO;
+    }
+
 
     public List<AddListingDTO> getFilteredListings(ListingFilter filter){
         // time should send as argument
@@ -104,7 +116,6 @@ public class ListingLogic {
         for (Listing l: matchedListing
              ) {
             addListingDTO = new AddListingDTO(l);
-            System.out.println("DTO " + addListingDTO.toString());
             matchedListingDTO.add(addListingDTO);
 
         }

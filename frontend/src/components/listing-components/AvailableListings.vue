@@ -32,7 +32,7 @@ export default {
   },
 
   created() {
-    this.getAllListings();
+    this.getAllListingsDTO();
   },
 
   methods: {
@@ -40,9 +40,10 @@ export default {
       this.matchedListings = matchedListings;
     },
 
-    async getAllListings() {
-      let res = await fetch("/api/getAllListings");
+    async getAllListingsDTO() {
+      let res = await fetch("/rest/getAllListingsDTO");
       this.matchedListings = await res.json();
+      console.log(this.matchedListings);
     },
   },
 };

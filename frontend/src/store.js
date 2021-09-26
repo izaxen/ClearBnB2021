@@ -105,13 +105,20 @@ export const store = createStore({
       })
     },
 
-    async getA(store, filters) {
-      let res = await fetch('/api/getA', {
+    async getFilteredListing(store, filters) {
+      let res = await fetch('/api/getFilteredListing', {
         method: 'POST',
         body: JSON.stringify(filters)
       })
       let matchedListings = await res.json();
       store.commit('setMatchedListing', matchedListings);
+    },
+
+    async getAllListingsDTO(_, listings) {
+      await fetch('/rest/getAllListingsDTO', {
+        method: 'PUT',
+        body: JSON.stringify(listings)
+      })
     },
   }
 })

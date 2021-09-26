@@ -102,7 +102,7 @@ export default {
       //   this.price = null;
       // }
 
-      await this.$store.dispatch("getA", newFilter);
+      await this.$store.dispatch("getFilteredListing", newFilter);
 
       this.matchedListings = this.$store.state.matchedListings;
       this.$emit("updatelist", this.matchedListings);
