@@ -19,15 +19,21 @@ import service.ListingService;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class ListingRoutes {
 
     private ListingLogic listingLogic;
     private ListingService ls;
+    private Express app;
 
     public ListingRoutes(Express app, Repositories repositories) {
 
         listingLogic= new ListingLogic(repositories);
         ls= new ListingService();
+        this.app = app;
+
+        getAllListingsInSummaryFromUser();
 
         app.post("/api/addListing", (req, res) -> {
             User currentUser = req.session("current-user");
@@ -80,4 +86,13 @@ public class ListingRoutes {
             res.json(filteredListings);
         });
     }
+
+    private void getAllListingsInSummaryFromUser(){
+        app.get("/rest/:userID/listings", (req, res) -> {
+            int userID = parseInt(req.params("userID"));
+            res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
+        });
+    }
+
+    
 }

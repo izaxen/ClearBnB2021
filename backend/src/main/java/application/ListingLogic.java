@@ -1,14 +1,14 @@
 package application;
 
 import dtos.AddListingDTO;
+import dtos.GetAllListingsInSummaryFromUserDTO;
 import entityDO.Listing;
+import entityDO.User;
 import filter.ListingFilter;
-import org.hibernate.Filter;
 import org.hibernate.Session;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +17,6 @@ public class ListingLogic {
     ListingRepository listingRepository;
     BookingRepository bookingRepository;
     Repositories repositories;
-    Repositories rp;
-    List<AddListingDTO> matchedListingDTO;
     AddListingDTO addListingDTO;
     AddListingDTO addListingDTOForBooking;
 
@@ -60,7 +58,6 @@ public class ListingLogic {
             }
             return allListingsDTO;
     }
-
 
     public List<AddListingDTO> getFilteredListings(ListingFilter filter){
         // time should send as argument
@@ -142,5 +139,20 @@ public class ListingLogic {
         }
 
         return matchedListingDTO;
+    }
+
+    public List<GetAllListingsInSummaryFromUserDTO> getAllListingsInSummaryFromUser(int userID){
+
+        User user = repositories.getUserRep().findUserById(userID);
+
+        List <Listing> listingList = listingRepository.findAllListingsFromUser(user);
+
+        ArrayList<GetAllListingsInSummaryFromUserDTO> allListingsDTO = new ArrayList<>();
+        listingList.forEach((listing) ->{
+            allListingsDTO.add(new GetAllListingsInSummaryFromUserDTO(listing.getId(), listing.getPrice(), listing.getDescription()));
+        });
+
+        return allListingsDTO;
+
     }
 }
