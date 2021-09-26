@@ -30,6 +30,7 @@ export default {
     async getListingsInSum() {
       let res = await fetch(`/rest/${this.userToShow}/listings`);
       this.listings = await res.json();
+      console.log("hej");
     },
   },
 };
