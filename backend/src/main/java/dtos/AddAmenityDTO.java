@@ -2,21 +2,21 @@ package dtos;
 
 public class AddAmenityDTO {
 
-    private boolean isBathTub;
-    private boolean isParkingLot;
-    private boolean isStove;
-    private boolean isDoubleBed;
-    private boolean isBubblePool;
-    private boolean isCycle;
-    private boolean isSauna;
+    private Boolean isBathTub;
+    private Boolean isParkingLot;
+    private Boolean isStove;
+    private Boolean isDoubleBed;
+    private Boolean isBubblePool;
+    private Boolean isBicycle;
+    private Boolean isSauna;
 
-    public AddAmenityDTO(boolean isBathTub, boolean isParkingLot, boolean isStove, boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
+    public AddAmenityDTO(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
         this.isDoubleBed = isDoubleBed;
         this.isBubblePool = isBubblePool;
-        this.isCycle = isCycle;
+        this.isBicycle = isBicycle;
         this.isSauna = isSauna;
     }
 
@@ -25,59 +25,59 @@ public class AddAmenityDTO {
 
     }
 
-    public boolean isBathTub() {
+    public Boolean isBathTub() {
         return isBathTub;
     }
 
-    public void setBathTub(boolean bathTube) {
+    public void setBathTub(Boolean bathTube) {
         isBathTub = bathTube;
     }
 
-    public boolean isParkingLot() {
+    public Boolean isParkingLot() {
         return isParkingLot;
     }
 
-    public void setParkingLot(boolean parkingLot) {
+    public void setParkingLot(Boolean parkingLot) {
         isParkingLot = parkingLot;
     }
 
-    public boolean isStove() {
+    public Boolean isStove() {
         return isStove;
     }
 
-    public void setStove(boolean stove) {
+    public void setStove(Boolean stove) {
         isStove = stove;
     }
 
-    public boolean isDoubleBed() {
+    public Boolean isDoubleBed() {
         return isDoubleBed;
     }
 
-    public void setDoubleBed(boolean doubleBed) {
+    public void setDoubleBed(Boolean doubleBed) {
         isDoubleBed = doubleBed;
     }
 
-    public boolean isBubblePool() {
+    public Boolean isBubblePool() {
         return isBubblePool;
     }
 
-    public void setBubblePool(boolean bubblePool) {
+    public void setBubblePool(Boolean bubblePool) {
         isBubblePool = bubblePool;
     }
 
-    public boolean isCycle() {
-        return isCycle;
+    public Boolean isBicycle() {
+        return isBicycle;
     }
 
-    public void setCycle(boolean cycle) {
-        isCycle = cycle;
+    public void setIsBicycle(Boolean cycle) {
+        isBicycle = cycle;
     }
 
-    public boolean isSauna() {
+    public Boolean isSauna() {
         return isSauna;
     }
 
-    public void setSauna(boolean sauna) {
+    public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
 }

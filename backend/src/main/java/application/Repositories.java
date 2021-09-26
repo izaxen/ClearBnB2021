@@ -20,14 +20,24 @@ public class Repositories {
     RatingRepository ratingRepository = new RatingRepository(entityManager);
     AddressRepository addressRepository = new AddressRepository(entityManager);
     BookingRepository bookingRepository = new BookingRepository(entityManager);
+    AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(entityManager);
+    ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public BookingRepository getBookingRepository() {
+        return bookingRepository;
+    }
+
+    public AmenitiesRevisionRepository getAmenitiesRevisionRepository() {
+        return amenitiesRevisionRepository;
+    }
 
     public ListingRevisionRepository getListingRevisionRepository() {
         return listingRevisionRepository;
     }
-
-    ListingRevisionRepository listingRevisionRepository= new ListingRevisionRepository(entityManager);
-
-
 
     public BookingRepository booking() {
         return bookingRepository;

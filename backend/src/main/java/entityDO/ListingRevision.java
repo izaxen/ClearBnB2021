@@ -30,6 +30,9 @@ public class ListingRevision {
     @OneToOne(mappedBy = "listingRevision")
     private AddressRevision addressRevision;
 
+    @OneToOne(mappedBy ="listingRevision")
+    private AmenitiesRevsion amenitiesRevsion;
+
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
@@ -40,13 +43,18 @@ public class ListingRevision {
     public ListingRevision() {
     }
 
-    public ListingRevision(Integer price, String description, String availableStartDate, String availableEndDate, Listing listing, User user) {
+    public ListingRevision(Integer price, String description, String availableStartDate,
+                           String availableEndDate, Listing listing, User user) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.listing = listing;
         this.user = user;
+    }
+
+    public ListingRevision(Listing listing) {
+        this.listing = listing;
     }
 
     public Integer getPrice() {

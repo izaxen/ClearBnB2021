@@ -34,6 +34,7 @@ public class ListingRepository {
     }
 
     public Listing updateListing(Listing listing){
+
         try{
             entityManager.getTransaction().begin();
             entityManager.merge(listing);
@@ -43,6 +44,8 @@ public class ListingRepository {
         }
         return listing;
     }
+
+
 
 
 }

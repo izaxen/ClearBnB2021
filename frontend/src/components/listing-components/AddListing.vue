@@ -97,7 +97,7 @@ export default {
         stove: this.isStove,
         doubleBed: this.isDoubleBed,
         bubblePool: this.isBubblePool,
-        cycle: this.isCycle,
+        bicycle: this.isCycle,
         sauna: this.isSauna,
       };
 

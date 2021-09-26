@@ -17,11 +17,10 @@ public class ListingRoutes {
     private ListingService ls;
     private Repositories repo;
 
-    public ListingRoutes(Express app, ListingRepository listingRepository) {
-
-        listingLogic= new ListingLogic(listingRepository);
+    public ListingRoutes(Express app, Repositories repo) {
+        this.repo = repo;
+        listingLogic= new ListingLogic(repo);
         ls= new ListingService();
-        repo = new Repositories();
 
         app.post("/api/addListing", (req, res) -> {
             User currentUser = req.session("current-user");
@@ -49,11 +48,8 @@ public class ListingRoutes {
                             currentUser
                     )
             );
-            req.session("current-rev-list-id", repo.getListingRevisionRepository().findRevIDByID(updatedListing.getId()));
+            req.session("current-rev-list", repo.getListingRevisionRepository().findRevIDByID(updatedListing.getId()));
             res.json(updatedListing.getId());
         });
-
-
-
     }
 }
