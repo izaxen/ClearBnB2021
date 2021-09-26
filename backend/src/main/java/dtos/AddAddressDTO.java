@@ -6,7 +6,7 @@ public class AddAddressDTO {
     private String address;
     private String city;
 
-    public AddAddressDTO(String address, String city) {
+    public AddAddressDTO (String city, String address) {
         this.address = address;
         this.city = city;
     }

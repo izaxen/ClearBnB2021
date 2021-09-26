@@ -16,6 +16,6 @@ public class AddressService {
 
     public Address convertAddAddressToAddress(AddAddressDTO dto, Listing listing) {
 
-        return new Address(dto.getAddress(), dto.getCity(), listing);
+        return new Address(dto.getCity(), dto.getAddress(), listing);
     }
 }

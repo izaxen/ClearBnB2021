@@ -2,8 +2,21 @@ package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import org.hibernate.annotations.*;
+
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+
+    // available_start_date is our column in DB
+    //:availableStartDate is our user input sent from frontend
+
 
 @Entity
 public class Listing {
@@ -16,11 +29,15 @@ public class Listing {
 
     private String description;
 
+    @Filter(name = "dateFilter",
+            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_start_date")
-    private String availableStartDate;
+    private Timestamp availableStartDate;
 
+    @Filter(name = "dateFilter",
+            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_end_date")
-    private String availableEndDate;
+    private Timestamp availableEndDate;
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
@@ -47,12 +64,55 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
+    public Listing(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate, User owner) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.user = owner;
+    }
+
+    public Listing(Timestamp availableStartDate, Timestamp availableEndDate) {
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+    }
+
+    public Listing(int id, int price, String description, Timestamp availableStartDate, Timestamp availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
+        this.id = id;
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.address = address;
+        this.bookings = bookings;
+        this.listingRevisions = listingRevisions;
+        this.amenities = amenities;
+        this.images = images;
+        this.user = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Integer getId() {
@@ -79,19 +139,19 @@ public class Listing {
         this.description = description;
     }
 
-    public String getAvailableStartDate() {
+    public Timestamp getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(String availableStartDate) {
+    public void setAvailableStartDate(Timestamp availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public String getAvailableEndDate() {
+    public Timestamp getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(String availableEndDate) {
+    public void setAvailableEndDate(Timestamp availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 

@@ -56,6 +56,8 @@ public class BookingRoutes {
             }
 
             int listingID = parseInt(req.params("listingID"));
+//            System.out.println(listingID);
+//            System.out.println(req.params());
             String startDate = req.params("startDate");
             String endDate = req.params("endDate");
 

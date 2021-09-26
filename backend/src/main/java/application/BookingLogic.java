@@ -18,11 +18,16 @@ public class BookingLogic {
 
     public String createNewBooking(User user, AddBookingDTO dto, int listingID){
         Listing listing = repositories.listingRepository.findById(listingID).get();
+
+        // so he meant if there is any booking, which will return true, will show this mess.
         if(checkIfListingAlreadyIsBooked(dto, listing)){
+            System.out.println("booked");
             return "Already booked";
         }
         Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
-
+//        System.out.println(booking);
+//        System.out.println("we are in create new booking");
+        // problem is here, when we r trying to add booking
         repositories.booking().addBooking(booking);
         return "Successfully booked!";
     }

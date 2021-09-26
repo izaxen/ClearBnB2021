@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class UserService {   // Serverar Application med ett nytt userobjekt med rätt info Klassen blir som en validering.
 
+    // Service turns DTO into a fake object
     public User convertLoginUserToUser(LoginUserDTO userDTO){
         return new User(userDTO.getEmail(), userDTO.getPw());
     }
