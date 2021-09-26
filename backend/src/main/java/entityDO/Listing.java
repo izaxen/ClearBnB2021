@@ -29,15 +29,11 @@ public class Listing {
 
     private String description;
 
-    @Filter(name = "dateFilter",
-            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_start_date")
-    private Timestamp availableStartDate;
+    private String availableStartDate;
 
-    @Filter(name = "dateFilter",
-            condition = ":availableStartDate <= availableStartDate and :availableEndDate >= availableEndDate")
     @Column(name="available_end_date")
-    private Timestamp availableEndDate;
+    private String availableEndDate;
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
@@ -64,7 +60,7 @@ public class Listing {
     public Listing() {
     }
 
-    public Listing(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate, User owner) {
+    public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
@@ -72,12 +68,12 @@ public class Listing {
         this.user = owner;
     }
 
-    public Listing(Timestamp availableStartDate, Timestamp availableEndDate) {
+    public Listing(String availableStartDate, String availableEndDate) {
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
     }
 
-    public Listing(int id, int price, String description, Timestamp availableStartDate, Timestamp availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
+    public Listing(int id, int price, String description, String availableStartDate, String availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
         this.id = id;
         this.price = price;
         this.description = description;
@@ -139,19 +135,19 @@ public class Listing {
         this.description = description;
     }
 
-    public Timestamp getAvailableStartDate() {
+    public String getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(Timestamp availableStartDate) {
+    public void setAvailableStartDate(String availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public Timestamp getAvailableEndDate() {
+    public String getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(Timestamp availableEndDate) {
+    public void setAvailableEndDate(String availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 

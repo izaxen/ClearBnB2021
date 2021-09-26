@@ -2,9 +2,9 @@
   <div class="available-listings-container">
     <FilterListings @updatelist="updatelist"> </FilterListings>
     <h1 @click="test">All listings component</h1>
-    <div class="filteredListings">
+    <div v-if="matchedListings" class="filteredListings">
       <li v-for="listing in matchedListings" :key="listing.id" :value="listing">
-        {{ listing.description }}, {{ listing.price * 1.15 }}/night,
+        {{ listing.description }}, {{ listing.price }}/night,
         {{ listing.address }},
         {{ listing.city }}
       </li>
@@ -35,10 +35,8 @@ export default {
     },
 
     async getAllListingsDTO() {
-      console.log("getALllistingDTO");
       let res = await fetch("/api/getAllListingsDTO");
       this.matchedListings = await res.json();
-      console.log("getALllistingDTO----END");
     },
   },
 };

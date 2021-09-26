@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class ListingFilter {
     private int price;
-    private Timestamp availableStartDate;
-    private Timestamp availableEndDate;
+    private String availableStartDate;
+    private String availableEndDate;
     private boolean isBathTub;
     private boolean isParkingLot;
     private boolean isStove;
@@ -25,19 +25,19 @@ public class ListingFilter {
         this.price = price;
     }
 
-    public Timestamp getAvailableStartDate() {
+    public String getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(Timestamp availableStartDate) {
+    public void setAvailableStartDate(String availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public Timestamp getAvailableEndDate() {
+    public String getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(Timestamp availableEndDate) {
+    public void setAvailableEndDate(String availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 

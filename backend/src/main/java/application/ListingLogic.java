@@ -5,6 +5,7 @@ import entityDO.Listing;
 import filter.ListingFilter;
 import org.hibernate.Filter;
 import org.hibernate.Session;
+import repositories.BookingRepository;
 import repositories.ListingRepository;
 
 import java.sql.Timestamp;
@@ -14,13 +15,15 @@ import java.util.List;
 public class ListingLogic {
 
     ListingRepository listingRepository;
+    BookingRepository bookingRepository;
     Repositories rp;
     List<AddListingDTO> matchedListingDTO;
     AddListingDTO addListingDTO;
     AddListingDTO addListingDTOForBooking;
 
-    public ListingLogic(ListingRepository listingRepository) {
-        this.listingRepository = listingRepository;
+    public ListingLogic(Repositories repositories) {
+        this.listingRepository = repositories.listingRepository;
+        this.bookingRepository = repositories.bookingRepository;
     }
 
     public ListingLogic() {
@@ -68,8 +71,8 @@ public class ListingLogic {
 //        Filter availableDateFilter = session.enableFilter("dateFilter");
 //        System.out.println(session.getEnabledFilter("dateFilter"));
 
-        Timestamp ts1 = filter.getAvailableStartDate();
-        Timestamp ts2 = filter.getAvailableEndDate();
+        String ts1 = filter.getAvailableStartDate();
+        String ts2 = filter.getAvailableEndDate();
         Boolean isBathTub = filter.isBathTub();
         Boolean isParkingLot = filter.isParkingLot();
         Boolean isStove = filter.isStove();
@@ -117,6 +120,8 @@ public class ListingLogic {
                 .setParameter("maxPrice", maxPrice)
                 .list();
 
+
+
 //        for (Object l : matchedListing
 //             ) {
 //            System.out.println( l);
@@ -126,12 +131,15 @@ public class ListingLogic {
 
         for (Listing l: matchedListing
              ) {
-            addListingDTO = new AddListingDTO(l);
-            matchedListingDTO.add(addListingDTO);
+
+            // if false, add it to filteredListing to render out.
+            if(!bookingRepository.checkIfListingIsAlreadyBooked(ts1, ts2, l)){
+                addListingDTO = new AddListingDTO(l);
+                matchedListingDTO.add(addListingDTO);
+            }
 
         }
 
         return matchedListingDTO;
     }
-
 }
