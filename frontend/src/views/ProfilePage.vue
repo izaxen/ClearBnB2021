@@ -7,11 +7,13 @@
     </div>
     <h1>Profile page</h1>
     <ShowRating />
+    <ListingsOfAUser />
   </div>
 </template>
 
 <script>
 import ShowRating from "../components/user-components/ShowRating.vue";
+import ListingsOfAUser from "../components/user-components/ListingsOfAUser.vue";
 import router from "../router.js";
 
 export default {
@@ -28,6 +30,7 @@ export default {
 
   components: {
     ShowRating,
+    ListingsOfAUser,
   },
 
   methods: {
