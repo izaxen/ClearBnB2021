@@ -68,8 +68,8 @@ public class ListingLogic {
         Boolean isSauna = filter.isSauna();
         int maxPrice = filter.getPrice();
 
-        System.out.println("ts1: " + ts1);
-        System.out.println("ts2: " + ts2);
+//        System.out.println("ts1: " + ts1);
+//        System.out.println("ts2: " + ts2);
 //        System.out.println("isBathTub: " + isBathTub);
 //        System.out.println("isParkingLot: " + isParkingLot);
 //        System.out.println("isStove: " + isStove);

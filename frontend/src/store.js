@@ -11,6 +11,7 @@ export const store = createStore({
       currentListing: null,
       loggedInUser: false,
       matchedListings: [],
+      allListingsDTO: [],
 
     }
   },
@@ -34,6 +35,10 @@ export const store = createStore({
 
     setMatchedListing(state, matchedListings) {
       state.matchedListings = matchedListings;
+    },
+
+    setAllListingsDTO(state, allListingsDTO) {
+      state.allListingsDTO = allListingsDTO;
     }
   },
 
@@ -115,10 +120,12 @@ export const store = createStore({
     },
 
     async getAllListingsDTO(_, listings) {
-      await fetch('/rest/getAllListingsDTO', {
-        method: 'PUT',
+      let res = await fetch('/rest/getAllListingsDTO', {
+        method: 'GET',
         body: JSON.stringify(listings)
       })
+      let getAllListingsDTO = await res.json();
+      store.commit('setAllListingsDTO', getAllListingsDTO)
     },
   }
 })

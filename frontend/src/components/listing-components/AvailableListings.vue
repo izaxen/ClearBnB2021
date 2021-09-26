@@ -41,9 +41,8 @@ export default {
     },
 
     async getAllListingsDTO() {
-      let res = await fetch("/rest/getAllListingsDTO");
-      this.matchedListings = await res.json();
-      console.log(this.matchedListings);
+      await this.$store.dispatch("getAllListingsDTO");
+      this.matchedListings = this.$store.state.allListingsDTO;
     },
   },
 };
