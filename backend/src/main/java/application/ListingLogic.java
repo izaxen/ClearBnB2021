@@ -1,7 +1,6 @@
 package application;
 
 import dtos.AddListingDTO;
-import entityDO.Booking;
 import entityDO.Listing;
 import filter.ListingFilter;
 import org.hibernate.Filter;
@@ -46,16 +45,15 @@ public class ListingLogic {
     }
 
     public List<AddListingDTO> getAllListingsDTO(){
-        List<Listing> allListings = listingRepository.findAllListings();
-        List<AddListingDTO> allListingsDTO = new ArrayList<>();
-        for ( Listing l: allListings
-             ) {
-            addListingDTO = new AddListingDTO(l);
-            allListingsDTO.add(addListingDTO);
-            System.out.println("DTO " + addListingDTO.toString());
-        }
-        System.out.println("allListingsDTO " + allListingsDTO.toString());
-        return allListingsDTO;
+
+            List<Listing> allListings = listingRepository.findAllListings();
+            List<AddListingDTO> allListingsDTO = new ArrayList<>();
+            for ( Listing l: allListings
+            ) {
+                addListingDTO = new AddListingDTO(l);
+                allListingsDTO.add(addListingDTO);
+            }
+            return allListingsDTO;
     }
 
 
@@ -118,16 +116,6 @@ public class ListingLogic {
                 .setParameter("isSauna", isSauna)
                 .setParameter("maxPrice", maxPrice)
                 .list();
-
-        List<Listing> newListings = session.createQuery("SELECT l FROM Listing l INNER JOIN l.bookings", Listing.class).list();
-        for (Listing l: newListings
-             ) {
-            System.out.println(l);
-        }
-
-//        "(SELECT b FROM Booking b WHERE b.listing = :listing AND " +
-//                "(b.startDate between :selectedStartDate AND :selectedEndDate OR " +
-//                "b.endDate between :selectedStartDate AND :selectedEndDate))"
 
 //        for (Object l : matchedListing
 //             ) {
