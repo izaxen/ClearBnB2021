@@ -49,12 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.rating-container {
-  max-width: 50%;
-}
-
 .ratingItem {
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: cadetblue;

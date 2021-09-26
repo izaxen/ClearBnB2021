@@ -152,6 +152,7 @@ public class ListingLogic {
             allListingsDTO.add(new GetAllListingsInSummaryFromUserDTO(listing.getId(), listing.getPrice(), listing.getDescription()));
         });
 
+
         return allListingsDTO;
 
     }

@@ -64,7 +64,7 @@ public class ListingRoutes {
         //TODO CHECK IF NEEDED TO USE DTO
         app.get("/api/getAllListings", (req, res) -> {
            res.json(listingLogic.getAllListings());
-//            System.out.println(listingLogic.getAllListings());
+
         });
 
         app.get("/api/getAllListingsDTO", (req, res) -> {
@@ -94,5 +94,5 @@ public class ListingRoutes {
         });
     }
 
-    
+
 }

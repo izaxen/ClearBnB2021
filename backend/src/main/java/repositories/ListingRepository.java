@@ -37,7 +37,7 @@ public class ListingRepository {
             return listingList;
         }catch (PersistenceException e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
-            e.printStackTrace();
+
         }
         return null;
     }

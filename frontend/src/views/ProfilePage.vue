@@ -7,10 +7,12 @@
     </div>
     <h1>Profile page</h1>
     <ShowRating />
+    <ListingsOfAUser />
   </div>
 </template>
 
 <script>
+import ListingsOfAUser from "../components/listing-components/ListingsOfAUser.vue";
 import ShowRating from "../components/user-components/ShowRating.vue";
 import router from "../router.js";
 
@@ -28,6 +30,7 @@ export default {
 
   components: {
     ShowRating,
+    ListingsOfAUser,
   },
 
   methods: {
@@ -39,6 +42,12 @@ export default {
 </script>
 
 <style scoped>
+.profile-page-container {
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+  grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+}
+
 .search-user-container {
   display: flex;
   justify-content: right;
