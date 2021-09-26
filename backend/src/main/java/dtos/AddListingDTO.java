@@ -33,14 +33,16 @@ public class AddListingDTO {
         this.firstName = listing.getUser().getFirstName();
         this.city = listing.getAddress().getCity();
         this.address = listing.getAddress().getAddressListing();
+        this.listingID = listing.getId();
+
     }
 
-    public AddListingDTO(Listing listing, String forBooking){
-        this.price = listing.getPrice();
-        this.description = listing.getDescription();
-        this.listingID = listing.getId();
-//        System.out.println("we are in constructor B");
-    }
+//    public AddListingDTO(Listing listing, String forBooking){
+//        this.price = listing.getPrice();
+//        this.description = listing.getDescription();
+//        this.listingID = listing.getId();
+////        System.out.println("we are in constructor B");
+//    }
 
     public AddListingDTO(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate) {
         this.price = price;

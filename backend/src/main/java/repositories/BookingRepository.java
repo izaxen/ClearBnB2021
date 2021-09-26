@@ -45,6 +45,7 @@ public class BookingRepository {
     }
 
     public Optional<Booking> addBooking(Booking booking){
+        System.out.println("addBooking " + booking);
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(booking);

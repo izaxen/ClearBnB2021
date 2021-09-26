@@ -38,7 +38,7 @@ public class ListingLogic {
         List<AddListingDTO> allListingsDTOForBooking = new ArrayList<>();
         for ( Listing l: allListings
         ) {
-            addListingDTOForBooking = new AddListingDTO(l, "forBooking");
+            addListingDTOForBooking = new AddListingDTO(l);
             allListingsDTOForBooking.add(addListingDTOForBooking);
         }
         return allListingsDTOForBooking;

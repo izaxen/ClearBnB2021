@@ -59,9 +59,10 @@ export default {
       let res = await fetch(
         `/rest/createBooking/${this.selected.listingID}/${this.startDate}/${this.endDate}`
       );
+      console.log(await res.json());
     },
     async getAllListings() {
-      let res = await fetch("/api/getAllListings");
+      let res = await fetch("/api/getAllListingsDTO");
       this.allListings = await res.json();
 
       // await this.$store.dispatch("getAllListingsDTO");

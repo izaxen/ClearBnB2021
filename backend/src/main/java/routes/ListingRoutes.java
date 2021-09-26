@@ -59,7 +59,7 @@ public class ListingRoutes {
 //            System.out.println(listingLogic.getAllListings());
         });
 
-        app.get("/rest/getAllListingsDTO", (req, res) -> {
+        app.get("/api/getAllListingsDTO", (req, res) -> {
             res.json(listingLogic.getAllListingsDTO());
 //            System.out.println(listingLogic.getAllListingsDTO());
         });

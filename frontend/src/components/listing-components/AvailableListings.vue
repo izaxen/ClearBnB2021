@@ -35,7 +35,7 @@ export default {
     },
 
     async getAllListingsDTO() {
-      let res = await fetch("/rest/getAllListingsDTO");
+      let res = await fetch("/api/getAllListingsDTO");
       this.matchedListings = await res.json();
     },
   },
