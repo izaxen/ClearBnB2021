@@ -1,6 +1,7 @@
 package routes;
 
 import application.ListingLogic;
+import application.Repositories;
 import com.mysql.cj.Session;
 import dtos.FilteredListingDTO;
 import express.Express;
@@ -23,9 +24,9 @@ public class ListingRoutes {
     private ListingLogic listingLogic;
     private ListingService ls;
 
-    public ListingRoutes(Express app, ListingRepository listingRepository) {
+    public ListingRoutes(Express app, Repositories repositories) {
 
-        listingLogic= new ListingLogic(listingRepository);
+        listingLogic= new ListingLogic(repositories);
         ls= new ListingService();
 
         app.post("/api/addListing", (req, res) -> {
@@ -65,7 +66,6 @@ public class ListingRoutes {
         });
 
         app.post("/api/getFilteredListing", (req, res) ->{
-            System.out.println("Inne i filter");
            // Listing list = req.body(Listing.class);
 
             // Kommer in nu är start & end

@@ -9,8 +9,8 @@ import java.util.List;
 public class AddListingDTO {
     private int price;
     private String description;
-    private Timestamp availableStartDate;
-    private Timestamp availableEndDate;
+    private String availableStartDate;
+    private String availableEndDate;
     private int userID;
     private String userEmail;
     private String firstName;
@@ -44,7 +44,7 @@ public class AddListingDTO {
 ////        System.out.println("we are in constructor B");
 //    }
 
-    public AddListingDTO(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate) {
+    public AddListingDTO(Integer price, String description, String availableStartDate, String availableEndDate) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
@@ -88,19 +88,19 @@ public class AddListingDTO {
         this.description = description;
     }
 
-    public Timestamp getAvailableStartDate() {
+    public String getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(Timestamp availableStartDate) {
+    public void setAvailableStartDate(String availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public Timestamp getAvailableEndDate() {
+    public String getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(Timestamp availableEndDate) {
+    public void setAvailableEndDate(String availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 

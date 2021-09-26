@@ -81,6 +81,8 @@ export default {
 
   methods: {
     async filterListings() {
+      console.log("start " + this.available_start_date);
+      console.log("end " + this.available_end_date);
       // if (this.price === null) {
       //   this.price = 99999;
       // }

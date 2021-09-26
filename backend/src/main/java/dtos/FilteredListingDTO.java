@@ -4,30 +4,30 @@ import java.sql.Timestamp;
 
 public class FilteredListingDTO {
 
-    private Timestamp availableStartDate;
-    private Timestamp availableEndDate;
+    private String availableStartDate;
+    private String availableEndDate;
 
     public FilteredListingDTO() {
     }
 
-    public FilteredListingDTO(Timestamp availableStartDate, Timestamp availableEndDate) {
+    public FilteredListingDTO(String availableStartDate, String availableEndDate) {
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
     }
 
-    public Timestamp getAvailableStartDate() {
+    public String getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(Timestamp availableStartDate) {
+    public void setAvailableStartDate(String availableStartDate) {
         this.availableStartDate = availableStartDate;
     }
 
-    public Timestamp getAvailableEndDate() {
+    public String getAvailableEndDate() {
         return availableEndDate;
     }
 
-    public void setAvailableEndDate(Timestamp availableEndDate) {
+    public void setAvailableEndDate(String availableEndDate) {
         this.availableEndDate = availableEndDate;
     }
 }

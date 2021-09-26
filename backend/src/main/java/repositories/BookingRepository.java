@@ -4,6 +4,8 @@ import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Booking;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +37,20 @@ public class BookingRepository {
                 .getResultList();
 
         return bookings.size() > 0;
-
     }
+
+//    public boolean checkIfListingIsAlreadyBooked(Timestamp startDate, Timestamp endDate, Listing listing){
+//
+//        List bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.listing = :listing " +
+//                        "AND (b.startDate between :sDate AND :eDate " +
+//                        "OR b.endDate between :sDate AND :eDate)", Booking.class)
+//                .setParameter("listing", listing)
+//                .setParameter("sDate", startDate)
+//                .setParameter("eDate", endDate)
+//                .getResultList();
+//
+//        return bookings.size() > 0;
+//    }
 
     public List<Booking> findAllBookings(){
         return entityManager.createQuery("from Booking").getResultList();
