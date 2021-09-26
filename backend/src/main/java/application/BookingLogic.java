@@ -34,9 +34,7 @@ public class BookingLogic {
 
     //TODO FUNCTION ON HOLD
   /*  public void createNewBooking1(User user, AddBookingDTO dto, Listing listing){
-
         Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
-
         repositories.booking().addBooking(booking);
     }*/
 
