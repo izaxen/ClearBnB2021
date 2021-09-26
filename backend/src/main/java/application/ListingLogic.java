@@ -45,14 +45,15 @@ public class ListingLogic {
     }
 
     public List<AddListingDTO> getAllListingsDTO(){
-        List<Listing> allListings = listingRepository.findAllListings();
-        List<AddListingDTO> allListingsDTO = new ArrayList<>();
-        for ( Listing l: allListings
-             ) {
-            addListingDTO = new AddListingDTO(l);
-            allListingsDTO.add(addListingDTO);
-        }
-        return allListingsDTO;
+
+            List<Listing> allListings = listingRepository.findAllListings();
+            List<AddListingDTO> allListingsDTO = new ArrayList<>();
+            for ( Listing l: allListings
+            ) {
+                addListingDTO = new AddListingDTO(l);
+                allListingsDTO.add(addListingDTO);
+            }
+            return allListingsDTO;
     }
 
 
