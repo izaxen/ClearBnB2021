@@ -16,6 +16,7 @@ public class ListingLogic {
 
     ListingRepository listingRepository;
     BookingRepository bookingRepository;
+    Repositories repositories;
     Repositories rp;
     List<AddListingDTO> matchedListingDTO;
     AddListingDTO addListingDTO;
@@ -24,6 +25,7 @@ public class ListingLogic {
     public ListingLogic(Repositories repositories) {
         this.listingRepository = repositories.listingRepository;
         this.bookingRepository = repositories.bookingRepository;
+        this.repositories = repositories;
     }
 
     public ListingLogic() {
@@ -62,8 +64,7 @@ public class ListingLogic {
 
     public List<AddListingDTO> getFilteredListings(ListingFilter filter){
         // time should send as argument
-        rp = new Repositories();
-        Session session = rp.entityManager.unwrap(Session.class);
+        Session session = repositories.entityManager.unwrap(Session.class);
 
         // Filter does not run condition?
         // If wrong name on filter, system crashes, which means we have connected to our filter
