@@ -21,7 +21,6 @@ public class BookingRepository {
     }
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
-        System.out.println("isbooked called!");
 
         // so Marcus is searching in our DB for one booking's listing that is matching our new booking's listing
         // then new booking's start date is between old booking's start and end date
@@ -34,7 +33,6 @@ public class BookingRepository {
                 .setParameter("sDate", startDate)
                 .setParameter("eDate", endDate)
                 .getResultList();
-
 
         return bookings.size() > 0;
 

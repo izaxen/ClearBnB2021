@@ -50,7 +50,10 @@ public class BookingRoutes {
         app.get("/rest/createBooking/:listingID/:startDate/:endDate", ((req, res) -> {
 
             User currentUser = req.session("current-user");
-            if(currentUser == null){return;}
+            if(currentUser == null){
+                res.json("Cannot create booking, not logged in.");
+                return;
+            }
 
             int listingID = parseInt(req.params("listingID"));
 //            System.out.println(listingID);
