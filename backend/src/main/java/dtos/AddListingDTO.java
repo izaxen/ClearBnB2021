@@ -16,6 +16,8 @@ public class AddListingDTO {
     private String firstName;
     private String address;
     private String city;
+    private int listingID;
+    private String function;
 
 
     public AddListingDTO() {
@@ -31,6 +33,14 @@ public class AddListingDTO {
         this.firstName = listing.getUser().getFirstName();
         this.city = listing.getAddress().getCity();
         this.address = listing.getAddress().getAddressListing();
+    }
+
+    public AddListingDTO(Listing listing, String forBooking){
+        this.price = listing.getPrice();
+        this.description = listing.getDescription();
+        this.listingID = listing.getId();
+        this.function = forBooking;
+//        System.out.println("we are in constructor B");
     }
 
     public AddListingDTO(Integer price, String description, Timestamp availableStartDate, Timestamp availableEndDate) {
@@ -93,6 +103,42 @@ public class AddListingDTO {
         this.availableEndDate = availableEndDate;
     }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getListingID() {
+        return listingID;
+    }
+
+    public void setListingID(int listingID) {
+        this.listingID = listingID;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
     @Override
     public String toString() {
         return "AddListingDTO{" +
@@ -105,6 +151,7 @@ public class AddListingDTO {
                 ", firstName='" + firstName + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
+                ", listingID=" + listingID +
                 '}';
     }
 }

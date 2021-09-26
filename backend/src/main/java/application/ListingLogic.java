@@ -17,6 +17,7 @@ public class ListingLogic {
     Repositories rp;
     List<AddListingDTO> matchedListingDTO;
     AddListingDTO addListingDTO;
+    AddListingDTO addListingDTOForBooking;
 
     public ListingLogic(ListingRepository listingRepository) {
         this.listingRepository = listingRepository;
@@ -29,8 +30,18 @@ public class ListingLogic {
         return listingRepository.addListing(listing);
     }
 
-    public List<Listing> getAllListings(){
-        return listingRepository.findAllListings();
+//    public List<Listing> getAllListings(){
+//        return listingRepository.findAllListings();}
+
+    public List<AddListingDTO> getAllListings(){
+        List<Listing> allListings = listingRepository.findAllListings();
+        List<AddListingDTO> allListingsDTOForBooking = new ArrayList<>();
+        for ( Listing l: allListings
+        ) {
+            addListingDTOForBooking = new AddListingDTO(l, "forBooking");
+            allListingsDTOForBooking.add(addListingDTOForBooking);
+        }
+        return allListingsDTOForBooking;
     }
 
     public List<AddListingDTO> getAllListingsDTO(){
@@ -40,7 +51,6 @@ public class ListingLogic {
              ) {
             addListingDTO = new AddListingDTO(l);
             allListingsDTO.add(addListingDTO);
-//            System.out.println(addListingDTO);
         }
         return allListingsDTO;
     }

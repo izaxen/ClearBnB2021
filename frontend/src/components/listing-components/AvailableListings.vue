@@ -3,17 +3,11 @@
     <FilterListings @updatelist="updatelist"> </FilterListings>
     <h1 @click="test">All listings component</h1>
     <div class="filteredListings">
-      <ul v-if="this.matchedListings">
-        <li
-          v-for="listing in matchedListings"
-          :key="listing.id"
-          :value="listing"
-        >
-          {{ listing.description }}, {{ listing.price * 1.15 }}/night,
-          {{ listing.address }},
-          {{ listing.city }}
-        </li>
-      </ul>
+      <li v-for="listing in matchedListings" :key="listing.id" :value="listing">
+        {{ listing.description }}, {{ listing.price * 1.15 }}/night,
+        {{ listing.address }},
+        {{ listing.city }}
+      </li>
     </div>
   </div>
 </template>
@@ -41,8 +35,8 @@ export default {
     },
 
     async getAllListingsDTO() {
-      await this.$store.dispatch("getAllListingsDTO");
-      this.matchedListings = this.$store.state.allListingsDTO;
+      let res = await fetch("/rest/getAllListingsDTO");
+      this.matchedListings = await res.json();
     },
   },
 };

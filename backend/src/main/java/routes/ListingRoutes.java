@@ -56,10 +56,12 @@ public class ListingRoutes {
 
         app.get("/api/getAllListings", (req, res) -> {
            res.json(listingLogic.getAllListings());
+//            System.out.println(listingLogic.getAllListings());
         });
 
-        app.get("/rest/getAllListingsDTO", (request, response) -> {
-            response.json(listingLogic.getAllListingsDTO());
+        app.get("/rest/getAllListingsDTO", (req, res) -> {
+            res.json(listingLogic.getAllListingsDTO());
+//            System.out.println(listingLogic.getAllListingsDTO());
         });
 
         app.post("/api/getFilteredListing", (req, res) ->{

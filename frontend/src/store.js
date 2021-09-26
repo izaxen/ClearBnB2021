@@ -11,7 +11,7 @@ export const store = createStore({
       currentListing: null,
       loggedInUser: false,
       matchedListings: [],
-      allListingsDTO: [],
+      // allListingsDTO: [],
 
     }
   },
@@ -37,9 +37,9 @@ export const store = createStore({
       state.matchedListings = matchedListings;
     },
 
-    setAllListingsDTO(state, allListingsDTO) {
-      state.allListingsDTO = allListingsDTO;
-    }
+    // setAllListingsDTO(state, allListingsDTO) {
+    //   state.allListingsDTO = allListingsDTO;
+    // }
   },
 
   //async methods that will trigger a mutation
@@ -119,14 +119,15 @@ export const store = createStore({
       store.commit('setMatchedListing', matchedListings);
     },
 
-    async getAllListingsDTO(_, listings) {
-      let res = await fetch('/rest/getAllListingsDTO', {
-        method: 'GET',
-        body: JSON.stringify(listings)
-      })
-      let getAllListingsDTO = await res.json();
-      store.commit('setAllListingsDTO', getAllListingsDTO)
-    },
+    // async getAllListingsDTO(_) {
+    //   let res = await fetch('/rest/getAllListingsDTO', {
+    //     method: 'GET',
+    //     body: JSON.stringify()
+    //   })
+    //   let getAllListingsDTO = await res.json();
+    //   console.log("res ");
+    //   store.commit('setAllListingsDTO', getAllListingsDTO)
+    // },
   }
 })
 
