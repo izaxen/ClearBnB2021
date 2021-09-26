@@ -71,7 +71,7 @@ export const store = createStore({
         this.state.failedLogIn = true;
         return
       }
-      console.log("Login active");
+      console.log("Login active", loggedInUser);
       store.commit('setUser', loggedInUser)
 
     },
