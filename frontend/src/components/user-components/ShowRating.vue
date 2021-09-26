@@ -49,6 +49,10 @@ export default {
 </script>
 
 <style scoped>
+.rating-container {
+  margin: 10px;
+}
+
 .ratingItem {
   display: flex;
   flex-direction: column;
@@ -56,7 +60,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  margin: 5px;
+  margin-bottom: 5px;
   padding: 10px;
 }
 .stars h1 {

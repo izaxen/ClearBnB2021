@@ -35,14 +35,19 @@ export default {
 };
 </script>
 
+
 <style scoped>
+.listing-summary-container {
+  margin: 10px;
+}
+
 .listing-summary-item {
   display: flex;
   height: 35px;
   align-items: center;
-  background-color: aquamarine;
+  background-color: #c380ba;
   border-radius: 10px;
-  margin: 10px;
+  margin-bottom: 5px;
   padding-left: 10px;
 }
 
