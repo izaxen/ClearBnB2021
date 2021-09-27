@@ -101,12 +101,17 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      
     },
-
 
     async addAddress(store, address) {
       await fetch('/api/addAddress', {
+        method: 'POST',
+        body: JSON.stringify(address)
+      })
+    },
+
+        async updateAddress(store, address) {
+      await fetch('/api/updateAddress', {
         method: 'POST',
         body: JSON.stringify(address)
       })
