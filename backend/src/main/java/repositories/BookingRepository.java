@@ -17,7 +17,7 @@ public class BookingRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Booking> findById(Integer id){
+    public Optional<Booking> findById(int id){
         Booking booking = entityManager.find(Booking.class, id);
         return booking != null ? Optional.of(booking) : Optional.empty();
     }

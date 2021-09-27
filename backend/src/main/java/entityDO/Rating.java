@@ -71,4 +71,17 @@ public class Rating {
     public Booking getBooking() {
         return booking;
     }
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "ID=" + ID +
+                ", reviewer=" + reviewer +
+                ", recipient=" + recipient +
+                ", booking=" + booking +
+                ", rating=" + rating +
+                ", message='" + message + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                '}';
+    }
 }

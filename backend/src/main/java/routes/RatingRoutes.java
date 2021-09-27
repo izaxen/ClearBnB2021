@@ -18,7 +18,7 @@ public class RatingRoutes {
         this.ratingLogic = new RatingLogic(repositories);
         getAllRatingsOfUser();
         getAvgRatingOfUser();
-        getRatingsToFillByUser();
+        checkIfThereIsAnyRatingToFill();
     }
 
     public void getAllRatingsOfUser(){
@@ -35,10 +35,10 @@ public class RatingRoutes {
         });
     }
 
-    public void getRatingsToFillByUser(){
-        app.get("/rest/ratings-to-fill/:userID", (req, res) ->{
+    public void checkIfThereIsAnyRatingToFill(){
+        app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
-            res.json(ratingLogic.getAvgRatingsOfUser(userID));
+            res.json(ratingLogic.checkIfThereIsAnyRatingToFill());
         });
     }
 }
