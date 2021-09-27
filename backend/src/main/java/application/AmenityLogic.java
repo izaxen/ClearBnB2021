@@ -1,14 +1,23 @@
 package application;
 
 import entityDO.Amenities;
+import entityDO.AmenitiesRevision;
+import entityDO.ListingRevision;
 import repositories.AmenitiesRepository;
+import repositories.AmenitiesRevisionRepository;
+import repositories.ListingRevisionRepository;
 
 public class AmenityLogic {
 
     AmenitiesRepository amenitiesRepository;
+    AmenitiesRevisionRepository amenitiesRevisionRepository;
+    ListingRevisionRepository listingRevisionRepository;
 
-    public AmenityLogic(AmenitiesRepository amenitiesRepository) {
-        this.amenitiesRepository = amenitiesRepository;
+    public AmenityLogic(Repositories repos) {
+
+        this.amenitiesRepository = repos.amenitiesRepository;
+        this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
+        this.listingRevisionRepository = repos.listingRevisionRepository;
     }
 
     public AmenityLogic() {
@@ -19,7 +28,7 @@ public class AmenityLogic {
     }
 
     public Amenities updateAmenties(Amenities ama){
-        Amenities oldList = amenitiesRepository.findById(ama.getID()).get();
+        Amenities oldList = amenitiesRepository.findById(ama.getListing().getId()).get();
 
         if(ama.getBathTub()== null){
             ama.setBathTub(oldList.getBathTub());
@@ -42,12 +51,20 @@ public class AmenityLogic {
         if(ama.getStove() == null){
             ama.setStove(oldList.getStove());
         }
+
         createAmenitiesVersionBackup(oldList);
 
         return amenitiesRepository.updateAmenities(ama);
     }
-        createAmenitiesVersionBackup(Amenities oldList){
-        Ame
+        private void createAmenitiesVersionBackup(Amenities oldList){
+        ListingRevision lr = listingRevisionRepository.findRevIDByID(oldList.getID());
+
+            AmenitiesRevision copyOldList = new AmenitiesRevision(lr,oldList.getBathTub(),
+                    oldList.getParkingLot(), oldList.getStove(), oldList.getDoubleBed(), oldList.getBubblePool(),
+                    oldList.getBicycle(), oldList.getSauna());
+            amenitiesRevisionRepository.addAmenitiesRevision(copyOldList);
 
         }
+
+
 }

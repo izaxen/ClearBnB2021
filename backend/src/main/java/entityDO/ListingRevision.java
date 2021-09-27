@@ -1,5 +1,6 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class ListingRevision {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     private Integer price;
@@ -30,8 +32,11 @@ public class ListingRevision {
     @OneToOne(mappedBy = "listingRevision")
     private AddressRevision addressRevision;
 
-    @OneToOne(mappedBy ="listingRevision")
-    private AmenitiesRevsion amenitiesRevsion;
+    // HERE........
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listingRev", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private AmenitiesRevision amenitiesRevision;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
@@ -51,6 +56,10 @@ public class ListingRevision {
         this.availableEndDate = availableEndDate;
         this.listing = listing;
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public ListingRevision(Listing listing) {
@@ -103,6 +112,22 @@ public class ListingRevision {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public AddressRevision getAddressRevision() {
+        return addressRevision;
+    }
+
+    public void setAddressRevision(AddressRevision addressRevision) {
+        this.addressRevision = addressRevision;
+    }
+
+    public AmenitiesRevision getAmenitiesRevsion() {
+        return amenitiesRevision;
+    }
+
+    public void setAmenitiesRevsion(AmenitiesRevision amenitiesRevision) {
+        this.amenitiesRevision = amenitiesRevision;
     }
 
     @Override

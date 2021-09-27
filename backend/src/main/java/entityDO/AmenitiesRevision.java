@@ -1,22 +1,38 @@
-package dtos;
+package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+@Entity
+@Table(name = "amenities_revision")
+public class AmenitiesRevision {
 
-public class UpdateAmenityDTO {
-    private int ID;
+    @Id
+    @Column(name = "listing_rev_ID")
+    private Integer id;
+
+    @Column(name = "bathtub")
     private Boolean isBathTub;
+    @Column(name = "parkinglot")
     private Boolean isParkingLot;
+    @Column(name = "stove")
     private Boolean isStove;
+    @Column(name = "double_bed")
     private Boolean isDoubleBed;
+    @Column(name = "bubble_pool")
     private Boolean isBubblePool;
+    @Column(name = "bicycle")
     private Boolean isBicycle;
+    @Column(name = "sauna")
     private Boolean isSauna;
 
-    public UpdateAmenityDTO(){
-    }
+    @JsonBackReference
+    @OneToOne
+    @MapsId
+    @JoinColumn(name="listing_rev_ID")
+    private ListingRevision listingRev;
 
-    public UpdateAmenityDTO(int ID, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
-                            Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.ID = ID;
+    public AmenitiesRevision(ListingRevision listingRevision, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.listingRev= listingRevision;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -25,13 +41,19 @@ public class UpdateAmenityDTO {
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
     }
-
-    public int getID() {
-        return ID;
+    public AmenitiesRevision(){
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public ListingRevision getListingRev() {
+        return listingRev;
     }
 
     public Boolean getBathTub() {
@@ -89,4 +111,6 @@ public class UpdateAmenityDTO {
     public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
+
+
 }

@@ -52,11 +52,13 @@ public class ListingLogic {
         return listingRepository.updateListing(listing);
     }
 
-    public void createListingVersionBackup(Listing oldList){
+    private ListingRevision createListingVersionBackup(Listing oldList){
         ListingRevision copyOldList = new ListingRevision(oldList.getPrice(), oldList.getDescription(),
                 oldList.getAvailableStartDate(), oldList.getAvailableEndDate(), oldList, oldList.getUser());
         listingRevisionRepository.addListingRevision(copyOldList);
 
+        System.out.println(copyOldList);
+        return copyOldList;
 
 
 

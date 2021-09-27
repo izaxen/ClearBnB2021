@@ -22,18 +22,17 @@ public class AddAmenityDTO {
 
     public AddAmenityDTO() {
 
-
     }
 
-    public Boolean isBathTub() {
+    public Boolean getBathTub() {
         return isBathTub;
     }
 
-    public void setBathTub(Boolean bathTube) {
-        isBathTub = bathTube;
+    public void setBathTub(Boolean bathTub) {
+        isBathTub = bathTub;
     }
 
-    public Boolean isParkingLot() {
+    public Boolean getParkingLot() {
         return isParkingLot;
     }
 
@@ -41,7 +40,7 @@ public class AddAmenityDTO {
         isParkingLot = parkingLot;
     }
 
-    public Boolean isStove() {
+    public Boolean getStove() {
         return isStove;
     }
 
@@ -49,7 +48,7 @@ public class AddAmenityDTO {
         isStove = stove;
     }
 
-    public Boolean isDoubleBed() {
+    public Boolean getDoubleBed() {
         return isDoubleBed;
     }
 
@@ -57,7 +56,7 @@ public class AddAmenityDTO {
         isDoubleBed = doubleBed;
     }
 
-    public Boolean isBubblePool() {
+    public Boolean getBubblePool() {
         return isBubblePool;
     }
 
@@ -65,15 +64,15 @@ public class AddAmenityDTO {
         isBubblePool = bubblePool;
     }
 
-    public Boolean isBicycle() {
+    public Boolean getBicycle() {
         return isBicycle;
     }
 
-    public void setIsBicycle(Boolean cycle) {
-        isBicycle = cycle;
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
     }
 
-    public Boolean isSauna() {
+    public Boolean getSauna() {
         return isSauna;
     }
 

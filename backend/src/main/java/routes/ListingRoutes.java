@@ -3,6 +3,7 @@ package routes;
 import application.ListingLogic;
 import application.Repositories;
 import dtos.UpdateListingDTO;
+import entityDO.ListingRevision;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
@@ -48,7 +49,7 @@ public class ListingRoutes {
                             currentUser
                     )
             );
-            req.session("current-rev-list", repo.getListingRevisionRepository().findRevIDByID(updatedListing.getId()));
+            req.session("current-Listing", updatedListing);
             res.json(updatedListing.getId());
         });
     }

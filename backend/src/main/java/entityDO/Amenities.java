@@ -7,11 +7,12 @@ import jakarta.persistence.*;
 public class Amenities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "listing_ID")
     private Integer ID;
 
     @JsonBackReference
     @OneToOne
+    @MapsId
     @JoinColumn(name = "listing_ID")
     private Listing listing;
 
@@ -39,7 +40,21 @@ public class Amenities {
     public Amenities(){
     }
 
-    public Amenities(Listing listing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+    public Amenities(Listing listing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                     Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.listing = listing;
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
+    }
+
+    public Amenities(Integer ID, Listing listing, Boolean isBathTub, Boolean isParkingLot,
+                     Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.ID = ID;
         this.listing = listing;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
@@ -52,6 +67,18 @@ public class Amenities {
 
     public Integer getID() {
         return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public Listing getListing() {
+        return listing;
+    }
+
+    public void setListing(Listing listing) {
+        this.listing = listing;
     }
 
     public Boolean getBathTub() {
@@ -98,8 +125,8 @@ public class Amenities {
         return isBicycle;
     }
 
-    public void setBicycle(Boolean cycle) {
-        isBicycle = cycle;
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
     }
 
     public Boolean getSauna() {

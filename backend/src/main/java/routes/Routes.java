@@ -11,6 +11,6 @@ public class Routes {
         new BookingRoutes(app, repositories);
         new ListingRoutes(app, repositories);
         new AddressRoutes(app, repositories.getAddressRepository());
-        new AmenityRoutes(app, repositories.getAmenitiesRepository());
+        new AmenityRoutes(app, repositories);
     }
 }

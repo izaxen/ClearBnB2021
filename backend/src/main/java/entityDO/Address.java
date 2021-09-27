@@ -7,13 +7,14 @@ import jakarta.persistence.*;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "listing_ID")
+    private Integer ID;
     private String city;
     private String addressListing;
 
     @JsonBackReference
     @OneToOne
+    @MapsId
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
@@ -31,12 +32,12 @@ public class Address {
     public Address() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getID() {
+        return ID;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 
     public String getCity() {

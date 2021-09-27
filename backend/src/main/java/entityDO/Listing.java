@@ -23,6 +23,7 @@ public class Listing {
     private String availableEndDate;
 
     @JsonManagedReference
+    @PrimaryKeyJoinColumn
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
     private Address address;
 
@@ -34,6 +35,7 @@ public class Listing {
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Amenities amenities;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)

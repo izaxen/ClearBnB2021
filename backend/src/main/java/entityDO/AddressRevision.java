@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="address_revision")
 public class AddressRevision {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "listing_rev_ID")
     private Integer id;
 
     private String city;
