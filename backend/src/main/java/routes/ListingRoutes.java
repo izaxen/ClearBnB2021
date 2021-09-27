@@ -94,11 +94,11 @@ public class ListingRoutes {
             res.json(filteredListings);
         });
 
+    }
     private void getAllListingsInSummaryFromUser() {
         app.get("/rest/:userID/listings", (req, res) -> {
             int userID = parseInt(req.params("userID"));
             res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
         });
     }
-
 }
