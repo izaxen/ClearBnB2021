@@ -31,15 +31,14 @@ public class AmenityService {
             add.setDoubleBed(false);
         }
 
-        return new Amenities(listing, add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
+        return new Amenities(add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
         add.getBubblePool(), add.getBicycle()
-                , add.getSauna());
+                , add.getSauna(),listing);
     }
 
     public Amenities convertUpdateAmenitiesToAmenities(UpdateAmenityDTO add, Listing listing){
 
-
-        return new Amenities(listing, add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
-                add.getBubblePool(), add.getBicycle(), add.getSauna());
+        return new Amenities(add.getId(), add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
+                add.getBubblePool(), add.getBicycle(), add.getSauna(), listing);
     }
  }

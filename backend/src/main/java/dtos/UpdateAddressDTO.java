@@ -2,24 +2,28 @@ package dtos;
 
 import entityDO.Listing;
 
-public class AddAddressDTO {
-
+public class UpdateAddressDTO {
+    private int id;
     private String address;
     private String city;
     private Listing listing;
 
-    public AddAddressDTO(String address, String city) {
-        this.address = address;
-        this.city = city;
+    public UpdateAddressDTO() {
     }
 
-    public AddAddressDTO(String address, String city, Listing listing) {
+    public UpdateAddressDTO(int id, String address, String city, Listing listing) {
+        this.id = id;
         this.address = address;
         this.city = city;
         this.listing = listing;
     }
 
-    public AddAddressDTO() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAddress() {

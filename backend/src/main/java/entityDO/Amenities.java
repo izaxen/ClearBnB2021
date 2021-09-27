@@ -8,13 +8,7 @@ public class Amenities {
 
     @Id
     @Column(name = "listing_ID")
-    private Integer ID;
-
-    @JsonBackReference
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "listing_ID")
-    private Listing listing;
+    private Integer id;
 
     @Column(name = "bathtub")
     private Boolean isBathTub;
@@ -37,12 +31,18 @@ public class Amenities {
     @Column(name = "sauna")
     private Boolean isSauna;
 
+    @JsonBackReference
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "listing_ID")
+    private Listing listing;
+
     public Amenities(){
     }
 
-    public Amenities(Listing listing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
-                     Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.listing = listing;
+    public Amenities(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                     Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, Listing listing) {
+        this.id = id;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -50,12 +50,11 @@ public class Amenities {
         this.isBubblePool = isBubblePool;
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
+        this.listing = listing;
     }
 
-    public Amenities(Integer ID, Listing listing, Boolean isBathTub, Boolean isParkingLot,
-                     Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.ID = ID;
-        this.listing = listing;
+    public Amenities(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                     Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, Listing listing) {
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -63,14 +62,15 @@ public class Amenities {
         this.isBubblePool = isBubblePool;
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
+        this.listing = listing;
     }
 
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Listing getListing() {

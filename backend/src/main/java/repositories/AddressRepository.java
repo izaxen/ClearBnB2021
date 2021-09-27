@@ -33,4 +33,17 @@ public class AddressRepository {
         }
         return address;
     }
+
+    public Address updateAddress(Address address){
+
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(address);
+            entityManager.getTransaction().commit();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return address;
+    }
 }

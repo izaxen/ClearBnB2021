@@ -1,14 +1,14 @@
 package dtos;
 
 public class UpdateListingDTO {
-    private int ID;
+    private int id;
     private int price;
     private String description;
     private String availableStartDate;
     private String availableEndDate;
 
-    public UpdateListingDTO(int ID, int price, String description, String availableStartDate, String availableEndDate) {
-        this.ID = ID;
+    public UpdateListingDTO(int id, int price, String description, String availableStartDate, String availableEndDate) {
+        this.id = id;
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
@@ -51,11 +51,11 @@ public class UpdateListingDTO {
 
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 }

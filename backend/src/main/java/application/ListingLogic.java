@@ -44,9 +44,7 @@ public class ListingLogic {
         if(listing.getAvailableEndDate()==(null)){
             listing.setAvailableEndDate(oldList.getAvailableEndDate());
         }
-//        if(listing.getUser() ==(null)){
-//            listing.setUser(oldList.getUser());
-//        }
+
         createListingVersionBackup(oldList);
 
         return listingRepository.updateListing(listing);
@@ -57,7 +55,6 @@ public class ListingLogic {
                 oldList.getAvailableStartDate(), oldList.getAvailableEndDate(), oldList, oldList.getUser());
         listingRevisionRepository.addListingRevision(copyOldList);
 
-        System.out.println(copyOldList);
         return copyOldList;
 
 

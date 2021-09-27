@@ -22,6 +22,7 @@ public class Repositories {
     BookingRepository bookingRepository = new BookingRepository(entityManager);
     AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(entityManager);
     ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
+    AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManager);
 
     public UserRepository getUserRepository() {
         return userRepository;

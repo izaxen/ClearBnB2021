@@ -1,5 +1,6 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,16 +13,19 @@ public class AddressRevision {
     private String city;
     private String address;
 
+    @JsonBackReference
     @OneToOne
+    @MapsId
     @JoinColumn(name="listing_rev_ID")
     private ListingRevision listingRevision;
 
     public AddressRevision() {
     }
 
-    public AddressRevision(String city, String address) {
+    public AddressRevision(ListingRevision lr, String city, String address) {
         this.city = city;
         this.address = address;
+        this.listingRevision = lr;
     }
 
     public Integer getId() {

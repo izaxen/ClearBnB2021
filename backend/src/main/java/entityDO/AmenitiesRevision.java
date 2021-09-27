@@ -31,7 +31,8 @@ public class AmenitiesRevision {
     @JoinColumn(name="listing_rev_ID")
     private ListingRevision listingRev;
 
-    public AmenitiesRevision(ListingRevision listingRevision, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+    public AmenitiesRevision(ListingRevision listingRevision, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                             Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
         this.listingRev= listingRevision;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;

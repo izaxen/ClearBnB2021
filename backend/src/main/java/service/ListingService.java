@@ -14,7 +14,7 @@ public class ListingService {
 
     // this converts DTO into a fake
     public Listing convertupdateListingToListing(UpdateListingDTO dto, User owner) {
-        return new Listing(dto.getID(), dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
+        return new Listing(dto.getId(), dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
     }
 
 

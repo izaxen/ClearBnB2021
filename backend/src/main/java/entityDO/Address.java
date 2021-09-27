@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Address {
     @Id
     @Column(name = "listing_ID")
-    private Integer ID;
+    private Integer id;
     private String city;
     private String addressListing;
 
@@ -29,15 +29,22 @@ public class Address {
         this.listing = listing;
     }
 
+    public Address(Integer id, String city, String addressListing, Listing listing) {
+        this.id = id;
+        this.city = city;
+        this.addressListing = addressListing;
+        this.listing = listing;
+    }
+
     public Address() {
     }
 
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCity() {
@@ -62,5 +69,15 @@ public class Address {
 
     public void setAddressListing(String address) {
         this.addressListing = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", addressListing='" + addressListing + '\'' +
+                ", listing=" + listing +
+                '}';
     }
 }

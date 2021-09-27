@@ -22,16 +22,18 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @JsonManagedReference
-    @PrimaryKeyJoinColumn
-    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
-    private Address address;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
     @OneToMany(mappedBy="listing",cascade = CascadeType.ALL)
     private List<ListingRevision> listingRevisions = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Address address;
+
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
