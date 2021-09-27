@@ -22,12 +22,12 @@ public class AddressLogic {
     public AddressLogic() {
     }
 
-    public Address createNewAddress(Address address){
+    private Address createNewAddress(Address address){
 
         return addressRepository.addAddress(address);
     }
 
-    public Address updateAddress(Address adds){
+    private Address updateAddress(Address adds){
         Address oldlist = addressRepository.findById(adds.getListing().getId()).get();
 
         if(adds.getCity()==null){
