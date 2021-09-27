@@ -24,7 +24,7 @@ public class AddListingDTO {
     }
 
     public AddListingDTO(Listing listing) {
-        this.price = (int) (listing.getPrice() * 1.15);
+        this.price = (listing.getPrice());
         this.description = listing.getDescription();
         this.availableStartDate = listing.getAvailableStartDate();
         this.availableEndDate = listing.getAvailableEndDate();

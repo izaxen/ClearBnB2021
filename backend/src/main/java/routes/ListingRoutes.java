@@ -74,13 +74,11 @@ public class ListingRoutes {
         app.post("/api/getFilteredListing", (req, res) ->{
            // Listing list = req.body(Listing.class);
 
-            // Kommer in nu är start & end
-            //De skall verifieras och detta görs med DTO
+
             List<AddListingDTO> filteredListings = listingLogic.getFilteredListings(
             (req.body(ListingFilter.class)));
 
-            //Jämnföra värden med alla och skapa en ny lista
-            //getFilteredListings(Timestamp ts1, Timestamp ts2)
+            
 //            System.out.println("filteredListings: " + filteredListings);
 
             res.json(filteredListings);
