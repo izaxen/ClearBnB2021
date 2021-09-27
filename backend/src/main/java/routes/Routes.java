@@ -12,5 +12,6 @@ public class Routes {
         new ListingRoutes(app, repositories);
         new AddressRoutes(app, repositories);
         new AmenityRoutes(app, repositories);
+        new RatingRoutes(app, repositories);
     }
 }

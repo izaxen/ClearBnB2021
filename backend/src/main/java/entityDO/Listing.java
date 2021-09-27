@@ -2,8 +2,21 @@ package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import org.hibernate.annotations.*;
+
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+
+    // available_start_date is our column in DB
+    //:availableStartDate is our user input sent from frontend
+
 
 @Entity
 public class Listing {
@@ -52,7 +65,7 @@ public class Listing {
     }
 
     public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
-        this.price = price;
+        this.price = (int) (price * 1.15);
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
@@ -66,6 +79,49 @@ public class Listing {
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.user = user;
+    }
+
+    public Listing(String availableStartDate, String availableEndDate) {
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+    }
+
+    public Listing(int id, int price, String description, String availableStartDate, String availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
+        this.id = id;
+        this.price = (int) (price * 1.15);
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.address = address;
+        this.bookings = bookings;
+        this.listingRevisions = listingRevisions;
+        this.amenities = amenities;
+        this.images = images;
+        this.user = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Integer getId() {

@@ -10,6 +10,8 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
+      matchedListings: [],
+      // allListingsDTO: [],
 
     }
   },
@@ -30,6 +32,14 @@ export const store = createStore({
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
     },
+
+    setMatchedListing(state, matchedListings) {
+      state.matchedListings = matchedListings;
+    },
+
+    // setAllListingsDTO(state, allListingsDTO) {
+    //   state.allListingsDTO = allListingsDTO;
+    // }
   },
 
   //async methods that will trigger a mutation
@@ -61,14 +71,14 @@ export const store = createStore({
         this.state.failedLogIn = true;
         return
       }
-      console.log("Login active");
+      console.log("Login active", loggedInUser);
       store.commit('setUser', loggedInUser)
 
     },
     async whoAmI(store) {
       let res = await fetch('/api/whoAmI')
       let status = await res.json()
-      store.commit('setUserLoggedIn', status)
+      store.commit('setUser', status)
     },
 
     async logOff(store) {
@@ -113,7 +123,26 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(amenity)
       })
-    }
+    },
+
+    async getFilteredListing(store, filters) {
+      let res = await fetch('/api/getFilteredListing', {
+        method: 'POST',
+        body: JSON.stringify(filters)
+      })
+      let matchedListings = await res.json();
+      store.commit('setMatchedListing', matchedListings);
+    },
+
+    // async getAllListingsDTO(_) {
+    //   let res = await fetch('/rest/getAllListingsDTO', {
+    //     method: 'GET',
+    //     body: JSON.stringify()
+    //   })
+    //   let getAllListingsDTO = await res.json();
+    //   console.log("res ");
+    //   store.commit('setAllListingsDTO', getAllListingsDTO)
+    // },
   }
 })
 

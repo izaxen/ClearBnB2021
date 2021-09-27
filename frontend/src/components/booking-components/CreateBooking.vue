@@ -5,22 +5,22 @@
       <select v-model="selected">
         <option
           v-for="listing in allListings"
-          :key="listing.id"
+          :key="listing.listingID"
           :value="listing"
-          @click="printSelected"
         >
-          {{ listing.id }}, {{ listing.description }}
+          {{ listing.listingID }}, {{ listing.description }}
         </option>
       </select>
-      <h3>Selected Listing: {{ selected.id }}</h3>
+      <h3>Selected Listing: {{ selected.listingID }}</h3>
 
-      <input v-model="startDate"
-      required type ="date"
-      placeholder="Startdatum"/>
+      <input
+        v-model="startDate"
+        required
+        type="date"
+        placeholder="Startdatum"
+      />
 
-      <input v-model="endDate"
-      required type ="date"
-      placeholder="Slut Datum"/>
+      <input v-model="endDate" required type="date" placeholder="Slut Datum" />
 
       <button @click="printSelected">Create new booking</button>
     </form>
@@ -38,7 +38,7 @@ export default {
     };
   },
 
-    beforeMount() {
+  beforeMount() {
     this.getAllListings();
   },
 
@@ -48,21 +48,25 @@ export default {
         user: this.$store.state.user,
         listing: this.selected,
         startDate: this.startDate,
-        endDate: this.endDate
+        endDate: this.endDate,
       };
+      console.log(newBooking);
+      console.log("selectedStartDate " + newBooking.startDate);
+      console.log(newBooking.listing.listingID);
       this.postNewBooking(newBooking);
     },
     async postNewBooking() {
       let res = await fetch(
-        `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
+        `/rest/createBooking/${this.selected.listingID}/${this.startDate}/${this.endDate}`
       );
+      console.log(await res.json());
     },
     async getAllListings() {
-      let res = await fetch("/api/getAllListings");
+      let res = await fetch("/api/getAllListingsDTO");
       this.allListings = await res.json();
-    },
-    printSelected() {
-      console.log(this.selected);
+      //
+      // await this.$store.dispatch("getAllListingsDTO");
+      // this.allListings = this.$store.state.allListingsDTO;
     },
   },
 };

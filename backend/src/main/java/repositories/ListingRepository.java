@@ -1,8 +1,14 @@
 package repositories;
 
+import dtos.FilteredListingDTO;
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
+import jakarta.persistence.PersistenceException;
+import org.hibernate.Filter;
+import org.hibernate.Session;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +25,31 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-        return entityManager.createQuery("from Listing").getResultList();
+        return entityManager.createQuery("SELECT l FROM Listing l", Listing.class).getResultList();
     }
 
+    public List<Listing> findAllListingsFromUser(User user){
+        List<Listing> listingList;
+        try {
+            listingList = entityManager.createQuery("SELECT l FROM Listing l WHERE l.user = :user", Listing.class)
+                    .setParameter("user", user)
+                    .getResultList();
+            return listingList;
+        }catch (PersistenceException e){
+            System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
+
+        }
+        return null;
+    }
+
+
     public Listing addListing(Listing listing){
+
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(listing);
             entityManager.getTransaction().commit();
+
         }catch (Exception ex){
             ex.printStackTrace();
         }

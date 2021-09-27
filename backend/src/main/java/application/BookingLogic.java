@@ -4,8 +4,6 @@ import dtos.AddBookingDTO;
 import entityDO.Booking;
 import entityDO.Listing;
 import entityDO.User;
-import repositories.BookingRepository;
-import repositories.ListingRepository;
 
 public class BookingLogic {
 
@@ -18,18 +16,31 @@ public class BookingLogic {
         this.repositories = repositories;
     }
 
-    public void createNewBooking(User user, AddBookingDTO dto, int listingID){
+    public String createNewBooking(User user, AddBookingDTO dto, int listingID){
         Listing listing = repositories.listingRepository.findById(listingID).get();
-        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
 
+        if(!checkIfListingHasAvailableDates(dto, listing)){
+            return "Not available these dates.";
+        }
+        if(checkIfListingAlreadyIsBooked(dto, listing)){
+            return "Already booked";
+        }
+
+        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
         repositories.booking().addBooking(booking);
+
+        return "Successfully booked!";
     }
 
-    public void createNewBooking1(User user, AddBookingDTO dto, Listing listing){
+    public boolean checkIfListingAlreadyIsBooked(AddBookingDTO dto, Listing listing){
 
-        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate());
-
-        repositories.booking().addBooking(booking);
+        return repositories.booking().checkIfListingIsAlreadyBooked(dto.getStartDate(), dto.getEndDate(), listing);
     }
+
+    public boolean checkIfListingHasAvailableDates(AddBookingDTO dto, Listing listing){
+        return repositories.bookingRepository.checkListingAvailableDates(dto.getStartDate(), dto.getEndDate(), listing);
+    }
+
+
 
 }

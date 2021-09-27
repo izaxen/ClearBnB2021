@@ -1,8 +1,13 @@
 package repositories;
 
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
+import jakarta.persistence.PersistenceException;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class RatingRepository {
@@ -24,6 +29,33 @@ public class RatingRepository {
             ex.printStackTrace();
         }
         return Optional.empty();
+    }
+
+
+    public List<Rating> getRatingOfUser(User user){
+
+        List<Rating> ratingList;
+        try {
+            ratingList = entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
+                    .setParameter("user", user)
+                    .getResultList();
+            return ratingList;
+        }catch (PersistenceException e){
+            System.out.println("ERROR IN getRatingOfUser (repository) ----------------: \n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public double calcAvgRatingOfUser(User user){
+        try{
+            return (double) entityManager.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
+                    .setParameter("user", user)
+                    .getSingleResult();
+        }catch (Exception e){
+            return 0;
+        }
+
     }
 
 }

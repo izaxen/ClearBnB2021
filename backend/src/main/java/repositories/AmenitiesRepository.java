@@ -27,6 +27,8 @@ public class AmenitiesRepository {
             entityManager.getTransaction().commit();
         }catch (Exception ex){
             ex.printStackTrace();
+        }finally {
+            entityManager.clear();
         }
         return amenities;
     }

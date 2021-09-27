@@ -2,8 +2,13 @@ package service;
 
 import dtos.AddListingDTO;
 import dtos.UpdateListingDTO;
+import dtos.FilteredListingDTO;
 import entityDO.Listing;
 import entityDO.User;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.logging.Filter;
 
 public class ListingService {
 
@@ -18,4 +23,8 @@ public class ListingService {
     }
 
 
+    public Listing convertToFilteredListingsDTO(FilteredListingDTO dto){
+
+        return new Listing (dto.getAvailableStartDate(), dto.getAvailableEndDate());
+    }
 }

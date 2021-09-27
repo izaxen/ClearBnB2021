@@ -17,8 +17,8 @@ import java.util.List;
 //        @NamedQuery(name = "User.updateUser2",
 //                query = "UPDATE User u SET u.firstName = :firstName u.lastName = :lastName")
 
-//        @NamedQuery(name = "User.findAllUsers",
-//        query = "SELECT u FROM User u")
+        @NamedQuery(name = "User.findAllUsers",
+        query = "SELECT u FROM User u")
 })
 
 public class User {
