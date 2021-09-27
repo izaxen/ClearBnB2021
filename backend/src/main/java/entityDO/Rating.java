@@ -19,6 +19,10 @@ public class Rating {
     @JoinColumn(name="recipient_ID")
     private User recipient;
 
+    @ManyToOne
+    @JoinColumn(name="booking_ID")
+    private Booking booking;
+
     private Integer rating;
 
     private String message;
@@ -28,11 +32,12 @@ public class Rating {
 
     public Rating(){}
 
-    public Rating(User reviewer, User recipient, Integer rating, String message) {
+    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking) {
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
         this.message = message;
+        this.booking = booking;
     }
 
     public Integer getID() {
@@ -61,5 +66,9 @@ public class Rating {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Booking getBooking() {
+        return booking;
     }
 }

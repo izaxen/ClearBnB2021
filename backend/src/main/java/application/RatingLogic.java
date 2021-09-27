@@ -38,4 +38,6 @@ public class RatingLogic {
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 
+
+
 }

@@ -16,13 +16,13 @@
 export default {
   data() {
     return {
-      userToShow: this.$route.query.user,
+      userToShow: this.$route.params.id,
       listings: [],
     };
   },
 
   beforeMount() {
-    this.userToShow = this.$route.query.user;
+    this.userToShow = this.$route.params.id;
     this.getListingsInSum();
   },
 

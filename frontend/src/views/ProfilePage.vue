@@ -5,20 +5,25 @@
     </div>
 
     <div class="search-user-container">
-      <h3>Go to user (user id)</h3>
-      <input v-model="userToShow" placeholder="Search user (user ID)" />
-      <button @click="goTo">Show</button>
+      <div class="go-to-rating"><h3 @click="goToRating">Give rating</h3></div>
+      <div>
+        <h3>Go to user (user id)</h3>
+        <input v-model="userToShow" placeholder="Search user (user ID)" />
+        <button @click="goToUser">Show</button>
+      </div>
     </div>
 
     <ShowRating />
     <ListingsOfAUser />
+    <GiveRating />
   </div>
 </template>
 
 <script>
 import ListingsOfAUser from "../components/listing-components/ListingsOfAUser.vue";
-import ShowRating from "../components/user-components/ShowRating.vue";
+import ShowRating from "../components/user-components/rating-components/ShowRating.vue";
 import router from "../router.js";
+import GiveRating from "../components/user-components/rating-components/GiveRating.vue";
 
 export default {
   data() {
@@ -28,18 +33,21 @@ export default {
   },
 
   beforeMount() {
-    this.$forceUpdate();
-    this.userToShow = this.$route.query.user;
+    this.userToShow = this.$route.params.id;
   },
 
   components: {
     ShowRating,
     ListingsOfAUser,
+    GiveRating,
   },
 
   methods: {
-    goTo() {
-      router.push(`/profile_page?user=${this.userToShow}`);
+    goToUser() {
+      router.push(`/profile_page/${this.userToShow}`);
+    },
+    goToRating() {
+      router.push(`/profile_page/${this.userToShow}/give-rating`);
     },
   },
 };
@@ -71,6 +79,7 @@ export default {
   background-color: chocolate;
   border-radius: 0px 10px 10px 0px;
   margin-right: 10px;
+  justify-content: space-around;
 }
 
 .rating input {
@@ -80,5 +89,9 @@ export default {
 
 button {
   margin-right: 10px;
+}
+
+h3 {
+  margin-left: 10px;
 }
 </style>

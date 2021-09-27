@@ -33,7 +33,6 @@ public class BookingLogic {
     }
 
     public boolean checkIfListingAlreadyIsBooked(AddBookingDTO dto, Listing listing){
-
         return repositories.booking().checkIfListingIsAlreadyBooked(dto.getStartDate(), dto.getEndDate(), listing);
     }
 

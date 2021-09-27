@@ -2,6 +2,9 @@ package entityDO;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Booking {
 
@@ -21,6 +24,9 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<Rating> rating = new ArrayList<>();
 
     public Booking(){}
 

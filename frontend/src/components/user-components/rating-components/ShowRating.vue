@@ -19,7 +19,7 @@
 export default {
   data() {
     return {
-      userID: this.$route.query.user,
+      userID: this.$route.params.id,
       ratings: [],
       rating: null,
       avgRating: null,
@@ -31,7 +31,7 @@ export default {
       this.getAllRatings();
     });
 
-    this.userID = this.$route.query.user;
+    this.userID = this.$route.params.id;
   },
 
   methods: {
