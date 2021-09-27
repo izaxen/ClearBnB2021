@@ -21,8 +21,7 @@ public class ListingRevisionRepository {
 
 
     public ListingRevision findRevIDByID(int id){
-        List<ListingRevision> lrp;
-        lrp = entityManager.createQuery("SELECT lr FROM ListingRevision lr WHERE lr.listing.id = :id"
+        List<ListingRevision> lrp = entityManager.createQuery("FROM ListingRevision lr WHERE lr.listing.id = :id"
                         ,ListingRevision.class)
                 .setParameter("id", id)
                 .getResultList();
