@@ -25,6 +25,7 @@ export default {
   methods:{
     addPictures(){
   this.files = document.querySelector('input[type=file]').files;
+  //this.$store.commit('addUploadedImages', this.files) 
   let formData = new FormData();
 
   for(let file of this.files) {
@@ -32,7 +33,7 @@ export default {
   this.url.push(URL.createObjectURL(file))
   }
   this.$emit('formData', formData)
-  this.$store.commit('addUploadedImages', this.files) 
+  
 },
   }
 

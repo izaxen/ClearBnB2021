@@ -12,7 +12,7 @@ public class Application {
         Repositories repository = new Repositories();
         new Routes(app, repository);
 
-        app.useStatic(Paths.get("src/Static"));
+        app.useStatic(Paths.get("backend/src/Static"));
         app.listen(4000);
 
     }

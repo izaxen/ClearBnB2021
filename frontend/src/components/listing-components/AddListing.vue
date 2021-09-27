@@ -81,16 +81,25 @@
           />
         </div>
       </div>
-
+      <br>
+      <div class="images">
+      <label>Choose images</label>
+      <AddImages  @formData="LoadFormData"/>
       <br />
-
+</div>
       <button>Save Listing</button>
     </form>
   </div>
 </template>
 
 <script>
+import AddImages from "./AddImages.vue";
+
 export default {
+  components:{
+AddImages
+  },
+
   data() {
     return {
       user: null,
@@ -107,6 +116,7 @@ export default {
       isSauna: false,
       city: null,
       addressListing: null,
+      formData: [],
     };
   },
 
@@ -146,14 +156,28 @@ export default {
         bicycle: this.isCycle,
         sauna: this.isSauna,
       };
-
       await this.$store.dispatch("addAmenity", newAmenity);
+      this.addImages();
+    },
+    addImages(){
+      let images ={
+        formData: this.formData
+      }
+      this.$store.dispatch('uploadFiles', images)
+    },
+    
+    LoadFormData(formData) {
+      this.formData = formData
     },
   },
 };
 </script>
 
 <style scoped>
+.images{
+  display: Flex;
+  justify-content: center;
+}
 .add-listing-container {
   display: flex;
   flex-direction: column;
@@ -161,11 +185,21 @@ export default {
 .inputFields {
   display: flex;
   flex-direction: column;
+  
 }
 
+input{
+  margin: 5px;
+}
 .add-listing-container {
+  align-self: center;
+  width: 60vw;
   grid-column-start: 1;
   grid-row-start: 1;
-  background-color: blueviolet;
+  background-color: rgb(216, 202, 230);
+}
+
+label{
+  margin-right: 15px;
 }
 </style>

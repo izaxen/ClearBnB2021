@@ -11,6 +11,7 @@ export const store = createStore({
       currentListing: null,
       loggedInUser: false,
       matchedListings: [],
+      uploadedImages: [],
       // allListingsDTO: [],
 
     }
@@ -35,6 +36,10 @@ export const store = createStore({
 
     setMatchedListing(state, matchedListings) {
       state.matchedListings = matchedListings;
+    },
+  
+    getImageList(state, list) {
+      state.imageList = list
     },
 
     // setAllListingsDTO(state, allListingsDTO) {
@@ -137,6 +142,21 @@ export const store = createStore({
       })
       let matchedListings = await res.json();
       store.commit('setMatchedListing', matchedListings);
+    },
+
+    async uploadFiles(store, object) {
+      let savePath = '/api/uploads/' + object.rentalId
+      await fetch(savePath, {
+        method: 'POST',
+        body: object.formData,
+      })
+    },
+
+    async getFileUrl(store, id) {
+      let loadPath = '/api/uploads/' + id
+      let res = await fetch(loadPath)
+      let fileList = await res.json()
+      store.commit('getImageList', fileList)
     },
 
     // async getAllListingsDTO(_) {

@@ -2,6 +2,7 @@ package routes;
 
 import application.ImagesLogic;
 import application.Repositories;
+import entityDO.Listing;
 import express.Express;
 import io.javalin.core.util.FileUtil;
 import io.javalin.http.UploadedFile;
@@ -18,10 +19,10 @@ public class ImageRoutes {
     public ImageRoutes(Express app, Repositories repositories){
         imagesLogic = new ImagesLogic(repositories);
 
-        app.post("/api/uploads/:id", (req, res) -> { //Uploading files
-            String id = req.params("id");
+        app.post("/api/uploads/", (req, res) -> { //Uploading files
+            Listing listing = req.session("current-listing");
             List<UploadedFile> files = req.formDataFiles("files");
-            imagesLogic.uploadImages(id, files);
+            imagesLogic.uploadImages(listing.getId().toString(), files);
             res.send("Imagesuploaded");
         });
 
