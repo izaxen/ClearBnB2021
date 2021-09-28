@@ -104,10 +104,11 @@ export default {
       //   this.price = null;
       // }
 
-      await this.$store.dispatch("getFilteredListing", newFilter);
+      this.matchedListings = await this.$store.dispatch(
+        "getFilteredListing",
+        newFilter
+      );
       console.log("inFilter " + this.available_start_date);
-
-      this.matchedListings = this.$store.state.matchedListings;
       this.$emit("updatelist", this.matchedListings);
     },
   },

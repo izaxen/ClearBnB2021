@@ -10,7 +10,6 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
-      matchedListings: [],
       // allListingsDTO: [],
 
     }
@@ -31,10 +30,6 @@ export const store = createStore({
 
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
-    },
-
-    setMatchedListing(state, matchedListings) {
-      state.matchedListings = matchedListings;
     },
 
     // setAllListingsDTO(state, allListingsDTO) {
@@ -71,7 +66,7 @@ export const store = createStore({
         this.state.failedLogIn = true;
         return
       }
-      console.log("Login active");
+      console.log("Login active", loggedInUser);
       store.commit('setUser', loggedInUser)
 
     },
@@ -116,7 +111,7 @@ export const store = createStore({
         body: JSON.stringify(filters)
       })
       let matchedListings = await res.json();
-      store.commit('setMatchedListing', matchedListings);
+      return matchedListings;
     },
 
     // async getAllListingsDTO(_) {

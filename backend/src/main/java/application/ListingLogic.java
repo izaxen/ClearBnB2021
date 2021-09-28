@@ -2,13 +2,12 @@ package application;
 
 import dtos.AddListingDTO;
 import entityDO.Listing;
-import filter.ListingFilter;
-import org.hibernate.Filter;
+import entityDO.User;
+import dtos.ListingFilter;
 import org.hibernate.Session;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +15,14 @@ public class ListingLogic {
 
     ListingRepository listingRepository;
     BookingRepository bookingRepository;
-    Repositories rp;
-    List<AddListingDTO> matchedListingDTO;
+    Repositories repositories;
     AddListingDTO addListingDTO;
     AddListingDTO addListingDTOForBooking;
 
     public ListingLogic(Repositories repositories) {
         this.listingRepository = repositories.listingRepository;
         this.bookingRepository = repositories.bookingRepository;
+        this.repositories = repositories;
     }
 
     public ListingLogic() {
@@ -59,11 +58,9 @@ public class ListingLogic {
             return allListingsDTO;
     }
 
-
     public List<AddListingDTO> getFilteredListings(ListingFilter filter){
         // time should send as argument
-        rp = new Repositories();
-        Session session = rp.entityManager.unwrap(Session.class);
+        Session session = repositories.entityManager.unwrap(Session.class);
 
         // Filter does not run condition?
         // If wrong name on filter, system crashes, which means we have connected to our filter
@@ -142,4 +139,20 @@ public class ListingLogic {
 
         return matchedListingDTO;
     }
+
+//    public List<GetAllListingsInSummaryFromUserDTO> getAllListingsInSummaryFromUser(int userID){
+//
+//        User user = repositories.getUserRep().findUserById(userID);
+//
+//        List <Listing> listingList = listingRepository.findAllListingsFromUser(user);
+//
+//        ArrayList<GetAllListingsInSummaryFromUserDTO> allListingsDTO = new ArrayList<>();
+//        listingList.forEach((listing) ->{
+//            allListingsDTO.add(new GetAllListingsInSummaryFromUserDTO(listing.getId(), listing.getPrice(), listing.getDescription()));
+//        });
+//
+//
+//        return allListingsDTO;
+
+//    }
 }

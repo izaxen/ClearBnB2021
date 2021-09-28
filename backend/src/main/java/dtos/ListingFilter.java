@@ -1,4 +1,4 @@
-package filter;
+package dtos;
 
 import java.sql.Timestamp;
 
