@@ -5,8 +5,7 @@ import entityDO.*;
 import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
 import repositories.ListingRevisionRepository;
-import service.AddressService;
-import service.AmenityService;
+import mapper.AddressService;
 
 public class AddressLogic {
 

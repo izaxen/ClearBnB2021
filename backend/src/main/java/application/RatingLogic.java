@@ -3,7 +3,7 @@ package application;
 import dtos.GetRatingDTO;
 import entityDO.Rating;
 import entityDO.User;
-import service.RatingService;
+import mapper.RatingService;
 
 import java.util.ArrayList;
 import java.util.List;

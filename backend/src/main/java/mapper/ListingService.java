@@ -1,14 +1,10 @@
-package service;
+package mapper;
 
 import dtos.AddListingDTO;
 import dtos.UpdateListingDTO;
 import dtos.FilteredListingDTO;
 import entityDO.Listing;
 import entityDO.User;
-
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.logging.Filter;
 
 public class ListingService {
 
@@ -24,6 +20,6 @@ public class ListingService {
 
     public FilteredListingDTO convertListingToFilteredDTO(Listing listing){
 
-        return new FilteredListingDTO(listing.getId(), listing.getDescription(), listing.getPrice(), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
+        return new FilteredListingDTO(listing.getId(), listing.getDescription(), (int) Math.ceil(listing.getPrice()*1.15), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
     }
 }

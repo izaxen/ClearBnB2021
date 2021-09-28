@@ -6,7 +6,7 @@ import dtos.RegisterUserDTO;
 import express.Express;
 import entityDO.User;
 import repositories.UserRepository;
-import service.UserService;
+import mapper.UserService;
 
 import java.util.Map;
 

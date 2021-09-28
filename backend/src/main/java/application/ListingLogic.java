@@ -6,12 +6,11 @@ import dtos.GetAllListingsInSummaryFromUserDTO;
 import dtos.ListingFilterDTO;
 import entityDO.Listing;
 import entityDO.User;
-import org.hibernate.Session;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import entityDO.ListingRevision;
-import service.ListingService;
+import mapper.ListingService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,6 @@ public class ListingLogic {
             for ( Listing l: allListings
             ) {
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
-                System.out.println(filteredListingDTO.toString());
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;

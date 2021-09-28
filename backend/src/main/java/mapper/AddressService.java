@@ -1,15 +1,9 @@
-package service;
+package mapper;
 
-import application.Repositories;
 import dtos.AddAddressDTO;
-import dtos.AddAmenityDTO;
-import dtos.AddListingDTO;
 import dtos.UpdateAddressDTO;
 import entityDO.Address;
 import entityDO.Listing;
-import entityDO.User;
-import repositories.ListingRepository;
-import repositories.ListingRevisionRepository;
 
 
 public class AddressService {

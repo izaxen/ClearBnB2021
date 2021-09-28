@@ -3,13 +3,11 @@ package routes;
 import application.AddressLogic;
 import application.Repositories;
 import dtos.AddAddressDTO;
-import dtos.AddListingDTO;
 import dtos.UpdateAddressDTO;
 import entityDO.Listing;
 import express.Express;
 import entityDO.Address;
-import repositories.AddressRepository;
-import service.AddressService;
+import mapper.AddressService;
 
 public class AddressRoutes {
 

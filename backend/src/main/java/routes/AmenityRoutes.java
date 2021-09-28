@@ -5,11 +5,9 @@ import application.Repositories;
 import dtos.AddAmenityDTO;
 import dtos.UpdateAmenityDTO;
 import entityDO.Listing;
-import entityDO.ListingRevision;
 import express.Express;
 import entityDO.Amenities;
-import repositories.AmenitiesRepository;
-import service.AmenityService;
+import mapper.AmenityService;
 
 public class AmenityRoutes {
 
