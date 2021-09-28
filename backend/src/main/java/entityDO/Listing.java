@@ -53,6 +53,7 @@ public class Listing {
     @PrimaryKeyJoinColumn
     private Amenities amenities;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 

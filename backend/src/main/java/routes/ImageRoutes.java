@@ -30,7 +30,8 @@ public class ImageRoutes {
 
         app.get("/api/uploads/:id", (req, res) -> {
                     String id = req.params("id");
-                    res.json(imagesLogic.getUploadedImages(id));
+                    //
+            // res.json(imagesLogic.UploadedImages(id));
                 }
         );
 
