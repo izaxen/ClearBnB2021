@@ -13,8 +13,6 @@ import repositories.ListingRevisionRepository;
 
 
 public class AddressService {
-    Repositories lR;
-    Listing listing;
 
 
     public Address convertAddAddressToAddress(AddAddressDTO dto, Listing listing) {

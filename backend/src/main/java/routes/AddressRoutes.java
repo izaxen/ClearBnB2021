@@ -23,13 +23,9 @@ public class AddressRoutes {
         as = new AddressService();
 
         app.post("/api/addAddress", (req, res) -> {   //Create listing
-
             Listing currentListing = req.session("current-Listing");
-            Address address = addressLogic.createNewAddress(
-                    as.convertAddAddressToAddress(req.body(
-                            AddAddressDTO.class),currentListing)
-            );
-            res.json(address);
+            res.json(addressLogic.createNewAddress((req.body(
+                    AddAddressDTO.class)), currentListing));
         });
 
         app.post("/api/updateAddress", (req, res) -> {   //Create listing
