@@ -136,5 +136,20 @@ public class Amenities {
     public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
+
+    @Override
+    public String toString() {
+        return "Amenities{" +
+                "id=" + id +
+                ", isBathTub=" + isBathTub +
+                ", isParkingLot=" + isParkingLot +
+                ", isStove=" + isStove +
+                ", isDoubleBed=" + isDoubleBed +
+                ", isBubblePool=" + isBubblePool +
+                ", isBicycle=" + isBicycle +
+                ", isSauna=" + isSauna +
+                ", listing=" + listing +
+                '}';
+    }
 }
 

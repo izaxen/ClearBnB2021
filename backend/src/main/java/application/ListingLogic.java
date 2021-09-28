@@ -1,9 +1,6 @@
 package application;
 
-import dtos.AddListingDTO;
-import dtos.FilteredListingDTO;
-import dtos.GetAllListingsInSummaryFromUserDTO;
-import dtos.ListingFilterDTO;
+import dtos.*;
 import entityDO.Listing;
 import entityDO.User;
 import mapper.ListingService;
@@ -123,8 +120,13 @@ public class ListingLogic {
         listingRevisionRepository.addListingRevision(copyOldList);
 
         return copyOldList;
+    }
 
-
-
+    public SingeListingDTO getSingleListing(int id){
+        Listing l =listingRepository.findById(id).get();
+        return new SingeListingDTO(l.getId(), l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
+                l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),
+                l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
+                l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna());
     }
 }

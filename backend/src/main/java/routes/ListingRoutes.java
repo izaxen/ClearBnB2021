@@ -3,6 +3,7 @@ package routes;
 import application.ListingLogic;
 import application.Repositories;
 import dtos.ListingFilterDTO;
+import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
 import express.Express;
 import entityDO.Listing;
@@ -53,10 +54,27 @@ public class ListingRoutes {
             res.json(updatedListing.getId());
         });
 
-
         app.post("/api/getFilteredListing", (req, res) ->{
             res.json(listingLogic.getFilteredListings(
                     (req.body(ListingFilterDTO.class))));
+        });
+
+        app.post("/api/getSingleListing",(req, res) ->{
+            //User currentUser = req.session(("current-user"));
+            System.out.println("Inne i resten");
+            //int id = parseInt(req.params("id"));
+            SingeListingDTO dto = listingLogic.getSingleListing(58);
+            System.out.println(dto.toString());
+            res.json(dto);
+        });
+
+        app.get("/rest/getSingleListing",(req, res) ->{
+            //User currentUser = req.session(("current-user"));
+            System.out.println("Inne i resten");
+            //int id = parseInt(req.params("id"));
+            SingeListingDTO dto = listingLogic.getSingleListing(58);
+            System.out.println(dto.toString());
+            res.json(dto);
         });
 
     }

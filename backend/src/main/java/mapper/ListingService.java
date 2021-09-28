@@ -1,6 +1,7 @@
 package mapper;
 
 import dtos.AddListingDTO;
+import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
 import dtos.FilteredListingDTO;
 import entityDO.Listing;
@@ -17,9 +18,9 @@ public class ListingService {
         return new Listing(dto.getId(), dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
     }
 
-
     public FilteredListingDTO convertListingToFilteredDTO(Listing listing){
-
         return new FilteredListingDTO(listing.getId(), listing.getDescription(), listing.getPrice(), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
     }
+
+
 }

@@ -32,7 +32,7 @@ export const store = createStore({
       state.loggedInUser = status
     },
 
-    // setAllListingsDTO(state, allListingsDTO) {
+        // setAllListingsDTO(state, allListingsDTO) {
     //   state.allListingsDTO = allListingsDTO;
     // }
   },
@@ -143,14 +143,7 @@ export const store = createStore({
       })
     },
 
-    async getFileUrl(store, id) {
-      let loadPath = '/api/uploads/' + id
-      let res = await fetch(loadPath)
-      let fileList = await res.json()
-      store.commit('getImageList', fileList)
-    },
-
-    // async getAllListingsDTO(_) {
+      // async getAllListingsDTO(_) {
     //   let res = await fetch('/rest/getAllListingsDTO', {
     //     method: 'GET',
     //     body: JSON.stringify()
