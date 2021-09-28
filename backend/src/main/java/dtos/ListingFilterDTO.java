@@ -6,13 +6,13 @@ public class ListingFilterDTO {
     private int price;
     private String availableStartDate;
     private String availableEndDate;
-    private boolean isBathTub;
-    private boolean isParkingLot;
-    private boolean isStove;
-    private boolean isDoubleBed;
-    private boolean isBubblePool;
-    private boolean isCycle;
-    private boolean isSauna;
+    private Boolean isBathTub;
+    private Boolean isParkingLot;
+    private Boolean isStove;
+    private Boolean isDoubleBed;
+    private Boolean isBubblePool;
+    private Boolean isBicycle;
+    private Boolean isSauna;
 
     public ListingFilterDTO() {
     }
@@ -41,59 +41,75 @@ public class ListingFilterDTO {
         this.availableEndDate = availableEndDate;
     }
 
-    public boolean isBathTub() {
+    public Boolean getBathTub() {
         return isBathTub;
     }
 
-    public void setBathTub(boolean bathTub) {
+    public void setBathTub(Boolean bathTub) {
         isBathTub = bathTub;
     }
 
-    public boolean isParkingLot() {
+    public Boolean getParkingLot() {
         return isParkingLot;
     }
 
-    public void setParkingLot(boolean parkingLot) {
+    public void setParkingLot(Boolean parkingLot) {
         isParkingLot = parkingLot;
     }
 
-    public boolean isStove() {
+    public Boolean getStove() {
         return isStove;
     }
 
-    public void setStove(boolean stove) {
+    public void setStove(Boolean stove) {
         isStove = stove;
     }
 
-    public boolean isDoubleBed() {
+    public Boolean getDoubleBed() {
         return isDoubleBed;
     }
 
-    public void setDoubleBed(boolean doubleBed) {
+    public void setDoubleBed(Boolean doubleBed) {
         isDoubleBed = doubleBed;
     }
 
-    public boolean isBubblePool() {
+    public Boolean getBubblePool() {
         return isBubblePool;
     }
 
-    public void setBubblePool(boolean bubblePool) {
+    public void setBubblePool(Boolean bubblePool) {
         isBubblePool = bubblePool;
     }
 
-    public boolean isCycle() {
-        return isCycle;
+    public Boolean getBicycle() {
+        return isBicycle;
     }
 
-    public void setCycle(boolean cycle) {
-        isCycle = cycle;
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
     }
 
-    public boolean isSauna() {
+    public Boolean getSauna() {
         return isSauna;
     }
 
-    public void setSauna(boolean sauna) {
+    public void setSauna(Boolean sauna) {
         isSauna = sauna;
+    }
+
+    @Override
+    public String toString() {
+        return "ListingFilterDTO{" +
+                "price=" + price +
+                ", availableStartDate='" + availableStartDate + '\'' +
+                ", availableEndDate='" + availableEndDate + '\'' +
+                ", isBathTub=" + isBathTub +
+                ", isParkingLot=" + isParkingLot +
+                ", isStove=" + isStove +
+                ", isDoubleBed=" + isDoubleBed +
+                ", isBubblePool=" + isBubblePool +
+                ", isBicycle=" + isBicycle +
+                ", isSauna=" + isSauna +
+                '}';
     }
 }

@@ -90,7 +90,7 @@ public class ListingRoutes {
            // Listing list = req.body(Listing.class);
             List<AddListingDTO> filteredListings = listingLogic.getFilteredListings(
             (req.body(ListingFilterDTO.class)));
-//            System.out.println("filteredListings: " + filteredListings);
+            System.out.println(req.body(ListingFilterDTO.class).toString());
             res.json(filteredListings);
         });
 

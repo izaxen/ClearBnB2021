@@ -75,13 +75,13 @@ public class ListingLogic {
 
         String ts1 = filter.getAvailableStartDate();
         String ts2 = filter.getAvailableEndDate();
-        Boolean isBathTub = filter.isBathTub();
-        Boolean isParkingLot = filter.isParkingLot();
-        Boolean isStove = filter.isStove();
-        Boolean isDoubleBed = filter.isDoubleBed();
-        Boolean isBubblePool = filter.isBubblePool();
-        Boolean isCycle = filter.isCycle();
-        Boolean isSauna = filter.isSauna();
+        Boolean isBathTub = filter.getBathTub();
+        Boolean isParkingLot = filter.getParkingLot();
+        Boolean isStove = filter.getStove();
+        Boolean isDoubleBed = filter.getDoubleBed();
+        Boolean isBubblePool = filter.getBubblePool();
+        Boolean isBicycle = filter.getBicycle();
+        Boolean isSauna = filter.getSauna();
         int maxPrice = filter.getPrice();
 
 //        System.out.println("ts1: " + ts1);
@@ -102,13 +102,13 @@ public class ListingLogic {
         List<Listing> matchedListing = session.createQuery("FROM Listing as l WHERE " +
                 "(:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
                 "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate) AND " +
-                        "(:isBathTub IS FALSE or l.amenities.isBathTub IS :isBathTub) AND " +
-                        "(:isParkingLot IS FALSE or l.amenities.isParkingLot IS :isParkingLot) AND " +
-                        "(:isStove IS FALSE or l.amenities.isStove IS :isStove) AND " +
-                        "(:isDoubleBed IS FALSE or l.amenities.isDoubleBed IS :isDoubleBed) AND " +
-                        "(:isBubblePool IS FALSE or l.amenities.isBubblePool IS :isBubblePool) AND " +
-                        "(:isCycle IS FALSE or l.amenities.isCycle IS :isCycle) AND " +
-                        "(:isSauna IS FALSE or l.amenities.isSauna IS :isSauna) AND " +
+                        "(:isBathTub IS NULL or l.amenities.isBathTub IS :isBathTub) AND " +
+                        "(:isParkingLot IS NULL or l.amenities.isParkingLot IS :isParkingLot) AND " +
+                        "(:isStove IS NULL or l.amenities.isStove IS :isStove) AND " +
+                        "(:isDoubleBed IS NULL or l.amenities.isDoubleBed IS :isDoubleBed) AND " +
+                        "(:isBubblePool IS NULL or l.amenities.isBubblePool IS :isBubblePool) AND " +
+                        "(:isBicycle IS NULL or l.amenities.isBicycle IS :isBicycle) AND " +
+                        "(:isSauna IS NULL or l.amenities.isSauna IS :isSauna) AND " +
                         "(:maxPrice = 0 or l.price <= :maxPrice)", Listing.class)
                 .setParameter("selectedStartDate", ts1)
                 .setParameter("selectedEndDate", ts2)
@@ -117,7 +117,7 @@ public class ListingLogic {
                 .setParameter("isStove", isStove)
                 .setParameter("isDoubleBed", isDoubleBed)
                 .setParameter("isBubblePool", isBubblePool)
-                .setParameter("isCycle", isCycle)
+                .setParameter("isBicycle", isBicycle)
                 .setParameter("isSauna", isSauna)
                 .setParameter("maxPrice", maxPrice)
                 .list();

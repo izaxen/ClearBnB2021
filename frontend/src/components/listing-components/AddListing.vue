@@ -50,8 +50,8 @@
         <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
         <label for="isBubblePool">BubblePool</label>
 
-        <input type="checkbox" id="isCycle" v-model="isCycle" />
-        <label for="isCycle">Cycle</label>
+        <input type="checkbox" id="isBicycle" v-model="isBicycle" />
+        <label for="isBicycle">Bicycle</label>
 
         <input type="checkbox" id="isSauna" v-model="isSauna" />
         <label for="isSauna">Sauna</label>
@@ -103,7 +103,7 @@ export default {
       isStove: false,
       isDoubleBed: false,
       isBubblePool: false,
-      isCycle: false,
+      isBicycle: false,
       isSauna: false,
       city: null,
       addressListing: null,
@@ -143,7 +143,7 @@ export default {
         stove: this.isStove,
         doubleBed: this.isDoubleBed,
         bubblePool: this.isBubblePool,
-        bicycle: this.isCycle,
+        bicycle: this.isBicycle,
         sauna: this.isSauna,
       };
 

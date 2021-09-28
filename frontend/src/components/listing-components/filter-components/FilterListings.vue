@@ -49,8 +49,17 @@
           <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
           <label for="isBubblePool">BubblePool</label>
 
-          <input type="checkbox" id="isCycle" v-model="isCycle" />
-          <label for="isCycle">Cycle</label>
+          <input
+            type="checkbox"
+            id="isBicycle
+"
+            v-model="isBicycle"
+          />
+          <label
+            for="isBicycle
+"
+            >BiCycle</label
+          >
 
           <input type="checkbox" id="isSauna" v-model="isSauna" />
           <label for="isSauna">Sauna</label>
@@ -70,7 +79,7 @@ export default {
       isStove: null,
       isDoubleBed: null,
       isBubblePool: null,
-      isCycle: null,
+      isBicycle: null,
       isSauna: null,
       price: null,
       available_start_date: this.available_start_date,
@@ -81,8 +90,6 @@ export default {
 
   methods: {
     async filterListings() {
-      console.log("start " + this.available_start_date);
-      console.log("end " + this.available_end_date);
       // if (this.price === null) {
       //   this.price = 99999;
       // }
@@ -96,9 +103,11 @@ export default {
         stove: this.isStove,
         doubleBed: this.isDoubleBed,
         bubblePool: this.isBubblePool,
-        cycle: this.isCycle,
+        bicycle: this.isBicycle,
         sauna: this.isSauna,
       };
+
+      console.log(newFilter);
 
       // if ((this.price = 99999)) {
       //   this.price = null;
