@@ -112,6 +112,19 @@ public class UserRepository {
         return user;
     }
 
+    public User update(User user){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     public void updateUserFirstName(String firstName, Integer id){
         entityManager.getTransaction().begin();
         entityManager.createQuery("UPDATE User u SET u.firstName = :firstName WHERE u.ID = :ID")

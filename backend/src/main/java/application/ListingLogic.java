@@ -59,7 +59,6 @@ public class ListingLogic {
             for ( Listing l: allListings
             ) {
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
-                System.out.println(filteredListingDTO.toString());
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;

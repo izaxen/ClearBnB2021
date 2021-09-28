@@ -20,6 +20,6 @@ public class ListingService {
 
     public FilteredListingDTO convertListingToFilteredDTO(Listing listing){
 
-        return new FilteredListingDTO(listing.getId(), listing.getDescription(), listing.getPrice(), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
+        return new FilteredListingDTO(listing.getId(), listing.getDescription(), (int) Math.ceil(listing.getPrice()*1.15), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
     }
 }
