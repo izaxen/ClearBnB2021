@@ -7,55 +7,70 @@ import jakarta.persistence.*;
 public class Amenities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
+    @Column(name = "listing_ID")
+    private Integer id;
+
+    @Column(name = "bathtub")
+    private Boolean isBathTub;
+
+    @Column(name = "parkinglot")
+    private Boolean isParkingLot;
+
+    @Column(name = "stove")
+    private Boolean isStove;
+
+    @Column(name = "double_bed")
+    private Boolean isDoubleBed;
+
+    @Column(name = "bubble_pool")
+    private Boolean isBubblePool;
+
+    @Column(name = "bicycle")
+    private Boolean isBicycle;
+
+    @Column(name = "sauna")
+    private Boolean isSauna;
 
     @JsonBackReference
     @OneToOne
+    @MapsId
     @JoinColumn(name = "listing_ID")
     private Listing listing;
 
-    @Column (name = "bathtub")
-    private boolean isBathTub;
+    public Amenities(){
+    }
 
-    @Column (name = "parkinglot")
-    private boolean isParkingLot;
-
-    @Column (name = "stove")
-    private boolean isStove;
-
-    @Column (name = "double_bed")
-    private boolean isDoubleBed;
-
-    @Column (name = "bubble_pool")
-    private boolean isBubblePool;
-
-    @Column (name = "cycle")
-    private boolean isCycle;
-
-    @Column (name = "sauna")
-    private boolean isSauna;
-
-    public Amenities(Listing listing, boolean isBathTub, boolean isParkingLot, boolean isStove, boolean isDoubleBed, boolean isBubblePool, boolean isCycle, boolean isSauna) {
-        this.listing = listing;
+    public Amenities(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                     Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, Listing listing) {
+        this.id = id;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
         this.isDoubleBed = isDoubleBed;
         this.isBubblePool = isBubblePool;
-        this.isCycle = isCycle;
+        this.isBicycle = isBicycle;
         this.isSauna = isSauna;
+        this.listing = listing;
     }
 
-    public Amenities() {
+    public Amenities(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                     Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, Listing listing) {
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
+        this.listing = listing;
     }
 
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Listing getListing() {
@@ -66,59 +81,60 @@ public class Amenities {
         this.listing = listing;
     }
 
-    public boolean isBathTub() {
+    public Boolean getBathTub() {
         return isBathTub;
     }
 
-    public void setBathTub(boolean bathTub) {
+    public void setBathTub(Boolean bathTub) {
         isBathTub = bathTub;
     }
 
-    public boolean isParkingLot() {
+    public Boolean getParkingLot() {
         return isParkingLot;
     }
 
-    public void setParkingLot(boolean parkingLot) {
+    public void setParkingLot(Boolean parkingLot) {
         isParkingLot = parkingLot;
     }
 
-    public boolean isStove() {
+    public Boolean getStove() {
         return isStove;
     }
 
-    public void setStove(boolean stove) {
+    public void setStove(Boolean stove) {
         isStove = stove;
     }
 
-    public boolean isDoubleBed() {
+    public Boolean getDoubleBed() {
         return isDoubleBed;
     }
 
-    public void setDoubleBed(boolean doubleBed) {
+    public void setDoubleBed(Boolean doubleBed) {
         isDoubleBed = doubleBed;
     }
 
-    public boolean isBubblePool() {
+    public Boolean getBubblePool() {
         return isBubblePool;
     }
 
-    public void setBubblePool(boolean bubblePool) {
+    public void setBubblePool(Boolean bubblePool) {
         isBubblePool = bubblePool;
     }
 
-    public boolean isCycle() {
-        return isCycle;
+    public Boolean getBicycle() {
+        return isBicycle;
     }
 
-    public void setCycle(boolean cycle) {
-        isCycle = cycle;
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
     }
 
-    public boolean isSauna() {
+    public Boolean getSauna() {
         return isSauna;
     }
 
-    public void setSauna(boolean sauna) {
+    public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
 }
+

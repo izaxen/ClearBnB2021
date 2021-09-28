@@ -1,7 +1,8 @@
 package dtos;
 
-public class AddAmenityDTO {
 
+public class UpdateAmenityDTO {
+    private int id;
     private Boolean isBathTub;
     private Boolean isParkingLot;
     private Boolean isStove;
@@ -10,7 +11,12 @@ public class AddAmenityDTO {
     private Boolean isBicycle;
     private Boolean isSauna;
 
-    public AddAmenityDTO(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+    public UpdateAmenityDTO(){
+    }
+
+    public UpdateAmenityDTO(int id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                            Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.id = id;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -20,8 +26,12 @@ public class AddAmenityDTO {
         this.isSauna = isSauna;
     }
 
-    public AddAmenityDTO() {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Boolean getBathTub() {

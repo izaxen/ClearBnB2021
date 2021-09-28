@@ -44,4 +44,17 @@ public class AddressRevisionRepository {
         }
         return Optional.empty();
     }
+
+    public Optional<AddressRevision> updateAddressRevision(AddressRevision addressRevision){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(addressRevision);
+            entityManager.getTransaction().commit();
+            return Optional.of(addressRevision);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return Optional.empty();
+    }
 }

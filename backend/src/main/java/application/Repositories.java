@@ -21,9 +21,26 @@ public class Repositories {
     RatingRepository ratingRepository = new RatingRepository(new EntityManagerCopy().getEntityManager());
     AddressRepository addressRepository = new AddressRepository(entityManager);
     BookingRepository bookingRepository = new BookingRepository(entityManager);
+    AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(entityManager);
+    ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
+    AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManager);
 
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
 
-    //TODO WHAT NAMING CONVENTION SHOULD WE USE ON REPO GETTERS??
+    public BookingRepository getBookingRepository() {
+        return bookingRepository;
+    }
+
+    public AmenitiesRevisionRepository getAmenitiesRevisionRepository() {
+        return amenitiesRevisionRepository;
+    }
+
+    public ListingRevisionRepository getListingRevisionRepository() {
+        return listingRevisionRepository;
+    }
+
     public BookingRepository booking() {
         return bookingRepository;
     }
