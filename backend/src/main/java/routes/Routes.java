@@ -10,8 +10,8 @@ public class Routes {
         new UserRoutes(app, repositories.getUserRep());
         new BookingRoutes(app, repositories);
         new ListingRoutes(app, repositories);
-        new AddressRoutes(app, repositories.getAddressRepository());
-        new AmenityRoutes(app, repositories.getAmenitiesRepository());
+        new AddressRoutes(app, repositories);
+        new AmenityRoutes(app, repositories);
         new RatingRoutes(app, repositories);
     }
 }

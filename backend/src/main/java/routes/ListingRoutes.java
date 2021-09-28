@@ -3,12 +3,23 @@ package routes;
 import application.ListingLogic;
 import application.Repositories;
 import dtos.ListingFilterDTO;
+import dtos.UpdateListingDTO;
+import entityDO.ListingRevision;
+import com.mysql.cj.Session;
+import dtos.FilteredListingDTO;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import oracle.jdbc.OracleConnection;
+import org.hibernate.annotations.Filter;
+import repositories.ListingRepository;
+import repositories.ListingRevisionRepository;
 import service.ListingService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -49,7 +60,6 @@ public class ListingRoutes {
 //            System compares what we got from frontend to Class Listing, if it has all attributes?
 
             req.session("current-Listing", createdListing);
-
             res.json(createdListing.getId());
         });
 
@@ -63,26 +73,32 @@ public class ListingRoutes {
             res.json(listingLogic.getAllListingsDTO());
         });
 
+        app.post("/api/updateListing", (req, res) -> {
+            User currentUser = req.session("current-user");
+            Listing updatedListing = listingLogic.updateListing(
+                    ls.convertupdateListingToListing(
+                            req.body(UpdateListingDTO.class),
+                            currentUser
+                    )
+            );
+            req.session("current-Listing", updatedListing);
+            res.json(updatedListing.getId());
+        });
+
+
         app.post("/api/getFilteredListing", (req, res) ->{
            // Listing list = req.body(Listing.class);
-
-
             List<AddListingDTO> filteredListings = listingLogic.getFilteredListings(
             (req.body(ListingFilterDTO.class)));
-
-            
 //            System.out.println("filteredListings: " + filteredListings);
-
             res.json(filteredListings);
         });
-    }
 
-    private void getAllListingsInSummaryFromUser(){
+    }
+    private void getAllListingsInSummaryFromUser() {
         app.get("/rest/:userID/listings", (req, res) -> {
             int userID = parseInt(req.params("userID"));
             res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
         });
     }
-
-
 }

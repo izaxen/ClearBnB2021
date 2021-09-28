@@ -1,7 +1,10 @@
 package repositories;
 
+import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Amenities;
+
+import java.util.Optional;
 
 public class AmenitiesRepository {
 
@@ -10,6 +13,12 @@ public class AmenitiesRepository {
     public AmenitiesRepository(EntityManager entityManager){
         this.entityManager = entityManager;
     }
+
+    public Optional<Amenities> findById (Integer id){
+        Amenities amenities = entityManager.find(Amenities.class, id);
+        return amenities != null ? Optional.of(amenities) : Optional.empty();
+    }
+
 
     public Amenities addAmenities(Amenities amenities){
         try{
@@ -23,5 +32,19 @@ public class AmenitiesRepository {
         }
         return amenities;
     }
+
+    public Amenities updateAmenities(Amenities amenities){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(amenities);
+            entityManager.getTransaction().commit();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return amenities;
+
+    }
+
+
 
 }

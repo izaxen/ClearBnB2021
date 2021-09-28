@@ -1,27 +1,31 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="address_revision")
 public class AddressRevision {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "listing_rev_ID")
     private Integer id;
 
     private String city;
     private String address;
 
+    @JsonBackReference
     @OneToOne
+    @MapsId
     @JoinColumn(name="listing_rev_ID")
     private ListingRevision listingRevision;
 
     public AddressRevision() {
     }
 
-    public AddressRevision(String city, String address) {
+    public AddressRevision(ListingRevision lr, String city, String address) {
         this.city = city;
         this.address = address;
+        this.listingRevision = lr;
     }
 
     public Integer getId() {
