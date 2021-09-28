@@ -36,6 +36,7 @@ public class Listing {
     private String availableEndDate;
 
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 

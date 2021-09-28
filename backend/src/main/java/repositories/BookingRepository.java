@@ -1,12 +1,14 @@
 package repositories;
 
 import entityDO.Listing;
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Booking;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,34 @@ public class BookingRepository {
         Booking booking = entityManager.find(Booking.class, id);
         return booking != null ? Optional.of(booking) : Optional.empty();
     }
+
+    public Booking findAUsersOldBookings(User user){
+        Date date = new Date();
+        System.out.println(date);
+        Booking booking = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND" +
+                "b.user = :user", Booking.class)
+                .setParameter("date", date)
+                .setParameter("user", user)
+                .getSingleResult();
+
+        return booking;
+    }
+
+    public Booking findAUsersOldBookingsAsRenter(User user, Listing listing){
+        Date date = new Date();
+        System.out.println(date);
+        Booking booking = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND" +
+                "b.user = :user AND" +
+                "b.listing = :listing", Booking.class)
+                .setParameter("date", date)
+                .setParameter("user", user)
+                .setParameter("listing", listing)
+                .getSingleResult();
+
+        return booking;
+    }
+
+
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
 
@@ -51,7 +81,7 @@ public class BookingRepository {
     }
 
     public List<Booking> findAllBookings(){
-        return entityManager.createQuery("from Booking").getResultList();
+        return entityManager.createQuery("FROM Booking").getResultList();
     }
 
     public Optional<Booking> addBooking(Booking booking){

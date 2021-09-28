@@ -1,5 +1,7 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class Booking {
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Rating> rating = new ArrayList<>();
 

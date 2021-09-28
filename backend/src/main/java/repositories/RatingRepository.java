@@ -35,13 +35,12 @@ public class RatingRepository {
     public List<Rating> checkIfThereIsAnyRatingToFill(Booking booking, User user){
         List<Rating> getRatingsToFill;
         System.out.println("-----------------checkIfThereIsAnyRatingToFill-------------------");
-        System.out.println(booking.toString());
-        System.out.println(user.toString());
+
         try {
-            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :bookingID AND" +
-                    "(r.recipient = :userID or r.reviewer = :userID)", Rating.class)
-                    .setParameter("bookingID", booking)
-                    .setParameter("userID", user)
+            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking AND" +
+                    "(r.recipient = :user or r.reviewer = :user)", Rating.class)
+                    .setParameter("booking", booking)
+                    .setParameter("user", user)
                     .getResultList();
             System.out.println("getRatingsToFill" + getRatingsToFill);
             return getRatingsToFill;

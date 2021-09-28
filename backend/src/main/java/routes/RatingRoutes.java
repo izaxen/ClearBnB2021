@@ -38,7 +38,7 @@ public class RatingRoutes {
     public void checkIfThereIsAnyRatingToFill(){
         app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
-            res.json(ratingLogic.checkIfThereIsAnyRatingToFill());
+            res.json(ratingLogic.checkIfThereIsAnyRatingToFill(userID));
         });
     }
 }

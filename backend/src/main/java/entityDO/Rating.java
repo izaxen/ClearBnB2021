@@ -1,5 +1,6 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,7 @@ public class Rating {
     @JoinColumn(name="recipient_ID")
     private User recipient;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="booking_ID")
     private Booking booking;

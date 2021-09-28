@@ -2,6 +2,7 @@ package application;
 
 import dtos.GetRatingDTO;
 import entityDO.Booking;
+import entityDO.Listing;
 import entityDO.Rating;
 import entityDO.User;
 import service.RatingService;
@@ -39,24 +40,35 @@ public class RatingLogic {
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 
-    public List<Rating> checkIfThereIsAnyRatingToFill(){
+    //TODO, THIS WAY IS WAY TO UN-OPTIMIZED (better we had in user a field that was called isRenter).
+    public int checkIfThereIsAnyRatingToFill(int userID){
 
-        List<Booking> bookings = repositories.bookingRepository.findAllBookings();
-        System.out.println("BOOKING ID: ----" + bookings.get(0));
+        Booking booking = repositories.bookingRepository.findById(4).get();
+        User user = repositories.getUserRep().findUserById(userID);
 
-        Booking booking = bookings.get(0);
-
-        User user = repositories.getUserRep().findUserById(45);
-        System.out.println("USER ID:" + user.getID());
+        checkIfRenterHasAnyOldBookings(user);
 
         List<Rating> list = repositories.ratingRepository.checkIfThereIsAnyRatingToFill(booking, user);
+
+        if(list.isEmpty()){
+            return 1;
+        }
+
         list.forEach(rating -> {
-            System.out.println("hey!---- " + rating.toString());
+
         });
 
-        return list;
+        return 1;
     }
 
+    public List<Listing> checkIfRenterHasAnyOldBookings(User user){
+         List<Listing> listings = repositories.listingRepository.findAllListingsFromUser(user);
+         listings.forEach(listing ->{
+             
+         });
+
+         return ;
+    }
 
 
 }
