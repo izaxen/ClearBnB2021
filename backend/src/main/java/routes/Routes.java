@@ -13,5 +13,6 @@ public class Routes {
         new AddressRoutes(app, repositories);
         new AmenityRoutes(app, repositories);
         new RatingRoutes(app, repositories);
+        new ImageRoutes(app, repositories);
     }
 }

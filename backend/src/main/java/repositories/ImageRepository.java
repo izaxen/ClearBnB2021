@@ -5,7 +5,7 @@ import entityDO.Image;
 
 import java.util.Optional;
 
-public class ImageRepository {
+public class   ImageRepository {
 
     private EntityManager entityManager;
 

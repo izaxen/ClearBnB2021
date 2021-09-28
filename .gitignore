@@ -5,10 +5,8 @@ dist-ssr
 *.local
 .idea
 */target/**
-/target/*
-/target/
+/Static/*
 
-/target/
 /META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
