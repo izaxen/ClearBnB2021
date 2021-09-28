@@ -39,25 +39,23 @@ public class BookingRepository {
         return bookings.size() > 0;
     }
 
-//    public boolean checkIfListingIsAlreadyBooked(Timestamp startDate, Timestamp endDate, Listing listing){
-//
-//        List bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.listing = :listing " +
-//                        "AND (b.startDate between :sDate AND :eDate " +
-//                        "OR b.endDate between :sDate AND :eDate)", Booking.class)
-//                .setParameter("listing", listing)
-//                .setParameter("sDate", startDate)
-//                .setParameter("eDate", endDate)
-//                .getResultList();
-//
-//        return bookings.size() > 0;
-//    }
+    public boolean checkListingAvailableDates(String startDate, String endDate, Listing listing){
+        List bookings = entityManager.createQuery("FROM Listing as l WHERE l.id = :listing " +
+                "AND (:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
+                "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate)", Listing.class)
+                .setParameter("listing", listing.getId())
+                .setParameter("selectedStartDate", startDate)
+                .setParameter("selectedEndDate", endDate)
+                .getResultList();
+        return bookings.size() > 0;
+    }
 
     public List<Booking> findAllBookings(){
         return entityManager.createQuery("from Booking").getResultList();
     }
 
     public Optional<Booking> addBooking(Booking booking){
-        System.out.println("addBooking " + booking);
+
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(booking);

@@ -17,7 +17,6 @@ public class UserRepository {
 
     public Optional<User> findById(int id){
         User user = entityManager.find(User.class, id);
-        System.out.println(user);
         return user != null ? Optional.of(user) : Optional.empty();
     }
 

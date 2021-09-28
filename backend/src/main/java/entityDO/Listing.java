@@ -61,7 +61,7 @@ public class Listing {
     }
 
     public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
-        this.price = price;
+        this.price = (int) (price * 1.15);
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
@@ -75,7 +75,7 @@ public class Listing {
 
     public Listing(int id, int price, String description, String availableStartDate, String availableEndDate, Address address, List<Booking> bookings, List<ListingRevision> listingRevisions, Amenities amenities, List<Image> images, User user) {
         this.id = id;
-        this.price = price;
+        this.price = (int) (price * 1.15);
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;

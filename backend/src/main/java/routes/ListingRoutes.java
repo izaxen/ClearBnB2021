@@ -2,11 +2,11 @@ package routes;
 
 import application.ListingLogic;
 import application.Repositories;
+import dtos.ListingFilterDTO;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
-import dtos.ListingFilter;
 import service.ListingService;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class ListingRoutes {
         ls= new ListingService();
         this.app = app;
 
-//        getAllListingsInSummaryFromUser();
+        getAllListingsInSummaryFromUser();
 
         app.post("/api/addListing", (req, res) -> {
             User currentUser = req.session("current-user");
@@ -68,21 +68,21 @@ public class ListingRoutes {
 
 
             List<AddListingDTO> filteredListings = listingLogic.getFilteredListings(
-            (req.body(ListingFilter.class)));
+            (req.body(ListingFilterDTO.class)));
 
-
+            
 //            System.out.println("filteredListings: " + filteredListings);
 
             res.json(filteredListings);
         });
     }
 
-//    private void getAllListingsInSummaryFromUser(){
-//        app.get("/rest/:userID/listings", (req, res) -> {
-//            int userID = parseInt(req.params("userID"));
-//            res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
-//        });
-//    }
+    private void getAllListingsInSummaryFromUser(){
+        app.get("/rest/:userID/listings", (req, res) -> {
+            int userID = parseInt(req.params("userID"));
+            res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
+        });
+    }
 
 
 }

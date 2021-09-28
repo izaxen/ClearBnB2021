@@ -50,18 +50,17 @@ export default {
 
 <style scoped>
 .rating-container {
-  max-width: 50%;
+  margin: 10px;
 }
 
 .ratingItem {
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: cadetblue;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  margin: 5px;
+  margin-bottom: 5px;
   padding: 10px;
 }
 .stars h1 {

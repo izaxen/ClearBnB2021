@@ -2,7 +2,7 @@ package dtos;
 
 import java.sql.Timestamp;
 
-public class ListingFilter {
+public class ListingFilterDTO {
     private int price;
     private String availableStartDate;
     private String availableEndDate;
@@ -14,7 +14,7 @@ public class ListingFilter {
     private boolean isCycle;
     private boolean isSauna;
 
-    public ListingFilter() {
+    public ListingFilterDTO() {
     }
 
     public int getPrice() {
