@@ -8,7 +8,7 @@ import entityDO.ListingRevision;
 import repositories.AmenitiesRepository;
 import repositories.AmenitiesRevisionRepository;
 import repositories.ListingRevisionRepository;
-import service.AmenityService;
+import mapper.AmenityService;
 
 public class AmenityLogic {
 

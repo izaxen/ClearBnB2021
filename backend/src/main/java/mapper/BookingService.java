@@ -1,7 +1,6 @@
-package service;
+package mapper;
 
 import dtos.AddBookingDTO;
-import dtos.AddListingDTO;
 import entityDO.Booking;
 import entityDO.Listing;
 import entityDO.User;

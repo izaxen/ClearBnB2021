@@ -4,23 +4,11 @@ import application.ListingLogic;
 import application.Repositories;
 import dtos.ListingFilterDTO;
 import dtos.UpdateListingDTO;
-import entityDO.ListingRevision;
-import com.mysql.cj.Session;
-import dtos.FilteredListingDTO;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import oracle.jdbc.OracleConnection;
-import org.hibernate.annotations.Filter;
-import repositories.ListingRepository;
-import repositories.ListingRevisionRepository;
-import service.ListingService;
-
-import java.sql.Timestamp;
-import java.util.List;
+import mapper.ListingService;
 
 import static java.lang.Integer.parseInt;
 
