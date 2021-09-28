@@ -8,19 +8,7 @@ import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
-import filter.ListingFilter;
 import mapper.ListingService;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import oracle.jdbc.OracleConnection;
-import org.hibernate.annotations.Filter;
-import repositories.ListingRepository;
-import repositories.ListingRevisionRepository;
-import service.ListingService;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 

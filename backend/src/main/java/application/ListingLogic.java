@@ -6,12 +6,11 @@ import dtos.GetAllListingsInSummaryFromUserDTO;
 import dtos.ListingFilterDTO;
 import entityDO.Listing;
 import entityDO.User;
-import org.hibernate.Session;
+import mapper.ListingService;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import entityDO.ListingRevision;
-import service.ListingService;
 
 import java.util.ArrayList;
 import java.util.List;
