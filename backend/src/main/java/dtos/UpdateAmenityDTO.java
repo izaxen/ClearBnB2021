@@ -1,6 +1,5 @@
 package dtos;
 
-
 public class UpdateAmenityDTO {
     private int id;
     private Boolean isBathTub;

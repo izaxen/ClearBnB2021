@@ -1,6 +1,4 @@
 package repositories;
-
-import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Amenities;
 

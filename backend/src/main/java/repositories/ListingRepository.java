@@ -1,15 +1,11 @@
 package repositories;
 
-import dtos.FilteredListingDTO;
 import dtos.ListingFilterDTO;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
 import jakarta.persistence.PersistenceException;
-import org.hibernate.Filter;
 import org.hibernate.Session;
-
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,7 +1,5 @@
 package dtos;
 
-import java.sql.Timestamp;
-
 public class ListingFilterDTO {
     private int price;
     private String availableStartDate;

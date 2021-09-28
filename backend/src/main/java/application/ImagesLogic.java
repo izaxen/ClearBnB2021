@@ -1,14 +1,8 @@
 package application;
-
 import entityDO.Image;
-import entityDO.Listing;
 import io.javalin.core.util.FileUtil;
 import io.javalin.http.UploadedFile;
-
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.List;
 

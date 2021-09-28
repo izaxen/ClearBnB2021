@@ -13,11 +13,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
-    // available_start_date is our column in DB
-    //:availableStartDate is our user input sent from frontend
-
-
 @Entity
 public class Listing {
 

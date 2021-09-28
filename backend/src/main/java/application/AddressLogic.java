@@ -6,7 +6,6 @@ import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
 import repositories.ListingRevisionRepository;
 import mapper.AddressService;
-import mapper.AmenityService;
 
 public class AddressLogic {
 
