@@ -17,14 +17,13 @@ public class ListingService {
         return new Listing(dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
     }
 
-    // this converts DTO into a fake
     public Listing convertupdateListingToListing(UpdateListingDTO dto, User owner) {
         return new Listing(dto.getId(), dto.getPrice(), dto.getDescription(), dto.getAvailableStartDate(), dto.getAvailableEndDate(), owner);
     }
 
 
-    public Listing convertToFilteredListingsDTO(FilteredListingDTO dto){
+    public FilteredListingDTO convertListingToFilteredDTO(Listing listing){
 
-        return new Listing (dto.getAvailableStartDate(), dto.getAvailableEndDate());
+        return new FilteredListingDTO(listing.getId(), listing.getDescription(), listing.getPrice(), listing.getAddress().getCity(), listing.getAddress().getAddressListing());
     }
 }
