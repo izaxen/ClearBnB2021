@@ -80,7 +80,7 @@ public class ListingLogic {
         Boolean isStove = filter.isStove();
         Boolean isDoubleBed = filter.isDoubleBed();
         Boolean isBubblePool = filter.isBubblePool();
-        Boolean isCycle = filter.isCycle();
+        Boolean isBicycle = filter.isBicycle();
         Boolean isSauna = filter.isSauna();
         int maxPrice = filter.getPrice();
 
@@ -107,7 +107,7 @@ public class ListingLogic {
                         "(:isStove IS FALSE or l.amenities.isStove IS :isStove) AND " +
                         "(:isDoubleBed IS FALSE or l.amenities.isDoubleBed IS :isDoubleBed) AND " +
                         "(:isBubblePool IS FALSE or l.amenities.isBubblePool IS :isBubblePool) AND " +
-                        "(:isCycle IS FALSE or l.amenities.isCycle IS :isCycle) AND " +
+                        "(:isBicycle IS FALSE or l.amenities.isBicycle IS :isBicycle) AND " +
                         "(:isSauna IS FALSE or l.amenities.isSauna IS :isSauna) AND " +
                         "(:maxPrice = 0 or l.price <= :maxPrice)", Listing.class)
                 .setParameter("selectedStartDate", ts1)
@@ -117,7 +117,7 @@ public class ListingLogic {
                 .setParameter("isStove", isStove)
                 .setParameter("isDoubleBed", isDoubleBed)
                 .setParameter("isBubblePool", isBubblePool)
-                .setParameter("isCycle", isCycle)
+                .setParameter("isBicycle", isBicycle)
                 .setParameter("isSauna", isSauna)
                 .setParameter("maxPrice", maxPrice)
                 .list();

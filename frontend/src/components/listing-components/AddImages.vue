@@ -13,14 +13,12 @@ export default {
   data(){
     return{
       files: [],
-      uploadedImages: this.$store.state.uploadedImages,
+      
       url:[]
     }
   },
   computed:{
-    imageFolder: function(){
-      return this.$store.state.uploadedImages
-    } 
+    
   },
   methods:{
     addPictures(){
@@ -28,9 +26,10 @@ export default {
   //this.$store.commit('addUploadedImages', this.files) 
   let formData = new FormData();
 
+
   for(let file of this.files) {
   formData.append('files', file, file.name);
-  this.url.push(URL.createObjectURL(file))
+  //this.url.push(URL.createObjectURL(file))
   }
   this.$emit('formData', formData)
   

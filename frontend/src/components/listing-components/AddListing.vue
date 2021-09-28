@@ -138,6 +138,7 @@ AddImages
     },
 
     async addAddress() {
+      console.log("Inne i address");
       let newAddress = {
         city: this.city,
         address: this.addressListing,
@@ -160,15 +161,12 @@ AddImages
       this.addImages();
     },
     addImages(){
-      let images ={
-        formData: this.formData
-      }
-      this.$store.dispatch('uploadFiles', images)
+    this.$store.dispatch('uploadFiles', this.formData)
     },
     
     LoadFormData(formData) {
       this.formData = formData
-    },
+    }
   },
 };
 </script>

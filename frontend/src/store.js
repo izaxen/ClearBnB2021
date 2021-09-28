@@ -144,11 +144,12 @@ export const store = createStore({
       store.commit('setMatchedListing', matchedListings);
     },
 
-    async uploadFiles(store, object) {
-      let savePath = '/api/uploads/' + object.rentalId
+    async uploadFiles(store, formData) {
+      console.log('Upload', formData.getAll('files'))
+      let savePath = '/api/uploads/'
       await fetch(savePath, {
         method: 'POST',
-        body: object.formData,
+        body: formData,
       })
     },
 

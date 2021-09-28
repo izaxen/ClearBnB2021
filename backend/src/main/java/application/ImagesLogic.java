@@ -15,16 +15,17 @@ public class ImagesLogic {
     }
     public void uploadImages(String id, List<UploadedFile> files){
         Timestamp extraId = new Timestamp(System.currentTimeMillis());
+        System.out.println(id+" "+extraId);
 
 
         for (UploadedFile file : files) {
-            FileUtil.streamToFile(file.getContent(), "src/Static/uploads/" + id + "/" + extraId + file.getFilename());
+            FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + id + "/"+ file.getFilename());
         }
     }
     public String[] getUploadedImages (String id){
 
         String[] fileNames;
-        File f = new File("src/Static/uploads/" + id + "/");
+        File f = new File("backend/src/Static/uploads/" + id + "/");
         fileNames = f.list();
         if (fileNames == null) {
             fileNames = new String[1];

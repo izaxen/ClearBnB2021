@@ -1,7 +1,5 @@
 package filter;
 
-import java.sql.Timestamp;
-
 public class ListingFilter {
     private int price;
     private String availableStartDate;
@@ -11,7 +9,7 @@ public class ListingFilter {
     private boolean isStove;
     private boolean isDoubleBed;
     private boolean isBubblePool;
-    private boolean isCycle;
+    private boolean isBicycle;
     private boolean isSauna;
 
     public ListingFilter() {
@@ -81,12 +79,12 @@ public class ListingFilter {
         isBubblePool = bubblePool;
     }
 
-    public boolean isCycle() {
-        return isCycle;
+    public boolean isBicycle() {
+        return isBicycle;
     }
 
-    public void setCycle(boolean cycle) {
-        isCycle = cycle;
+    public void setBicycle(boolean bicycle) {
+        isBicycle = bicycle;
     }
 
     public boolean isSauna() {
