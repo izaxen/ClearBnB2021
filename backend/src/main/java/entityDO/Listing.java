@@ -35,9 +35,6 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @JsonManagedReference
-    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
-    private Address address;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
@@ -47,6 +44,13 @@ public class Listing {
 
     @JsonManagedReference
     @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Address address;
+
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listing", cascade=CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Amenities amenities;
 
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
@@ -66,6 +70,15 @@ public class Listing {
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.user = owner;
+    }
+
+    public Listing(int id, int price, String description, String availableStartDate, String availableEndDate, User user) {
+        this.id = id;
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.user = user;
     }
 
     public Listing(String availableStartDate, String availableEndDate) {

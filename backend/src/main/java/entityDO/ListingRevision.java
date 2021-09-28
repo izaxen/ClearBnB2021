@@ -1,5 +1,6 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class ListingRevision {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     private Integer price;
@@ -30,6 +32,12 @@ public class ListingRevision {
     @OneToOne(mappedBy = "listingRevision")
     private AddressRevision addressRevision;
 
+    // HERE........
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listingRev", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private AmenitiesRevision amenitiesRevision;
+
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
@@ -40,13 +48,22 @@ public class ListingRevision {
     public ListingRevision() {
     }
 
-    public ListingRevision(Integer price, String description, String availableStartDate, String availableEndDate, Listing listing, User user) {
+    public ListingRevision(Integer price, String description, String availableStartDate,
+                           String availableEndDate, Listing listing, User user) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;
         this.listing = listing;
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public ListingRevision(Listing listing) {
+        this.listing = listing;
     }
 
     public Integer getPrice() {
@@ -97,5 +114,34 @@ public class ListingRevision {
         this.user = user;
     }
 
+    public AddressRevision getAddressRevision() {
+        return addressRevision;
+    }
 
+    public void setAddressRevision(AddressRevision addressRevision) {
+        this.addressRevision = addressRevision;
+    }
+
+    public AmenitiesRevision getAmenitiesRevsion() {
+        return amenitiesRevision;
+    }
+
+    public void setAmenitiesRevsion(AmenitiesRevision amenitiesRevision) {
+        this.amenitiesRevision = amenitiesRevision;
+    }
+
+    @Override
+    public String toString() {
+        return "ListingRevision{" +
+                "id=" + id +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", availableStartDate='" + availableStartDate + '\'' +
+                ", availableEndDate='" + availableEndDate + '\'' +
+                ", listing=" + listing +
+//                ", addressRevision=" + addressRevision +
+//                ", bookings=" + bookings +
+//                ", user=" + user +
+                '}';
+    }
 }
