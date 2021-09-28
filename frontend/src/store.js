@@ -10,8 +10,6 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
-      matchedListings: [],
-      uploadedImages: [],
       // allListingsDTO: [],
 
     }
@@ -32,14 +30,6 @@ export const store = createStore({
 
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
-    },
-
-    setMatchedListing(state, matchedListings) {
-      state.matchedListings = matchedListings;
-    },
-  
-    getImageList(state, list) {
-      state.imageList = list
     },
 
     // setAllListingsDTO(state, allListingsDTO) {
@@ -141,7 +131,7 @@ export const store = createStore({
         body: JSON.stringify(filters)
       })
       let matchedListings = await res.json();
-      store.commit('setMatchedListing', matchedListings);
+      return matchedListings;
     },
 
     async uploadFiles(store, formData) {

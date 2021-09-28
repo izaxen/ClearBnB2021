@@ -5,13 +5,13 @@
       <select v-model="selected">
         <option
           v-for="listing in allListings"
-          :key="listing.listingID"
+          :key="listing.id"
           :value="listing"
         >
-          {{ listing.listingID }}, {{ listing.description }}
+          {{ listing.id }}, {{ listing.description }}
         </option>
       </select>
-      <h3>Selected Listing: {{ selected.listingID }}</h3>
+      <h3>Selected Listing: {{ selected.id }}</h3>
 
       <input
         v-model="startDate"
@@ -52,17 +52,17 @@ export default {
       };
       console.log(newBooking);
       console.log("selectedStartDate " + newBooking.startDate);
-      console.log(newBooking.listing.listingID);
+      console.log(newBooking.listing.id);
       this.postNewBooking(newBooking);
     },
     async postNewBooking() {
       let res = await fetch(
-        `/rest/createBooking/${this.selected.listingID}/${this.startDate}/${this.endDate}`
+        `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
       );
       console.log(await res.json());
     },
     async getAllListings() {
-      let res = await fetch("/api/getAllListingsDTO");
+      let res = await fetch("/api/getAllListings");
       this.allListings = await res.json();
       //
       // await this.$store.dispatch("getAllListingsDTO");
