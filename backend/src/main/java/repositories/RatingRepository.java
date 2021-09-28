@@ -32,17 +32,13 @@ public class RatingRepository {
         return Optional.empty();
     }
 
-    public List<Rating> checkIfThereIsAnyRatingToFill(Booking booking, User user){
+    public List<Rating> getRatingsLinkedToBooking(Booking booking){
         List<Rating> getRatingsToFill;
-        System.out.println("-----------------checkIfThereIsAnyRatingToFill-------------------");
 
         try {
-            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking AND" +
-                    "(r.recipient = :user or r.reviewer = :user)", Rating.class)
+            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking", Rating.class)
                     .setParameter("booking", booking)
-                    .setParameter("user", user)
                     .getResultList();
-            System.out.println("getRatingsToFill" + getRatingsToFill);
             return getRatingsToFill;
         }catch (PersistenceException e){
             System.out.println("ERROR IN getRatingsToFill (repository) ----------------: \n" + e.getMessage());

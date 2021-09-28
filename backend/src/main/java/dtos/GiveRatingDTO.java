@@ -5,22 +5,27 @@ import entityDO.User;
 
 public class GiveRatingDTO {
 
-    Booking booking;
+    int booking;
     int rating;
     String review; //(message)
-    User reviewer;
-    User recipient;
+    int landlordID;
+    int guestID;
+    String landlordName;
+    String guestName;
+    String dateVisited;
 
-
-    public GiveRatingDTO(Booking booking, int rating, String review, User reviewer, User recipient) {
-        this.booking = booking;
+    public GiveRatingDTO(Booking booking, int rating, String review, User landlord, User guestName, String dateVisited) {
+        this.booking = booking.getId();
         this.rating = rating;
         this.review = review;
-        this.reviewer = reviewer;
-        this.recipient = recipient;
+        this.landlordID = landlord.getID();
+        this.guestID = guestName.getID();
+        this.landlordName = landlord.getFirstName() + " " + landlord.getSurName();
+        this.guestName = guestName.getFirstName() + " " + guestName.getSurName();
+        this.dateVisited = dateVisited;
     }
 
-    public Booking getBooking() {
+    public int getBooking() {
         return booking;
     }
 
@@ -32,22 +37,37 @@ public class GiveRatingDTO {
         return review;
     }
 
-    public User getReviewer() {
-        return reviewer;
+    public int getLandlordID() {
+        return landlordID;
     }
 
-    public User getRecipient() {
-        return recipient;
+    public int getGuestID() {
+        return guestID;
+    }
+
+    public String getLandlordName() {
+        return landlordName;
+    }
+
+    public String getGuestName() {
+        return guestName;
+    }
+
+    public String getDateVisited() {
+        return dateVisited;
     }
 
     @Override
     public String toString() {
         return "GiveRatingDTO{" +
-                "bookingID=" + booking +
+                "booking=" + booking +
                 ", rating=" + rating +
                 ", review='" + review + '\'' +
-                ", reviewer=" + reviewer +
-                ", recipient=" + recipient +
+                ", landlordID=" + landlordID +
+                ", guestID=" + guestID +
+                ", landlordName='" + landlordName + '\'' +
+                ", guestName='" + guestName + '\'' +
+                ", dateVisited='" + dateVisited + '\'' +
                 '}';
     }
 }

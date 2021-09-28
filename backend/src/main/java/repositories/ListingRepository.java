@@ -1,6 +1,7 @@
 package repositories;
 
 import dtos.FilteredListingDTO;
+import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
@@ -40,6 +41,17 @@ public class ListingRepository {
 
         }
         return null;
+    }
+
+    public User findOwnerOfListingWithABooking(Booking booking){
+
+        Listing listing = entityManager.createQuery("SELECT l FROM Listing l WHERE l = :listing", Listing.class)
+                .setParameter("listing", booking.getListing())
+                .getSingleResult();
+
+        User user = listing.getUser();
+
+        return user;
     }
 
 

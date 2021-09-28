@@ -189,6 +189,8 @@ public class Listing {
         this.amenities = amenities;
     }
 
+
+
     @Override
     public String toString() {
         return "Listing{" +

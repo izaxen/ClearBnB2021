@@ -7,7 +7,11 @@ import entityDO.Booking;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,33 +28,29 @@ public class BookingRepository {
         return booking != null ? Optional.of(booking) : Optional.empty();
     }
 
-    public Booking findAUsersOldBookings(User user){
+    public List<Booking> findAGuestsOldBookings(User user){
         Date date = new Date();
-        System.out.println(date);
-        Booking booking = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND" +
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = formatter.format(date);
+
+        return entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
                 "b.user = :user", Booking.class)
-                .setParameter("date", date)
+                .setParameter("date", strDate)
                 .setParameter("user", user)
-                .getSingleResult();
-
-        return booking;
+                .getResultList();
     }
 
-    public Booking findAUsersOldBookingsAsRenter(User user, Listing listing){
+    public List<Booking> findALandlordsOldBookings(Listing listing){
         Date date = new Date();
-        System.out.println(date);
-        Booking booking = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND" +
-                "b.user = :user AND" +
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = formatter.format(date);
+
+        return entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
                 "b.listing = :listing", Booking.class)
-                .setParameter("date", date)
-                .setParameter("user", user)
+                .setParameter("date", strDate)
                 .setParameter("listing", listing)
-                .getSingleResult();
-
-        return booking;
+                .getResultList();
     }
-
-
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
 
