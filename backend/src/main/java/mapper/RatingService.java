@@ -1,8 +1,7 @@
-package service;
+package mapper;
 
 import dtos.GetRatingDTO;
 import entityDO.Rating;
-import entityDO.User;
 
 public class RatingService {
 

@@ -3,11 +3,9 @@ package routes;
 import application.BookingLogic;
 import application.Repositories;
 import dtos.AddBookingDTO;
-import entityDO.Booking;
-import entityDO.Listing;
 import entityDO.User;
 import express.Express;
-import service.BookingService;
+import mapper.BookingService;
 
 import static java.lang.Integer.parseInt;
 
