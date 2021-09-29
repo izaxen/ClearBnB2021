@@ -46,11 +46,42 @@ public class RatingLogic {
 
         User user = repositories.getUserRep().findUserById(userID);
 
+        System.out.println("(1) userID: " + user.getID() + ", name: " + user.getFirstName());
+        System.out.println("-------------------------------------------------------------------------------------------------------");
+
         List<Booking> oldBookingsOfALandlord = checkIfLandlordHasAnyOldBookings(user);
+        oldBookingsOfALandlord.forEach(booking -> {
+            System.out.println("(2) oldBookingsOfALandlord: bookingID:" + booking.getId());
+            System.out.println("(2) oldBookingsOfALandlord: GuestID:" + booking.getUser().getID());
+            System.out.println("(2) oldBookingsOfALandlord: GuestName:" + booking.getUser().getFirstName());
+            System.out.println("-------------------------------------------------------------------------------------------------------");
+        });
+
         List<Booking> oldBookingsOfAGuest = checkIfGuestHasAnyOldBookings(user);
+        oldBookingsOfAGuest.forEach(booking -> {
+            System.out.println("(3) oldBookingsOfAGuest: bookingID:" + booking.getId());
+            System.out.println("-------------------------------------------------------------------------------------------------------");
+        });
 
         List<GiveRatingDTO> bookingsThatMissingLandlordsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookingsOfALandlord, user);
+        bookingsThatMissingLandlordsRating.forEach(giveRatingDTO -> {
+            System.out.println("(4) bookingsThatMissingLandlordsRating: bookingID:" +giveRatingDTO.getBookingID());
+            System.out.println("(4) Landlord Name: " + giveRatingDTO.getLandlordName() );
+            System.out.println("(4) Landlord ID : " + giveRatingDTO.getLandlordID());
+            System.out.println("(4) guest name : " + giveRatingDTO.getGuestName());
+            System.out.println("(4) guest ID: " + giveRatingDTO.getGuestID() );
+            System.out.println("-------------------------------------------------------------------------------------------------------");
+        });
+
         List<GiveRatingDTO> bookingsThatMissingGuestsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookingsOfAGuest, user);
+        bookingsThatMissingGuestsRating.forEach(giveRatingDTO -> {
+            System.out.println("(5) bookingsThatMissingLandlordsRating: bookingID:" +giveRatingDTO.getBookingID());
+            System.out.println("(5) Landlord Name: " + giveRatingDTO.getLandlordName() );
+            System.out.println("(5) Landlord ID : " + giveRatingDTO.getLandlordID());
+            System.out.println("(5) guest name : " + giveRatingDTO.getGuestName());
+            System.out.println("(5) guest ID: " + giveRatingDTO.getGuestID() );
+            System.out.println("-------------------------------------------------------------------------------------------------------");
+        });
 
         /*bookingsThatMissingLandlordsRating.forEach(booking -> {
             bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking, 0, "", user, booking.getUser()));
@@ -91,42 +122,34 @@ public class RatingLogic {
         List<GiveRatingDTO> bookingsThatUserCanAddARatingToDTO = new ArrayList<>();
 
         bookings.forEach(booking -> {
+            System.out.println("(6) loopingOldBookingsToCheckIfRatingsIsMissing: bookingID:" + booking.getId());
+            System.out.println("(6) loopingOldBookingsToCheckIfRatingsIsMissing: guest id:" + booking.getUser().getID());
+            System.out.println("(6) loopingOldBookingsToCheckIfRatingsIsMissing: guest id:" + booking.getUser().getFirstName());
+        });
+
+        bookings.forEach(booking -> {
+            User guest = booking.getUser();
             List<Rating> ratings = repositories.ratingRepository.getRatingsLinkedToBooking(booking);
+            System.out.println("How many ratings: " + ratings.size());
             User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
             if(ratings.size() >= 2){
                 return; //Controls if booking already has 2 ratings
             }
-            ratings.forEach(rating -> {
-                System.out.println("-----------------------------------------------------------------------------------------");
-                System.out.println("booking.getUser: " + booking.getUser().getSurName() + ", ID: " + booking.getUser().getID());
-                System.out.println("booking.User: " + user.getSurName() + ", ID: " + user.getID());
-                System.out.println("rating Reviewer: " + rating.getReviewer().getSurName() + ", ID: " + rating.getReviewer().getID());
-                System.out.println("rating recipient: " + rating.getRecipient().getSurName() + ", ID: " + rating.getRecipient().getID());
-                System.out.println("Listing owner: " + owner.getFirstName() + ", ID: " + owner.getID());
-                if(booking.getUser().getID() == owner.getID()){
-                    bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(
-                            booking,
-                            0,
-                            "",
-                            owner,
-                            booking.getUser(),
-                            booking.getEndDate()));
-                }else if(booking.getUser().getID() != owner.getID()){
-                    bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(
-                            booking,
-                            0,
-                            "",
-                            owner,
-                            user,
-                            booking.getEndDate()));
-                }
 
-            });
+            if(user.getID() != booking.getUser().getID()){
+                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getEndDate() ));
+            }else if(user.getID() == booking.getUser().getID()){
+                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getEndDate() ));
+            }
+
+
         });
 
         /*bookingsThatHasRatingsToAdd.forEach(booking -> {
             booking.toString();
         });*/
+
+        System.out.println("-------------------------------------------------------------------------------------------------------");
 
         return bookingsThatUserCanAddARatingToDTO;
     }

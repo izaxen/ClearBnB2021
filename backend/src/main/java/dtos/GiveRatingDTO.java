@@ -5,7 +5,7 @@ import entityDO.User;
 
 public class GiveRatingDTO {
 
-    int booking;
+    int bookingID;
     int rating;
     String review; //(message)
     int landlordID;
@@ -14,8 +14,8 @@ public class GiveRatingDTO {
     String guestName;
     String dateVisited;
 
-    public GiveRatingDTO(Booking booking, int rating, String review, User landlord, User guestName, String dateVisited) {
-        this.booking = booking.getId();
+    public GiveRatingDTO(int bookingID, int rating, String review, User landlord, User guestName, String dateVisited) {
+        this.bookingID = bookingID;
         this.rating = rating;
         this.review = review;
         this.landlordID = landlord.getID();
@@ -25,8 +25,8 @@ public class GiveRatingDTO {
         this.dateVisited = dateVisited;
     }
 
-    public int getBooking() {
-        return booking;
+    public int getBookingID() {
+        return bookingID;
     }
 
     public int getRating() {
@@ -60,7 +60,7 @@ public class GiveRatingDTO {
     @Override
     public String toString() {
         return "GiveRatingDTO{" +
-                "booking=" + booking +
+                "booking=" + bookingID +
                 ", rating=" + rating +
                 ", review='" + review + '\'' +
                 ", landlordID=" + landlordID +

@@ -29,17 +29,21 @@ public class Rating {
 
     private String message;
 
+    @Column(name="date_visited")
+    private String dateVisited;
+
     @Column(name="date_created")
     private String dateCreated;
 
     public Rating(){}
 
-    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking) {
+    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking, String dateVisited) {
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
         this.message = message;
         this.booking = booking;
+        this.dateVisited = dateVisited;
     }
 
     public Integer getID() {
@@ -74,6 +78,10 @@ public class Rating {
         return booking;
     }
 
+    public String getDateVisited() {
+        return dateVisited;
+    }
+
     @Override
     public String toString() {
         return "Rating{" +
@@ -83,6 +91,7 @@ public class Rating {
                 ", booking=" + booking +
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
+                ", dateVisited='" + dateVisited + '\'' +
                 ", dateCreated='" + dateCreated + '\'' +
                 '}';
     }
