@@ -32,6 +32,7 @@ export const store = createStore({
       state.loggedInUser = status
     },
 
+
         // setAllListingsDTO(state, allListingsDTO) {
     //   state.allListingsDTO = allListingsDTO;
     // }
@@ -142,6 +143,13 @@ export const store = createStore({
         body: formData,
       })
     },
+
+    async getSingleListing(store, id) {
+      let res = await fetch('/rest/getSingleListing/' + id)
+      let a =await  res.json()
+      store.commit('setCurrentListing', a);
+      return a
+    }
 
       // async getAllListingsDTO(_) {
     //   let res = await fetch('/rest/getAllListingsDTO', {

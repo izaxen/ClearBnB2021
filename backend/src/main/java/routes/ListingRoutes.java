@@ -59,20 +59,12 @@ public class ListingRoutes {
                     (req.body(ListingFilterDTO.class))));
         });
 
-        app.post("/api/getSingleListing",(req, res) ->{
+        app.get("/rest/getSingleListing/:id",(req, res) ->{
             //User currentUser = req.session(("current-user"));
-            System.out.println("Inne i resten");
-            //int id = parseInt(req.params("id"));
-            SingeListingDTO dto = listingLogic.getSingleListing(58);
-            System.out.println(dto.toString());
-            res.json(dto);
-        });
-
-        app.get("/rest/getSingleListing",(req, res) ->{
-            //User currentUser = req.session(("current-user"));
-            System.out.println("Inne i resten");
-            //int id = parseInt(req.params("id"));
-            SingeListingDTO dto = listingLogic.getSingleListing(58);
+            System.out.println("Inne i resten  ----" + req.params("id"));
+            int id = parseInt(req.params("id"));
+            System.out.println(id);
+            SingeListingDTO dto = listingLogic.getSingleListing(id);
             System.out.println(dto.toString());
             res.json(dto);
         });

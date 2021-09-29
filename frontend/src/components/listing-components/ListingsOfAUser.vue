@@ -1,25 +1,39 @@
 <template>
   <div class="listing-summary-container" v-if="listings">
     <h1>Listings owned by user</h1>
+    <div v-if="!currentList">
     <div
       class="listing-summary-item"
       v-for="(listing) in listings"
       :key="listing.id"
-      @click="editList(listing)"
+      @click="editList(listing.id)"
     >
       <h3>{{ listing.description }}</h3>
       <h2>{{listing.id}}</h2>
       <p>Prices from: {{ listing.price }}</p>
     </div>
+    </div>
+    <div v-else>
+      <EditListing />
+
+    </div>
+
   </div>
 </template>
 
 <script>
+import EditListing from "../../views/EditListing.vue";
+
 export default {
+  components:{
+EditListing,
+  },
+
   data() {
     return {
       userToShow: this.$route.query.user,
       listings: [],
+      currentList: "",
     };
   },
 
@@ -34,8 +48,11 @@ export default {
       this.listings = await res.json();
     },
     editList(id){
-      console.log("Öppnar edit list");
-      console.log(id)
+      id = id.toString()
+      this.currentList = this.$store.dispatch('getSingleListing', id)
+
+      console.log(this.currentList);
+
     }
   },
 };

@@ -1,34 +1,34 @@
 <template>
   <div class="add-listing-container">
-    <h1>Add listing container</h1>
-    <form @submit.prevent="addListing">
-      <div class="inputFields">
+    <h1>Edit listing</h1>
+    <div class = "currentListing">
+
+
+    </div>
+    <form v-if="initialData" @submit.prevent="addListing">
+      <div  class="inputFields">
         <input
-          v-model="description"
-          required
+          :value="initialData.description"
           type="text"
-          placeholder="Enter description here"
+          @change="ev  => changedData.description = ev.target.value"
         />
 
         <input
-          v-model="price"
+          :value="initialData.price"
           type="number"
-          required
-          placeholder="Enter price here"
+          @change="ev => changedData.price = ev.target.value"
         />
 
         <input
-          v-model="city"
+         :value="initialData.city"
           type="text"
-          required
-          placeholder="Enter city here"
+          @change="ev => changedData.city = ev.target.value"
         />
 
         <input
-          v-model="addressListing"
-          required
+        :value="initialData.addressListing"
           type="text"
-          placeholder="Enter address here"
+          @change="ev => changedData.addressListing = ev.target.value"
         />
       </div>
       <br />
@@ -61,30 +61,24 @@
         <div class="start">
           <label for="startDate">Select Start Date</label>
           <input
-            v-model="available_start_date"
-            id="startDate"
-            required
+            :value="new Date(initialData.availableStartDate).toISOString().split('T')[0]"
             type="date"
-            placeholder="Start Date"
-            min="date()"
+            :min="new Date().toISOString().split('T')[0]"
+            @change="ev=>changedData.availableStartDate"
           />
         </div>
         <div class="end">
           <label for="endDate">Select End Date</label>
           <input
-            v-model="available_end_date"
-            id="endDate"
-            required
+            :value="new Date(initialData.availableEndDate).toISOString().split('T')[0]"
             type="date"
-            placeholder="End Date"
-            min="date()"
+            :min="new Date().toISOString().split('T')[0]"
           />
         </div>
       </div>
       <br>
       <div class="images">
       <label>Choose images</label>
-      <AddImages  @formData="LoadFormData"/>
       <br />
 </div>
       <button>Save Listing</button>
@@ -93,34 +87,22 @@
 </template>
 
 <script>
-import AddImages from "./AddImages.vue";
 
 export default {
   components:{
-AddImages
   },
 
   data() {
     return {
-      user: null,
-      description: "",
-      price: null,
-      available_start_date: null,
-      available_end_date: null,
-      isBathTub: false,
-      isParkingLot: false,
-      isStove: false,
-      isDoubleBed: false,
-      isBubblePool: false,
-      isBicycle: false,
-      isSauna: false,
-      city: null,
-      addressListing: null,
-      formData: [],
+      changedData:  { },
     };
   },
 
-  computed: {},
+  computed: {
+    initialData() {
+      return this.$store.state.currentListing;
+    }
+  },
 
   methods: {
     async addListing() {
@@ -131,7 +113,7 @@ AddImages
         price: this.price,
       };
      
-     await this.$store.dispatch("addListing", newListing);
+     await this.$store.dispatch("updateListing", {...newListing, id: this.initialData.id});
       this.addAddress();
     },
 
@@ -155,16 +137,10 @@ AddImages
         bicycle: this.isBicycle,
         sauna: this.isSauna,
       };
+
       await this.$store.dispatch("addAmenity", newAmenity);
-      this.addImages();
-    },
-    addImages(){
-    this.$store.dispatch('uploadFiles', this.formData)
     },
     
-    LoadFormData(formData) {
-      this.formData = formData
-    }
   },
 };
 </script>
@@ -189,7 +165,7 @@ input{
 }
 .add-listing-container {
   align-self: center;
-  width: 60vw;
+  max-width: 60vw;
   grid-column-start: 1;
   grid-row-start: 1;
   background-color: rgb(216, 202, 230);
