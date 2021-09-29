@@ -30,6 +30,9 @@ public class Image {
         this.listing = listing;
     }
 
+    public Image() {
+    }
+
     public int getId() {
         return id;
     }

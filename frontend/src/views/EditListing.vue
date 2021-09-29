@@ -1,6 +1,7 @@
 <template>
   <div class="add-listing-container">
     <h1>Edit listing</h1>
+    
     <div class = "currentListing">
 
 
@@ -10,51 +11,114 @@
         <input
           :value="initialData.description"
           type="text"
-          @change="ev  => changedData.description = ev.target.value"
+          @change="ev  => changedList.description = ev.target.value"
         />
 
         <input
           :value="initialData.price"
           type="number"
-          @change="ev => changedData.price = ev.target.value"
+          @change="ev => changedList.price = ev.target.value"
         />
 
         <input
          :value="initialData.city"
           type="text"
-          @change="ev => changedData.city = ev.target.value"
+          @change="ev => changedAddress.city = ev.target.value"
         />
 
         <input
         :value="initialData.addressListing"
           type="text"
-          @change="ev => changedData.addressListing = ev.target.value"
+          @change="ev => changedAddress.addressListing = ev.target.value"
         />
       </div>
       <br />
       <div class="amen">
         <p>Choose amenities</p>
+        <div v-if="initialData.bathTub">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.bathTub = ev.target.value" />
+           <label >BathTub</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.bathTub = ev.target.value" />
+           <label>BathTub</label>
+        </div>
+        
+         <div v-if="initialData.parkingLot">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.parkingLot= ev.target.value" />
+           <label>Parking lot</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.parkingLot = ev.target.value" />
+           <label>Parking lot</label>
+        </div>
+        
+         <div v-if="initialData.stove">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.stove = ev.target.value" />
+           <label>Stove</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.stove = ev.target.value" />
+          <label>Stove</label>
+        </div>
 
-        <input type="checkbox" id="isBathTub" v-model="isBathTub" />
-        <label for="isBathTub">BathTub</label>
+        
+         <div v-if="initialData.doubleBed">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.doubleBed = ev.target.value" />
+          <label>Double bed</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.doubleBed = ev.target.value" />
+            <label>Double bed</label>
+        </div>
 
-        <input type="checkbox" id="isParkingLot" v-model="isParkingLot" />
-        <label for="isParkingLot">ParkingLot</label>
+         <div v-if="initialData.bubblePool">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.bubblePool = ev.target.value" />
+          <label>Bubble pool</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.bubblePool = ev.target.value" />
+           <label for="isBathTub">BathTub</label>
+        </div>
 
-        <input type="checkbox" id="isStove" v-model="isStove" />
-        <label for="isStove">Stove</label>
+         <div v-if="initialData.bicycle">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.bicycle = ev.target.value" />
+           <label>Bicycle</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.bicycle = ev.target.value" />
+           <label>Bicycle</label>
+        </div>
 
-        <input type="checkbox" id="isDoubleBed" v-model="isDoubleBed" />
-        <label for="isDoubleBed">DoubleBed</label>
-
-        <input type="checkbox" id="isBubblePool" v-model="isBubblePool" />
-        <label for="isBubblePool">BubblePool</label>
-
-        <input type="checkbox" id="isBicycle" v-model="isBicycle" />
-        <label for="isBicycle">Bicycle</label>
-
-        <input type="checkbox" id="isSauna" v-model="isSauna" />
-        <label for="isSauna">Sauna</label>
+         <div v-if="initialData.sauna">
+          <input type="checkbox"
+          checked
+          @change ="ev=> changedAmenity.sauna = ev.target.value" />
+          <label>Sauna</label>
+        </div>
+        <div v-else>
+          <input type="checkbox"
+          @change ="ev=> changedAmenity.sauna = ev.target.value" />
+            <label>Sauna</label>
+        </div>
       </div>
 
       <div class="date">
@@ -94,7 +158,9 @@ export default {
 
   data() {
     return {
-      changedData:  { },
+      changedList:  { },
+      changedAmenity:{},
+      changedAddress:{},
     };
   },
 
@@ -146,6 +212,12 @@ export default {
 </script>
 
 <style scoped>
+
+.amen{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 .images{
   display: Flex;
   justify-content: center;
@@ -157,7 +229,6 @@ export default {
 .inputFields {
   display: flex;
   flex-direction: column;
-  
 }
 
 input{

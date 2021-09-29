@@ -61,11 +61,8 @@ public class ListingRoutes {
 
         app.get("/rest/getSingleListing/:id",(req, res) ->{
             //User currentUser = req.session(("current-user"));
-            System.out.println("Inne i resten  ----" + req.params("id"));
             int id = parseInt(req.params("id"));
-            System.out.println(id);
             SingeListingDTO dto = listingLogic.getSingleListing(id);
-            System.out.println(dto.toString());
             res.json(dto);
         });
 
