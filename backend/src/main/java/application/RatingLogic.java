@@ -45,7 +45,7 @@ public class RatingLogic {
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 
-    //TODO, THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b).
+    //THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b). /Mac
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(int userID){
 
         User user = repositories.getUserRep().findUserById(userID);

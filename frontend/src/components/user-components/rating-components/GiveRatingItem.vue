@@ -38,6 +38,7 @@
               this.$props.booking.reviewerName
             } at ${this.$props.booking.dateVisited.substring(0, 10)}`
       }}
+      Booking id: {{ this.$props.booking.bookingID }}
     </p>
   </div>
 </template>
