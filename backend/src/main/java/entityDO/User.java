@@ -13,10 +13,6 @@ import java.util.List;
         @NamedQuery(name = "User.findByName",
         query = "SELECT u FROM User u WHERE u.firstName = :firstName AND u.surName = :surName"),
 
-
-//        @NamedQuery(name = "User.updateUser2",
-//                query = "UPDATE User u SET u.firstName = :firstName u.lastName = :lastName")
-
         @NamedQuery(name = "User.findAllUsers",
         query = "SELECT u FROM User u")
 })
@@ -31,7 +27,6 @@ public class User {
     @Column (name = "sur_name")
     private String surName;
     private String email;
-    private int funds = 10000;
     private String pw;
 
     @CreationTimestamp
@@ -52,15 +47,19 @@ public class User {
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
     private List<Rating> rating = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private BankAccount bankAccount;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, int funds, String pw) {
+    public User(String firstName, String lastName, String email, String pw, BankAccount bankAccount) {
         this.firstName = firstName;
         this.surName = lastName;
         this.email = email;
-        this.funds = funds;
         this.pw = pw;
+        this.bankAccount = bankAccount;
     }
 
     public User(String firstName, String surName, String email, String pw) {
@@ -113,12 +112,40 @@ public class User {
         this.email = email;
     }
 
-    public int getFunds() {
-        return funds;
+    public void setListings(List<Listing> listings) {
+        this.listings = listings;
     }
 
-    public void setFunds(int funds) {
-        this.funds = funds;
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Rating> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Rating> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(List<Rating> rating) {
+        this.rating = rating;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public String getPw() {
@@ -151,10 +178,14 @@ public class User {
         return "User{" +
                 "ID=" + ID +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + surName + '\'' +
+                ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
-                ", funds=" + funds +
-                ", password='" + pw + '\'' +
+                ", pw='" + pw + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", listings=" + listings +
+                ", bookings=" + bookings +
+                ", reviews=" + reviews +
+                ", rating=" + rating +
                 '}';
     }
 }

@@ -50,29 +50,31 @@ public class BookingLogic {
     }
 
     public boolean checkIfUserCanPay(User user, int totalPrice){
-        return user.getFunds() >= totalPrice;
+        System.out.println("User: " + user);
+        System.out.println("Bank: " + user.getBankAccount());
+        return user.getBankAccount().getFunds() >= totalPrice;
     }
 
     public void paymentProcess(User user, int totalPrice, User owner){
         if(user.getID() != owner.getID()) {
-            System.out.println(owner.getFunds());
+            System.out.println(owner.getBankAccount().getFunds());
             System.out.println("totalPrice: " + totalPrice);
             User admin = repositories.userRepository.findUserById(5);
-            System.out.println("admin: " + admin.getFunds());
-            System.out.println("User before: " + user.getFunds());
-            user.setFunds(user.getFunds() - totalPrice);
-            System.out.println("User: " + user.getFunds());
+            System.out.println("admin: " + admin.getBankAccount().getFunds());
+            System.out.println("User before: " + user.getBankAccount().getFunds());
+            user.getBankAccount().setFunds(user.getBankAccount().getFunds() - totalPrice);
+            System.out.println("User: " + user.getBankAccount().getFunds());
 
             int ownerShare = (int) (totalPrice / 1.15);
             int clearBNB = totalPrice - ownerShare;
-            owner.setFunds(owner.getFunds() + ownerShare);
-            admin.setFunds(admin.getFunds() + clearBNB);
+            owner.getBankAccount().setFunds(owner.getBankAccount().getFunds() + ownerShare);
+            admin.getBankAccount().setFunds(admin.getBankAccount().getFunds() + clearBNB);
 
             repositories.userRepository.update(user);
             repositories.userRepository.update(owner);
             repositories.userRepository.update(admin);
 
-            System.out.println(owner.getFunds());
+            System.out.println(owner.getBankAccount().getFunds());
             System.out.println("Guest paid: " + totalPrice);
             System.out.println("Owner gets: " + ownerShare);
             System.out.println("ClearBnB gets: " + clearBNB);
