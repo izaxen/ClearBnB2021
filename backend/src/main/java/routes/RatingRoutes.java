@@ -2,6 +2,9 @@ package routes;
 
 import application.RatingLogic;
 import application.Repositories;
+import dtos.CreateRatingDTO;
+import dtos.FrontendRatingDTO;
+import entityDO.Rating;
 import express.Express;
 
 import static java.lang.Integer.parseInt;
@@ -19,6 +22,7 @@ public class RatingRoutes {
         getAllRatingsOfUser();
         getAvgRatingOfUser();
         checkIfThereIsAnyRatingToFill();
+        createANewRating();
     }
 
     public void getAllRatingsOfUser(){
@@ -39,6 +43,13 @@ public class RatingRoutes {
         app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
             res.json(ratingLogic.checkIfThereIsAnyRatingToFill(userID));
+        });
+    }
+
+    public void createANewRating(){
+        app.post("/rest/createNewRating", (req, res) -> {
+            FrontendRatingDTO dto = req.body(FrontendRatingDTO.class);
+            ratingLogic.createNewRating(dto);
         });
     }
 }

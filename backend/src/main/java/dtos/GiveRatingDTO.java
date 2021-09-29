@@ -1,6 +1,5 @@
 package dtos;
 
-import entityDO.Booking;
 import entityDO.User;
 
 public class GiveRatingDTO {
@@ -8,20 +7,20 @@ public class GiveRatingDTO {
     int bookingID;
     int rating;
     String review; //(message)
-    int landlordID;
-    int guestID;
-    String landlordName;
-    String guestName;
+    int reviewer;
+    int recipient;
+    String reviewerName;
+    String recipientName;
     String dateVisited;
 
-    public GiveRatingDTO(int bookingID, int rating, String review, User landlord, User guestName, String dateVisited) {
+    public GiveRatingDTO(int bookingID, int rating, String review, User reviewer, User recipient, String dateVisited) {
         this.bookingID = bookingID;
         this.rating = rating;
         this.review = review;
-        this.landlordID = landlord.getID();
-        this.guestID = guestName.getID();
-        this.landlordName = landlord.getFirstName() + " " + landlord.getSurName();
-        this.guestName = guestName.getFirstName() + " " + guestName.getSurName();
+        this.reviewer = reviewer.getID();
+        this.recipient = recipient.getID();
+        this.reviewerName = reviewer.getFirstName() + " " + reviewer.getSurName();
+        this.recipientName = recipient.getFirstName() + " " + recipient.getSurName();
         this.dateVisited = dateVisited;
     }
 
@@ -37,20 +36,20 @@ public class GiveRatingDTO {
         return review;
     }
 
-    public int getLandlordID() {
-        return landlordID;
+    public int getReviewer() {
+        return reviewer;
     }
 
-    public int getGuestID() {
-        return guestID;
+    public int getRecipient() {
+        return recipient;
     }
 
-    public String getLandlordName() {
-        return landlordName;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public String getGuestName() {
-        return guestName;
+    public String getRecipientName() {
+        return recipientName;
     }
 
     public String getDateVisited() {
@@ -60,13 +59,13 @@ public class GiveRatingDTO {
     @Override
     public String toString() {
         return "GiveRatingDTO{" +
-                "booking=" + bookingID +
+                "bookingID=" + bookingID +
                 ", rating=" + rating +
                 ", review='" + review + '\'' +
-                ", landlordID=" + landlordID +
-                ", guestID=" + guestID +
-                ", landlordName='" + landlordName + '\'' +
-                ", guestName='" + guestName + '\'' +
+                ", reviewer=" + reviewer +
+                ", recipient=" + recipient +
+                ", reviewerName='" + reviewerName + '\'' +
+                ", recipientName='" + recipientName + '\'' +
                 ", dateVisited='" + dateVisited + '\'' +
                 '}';
     }

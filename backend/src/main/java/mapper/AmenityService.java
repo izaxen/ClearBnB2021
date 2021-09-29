@@ -1,4 +1,4 @@
-package service;
+package mapper;
 
 import dtos.AddAmenityDTO;
 import dtos.UpdateAmenityDTO;

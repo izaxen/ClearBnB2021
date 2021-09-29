@@ -3,6 +3,9 @@ package entityDO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Entity
 @Table(name="rating")
 public class Rating {
@@ -44,6 +47,9 @@ public class Rating {
         this.message = message;
         this.booking = booking;
         this.dateVisited = dateVisited;
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        this.dateCreated = formatter.format(date);
     }
 
     public Integer getID() {
@@ -70,7 +76,7 @@ public class Rating {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
+    public void String(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 

@@ -1,5 +1,7 @@
 package dtos;
 
+import java.text.SimpleDateFormat;
+
 public class GetRatingDTO {
 
     int rating;
