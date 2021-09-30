@@ -35,6 +35,7 @@ export default {
       input: "",
       socket: "",
       client: null,
+      userID: null,
     };
   },
 
@@ -82,12 +83,13 @@ export default {
     connect() {
       if (this.client) return;
 
-      console.log(this.$store.state.user);
-
       this.client = 1;
+      this.userID = this.$store.state.user.id;
       console.log("Connecting...");
       this.addMsg("Connecting...");
-      this.socket = new WebSocket("ws://localhost:4000/websockets");
+      this.socket = new WebSocket(
+        `ws://localhost:4000/websockets/?userid=${this.userID}`
+      );
       this.addSocketEventListeners();
     },
 

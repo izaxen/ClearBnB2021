@@ -1,21 +1,34 @@
 package routes;
 
+import application.Repositories;
 import chat.SocketMsg;
 import express.Express;
 import io.javalin.websocket.WsContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatRoutes {
 
     Express app;
     List<WsContext> clients = new ArrayList<>();
+    Repositories repositories;
+    private static Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
 
-    public ChatRoutes(Express app){
+    public ChatRoutes() {
+
+    }
+
+    public ChatRoutes(Express app, Repositories repositories){
+//        ListingRoutes listingRoutes = new ListingRoutes(app, repositories);
+//        System.out.println("Current-User: " + listingRoutes.getCurrentUser());
+
         app.ws("/websockets", ws -> {
             ws.onConnect(ctx -> {
-                System.out.println("Connected");
+                ctx.matchedPath();
+                System.out.println("Connected " + ctx.queryParam("userID"));
                 clients.add(ctx);
             });
 
