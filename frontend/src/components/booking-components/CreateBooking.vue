@@ -98,13 +98,18 @@ export default {
       let res = await fetch(
         `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}/${this.totalPrice}`
       );
+
+      // you wrote post but we are not doing post here.
+      // method name sort of lied
+      // this is not the way to do it.
+      // POST to  /rest/booking  with req.body
       console.log(await res.json());
     },
 
     async getAllListings() {
-      let res = await fetch("/api/getAllListings");
+      let res = await fetch("/api/allListings");
       this.allListings = await res.json();
-      //
+      // this should have been rest /rest/listing   since we don't send id we are sending everything, thus no need for listingS
       // await this.$store.dispatch("getAllListingsDTO");
       // this.allListings = this.$store.state.allListingsDTO;
     },

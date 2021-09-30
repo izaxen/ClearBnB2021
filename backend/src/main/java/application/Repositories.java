@@ -25,6 +25,7 @@ public class Repositories {
     ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
     AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManager);
     ImageRepository imageRepository = new ImageRepository(entityManager);
+    BankRepository bankRepository = new BankRepository(entityManager);
 
     public AddressRevisionRepository getAddressRevisionRepository() {
         return addressRevisionRepository;

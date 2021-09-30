@@ -83,7 +83,7 @@ export const store = createStore({
     },
 
     async addListing(store, listing) {
-      let res = await fetch('/api/addListing', {
+      let res = await fetch('/api/listing', {
         method: 'POST',
         body: JSON.stringify(listing)
       });
@@ -91,42 +91,56 @@ export const store = createStore({
       store.commit('setCurrentListing', currentListingId); // an id
     },
 
-        async updateListing(store, listing) {
-      let res = await fetch('/api/updateListing', {
-        method: 'POST',
+    async updateListing(store, listing) {
+      await fetch('/api/listing', {
+        method: 'PUT',
         body: JSON.stringify(listing)
       });
     },
 
     async addAddress(store, address) {
-      await fetch('/api/addAddress', {
+      await fetch('/api/address', {
         method: 'POST',
         body: JSON.stringify(address)
       })
     },
 
-        async updateAddress(store, address) {
-      await fetch('/api/updateAddress', {
-        method: 'POST',
+    async updateAddress(store, address) {
+      await fetch('/api/address', {
+        method: 'PUT',
         body: JSON.stringify(address)
       })
     },
 
     async addAmenity(store, amenity) {
-      await fetch('/api/addAmenity', {
+      await fetch('/api/amenity', {
         method: 'POST',
         body: JSON.stringify(amenity)
       })
     },
-     async updateAmenity(store, amenity) {
-      await fetch('/api/updateAmenity', {
-        method: 'POST',
+    async updateAmenity(store, amenity) {
+      await fetch('/api/amenity', {
+        method: 'PUT',
         body: JSON.stringify(amenity)
       })
     },
 
+    async addBank(store, bank) {
+      await fetch('/api/bank', {
+        method: 'POST',
+        body: JSON.stringify(bank)
+      })
+    },
+
+    async updateBank(store, bank) {
+      await fetch('/api/bank', {
+        method: 'PUT',
+        body: JSON.stringify(bank)
+      })
+    },
+
     async getFilteredListing(store, filters) {
-      let res = await fetch('/api/getFilteredListing', {
+      let res = await fetch('/api/filteredListings', {
         method: 'POST',
         body: JSON.stringify(filters)
       })

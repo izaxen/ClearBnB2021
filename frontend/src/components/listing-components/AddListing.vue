@@ -81,12 +81,12 @@
           />
         </div>
       </div>
-      <br>
-      <div class="images">
-      <label>Choose images</label>
-      <AddImages  @formData="LoadFormData"/>
       <br />
-</div>
+      <div class="images">
+        <label>Choose images</label>
+        <AddImages @formData="LoadFormData" />
+        <br />
+      </div>
       <button>Save Listing</button>
     </form>
   </div>
@@ -96,8 +96,8 @@
 import AddImages from "./AddImages.vue";
 
 export default {
-  components:{
-AddImages
+  components: {
+    AddImages,
   },
 
   data() {
@@ -160,19 +160,19 @@ AddImages
       await this.$store.dispatch("addAmenity", newAmenity);
       this.addImages();
     },
-    addImages(){
-    this.$store.dispatch('uploadFiles', this.formData)
+    addImages() {
+      this.$store.dispatch("uploadFiles", this.formData);
     },
-    
+
     LoadFormData(formData) {
-      this.formData = formData
-    }
+      this.formData = formData;
+    },
   },
 };
 </script>
 
 <style scoped>
-.images{
+.images {
   display: Flex;
   justify-content: center;
 }
@@ -183,10 +183,9 @@ AddImages
 .inputFields {
   display: flex;
   flex-direction: column;
-  
 }
 
-input{
+input {
   margin: 5px;
 }
 .add-listing-container {
@@ -197,7 +196,7 @@ input{
   background-color: rgb(216, 202, 230);
 }
 
-label{
+label {
   margin-right: 15px;
 }
 </style>

@@ -18,12 +18,12 @@ public class AmenityRoutes {
         amenityLogic = new AmenityLogic(repos);
         ams = new AmenityService();
 
-        app.post("api/addAmenity",(req, res) -> {
+        app.post("api/amenity",(req, res) -> {
             Listing currentListing = req.session("current-Listing");
             res.json(amenityLogic.createNewAmenity(req.body(AddAmenityDTO.class), currentListing));
         });
 
-        app.post("api/updateAmenity",(req, res) -> {   //update amenity
+        app.put("api/amenity",(req, res) -> {   //update amenity
             Listing currentListing = req.session("current-Listing");
 
             Amenities amenity = amenityLogic.updateAmenties(
