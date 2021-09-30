@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -47,9 +49,9 @@ public class Rating {
         this.message = message;
         this.booking = booking;
         this.dateVisited = dateVisited;
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        this.dateCreated = formatter.format(date);
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.dateCreated = date.format(myFormatObj);
     }
 
     public Integer getID() {
