@@ -88,4 +88,18 @@ public class UpdateAmenityDTO {
     public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
+
+    @Override
+    public String toString() {
+        return "UpdateAmenityDTO{" +
+                "id=" + id +
+                ", isBathTub=" + isBathTub +
+                ", isParkingLot=" + isParkingLot +
+                ", isStove=" + isStove +
+                ", isDoubleBed=" + isDoubleBed +
+                ", isBubblePool=" + isBubblePool +
+                ", isBicycle=" + isBicycle +
+                ", isSauna=" + isSauna +
+                '}';
+    }
 }

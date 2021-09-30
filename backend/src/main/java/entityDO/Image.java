@@ -2,8 +2,11 @@ package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
 
 @Entity
+@Proxy(lazy = false)
+@Table(name = "images")
 public class Image {
 
     @Id

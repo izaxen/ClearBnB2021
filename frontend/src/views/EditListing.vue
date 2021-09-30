@@ -37,9 +37,10 @@
         <p>Choose amenities</p>
         <div v-if="initialData.bathTub">
           <input type="checkbox"
+          id="isbathTub"
           checked
           @change ="ev=> changedAmenity.bathTub = ev.target.value" />
-           <label >BathTub</label>
+           <label for="isbathTub">Bathtub</label>
         </div>
         <div v-else>
           <input type="checkbox"
@@ -67,7 +68,7 @@
         </div>
         <div v-else>
           <input type="checkbox"
-          @change ="ev=> changedAmenity.stove = ev.target.value" />
+          @change ="ev=> changedAmenity.stove =ev.target.value" />
           <label>Stove</label>
         </div>
 
@@ -80,7 +81,7 @@
         </div>
         <div v-else>
           <input type="checkbox"
-          @change ="ev=> changedAmenity.doubleBed = ev.target.value" />
+          @change ="ev=> changedAmenity.doubleBed =ev.target.value" />
             <label>Double bed</label>
         </div>
 
@@ -92,7 +93,7 @@
         </div>
         <div v-else>
           <input type="checkbox"
-          @change ="ev=> changedAmenity.bubblePool = ev.target.value" />
+          @change ="ev=> changedAmenity.bubblePool =ev.target.value" />
            <label for="isBathTub">BathTub</label>
         </div>
 
@@ -128,7 +129,7 @@
             :value="new Date(initialData.availableStartDate).toISOString().split('T')[0]"
             type="date"
             :min="new Date().toISOString().split('T')[0]"
-            @change="ev=>changedData.availableStartDate"
+            @change="ev=>changedList.availableStartDate"
           />
         </div>
         <div class="end">
@@ -137,30 +138,36 @@
             :value="new Date(initialData.availableEndDate).toISOString().split('T')[0]"
             type="date"
             :min="new Date().toISOString().split('T')[0]"
+            @change="ev=>changedList.availableStartEnd"
           />
         </div>
       </div>
       <br>
       <div class="images">
       <label>Choose images</label>
+      <AddImages  @formData="LoadFormData"/>
       <br />
-</div>
+      </div>
+      <br />
       <button>Save Listing</button>
     </form>
+    <button type="button" v-on:click='resetPage'>Abort changes</button>
   </div>
 </template>
 
 <script>
+import AddImages from "../components/listing-components/AddImages.vue";
 
 export default {
   components:{
+    AddImages
   },
-
-  data() {
+   data() {
     return {
       changedList:  { },
       changedAmenity:{},
       changedAddress:{},
+      FormData:[],
     };
   },
 
@@ -172,41 +179,35 @@ export default {
 
   methods: {
     async addListing() {
-      let newListing = {
-        description: this.description,
-        availableStartDate: this.available_start_date,
-        availableEndDate: this.available_end_date,
-        price: this.price,
-      };
-     
-     await this.$store.dispatch("updateListing", {...newListing, id: this.initialData.id});
+     await this.$store.dispatch("updateListing", {...this.changedList, id: this.initialData.id});
       this.addAddress();
     },
 
     async addAddress() {
-      console.log("Inne i address");
-      let newAddress = {
-        city: this.city,
-        address: this.addressListing,
-      };
-      await this.$store.dispatch("addAddress", newAddress);
+    console.log('this adress',this.changedAddress);
+     await this.$store.dispatch("updateAddress", this.changedAddress);
       this.addAmenity();
     },
 
     async addAmenity() {
-      let newAmenity = {
-        bathTub: this.isBathTub,
-        parkingLot: this.isParkingLot,
-        stove: this.isStove,
-        doubleBed: this.isDoubleBed,
-        bubblePool: this.isBubblePool,
-        bicycle: this.isBicycle,
-        sauna: this.isSauna,
-      };
-
-      await this.$store.dispatch("addAmenity", newAmenity);
+      console.log('this amenty',this.changedAmenity);
+   await this.$store.dispatch("updateAmenity", this.changedAmenity);
+  this.addImages();
+    },
+    addImages(){
+      let fd = FormData.getAll('files')
+      if(fd != null){
+    this.$store.dispatch('uploadFiles', this.formData)}
     },
     
+    LoadFormData(formData) {
+      this.formData = formData
+    },
+    resetPage(){
+      console.log("Reset page");
+      let a = true;
+      this.$emit('closeEdit', a)
+    }
   },
 };
 </script>

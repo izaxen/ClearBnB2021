@@ -4,16 +4,16 @@ import entityDO.Listing;
 
 public class UpdateAddressDTO {
     private int id;
-    private String address;
+    private String addressListing;
     private String city;
     private Listing listing;
 
     public UpdateAddressDTO() {
     }
 
-    public UpdateAddressDTO(int id, String address, String city, Listing listing) {
+    public UpdateAddressDTO(int id, String addressListing, String city, Listing listing) {
         this.id = id;
-        this.address = address;
+        this.addressListing = addressListing;
         this.city = city;
         this.listing = listing;
     }
@@ -26,12 +26,12 @@ public class UpdateAddressDTO {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressListing() {
+        return addressListing;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressListing(String addressListing) {
+        this.addressListing = addressListing;
     }
 
     public String getCity() {

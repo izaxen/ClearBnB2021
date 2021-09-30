@@ -2,10 +2,12 @@ package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
 
 
 @Entity
 @Table(name = "address")
+@Proxy(lazy = false)
 public class Address {
     @Id
     @Column(name = "listing_ID")

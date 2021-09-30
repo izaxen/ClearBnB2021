@@ -14,7 +14,7 @@
     </div>
     </div>
     <div v-else>
-      <EditListing />
+      <EditListing @closeEdit='closeEdit'/>
 
     </div>
 
@@ -50,9 +50,10 @@ EditListing,
     editList(id){
       id = id.toString()
       this.currentList = this.$store.dispatch('getSingleListing', id)
-
-      console.log(this.currentList);
-
+    },
+    closeEdit(closeEdit){
+      if(closeEdit){
+      this.currentList =null}
     }
   },
 };

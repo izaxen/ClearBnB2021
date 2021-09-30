@@ -15,7 +15,7 @@ public class AddressService {
 
     public Address convertUpdateAddressToAddress(UpdateAddressDTO dto, Listing listing){
 
-        return new Address(dto.getId(), dto.getAddress(), dto.getCity(),listing);
+        return new Address(listing.getId(), dto.getAddressListing(), dto.getCity(),listing);
 
     }
 }
