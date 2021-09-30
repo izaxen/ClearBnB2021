@@ -56,7 +56,6 @@ public class RatingLogic {
         }catch (java.lang.NullPointerException e){
             System.out.println(e.getMessage());            
         }
-
         return bookingsThatMissingLandlordsRating;        
     }
 
@@ -88,7 +87,6 @@ public class RatingLogic {
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
         });
-
         return bookingsThatUserCanAddARatingToDTO;
     }
 
