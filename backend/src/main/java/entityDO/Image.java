@@ -6,7 +6,7 @@ import org.hibernate.annotations.Proxy;
 
 @Entity
 @Proxy(lazy = false)
-@Table(name = "images")
+@Table(name = "image")
 public class Image {
 
     @Id

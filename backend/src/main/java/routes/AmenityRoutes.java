@@ -25,7 +25,6 @@ public class AmenityRoutes {
 
         app.post("api/updateAmenity",(req, res) -> {   //update amenity
             Listing currentListing = req.session("current-Listing");
-            System.out.println(req.body(UpdateAmenityDTO.class).toString());
 
             Amenities amenity = amenityLogic.updateAmenties(
                     ams.convertUpdateAmenitiesToAmenities(

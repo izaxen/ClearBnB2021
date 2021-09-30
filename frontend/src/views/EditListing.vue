@@ -128,7 +128,7 @@
           <input
             :value="new Date(initialData.availableStartDate).toISOString().split('T')[0]"
             type="date"
-            :min="new Date().toISOString().split('T')[0]"
+            
             @change="ev=> changedList.availableStartDate = ev.target.value"
           />
         </div>
