@@ -2,6 +2,7 @@ package routes;
 
 import application.Repositories;
 import chat.SocketMsg;
+import entityDO.User;
 import express.Express;
 import io.javalin.websocket.WsContext;
 
@@ -16,26 +17,24 @@ public class ChatRoutes {
     List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
     private static Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
+    User user;
 
     public ChatRoutes() {
 
     }
 
     public ChatRoutes(Express app, Repositories repositories){
-//        ListingRoutes listingRoutes = new ListingRoutes(app, repositories);
-//        System.out.println("Current-User: " + listingRoutes.getCurrentUser());
+        this.repositories = new Repositories();
 
         app.ws("/websockets", ws -> {
             ws.onConnect(ctx -> {
-                ctx.matchedPath();
-                System.out.println("Connected " + ctx.queryParam("userID"));
+                System.out.println("Connected");
                 clients.add(ctx);
             });
 
             ws.onMessage(ctx -> {
-                System.out.println(ctx.message(SocketMsg.class));
                 SocketMsg msg = ctx.message(SocketMsg.class); // convert from json
-                System.out.println(ctx);
+                user = repositories.getUserRepository().findUserById(msg.getUserID());
                 clients.forEach(client -> client.send(msg)); // convert to json and send back to ALL connected clients
 //        ctx.send(msg); // convert to json and send back (ONLY to the sender)
             });
