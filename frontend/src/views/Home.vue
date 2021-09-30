@@ -13,17 +13,20 @@
     <br />
 
     <Create-booking />
+    <Chat />
   </div>
 </template>
 
 <script>
 import AvailableLinstings from "../components/listing-components/AvailableListings.vue";
 import CreateBooking from "../components/booking-components/CreateBooking.vue";
+import Chat from "../components/chat-components/Chat.vue";
 
 export default {
   components: {
     AvailableLinstings,
     CreateBooking,
+    Chat,
   },
 };
 </script>
