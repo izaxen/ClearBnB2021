@@ -33,7 +33,7 @@ public class AddressLogic {
     }
 
     public Address updateAddress(Address adds){
-        Address oldlist = addressRepository.findById(adds.getListing().getId()).get();
+        Address oldlist = addressRepository.findById(adds.getId()).get();
 
         if(adds.getCity()==null){
             adds.setCity(oldlist.getCity());

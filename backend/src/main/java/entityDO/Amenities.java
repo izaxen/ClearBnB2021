@@ -68,6 +68,18 @@ public class Amenities {
         this.listing = listing;
     }
 
+    public Amenities(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                     Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.id = id;
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
+    }
+
     public Integer getId() {
         return id;
     }

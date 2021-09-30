@@ -208,22 +208,19 @@ export default {
 
   methods: {
     async addListing() {
-      await this.$store.dispatch("updateListing", {
-        ...this.changedList,
-        id: this.initialData.id,
-      });
+      await this.$store.dispatch("updateListing",  {...this.changedList, id: this.initialData.id, });
       this.addAddress();
     },
 
     async addAddress() {
       console.log("this adress", this.changedAddress);
-      await this.$store.dispatch("updateAddress", this.changedAddress);
+      await this.$store.dispatch("updateAddress", {...this.changedAddress, id:this.initialData.id});
       this.addAmenity();
     },
 
     async addAmenity() {
       console.log("this amenty", this.changedAmenity);
-      await this.$store.dispatch("updateAmenity", this.changedAmenity);
+      await this.$store.dispatch("updateAmenity",{...this.changedAmenity, id:this.initialData.id});
       this.addImages();
     },
     addImages() {

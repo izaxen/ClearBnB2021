@@ -36,9 +36,9 @@ public class AmenityService {
                 , add.getSauna(),listing);
     }
 
-    public Amenities convertUpdateAmenitiesToAmenities(UpdateAmenityDTO add, Listing listing){
+    public Amenities convertUpdateAmenitiesToAmenities(UpdateAmenityDTO add){
 
-        return new Amenities(listing.getId(), add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
-                add.getBubblePool(), add.getBicycle(), add.getSauna(), listing);
+        return new Amenities(add.getId(), add.getBathTub(), add.getParkingLot(), add.getStove(), add.getDoubleBed(),
+                add.getBubblePool(), add.getBicycle(), add.getSauna());
     }
  }

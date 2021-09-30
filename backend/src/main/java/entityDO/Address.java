@@ -32,11 +32,10 @@ public class Address {
         this.listing = listing;
     }
 
-    public Address(Integer id, String city, String addressListing, Listing listing) {
+    public Address(int id, String city, String addressListing) {
         this.id = id;
         this.city = city;
         this.addressListing = addressListing;
-        this.listing = listing;
     }
 
     public Address() {

@@ -28,7 +28,7 @@ public class AmenityRoutes {
 
             Amenities amenity = amenityLogic.updateAmenties(
                     ams.convertUpdateAmenitiesToAmenities(
-                            req.body(UpdateAmenityDTO.class), currentListing));
+                            req.body(UpdateAmenityDTO.class)));
 
             res.json(amenity);
         });
