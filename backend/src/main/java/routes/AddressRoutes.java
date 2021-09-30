@@ -33,6 +33,7 @@ public class AddressRoutes {
                     as.convertUpdateAddressToAddress(req.body(
                             UpdateAddressDTO.class),currentListing)
             );
+            System.out.println("in router: " + address);
             res.json(address);
         });
 

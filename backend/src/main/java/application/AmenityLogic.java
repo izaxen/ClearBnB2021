@@ -7,6 +7,7 @@ import entityDO.Listing;
 import entityDO.ListingRevision;
 import repositories.AmenitiesRepository;
 import repositories.AmenitiesRevisionRepository;
+import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import mapper.AmenityService;
 
@@ -16,6 +17,7 @@ public class AmenityLogic {
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AmenityService as;
+    Repositories repositories;
 
     public AmenityLogic(Repositories repos) {
 
@@ -23,6 +25,7 @@ public class AmenityLogic {
         this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
         this.listingRevisionRepository = repos.listingRevisionRepository;
         this.as = new AmenityService();
+        repositories = new Repositories();
     }
 
     public AmenityLogic() {
@@ -35,6 +38,8 @@ public class AmenityLogic {
 
     public Amenities updateAmenties(Amenities ama){
         Amenities oldList = amenitiesRepository.findById(ama.getListing().getId()).get();
+        Listing listing = repositories.listingRepository.findById(85).get();
+
 
         if(ama.getBathTub()== null){
             ama.setBathTub(oldList.getBathTub());
@@ -60,7 +65,7 @@ public class AmenityLogic {
 
         createAmenitiesVersionBackup(oldList);
 
-        return amenitiesRepository.updateAmenities(ama);
+        return amenitiesRepository.updateAmenities(ama, listing);
     }
         private void createAmenitiesVersionBackup(Amenities oldList){
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldList.getId());

@@ -53,9 +53,12 @@ public class ListingLogic {
 
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
+            System.out.println("allListing list<Listing>: " + allListings);
             for ( Listing l: allListings
             ) {
+                System.out.println("before convert: " + l);
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
+                System.out.println("filteredListingDTO: " + filteredListingDTO);
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;
@@ -95,7 +98,8 @@ public class ListingLogic {
     public Listing updateListing(Listing listing){
         Listing oldList = listingRepository.findById(listing.getId()).get();
 
-        if(listing.getPrice() == null){
+
+        if(listing.getPrice() == 0){
             listing.setPrice(oldList.getPrice());
         }
         if(listing.getDescription() ==(null)){
@@ -107,6 +111,7 @@ public class ListingLogic {
         if(listing.getAvailableEndDate()==(null)){
             listing.setAvailableEndDate(oldList.getAvailableEndDate());
         }
+
 
         createListingVersionBackup(oldList);
 

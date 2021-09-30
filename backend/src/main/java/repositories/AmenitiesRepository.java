@@ -1,4 +1,5 @@
 package repositories;
+import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Amenities;
 
@@ -31,8 +32,11 @@ public class AmenitiesRepository {
         return amenities;
     }
 
-    public Amenities updateAmenities(Amenities amenities){
+    public Amenities updateAmenities(Amenities amenities, Listing listing){
         try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(listing);
+            entityManager.getTransaction().commit();
             entityManager.getTransaction().begin();
             entityManager.merge(amenities);
             entityManager.getTransaction().commit();

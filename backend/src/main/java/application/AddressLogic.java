@@ -13,12 +13,14 @@ public class AddressLogic {
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AddressService as;
+    Repositories repositories;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
         this.as = new AddressService();
+        this.repositories = new Repositories();
     }
 
     public AddressLogic() {
@@ -39,6 +41,7 @@ public class AddressLogic {
         if(adds.getAddressListing() == null){
             adds.setAddressListing(oldlist.getAddressListing());
         }
+        System.out.println("adds: " + adds);
         createAddressVersionBackup(oldlist);
 
         return addressRepository.updateAddress(adds);
