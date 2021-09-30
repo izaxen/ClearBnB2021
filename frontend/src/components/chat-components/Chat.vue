@@ -6,7 +6,10 @@
     <h1>live comm</h1>
     <div id="chat-output"></div>
     <input id="chat-input" v-model="input" />
-    <button id="chat-send" @click="sendMessage()">send</button>
+
+    <button id="chat-send" v-bind:disabled="isDisabled" @click="sendMessage()">
+      send
+    </button>
 
     <button id="connect" @click="connect()">connect</button>
     <button id="disconnect" @click="disconnect()">disconnect</button>
@@ -27,6 +30,12 @@ export default {
 
   mounted() {
     this.div = document.querySelector("#chat-output");
+  },
+
+  computed: {
+    isDisabled() {
+      return this.input <= 0 || this.client == null;
+    },
   },
 
   methods: {
