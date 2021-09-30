@@ -9,18 +9,16 @@ public class FrontendRatingDTO {
     int bookingID;
     String rating;
     String message;
-    String dateVisited;
 
     public FrontendRatingDTO() {
     }
 
-    public FrontendRatingDTO(int reviewerID, int recipientID, int bookingID, String rating, String message, String dateVisited) {
+    public FrontendRatingDTO(int reviewerID, int recipientID, int bookingID, String rating, String message) {
         this.reviewerID = reviewerID;
         this.recipientID = recipientID;
         this.bookingID = bookingID;
         this.rating = rating;
         this.message = message;
-        this.dateVisited = dateVisited;
     }
 
     public int getReviewerID() {
@@ -63,22 +61,14 @@ public class FrontendRatingDTO {
         this.message = message;
     }
 
-    public String getDateVisited() {
-        return dateVisited;
-    }
-
-    public void setDateVisited(String dateVisited) {
-        this.dateVisited = dateVisited;
-    }
-
+    @Override
     public String toString() {
         return "FrontendRatingDTO{" +
                 "reviewerID=" + reviewerID +
                 ", recipientID=" + recipientID +
                 ", bookingID=" + bookingID +
-                ", rating=" + rating +
+                ", rating='" + rating + '\'' +
                 ", message='" + message + '\'' +
-                ", dateVisited='" + dateVisited + '\'' +
                 '}';
     }
 }

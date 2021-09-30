@@ -46,19 +46,18 @@ public class RatingLogic {
     }
 
     //THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b). /Mac
-    public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(int userID){
+    public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(User user){
 
-        User user = repositories.getUserRep().findUserById(userID); //Current user that is logged in.
+        List<GiveRatingDTO> bookingsThatMissingLandlordsRating = null;
+        
+        try{
+            List<Booking> oldBookings = checkIfUserHasAnyOldBookingsAndReturnThem(user);
+            bookingsThatMissingLandlordsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookings, user);
+        }catch (java.lang.NullPointerException e){
+            System.out.println(e.getMessage());            
+        }
 
-        List<Booking> oldBookingsOfALandlord = checkIfUserIsLandlordAndSendListings(user);
-        List<Booking> oldBookingsOfAGuest = checkIfGuestHasAnyOldBookings(user);
-
-        List<GiveRatingDTO> bookingsThatMissingLandlordsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookingsOfALandlord, user);
-        List<GiveRatingDTO> bookingsThatMissingGuestsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookingsOfAGuest, user);
-
-        bookingsThatMissingLandlordsRating.addAll(bookingsThatMissingGuestsRating);
-
-        return bookingsThatMissingLandlordsRating;
+        return bookingsThatMissingLandlordsRating;        
     }
 
     public List<Booking> checkIfUserIsLandlordAndSendListings(User user){
@@ -77,7 +76,7 @@ public class RatingLogic {
          return bookings;
     }
 
-    public List<Booking> checkIfGuestHasAnyOldBookings(User user){
+    public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
         return repositories.booking().findAGuestsOldBookings(user);
     }
 
@@ -86,18 +85,35 @@ public class RatingLogic {
         List<GiveRatingDTO> bookingsThatUserCanAddARatingToDTO = new ArrayList<>();
 
         bookings.forEach(booking -> {
+            System.out.println("start");
             User guest = booking.getUser();
+            System.out.println("guest:" + guest.getID());
             List<Rating> ratings = repositories.ratingRepository.getRatingsLinkedToBooking(booking);
-            User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
 
-            if(ratings.size() >= 2){
-                return; //Controls if booking already has 2 ratings
+            System.out.println("******" + ratings.size());
+
+            //Controls if booking already has 2 ratings or if this user already have given a rating.
+            if(ratings.size() != 1){
+                return;
             }
+            if(ratings.get(0).getReviewer() == user){
+                return;
+            }
+
+            //booking.getUser = "guest (owner_ID in booking entity in DB)"
             if(user.getID() != booking.getUser().getID()){
-                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getEndDate() ));
+                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getStartDate() ));
             }else if(user.getID() == booking.getUser().getID()){
-                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getEndDate() ));
+                User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
+                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
+        });
+
+        bookingsThatUserCanAddARatingToDTO.forEach(booking ->{
+            System.out.println("---------------------");
+            System.out.println(booking.getBookingID());
+            System.out.println(booking.getReviewer());
+            System.out.println(booking.getRecipient());
         });
 
         return bookingsThatUserCanAddARatingToDTO;
@@ -113,15 +129,13 @@ public class RatingLogic {
                 reviewer,
                 recipient,
                 parseInt(frontendRatingDTO.getRating()),
-                frontendRatingDTO.getMessage(),
-                frontendRatingDTO.getDateVisited());
+                frontendRatingDTO.getMessage());
 
         repositories.ratingRepository.addRating(new Rating(
                 saveRatingToDataBaseDTO.getReviewer(),
                 saveRatingToDataBaseDTO.getRecipient(),
                 saveRatingToDataBaseDTO.getRating(),
                 saveRatingToDataBaseDTO.getReview(),
-                saveRatingToDataBaseDTO.getBooking(),
-                saveRatingToDataBaseDTO.getDateVisited()));
+                saveRatingToDataBaseDTO.getBooking()));
     }
 }

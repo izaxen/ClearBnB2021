@@ -8,8 +8,8 @@
     }}
     {{
       this.$store.state.user.id === this.$props.booking.reviewer
-        ? "as your host"
-        : "as your guest"
+        ? "as your guest"
+        : "as your host"
     }}
     <form action="" name="{{this.$props.booking.id}}" @submit.prevent>
       <div class="radio">
@@ -31,10 +31,10 @@
     <p>
       {{
         this.$store.state.user.id === this.$props.booking.reviewer
-          ? `You visited ${
+          ? `You hosted ${
               this.$props.booking.recipientName
             } at ${this.$props.booking.dateVisited.substring(0, 10)}`
-          : `You hosted ${
+          : `You visited ${
               this.$props.booking.reviewerName
             } at ${this.$props.booking.dateVisited.substring(0, 10)}`
       }}
@@ -76,7 +76,6 @@ export default {
         bookingID: this.booking.bookingID,
         rating: this.rating,
         message: this.comment,
-        dateVisited: this.$props.booking.dateVisited,
       };
 
       let res = await fetch("/rest/createNewRating", {

@@ -5,6 +5,7 @@ import application.Repositories;
 import dtos.CreateRatingDTO;
 import dtos.FrontendRatingDTO;
 import entityDO.Rating;
+import entityDO.User;
 import express.Express;
 
 import static java.lang.Integer.parseInt;
@@ -41,8 +42,9 @@ public class RatingRoutes {
 
     public void checkIfThereIsAnyRatingToFill(){
         app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
-            int userID = parseInt(req.params("userID"));
-            res.json(ratingLogic.checkIfThereIsAnyRatingToFill(userID));
+            User currentUser = req.session("current-user");
+            System.out.println(currentUser.toString());
+            res.json(ratingLogic.checkIfThereIsAnyRatingToFill(currentUser));
         });
     }
 

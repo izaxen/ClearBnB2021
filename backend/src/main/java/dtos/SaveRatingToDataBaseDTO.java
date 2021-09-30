@@ -12,13 +12,12 @@ public class SaveRatingToDataBaseDTO {
     String review; //(message)
     String dateVisited;
 
-    public SaveRatingToDataBaseDTO(Booking booking, User reviewer, User recipient, int rating, String review, String dateVisited) {
+    public SaveRatingToDataBaseDTO(Booking booking, User reviewer, User recipient, int rating, String review) {
         this.booking = booking;
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
         this.review = review;
-        this.dateVisited = dateVisited;
     }
 
     public Booking getBooking() {

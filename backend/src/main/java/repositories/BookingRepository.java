@@ -34,7 +34,7 @@ public class BookingRepository {
         String strDate = formatter.format(date);
 
         return entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
-                "b.user = :user", Booking.class)
+                "b.user = :user OR b.listing.user = :user", Booking.class)
                 .setParameter("date", strDate)
                 .setParameter("user", user)
                 .getResultList();

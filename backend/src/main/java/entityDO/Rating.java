@@ -34,21 +34,17 @@ public class Rating {
 
     private String message;
 
-    @Column(name="date_visited")
-    private String dateVisited;
-
     @Column(name="date_created")
     private String dateCreated;
 
     public Rating(){}
 
-    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking, String dateVisited) {
+    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking) {
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
         this.message = message;
         this.booking = booking;
-        this.dateVisited = dateVisited;
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.dateCreated = date.format(myFormatObj);
@@ -86,9 +82,6 @@ public class Rating {
         return booking;
     }
 
-    public String getDateVisited() {
-        return dateVisited;
-    }
 
     @Override
     public String toString() {
@@ -99,7 +92,6 @@ public class Rating {
                 ", booking=" + booking +
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
-                ", dateVisited='" + dateVisited + '\'' +
                 ", dateCreated='" + dateCreated + '\'' +
                 '}';
     }
