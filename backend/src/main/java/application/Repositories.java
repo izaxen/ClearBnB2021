@@ -24,6 +24,16 @@ public class Repositories {
     AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(entityManager);
     ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
     AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManager);
+    ImageRepository imageRepository = new ImageRepository(entityManager);
+    BankRepository bankRepository = new BankRepository(entityManager);
+
+    public AddressRevisionRepository getAddressRevisionRepository() {
+        return addressRevisionRepository;
+    }
+
+    public ImageRepository getImageRepository() {
+        return imageRepository;
+    }
 
     public UserRepository getUserRepository() {
         return userRepository;

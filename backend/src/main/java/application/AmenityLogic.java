@@ -1,30 +1,36 @@
 package application;
 
+import dtos.AddAmenityDTO;
 import entityDO.Amenities;
 import entityDO.AmenitiesRevision;
+import entityDO.Listing;
 import entityDO.ListingRevision;
 import repositories.AmenitiesRepository;
 import repositories.AmenitiesRevisionRepository;
 import repositories.ListingRevisionRepository;
+import mapper.AmenityService;
 
 public class AmenityLogic {
 
     AmenitiesRepository amenitiesRepository;
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
+    AmenityService as;
 
     public AmenityLogic(Repositories repos) {
 
         this.amenitiesRepository = repos.amenitiesRepository;
         this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
         this.listingRevisionRepository = repos.listingRevisionRepository;
+        this.as = new AmenityService();
     }
 
     public AmenityLogic() {
     }
 
-    public Amenities createNewAmenity(Amenities amenity){
-        return amenitiesRepository.addAmenities(amenity);
+    public Amenities createNewAmenity(AddAmenityDTO dto, Listing listing){
+        Amenities amenities = as.convertAddAmenitiesToAmenities(dto, listing);
+        return amenitiesRepository.addAmenities(amenities);
     }
 
     public Amenities updateAmenties(Amenities ama){

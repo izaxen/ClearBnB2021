@@ -1,29 +1,33 @@
 package application;
 
-import entityDO.Address;
-import entityDO.AddressRevision;
-import entityDO.ListingRevision;
+import dtos.AddAddressDTO;
+import entityDO.*;
 import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
 import repositories.ListingRevisionRepository;
+import mapper.AddressService;
+import mapper.AmenityService;
 
 public class AddressLogic {
 
     AddressRepository addressRepository;
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
+    AddressService as;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
+        this.as = new AddressService();
     }
 
     public AddressLogic() {
     }
 
-    public Address createNewAddress(Address address){
+    public Address createNewAddress(AddAddressDTO dto, Listing listing){
 
+        Address address = as.convertAddAddressToAddress(dto, listing);
         return addressRepository.addAddress(address);
     }
 

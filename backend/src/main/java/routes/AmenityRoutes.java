@@ -17,15 +17,13 @@ public class AmenityRoutes {
     public AmenityRoutes(Express app, Repositories repos) {
         amenityLogic = new AmenityLogic(repos);
         ams = new AmenityService();
-        app.post("api/addAmenity",(req, res) -> {   //Create amenity
+
+        app.post("api/amenity",(req, res) -> {
             Listing currentListing = req.session("current-Listing");
-            Amenities amenity = amenityLogic.createNewAmenity(
-                    ams.convertAddAmenitiesToAmenities(
-                            req.body(AddAmenityDTO.class), currentListing));
-            res.json(amenity);
+            res.json(amenityLogic.createNewAmenity(req.body(AddAmenityDTO.class), currentListing));
         });
 
-        app.post("api/updateAmenity",(req, res) -> {   //update amenity
+        app.put("api/amenity",(req, res) -> {   //update amenity
             Listing currentListing = req.session("current-Listing");
 
             Amenities amenity = amenityLogic.updateAmenties(

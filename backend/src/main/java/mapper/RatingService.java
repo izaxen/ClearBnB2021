@@ -4,7 +4,6 @@ import dtos.CreateRatingDTO;
 import dtos.GetRatingDTO;
 import entityDO.Booking;
 import entityDO.Rating;
-import entityDO.User;
 
 import java.awt.print.Book;
 

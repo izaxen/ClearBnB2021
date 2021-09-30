@@ -54,6 +54,7 @@ public class Listing {
     @PrimaryKeyJoinColumn
     private Amenities amenities;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
@@ -66,7 +67,7 @@ public class Listing {
     }
 
     public Listing(Integer price, String description, String availableStartDate, String availableEndDate, User owner) {
-        this.price = (int) (price * 1.15);
+        this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
         this.availableEndDate = availableEndDate;

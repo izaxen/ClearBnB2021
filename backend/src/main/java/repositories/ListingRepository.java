@@ -2,6 +2,7 @@ package repositories;
 
 import dtos.FilteredListingDTO;
 import entityDO.Booking;
+import dtos.ListingFilterDTO;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
@@ -52,6 +53,46 @@ public class ListingRepository {
         User user = listing.getUser();
 
         return user;
+    }    
+    
+    public List<Listing> filterListing(ListingFilterDTO filter){
+        Session session = entityManager.unwrap(Session.class);
+        String ts1 = filter.getAvailableStartDate();
+        String ts2 = filter.getAvailableEndDate();
+        Boolean isBathTub = filter.getBathTub();
+        Boolean isParkingLot = filter.getParkingLot();
+        Boolean isStove = filter.getStove();
+        Boolean isDoubleBed = filter.getDoubleBed();
+        Boolean isBubblePool = filter.getBubblePool();
+        Boolean isBicycle = filter.getBicycle();
+        Boolean isSauna = filter.getSauna();
+        int maxPrice = filter.getPrice();
+
+
+        List<Listing> matchedListing = session.createQuery("FROM Listing as l WHERE " +
+                        "(:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
+                        "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate) AND " +
+                        "(:isBathTub IS NULL or :isBathTub IS FALSE or l.amenities.isBathTub IS :isBathTub) AND " +
+                        "(:isParkingLot IS NULL or :isParkingLot IS FALSE or  l.amenities.isParkingLot IS :isParkingLot) AND " +
+                        "(:isStove IS NULL or :isStove IS FALSE or l.amenities.isStove IS :isStove) AND " +
+                        "(:isDoubleBed IS NULL or :isDoubleBed IS FALSE or  l.amenities.isDoubleBed IS :isDoubleBed) AND " +
+                        "(:isBubblePool IS NULL or :isBubblePool IS FALSE or  l.amenities.isBubblePool IS :isBubblePool) AND " +
+                        "(:isBicycle IS NULL or :isBicycle IS FALSE or l.amenities.isBicycle IS :isBicycle) AND " +
+                        "(:isSauna IS NULL or :isSauna IS FALSE or  l.amenities.isSauna IS :isSauna) AND " +
+                        "(:maxPrice = 0 or l.price <= :maxPrice)", Listing.class)
+                .setParameter("selectedStartDate", ts1)
+                .setParameter("selectedEndDate", ts2)
+                .setParameter("isBathTub", isBathTub)
+                .setParameter("isParkingLot", isParkingLot)
+                .setParameter("isStove", isStove)
+                .setParameter("isDoubleBed", isDoubleBed)
+                .setParameter("isBubblePool", isBubblePool)
+                .setParameter("isBicycle", isBicycle)
+                .setParameter("isSauna", isSauna)
+                .setParameter("maxPrice", maxPrice)
+                .list();
+
+        return matchedListing;
     }
 
 

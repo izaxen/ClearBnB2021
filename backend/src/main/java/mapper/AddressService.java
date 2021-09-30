@@ -1,6 +1,5 @@
 package mapper;
 
-import application.Repositories;
 import dtos.AddAddressDTO;
 import dtos.UpdateAddressDTO;
 import entityDO.Address;
@@ -8,8 +7,6 @@ import entityDO.Listing;
 
 
 public class AddressService {
-    Repositories lR;
-    Listing listing;
 
 
     public Address convertAddAddressToAddress(AddAddressDTO dto, Listing listing) {

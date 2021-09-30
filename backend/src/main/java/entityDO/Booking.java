@@ -19,6 +19,9 @@ public class Booking {
     @Column(name="end_date")
     private String endDate;
 
+    @Column(name="total_price")
+    private int totalPrice;
+
     @ManyToOne
     @JoinColumn(name="owner_ID")
     private User user;
@@ -33,11 +36,12 @@ public class Booking {
 
     public Booking(){}
 
-    public Booking(User user, Listing listing, String startDate, String endDate) {
+    public Booking(User user, Listing listing, String startDate, String endDate, int totalPrice) {
         this.user = user;
         this.listing = listing;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.totalPrice = totalPrice;
     }
 
     public Integer getId() {
@@ -80,14 +84,23 @@ public class Booking {
         this.listing = listing;
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
+                ", totalPrice=" + totalPrice +
                 ", user=" + user +
-//                ", listing=" + listing +
+                ", listing=" + listing +
                 '}';
     }
 }
