@@ -60,22 +60,6 @@ public class RatingLogic {
         return bookingsThatMissingLandlordsRating;        
     }
 
-    public List<Booking> checkIfUserIsLandlordAndSendListings(User user){
-         List<Listing> listings = repositories.listingRepository.findAllListingsFromUser(user);
-         List<Booking> bookings = new ArrayList<>();
-
-         if(!listings.isEmpty()) {
-             listings.forEach(listing -> {
-                 List<Booking> x = repositories.bookingRepository.findALandlordsOldBookings(listing);
-                 if (x != null) {
-                     bookings.addAll(x);
-                 }
-             });
-         }
-
-         return bookings;
-    }
-
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
         return repositories.booking().findAGuestsOldBookings(user);
     }
@@ -85,12 +69,8 @@ public class RatingLogic {
         List<GiveRatingDTO> bookingsThatUserCanAddARatingToDTO = new ArrayList<>();
 
         bookings.forEach(booking -> {
-            System.out.println("start");
             User guest = booking.getUser();
-            System.out.println("guest:" + guest.getID());
             List<Rating> ratings = repositories.ratingRepository.getRatingsLinkedToBooking(booking);
-
-            System.out.println("******" + ratings.size());
 
             //Controls if booking already has 2 ratings or if this user already have given a rating.
             if(ratings.size() != 1){
@@ -107,13 +87,6 @@ public class RatingLogic {
                 User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
-        });
-
-        bookingsThatUserCanAddARatingToDTO.forEach(booking ->{
-            System.out.println("---------------------");
-            System.out.println(booking.getBookingID());
-            System.out.println(booking.getReviewer());
-            System.out.println(booking.getRecipient());
         });
 
         return bookingsThatUserCanAddARatingToDTO;
