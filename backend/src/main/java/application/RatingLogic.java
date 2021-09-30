@@ -48,9 +48,9 @@ public class RatingLogic {
     //THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b). /Mac
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(int userID){
 
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRep().findUserById(userID); //Current user that is logged in.
 
-        List<Booking> oldBookingsOfALandlord = checkIfLandlordHasAnyOldBookings(user);
+        List<Booking> oldBookingsOfALandlord = checkIfUserIsLandlordAndSendListings(user);
         List<Booking> oldBookingsOfAGuest = checkIfGuestHasAnyOldBookings(user);
 
         List<GiveRatingDTO> bookingsThatMissingLandlordsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookingsOfALandlord, user);
@@ -61,7 +61,7 @@ public class RatingLogic {
         return bookingsThatMissingLandlordsRating;
     }
 
-    public List<Booking> checkIfLandlordHasAnyOldBookings(User user){
+    public List<Booking> checkIfUserIsLandlordAndSendListings(User user){
          List<Listing> listings = repositories.listingRepository.findAllListingsFromUser(user);
          List<Booking> bookings = new ArrayList<>();
 
