@@ -27,7 +27,7 @@ public class ListingRoutes {
 
         getAllListingsInSummaryFromUser();
 
-        app.post("/api/addListing", (req, res) -> {
+        app.post("/api/listing", (req, res) -> {
             User currentUser = req.session("current-user");
             Listing createdListing = listingLogic.createNewListing(
                             req.body(AddListingDTO.class),
@@ -38,11 +38,11 @@ public class ListingRoutes {
         });
 
 
-        app.get("/api/getAllListings", (req, res) -> {
+        app.get("/api/allListings", (req, res) -> {
             res.json(listingLogic.getAllListingsDTO());
         });
 
-        app.post("/api/updateListing", (req, res) -> {
+        app.put("/api/listing", (req, res) -> {
             User currentUser = req.session("current-user");
             Listing updatedListing = listingLogic.updateListing(
                     ls.convertupdateListingToListing(
@@ -54,7 +54,8 @@ public class ListingRoutes {
             res.json(updatedListing.getId());
         });
 
-        app.post("/api/getFilteredListing", (req, res) ->{
+
+        app.post("/api/filteredListings", (req, res) ->{
             res.json(listingLogic.getFilteredListings(
                     (req.body(ListingFilterDTO.class))));
         });

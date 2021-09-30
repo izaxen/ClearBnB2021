@@ -16,5 +16,6 @@ public class Routes {
         new AmenityRoutes(app, repositories);
         new RatingRoutes(app, repositories);
         new ImageRoutes(app, repositories);
+        new BankRoutes(app, repositories);
     }
 }
