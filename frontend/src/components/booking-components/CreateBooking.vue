@@ -12,6 +12,8 @@
         </option>
       </select>
       <h3>Selected Listing: {{ selected.id }}</h3>
+      <h3>Selected Days: {{ this.calculatedays }}</h3>
+      <h3>Total cost: {{ this.totalPrice }}</h3>
 
       <input
         v-model="startDate"
@@ -22,7 +24,12 @@
 
       <input v-model="endDate" required type="date" placeholder="Slut Datum" />
 
-      <button @click="printSelected">Create new booking</button>
+      <div v-if="calculatedays <= 0">
+        <button type="button" disabled>Create new booking</button>
+      </div>
+      <div v-else>
+        <button @click="printSelected">Create new booking</button>
+      </div>
     </form>
   </div>
 </template>
@@ -35,6 +42,8 @@ export default {
       allListings: [],
       startDate: new Date(),
       endDate: "",
+      calculatedays: "",
+      totalPrice: "",
     };
   },
 
@@ -42,7 +51,38 @@ export default {
     this.getAllListings();
   },
 
+  watch: {
+    startDate: function () {
+      this.calculateDays();
+    },
+    endDate: function () {
+      this.calculateDays();
+    },
+    selected: function () {
+      this.calculateDays();
+    },
+  },
+
   methods: {
+    calculateDays() {
+      if (this.endDate !== "") {
+        var sDate = new Date(this.startDate);
+        var eDate = new Date(this.endDate);
+        var diff = eDate.getTime() - sDate.getTime();
+        var diffDays = diff / (1000 * 3600 * 24);
+
+        this.calculatedays = diffDays;
+        if (this.calculatedays > 0) {
+          this.totalPrice = Math.ceil(this.calculatedays * this.selected.price);
+        } else {
+          this.totalPrice = 0;
+          this.calculatedays = 0;
+        }
+      } else {
+        this.calculatedays == 0;
+      }
+    },
+
     createBooking() {
       let newBooking = {
         user: this.$store.state.user,
@@ -50,17 +90,17 @@ export default {
         startDate: this.startDate,
         endDate: this.endDate,
       };
-      console.log(newBooking);
-      console.log("selectedStartDate " + newBooking.startDate);
-      console.log(newBooking.listing.id);
+
       this.postNewBooking(newBooking);
     },
+
     async postNewBooking() {
       let res = await fetch(
-        `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}`
+        `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}/${this.totalPrice}`
       );
       console.log(await res.json());
     },
+
     async getAllListings() {
       let res = await fetch("/api/getAllListings");
       this.allListings = await res.json();
