@@ -21,6 +21,7 @@ export default {
       div: "",
       input: "",
       socket: "",
+      client: null,
     };
   },
 
@@ -56,6 +57,9 @@ export default {
     },
 
     connect() {
+      if (this.client) return;
+
+      this.client = 1;
       console.log("Connecting...");
       this.addMsg("Connecting...");
       this.socket = new WebSocket("ws://localhost:4000/websockets");
@@ -63,9 +67,11 @@ export default {
     },
 
     disconnect() {
+      if (!this.client) return;
       console.log("Disconnecting...");
       this.addMsg("Disconnecting...");
       this.socket.close();
+      this.client = null;
     },
 
     sendMessage() {
