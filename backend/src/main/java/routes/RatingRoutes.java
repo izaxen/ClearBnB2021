@@ -43,7 +43,6 @@ public class RatingRoutes {
     public void checkIfThereIsAnyRatingToFill(){
         app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
             User currentUser = req.session("current-user");
-            System.out.println(currentUser.toString());
             res.json(ratingLogic.checkIfThereIsAnyRatingToFill(currentUser));
         });
     }

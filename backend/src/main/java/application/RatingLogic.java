@@ -20,6 +20,7 @@ public class RatingLogic {
     Repositories repositories;
     RatingService ratingService = new RatingService();
 
+
     public RatingLogic(Repositories repositories) {
         this.repositories = repositories;
     }
@@ -48,18 +49,18 @@ public class RatingLogic {
     //THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b). /Mac
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(User user){
 
-        List<GiveRatingDTO> bookingsThatMissingLandlordsRating = null;
-        
+        /*List<GiveRatingDTO> bookingsThatMissingLandlordsRating;*/
         try{
             List<Booking> oldBookings = checkIfUserHasAnyOldBookingsAndReturnThem(user);
-            bookingsThatMissingLandlordsRating = loopingOldBookingsToCheckIfRatingsIsMissing(oldBookings, user);
+            return loopingOldBookingsToCheckIfRatingsIsMissing(oldBookings, user);
         }catch (java.lang.NullPointerException e){
             System.out.println(e.getMessage());            
         }
-        return bookingsThatMissingLandlordsRating;        
+        return null;
     }
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
+        repositories.entityManager.clear();
         return repositories.booking().findAGuestsOldBookings(user);
     }
 
@@ -72,11 +73,13 @@ public class RatingLogic {
             List<Rating> ratings = repositories.ratingRepository.getRatingsLinkedToBooking(booking);
 
             //Controls if booking already has 2 ratings or if this user already have given a rating.
-            if(ratings.size() != 1){
+            if(ratings.size() >= 2){
                 return;
             }
-            if(ratings.get(0).getReviewer() == user){
-                return;
+            if(!ratings.isEmpty()){
+                if(ratings.get(0).getReviewer() == user){
+                    return;
+                }
             }
 
             //booking.getUser = "guest (owner_ID in booking entity in DB)"

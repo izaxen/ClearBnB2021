@@ -173,7 +173,7 @@ public class User {
         this.dateCreated = dateCreated;
     }
 
-    @Override
+  /*  @Override
     public String toString() {
         return "User{" +
                 "ID=" + ID +
@@ -183,10 +183,9 @@ public class User {
                 ", pw='" + pw + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", listings=" + listings +
-                ", bookings=" + bookings +
                 ", reviews=" + reviews +
                 ", rating=" + rating +
                 '}';
-    }
+    }*/
 }
 

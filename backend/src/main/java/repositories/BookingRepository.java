@@ -29,28 +29,30 @@ public class BookingRepository {
     }
 
     public List<Booking> findAGuestsOldBookings(User user){
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = formatter.format(date);
 
-        return entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
-                "b.user = :user OR b.listing.user = :user", Booking.class)
-                .setParameter("date", strDate)
-                .setParameter("user", user)
-                .getResultList();
+        try {
+            List<Booking> bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
+                    "b.user = :user OR b.listing.user = :user", Booking.class)
+                    .setParameter("date", strDate)
+                    .setParameter("user", user)
+                    .getResultList();
+
+            return bookings;
+
+        }catch (jakarta.persistence.PersistenceException e){
+            System.out.println("Error in findAGuestsOldBookings");
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.clear();
+        }
+
+        return null;
     }
 
-    public List<Booking> findALandlordsOldBookings(Listing listing){
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = formatter.format(date);
-
-        return entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
-                "b.listing = :listing", Booking.class)
-                .setParameter("date", strDate)
-                .setParameter("listing", listing)
-                .getResultList();
-    }
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
 
