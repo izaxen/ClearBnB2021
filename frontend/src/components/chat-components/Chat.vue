@@ -7,12 +7,22 @@
     <div id="chat-output"></div>
     <input id="chat-input" v-model="input" />
 
-    <button id="chat-send" v-bind:disabled="isDisabled" @click="sendMessage()">
+    <button
+      id="chat-send"
+      v-bind:disabled="isEmptyOrNotConnected"
+      @click="sendMessage()"
+    >
       send
     </button>
 
     <button id="connect" @click="connect()">connect</button>
-    <button id="disconnect" @click="disconnect()">disconnect</button>
+    <button
+      id="disconnect"
+      v-bind:disabled="isNotConnected"
+      @click="disconnect()"
+    >
+      disconnect
+    </button>
   </body>
 </template>>
 
@@ -33,8 +43,12 @@ export default {
   },
 
   computed: {
-    isDisabled() {
+    isEmptyOrNotConnected() {
       return this.input <= 0 || this.client == null;
+    },
+
+    isNotConnected() {
+      return this.client == null;
     },
   },
 
@@ -67,6 +81,8 @@ export default {
 
     connect() {
       if (this.client) return;
+
+      console.log(this.$store.state.user);
 
       this.client = 1;
       console.log("Connecting...");
