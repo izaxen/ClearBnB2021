@@ -150,9 +150,7 @@
         <div class="start">
           <label for="startDate">Select Start Date</label>
           <input
-            :value="
-              new Date(initialData.availableStartDate).toISOString().split('T')[0]
-            "
+           
             type="date"
             @change="(ev) => (changedList.availableStartDate = ev.target.value)"
           />
@@ -160,9 +158,7 @@
         <div class="end">
           <label for="endDate">Select End Date</label>
           <input
-            :value="
-              new Date(initialData.availableEndDate).toISOString().split('T')[0]
-            "
+           
             type="date"
             :min="new Date().toISOString().split('T')[0]"
             @change="(ev) => (changedList.availableEndDate = ev.target.value)"
