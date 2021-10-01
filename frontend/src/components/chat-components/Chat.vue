@@ -86,9 +86,6 @@ export default {
           "Connected "
           // + JSON.stringify(event)
         );
-        let msg = this.input;
-        let userID = this.$store.state.user.id;
-        this.socket.send(JSON.stringify({ userID }));
       };
     },
 
@@ -98,7 +95,9 @@ export default {
       this.client = 1;
       console.log("Connecting...");
       this.addMsg("Connecting...");
-      this.socket = new WebSocket(`ws://localhost:4000/websockets`);
+      this.socket = new WebSocket(
+        "ws://localhost:4000/websockets/" + this.$store.state.user.id
+      );
 
       this.addSocketEventListeners();
     },

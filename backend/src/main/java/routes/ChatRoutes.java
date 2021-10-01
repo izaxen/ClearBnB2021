@@ -16,7 +16,7 @@ public class ChatRoutes {
     Express app;
     List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
-    private static Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
+    private static Map<WsContext, User> userUsernameMap = new ConcurrentHashMap<>();
     User user;
 
     public ChatRoutes() {
@@ -26,17 +26,22 @@ public class ChatRoutes {
     public ChatRoutes(Express app, Repositories repositories){
         this.repositories = new Repositories();
 
-        app.ws("/websockets", ws -> {
+        app.ws("/websockets/:id", ws -> {
             ws.onConnect(ctx -> {
                 System.out.println("Connected");
-                userUsernameMap.put(ctx,"Yang");
-                System.out.println(userUsernameMap);
+
+                int userID = Integer.parseInt(ctx.pathParam("id"));
+                user = repositories.getUserRepository().findUserById(userID);
+                userUsernameMap.put(ctx,user);
                 clients.add(ctx);
             });
 
             ws.onMessage(ctx -> {
                 SocketMsg msg = ctx.message(SocketMsg.class); // convert from json
+
                 user = repositories.getUserRepository().findUserById(msg.getUserID());
+                System.out.println(user);
+
                 clients.forEach(client -> client.send(msg)); // convert to json and send back to ALL connected clients
 //        ctx.send(msg); // convert to json and send back (ONLY to the sender)
             });
