@@ -5,7 +5,6 @@ import dtos.GetRatingDTO;
 import dtos.GiveRatingDTO;
 import dtos.SaveRatingToDataBaseDTO;
 import entityDO.Booking;
-import entityDO.Listing;
 import entityDO.Rating;
 import entityDO.User;
 import mapper.RatingService;
@@ -83,9 +82,9 @@ public class RatingLogic {
             }
 
             //booking.getUser = "guest (owner_ID in booking entity in DB)"
-            if(user.getID() != booking.getUser().getID()){
+            if(user.getId() != booking.getUser().getId()){
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getStartDate() ));
-            }else if(user.getID() == booking.getUser().getID()){
+            }else if(user.getId() == booking.getUser().getId()){
                 User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }

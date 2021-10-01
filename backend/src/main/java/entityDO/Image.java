@@ -13,7 +13,6 @@ public class Image {
     @Column(name="image_name")
     private String imageName;
 
-
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name="listing_ID")

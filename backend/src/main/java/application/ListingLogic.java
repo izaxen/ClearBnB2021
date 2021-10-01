@@ -83,8 +83,10 @@ public class ListingLogic {
 
         User user = repositories.getUserRep().findUserById(userID);
 
-        List <Listing> listingList = listingRepository.findAllListingsFromUser(user);
-        if(listingList.size() == 0){
+        System.out.println(user.getFirstName());
+
+        List <Listing> listingList = listingRepository.findAllListingsFromUser(user.getId());
+        if(listingList == null){
             System.out.println("Returned 0");
             return null;
         }

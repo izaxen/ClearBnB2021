@@ -200,7 +200,6 @@ public class Listing {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", user=" + user +
                 '}';
 }
     }

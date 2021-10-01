@@ -17,6 +17,13 @@ public class Rating {
     @Column (name="rating_ID")
     private Integer ID;
 
+    private Integer rating;
+
+    private String message;
+
+    @Column(name="date_created")
+    private String dateCreated;
+
     @ManyToOne
     @JoinColumn(name="reviewer_ID")
     private User reviewer;
@@ -29,13 +36,6 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name="booking_ID")
     private Booking booking;
-
-    private Integer rating;
-
-    private String message;
-
-    @Column(name="date_created")
-    private String dateCreated;
 
     public Rating(){}
 
@@ -82,14 +82,10 @@ public class Rating {
         return booking;
     }
 
-
     @Override
     public String toString() {
         return "Rating{" +
                 "ID=" + ID +
-                ", reviewer=" + reviewer +
-                ", recipient=" + recipient +
-                ", booking=" + booking +
                 ", rating=" + rating +
                 ", message='" + message + '\'' +
                 ", dateCreated='" + dateCreated + '\'' +

@@ -21,7 +21,7 @@ public class BookingLogic {
         User owner = listing.getUser();
         int totalPrice = dto.getTotalPrice();
 
-        if(listing.getUser().getID() == user.getID()){
+        if(listing.getUser().getId() == user.getId()){
             return "You can't book on your own listing.";
         }
         if(!checkIfListingHasAvailableDates(dto, listing)){
@@ -56,7 +56,7 @@ public class BookingLogic {
     }
 
     public void paymentProcess(User user, int totalPrice, User owner){
-        if(user.getID() != owner.getID()) {
+        if(user.getId() != owner.getId()) {
             System.out.println(owner.getBankAccount().getFunds());
             System.out.println("totalPrice: " + totalPrice);
             User admin = repositories.userRepository.findUserById(5);

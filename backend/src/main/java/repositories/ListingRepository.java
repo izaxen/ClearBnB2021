@@ -30,16 +30,19 @@ public class ListingRepository {
         return entityManager.createQuery("SELECT l FROM Listing l", Listing.class).getResultList();
     }
 
-    public List<Listing> findAllListingsFromUser(User user){
+    public List<Listing> findAllListingsFromUser(int userID){
+        entityManager.clear();
         List<Listing> listingList;
         try {
-            listingList = entityManager.createQuery("SELECT l FROM Listing l WHERE l.user = :user", Listing.class)
-                    .setParameter("user", user)
+            listingList = entityManager.createQuery("FROM Listing l WHERE l.user.id = :user", Listing.class)
+                    .setParameter("user", userID)
                     .getResultList();
             return listingList;
         }catch (PersistenceException e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
         }catch (java.lang.NullPointerException e){
+            System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
+        }catch (org.hibernate.AssertionFailure e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
         }
         return null;

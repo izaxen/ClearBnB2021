@@ -17,8 +17,8 @@ public class GiveRatingDTO {
         this.bookingID = bookingID;
         this.rating = rating;
         this.review = review;
-        this.reviewer = reviewer.getID();
-        this.recipient = recipient.getID();
+        this.reviewer = reviewer.getId();
+        this.recipient = recipient.getId();
         this.reviewerName = reviewer.getFirstName() + " " + reviewer.getSurName();
         this.recipientName = recipient.getFirstName() + " " + recipient.getSurName();
         this.dateVisited = dateVisited;
