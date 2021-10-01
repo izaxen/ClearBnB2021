@@ -4,17 +4,17 @@ import entityDO.Listing;
 
 public class AddAddressDTO {
 
-    private String address;
+    private String addressListing;
     private String city;
     private Listing listing;
 
-    public AddAddressDTO (String city, String address) {
-        this.address = address;
+    public AddAddressDTO (String city, String addressListing) {
+        this.addressListing = addressListing;
         this.city = city;
     }
 
-    public AddAddressDTO(String address, String city, Listing listing) {
-        this.address = address;
+    public AddAddressDTO(String addressListing, String city, Listing listing) {
+        this.addressListing = addressListing;
         this.city = city;
         this.listing = listing;
     }
@@ -22,12 +22,12 @@ public class AddAddressDTO {
     public AddAddressDTO() {
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressListing() {
+        return addressListing;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressListing(String addressListing) {
+        this.addressListing = addressListing;
     }
 
     public String getCity() {

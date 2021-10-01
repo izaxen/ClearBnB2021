@@ -32,6 +32,8 @@ public class AddressRepository {
         catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
+
         return address;
     }
 

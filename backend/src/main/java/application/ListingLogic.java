@@ -51,14 +51,17 @@ public class ListingLogic {
 
     public List<FilteredListingDTO> getAllListingsDTO(){
 
+
+
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
-            System.out.println("allListing list<Listing>: " + allListings);
+            //System.out.println("allListing list<Listing>: " + allListings);
             for ( Listing l: allListings
             ) {
-                System.out.println("before convert: " + l);
+              //  System.out.println("before convert: " + l);
+
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
-                System.out.println("filteredListingDTO: " + filteredListingDTO);
+                //System.out.println("filteredListingDTO: " + filteredListingDTO);
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;

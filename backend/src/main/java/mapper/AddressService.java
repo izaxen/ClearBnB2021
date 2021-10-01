@@ -10,7 +10,7 @@ public class AddressService {
 
     public Address convertAddAddressToAddress(AddAddressDTO dto, Listing listing) {
 
-        return new Address(dto.getAddress(), dto.getCity(),listing);
+        return new Address(dto.getAddressListing(), dto.getCity(),listing);
     }
 
     public Address convertUpdateAddressToAddress(UpdateAddressDTO dto){

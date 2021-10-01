@@ -4,12 +4,14 @@ import dtos.AddAddressDTO;
 import entityDO.*;
 import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
+import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import mapper.AddressService;
 
 public class AddressLogic {
 
     AddressRepository addressRepository;
+    ListingRepository lR;
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AddressService as;
@@ -19,6 +21,7 @@ public class AddressLogic {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
+        this.lR= repo.listingRepository;
         this.as = new AddressService();
         this.repositories = new Repositories();
     }
@@ -26,10 +29,11 @@ public class AddressLogic {
     public AddressLogic() {
     }
 
-    public Address createNewAddress(AddAddressDTO dto, Listing listing){
+    public Listing createNewAddress(AddAddressDTO dto, Listing listing){
 
         Address address = as.convertAddAddressToAddress(dto, listing);
-        return addressRepository.addAddress(address);
+        listing.setAddress(address);
+        return lR.updateListing(listing); //addressRepository.addAddress(address);
     }
 
     public Address updateAddress(Address adds){

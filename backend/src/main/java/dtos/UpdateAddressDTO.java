@@ -11,7 +11,7 @@ public class UpdateAddressDTO {
     public UpdateAddressDTO() {
     }
 
-    public UpdateAddressDTO(int id, String addressListing, String city, Listing listing) {
+    public UpdateAddressDTO(int id,String city, String addressListing, Listing listing) {
         this.id = id;
         this.addressListing = addressListing;
         this.city = city;

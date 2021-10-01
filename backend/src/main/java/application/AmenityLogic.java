@@ -12,7 +12,7 @@ import repositories.ListingRevisionRepository;
 import mapper.AmenityService;
 
 public class AmenityLogic {
-
+    ListingRepository lR;
     AmenitiesRepository amenitiesRepository;
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
@@ -24,6 +24,7 @@ public class AmenityLogic {
         this.amenitiesRepository = repos.amenitiesRepository;
         this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
         this.listingRevisionRepository = repos.listingRevisionRepository;
+        this.lR = repos.listingRepository;
         this.as = new AmenityService();
         repositories = new Repositories();
     }
@@ -31,9 +32,10 @@ public class AmenityLogic {
     public AmenityLogic() {
     }
 
-    public Amenities createNewAmenity(AddAmenityDTO dto, Listing listing){
+    public Listing createNewAmenity(AddAmenityDTO dto, Listing listing){
         Amenities amenities = as.convertAddAmenitiesToAmenities(dto, listing);
-        return amenitiesRepository.addAmenities(amenities);
+        listing.setAmenities(amenities);
+        return lR.updateListing(listing);
     }
 
     public Amenities updateAmenties(Amenities ama){

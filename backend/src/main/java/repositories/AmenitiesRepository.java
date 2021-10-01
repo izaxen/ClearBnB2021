@@ -34,15 +34,15 @@ public class AmenitiesRepository {
 
     public Amenities updateAmenities(Amenities amenities, Listing listing){
         try{
-            entityManager.getTransaction().begin();
-            entityManager.merge(listing);
-            entityManager.getTransaction().commit();
+
             entityManager.getTransaction().begin();
             entityManager.merge(amenities);
             entityManager.getTransaction().commit();
         }catch (Exception ex){
             ex.printStackTrace();
         }
+
+        entityManager.clear();
         return amenities;
 
     }

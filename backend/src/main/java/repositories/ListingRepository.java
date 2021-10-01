@@ -22,7 +22,11 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-        return entityManager.createQuery("FROM Listing l", Listing.class).getResultList();
+
+
+        return entityManager.createQuery("FROM Listing l", Listing.class)
+
+                .getResultList();
     }
 
     public List<Listing> findAllListingsFromUser(User user){

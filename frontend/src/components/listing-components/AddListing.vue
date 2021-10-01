@@ -141,7 +141,7 @@ export default {
       console.log("Inne i address");
       let newAddress = {
         city: this.city,
-        address: this.addressListing,
+        addressListing: this.addressListing,
       };
       await this.$store.dispatch("addAddress", newAddress);
       this.addAmenity();
