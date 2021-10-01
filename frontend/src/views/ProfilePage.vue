@@ -13,8 +13,8 @@
       </div>
     </div>
 
-    <ShowRating />
-    <ListingsOfAUser />
+    <ShowRating v-bind:ratings="ratings" v-bind:avgRating="avgRating" />
+    <ListingsOfAUser v-bind:listingsInSummary="listingsInSummary" />
     <GiveRating />
   </div>
 </template>
@@ -28,12 +28,24 @@ import GiveRating from "../components/user-components/rating-components/GiveRati
 export default {
   data() {
     return {
-      userToShow: this.$route.query.user,
+      userToShow: this.$route.params.id,
+      ratings: [],
+      rating: null,
+      avgRating: null,
+      listingsInSummary: [],
+      loggedInFullName:
+        this.$store.state.user.firstName + " " + this.$store.state.user.surName,
     };
   },
 
   beforeMount() {
-    this.userToShow = this.$route.params.id;
+    this.getAvgRating()
+      .then(() => {
+        this.getAllRatings();
+      })
+      .then(() => {
+        this.getListingsInSummary();
+      });
   },
 
   components: {
@@ -46,8 +58,28 @@ export default {
     goToUser() {
       router.push(`/profile_page/${this.userToShow}`);
     },
-    goToRating() {
-      router.push(`/profile_page/${this.userToShow}/give-rating`);
+
+    async getAllRatings() {
+      this.ratings = await this.$store.dispatch(
+        "getAllRatings",
+        this.$route.params.id
+      );
+    },
+    async getAvgRating() {
+      this.avgRating = await this.$store.dispatch(
+        "getAvgRating",
+        this.$route.params.id
+      );
+    },
+    async deleteRating(ratingID) {
+      await this.$store.dispatch("deleteRating", ratingID);
+    },
+
+    async getListingsInSummary() {
+      this.listingsInSummary = await this.$store.dispatch(
+        "getListingsInSummary",
+        this.$route.params.id
+      );
     },
   },
 };

@@ -30,7 +30,7 @@ export default {
 
   methods: {
     async getRatingsToFill() {
-      let res = await fetch("/rest/check-if-there-is-ratings-to-fill/63");
+      let res = await fetch("/rest/check-if-there-is-ratings-to-fill/");
       this.ratingsToFill = await res.json();
       console.log(this.ratingsToFill);
     },

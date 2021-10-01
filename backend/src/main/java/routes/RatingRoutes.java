@@ -31,6 +31,7 @@ public class RatingRoutes {
     public void getAllRatingsOfUser(){
         app.get("/rest/rating/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
+            System.out.println(userID);
             res.json(ratingLogic.getAllRatingsOfUser(userID));
         });
     }
@@ -43,7 +44,7 @@ public class RatingRoutes {
     }
 
     public void checkIfThereIsAnyRatingToFill(){
-        app.get("/rest/check-if-there-is-ratings-to-fill/:userID", (req, res) ->{
+        app.get("/rest/check-if-there-is-ratings-to-fill/", (req, res) ->{
             User currentUser = req.session("current-user");
             res.json(ratingLogic.checkIfThereIsAnyRatingToFill(currentUser));
         });

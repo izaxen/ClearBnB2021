@@ -164,6 +164,31 @@ export const store = createStore({
       store.commit('getImageList', fileList)
     },
 
+    async getAllRatings(store, userID) {
+      let res = await fetch(`/rest/rating/` + userID);
+      return await res.json();
+    },
+
+    async getAvgRating(store, userID) {
+      let res = await fetch(`/rest/avg-rating/` + userID);
+      let x = (await res.json()) + "";
+      return x.substring(0, 3);
+    },
+
+    async deleteRating(store, ratingID) {
+      let res = await fetch(`/api/delete-rating`, {
+        method: "DELETE",
+        body: JSON.stringify({ id: ratingID }),
+      });
+    },
+
+    async getListingsInSummary(store, userID) {
+      let res = await fetch(`/rest/${userID}/listings`);
+      return await res.json();
+    },
+
+
+
     // async getAllListingsDTO(_) {
     //   let res = await fetch('/rest/getAllListingsDTO', {
     //     method: 'GET',

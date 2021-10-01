@@ -23,43 +23,19 @@
 
 <script>
 export default {
+  props: ["ratings", "avgRating"],
+
   data() {
     return {
-      userID: this.$route.params.id,
-      ratings: [],
       rating: null,
-      avgRating: null,
       loggedInFullName:
         this.$store.state.user.firstName + " " + this.$store.state.user.surName,
     };
   },
 
-  mounted() {
-    this.getAvgRating().then(() => {
-      this.getAllRatings();
-    });
-
-    console.log(this.loggedInFullName);
-
-    this.userID = this.$route.params.id;
-  },
-
   methods: {
-    async getAllRatings() {
-      let res = await fetch(`/rest/rating/${this.userID}`);
-      this.ratings = await res.json();
-    },
-    async getAvgRating() {
-      let res = await fetch(`/rest/avg-rating/${this.userID}`);
-      let x = (await res.json()) + "";
-      this.avgRating = x.substring(0, 3);
-    },
-
     async deleteRating(ratingID) {
-      let res = await fetch(`/api/delete-rating`, {
-        method: "DELETE",
-        body: JSON.stringify({ id: ratingID }),
-      });
+      await this.$store.dispatch("deleteRating", ratingID);
     },
   },
 };
