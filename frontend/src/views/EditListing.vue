@@ -151,9 +151,7 @@
           <label for="startDate">Select Start Date</label>
           <input
             :value="
-              new Date(initialData.availableStartDate)
-                .toISOString()
-                .split('T')[0]
+              new Date(initialData.availableStartDate).toISOString().split('T')[0]
             "
             type="date"
             @change="(ev) => (changedList.availableStartDate = ev.target.value)"
