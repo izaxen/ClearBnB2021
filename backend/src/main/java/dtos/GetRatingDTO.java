@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 
 public class GetRatingDTO {
 
+    int id;
     int rating;
     String review; //(message)
     String reviewer;
     String dateWritten;
 
-    public GetRatingDTO(int rating, String review, String reviewer, String dateWritten) {
+    public GetRatingDTO(int id, int rating, String review, String reviewer, String dateWritten) {
+        this.id = id;
         this.rating = rating;
         this.review = review;
         this.reviewer = reviewer;
@@ -30,6 +32,10 @@ public class GetRatingDTO {
 
     public String getDateWritten() {
         return dateWritten;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

@@ -1,13 +1,10 @@
 package application;
 
-import dtos.FrontendRatingDTO;
-import dtos.GetRatingDTO;
-import dtos.GiveRatingDTO;
-import dtos.SaveRatingToDataBaseDTO;
+import dtos.*;
 import entityDO.Booking;
 import entityDO.Rating;
 import entityDO.User;
-import mapper.RatingService;
+import mapper.RatingMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,7 @@ import static java.lang.Integer.parseInt;
 public class RatingLogic {
 
     Repositories repositories;
-    RatingService ratingService = new RatingService();
+    RatingMapper ratingMapper = new RatingMapper();
 
 
     public RatingLogic(Repositories repositories) {
@@ -33,7 +30,7 @@ public class RatingLogic {
 
         if(listOfRatings!=null){
             listOfRatings.forEach(rating -> {
-                listOfRatingDTO.add(ratingService.getRatingDTO(rating));
+                listOfRatingDTO.add(ratingMapper.getRatingDTO(rating));
             });
         }
 
@@ -92,17 +89,17 @@ public class RatingLogic {
         return bookingsThatUserCanAddARatingToDTO;
     }
 
-    public void createNewRating(FrontendRatingDTO frontendRatingDTO){
-        User reviewer = repositories.userRepository.findUserById(frontendRatingDTO.getReviewerID());
-        User recipient = repositories.userRepository.findUserById(frontendRatingDTO.getRecipientID());
-        Booking booking = repositories.booking().findById(frontendRatingDTO.getBookingID()).get();
+    public void createNewRating(createNewRatingFromFrontendDTO createNewRatingFromFrontendDTO){
+        User reviewer = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getReviewerID());
+        User recipient = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getRecipientID());
+        Booking booking = repositories.booking().findById(createNewRatingFromFrontendDTO.getBookingID()).get();
 
-        SaveRatingToDataBaseDTO saveRatingToDataBaseDTO = new SaveRatingToDataBaseDTO(
+        SaveRatingToDatabaseDTO saveRatingToDataBaseDTO = new SaveRatingToDatabaseDTO(
                 booking,
                 reviewer,
                 recipient,
-                parseInt(frontendRatingDTO.getRating()),
-                frontendRatingDTO.getMessage());
+                parseInt(createNewRatingFromFrontendDTO.getRating()),
+                createNewRatingFromFrontendDTO.getMessage());
 
         repositories.ratingRepository.addRating(new Rating(
                 saveRatingToDataBaseDTO.getReviewer(),
@@ -110,5 +107,9 @@ public class RatingLogic {
                 saveRatingToDataBaseDTO.getRating(),
                 saveRatingToDataBaseDTO.getReview(),
                 saveRatingToDataBaseDTO.getBooking()));
+    }
+
+    public boolean deleteRating(int id){        ;
+        return repositories.ratingRepository.deleteRating(id);
     }
 }

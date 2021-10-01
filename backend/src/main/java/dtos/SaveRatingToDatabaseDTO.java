@@ -3,7 +3,7 @@ package dtos;
 import entityDO.Booking;
 import entityDO.User;
 
-public class SaveRatingToDataBaseDTO {
+public class SaveRatingToDatabaseDTO {
 
     Booking booking;
     User reviewer;
@@ -12,7 +12,7 @@ public class SaveRatingToDataBaseDTO {
     String review; //(message)
     String dateVisited;
 
-    public SaveRatingToDataBaseDTO(Booking booking, User reviewer, User recipient, int rating, String review) {
+    public SaveRatingToDatabaseDTO(Booking booking, User reviewer, User recipient, int rating, String review) {
         this.booking = booking;
         this.reviewer = reviewer;
         this.recipient = recipient;

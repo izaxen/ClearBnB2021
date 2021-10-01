@@ -9,10 +9,13 @@
     >
       <h1 class="stars">{{ rating.rating }}</h1>
       <p>Stars</p>
-      <h4>{{ rating.review }}</h4>
+      <h4>{{ rating }}</h4>
       <p>By: {{ rating.reviewer }}, {{ rating.dateWritten }}</p>
-      <p v-if="rating.reviewer === loggedInFullName" @click="deleteComment()">
-        Delete this comment
+      <p
+        v-if="rating.reviewer === loggedInFullName"
+        @click="deleteRating(rating.id)"
+      >
+        Delete this rating
       </p>
     </div>
   </div>
@@ -51,9 +54,12 @@ export default {
       let x = (await res.json()) + "";
       this.avgRating = x.substring(0, 3);
     },
-    async deleteComment() {
-      console.log("Deleting!");
-      /* let res = await fetch(); */
+    async deleteRating(ratingID) {
+      console.log("Deleting!", JSON.stringify(ratingID));
+      let res = await fetch(`/api/delete-rating`, {
+        method: "DELETE",
+        body: JSON.stringify({ id: ratingID }),
+      });
     },
   },
 };

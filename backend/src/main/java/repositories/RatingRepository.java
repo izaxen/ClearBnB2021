@@ -47,7 +47,6 @@ public class RatingRepository {
         return null;
     }
 
-
     public List<Rating> getRatingOfUser(User user){
 
         List<Rating> ratingList;
@@ -72,6 +71,19 @@ public class RatingRepository {
             return 0;
         }
 
+    }
+
+    public boolean deleteRating(int id){
+        try{
+            Rating rating = entityManager.find(Rating.class, id);
+            entityManager.getTransaction().begin();
+            entityManager.remove(rating);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            System.out.println("Error in deleteRating Repository");
+        }
+        return false;
     }
 
 }

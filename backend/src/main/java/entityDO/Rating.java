@@ -82,6 +82,8 @@ public class Rating {
         return booking;
     }
 
+
+
     @Override
     public String toString() {
         return "Rating{" +

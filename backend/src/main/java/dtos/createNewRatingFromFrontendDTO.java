@@ -2,7 +2,7 @@ package dtos;
 
 import static java.lang.Integer.parseInt;
 
-public class FrontendRatingDTO {
+public class createNewRatingFromFrontendDTO {
 
     int reviewerID;
     int recipientID;
@@ -10,10 +10,10 @@ public class FrontendRatingDTO {
     String rating;
     String message;
 
-    public FrontendRatingDTO() {
+    public createNewRatingFromFrontendDTO() {
     }
 
-    public FrontendRatingDTO(int reviewerID, int recipientID, int bookingID, String rating, String message) {
+    public createNewRatingFromFrontendDTO(int reviewerID, int recipientID, int bookingID, String rating, String message) {
         this.reviewerID = reviewerID;
         this.recipientID = recipientID;
         this.bookingID = bookingID;
