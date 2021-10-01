@@ -162,6 +162,7 @@ export const store = createStore({
       let res = await fetch('/rest/getSingleListing/' + id)
       let a =await  res.json()
       store.commit('setCurrentListing', a);
+      console.log(a);
       return a
     }
 

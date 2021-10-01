@@ -68,6 +68,14 @@ public class ListingRoutes {
             res.json(dto);
         });
 
+        app.get("/rest/getSingleListingVersion/:id",(req, res) ->{
+            int id = parseInt(req.params("id"));
+            SingeListingDTO dto = listingLogic.getoldVersion(id);
+
+            res.json(dto);
+        });
+
+
     }
     private void getAllListingsInSummaryFromUser() {
         app.get("/rest/:userID/listings", (req, res) -> {

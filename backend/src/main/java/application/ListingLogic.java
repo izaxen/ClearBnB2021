@@ -136,4 +136,13 @@ public class ListingLogic {
                 l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
                 l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna());
     }
+
+    public SingeListingDTO getoldVersion(int id){
+        List<ListingRevision> l =listingRevisionRepository.findAllListingRevisionsByListingID(id);
+        for(ListingRevision ll : l){
+            System.out.println(ll.toString());
+        }
+        System.out.println("  ...");
+        return new SingeListingDTO();}
+
 }

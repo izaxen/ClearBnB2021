@@ -38,6 +38,9 @@ public class SingeListingDTO {
         this.isSauna = isSauna;
     }
 
+    public SingeListingDTO() {
+    }
+
     public int getId() {
         return id;
     }

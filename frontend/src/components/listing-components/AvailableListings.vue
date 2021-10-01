@@ -1,30 +1,45 @@
 <template>
   <div class="available-listings-container">
-    <FilterListings @updatelist="updatelist"> </FilterListings>
+    <FilterListings @updatelist="updatelist"> 
+
+    </FilterListings>
     <h1 @click="test">All listings component</h1>
-    <div v-if="matchedListings" class="filteredListings">
-      <li v-for="listing in matchedListings" :key="listing.id" :value="listing">
-        {{ listing.description }}, {{ listing.price }}/night,
+    
+    <div v-if="matchedListings && !currentList" class="filteredListings">
+      <li v-for="listing in matchedListings" 
+      :key="listing.id" 
+      :value="listing"
+      @click="openDetail(listing.id)">
+        {{ listing.description }}, {{ listing.price }} / night,
         {{ listing.address }},
         {{ listing.city }}
       </li>
+    </div>
+  
+    <div v-else>
+    <DetailedListing/>
+          
     </div>
   </div>
 </template>
 
 <script>
 import FilterListings from "../listing-components/filter-components/FilterListings.vue";
+import DetailedListing from "../../views/DetailedListing.vue";
+ 
 export default {
   components: {
     FilterListings,
+    DetailedListing
   },
 
   data() {
     return {
       matchedListings: [],
+      currentList:"",
     };
   },
-
+ 
   created() {
     this.getAllListingsDTO();
   },
@@ -32,6 +47,11 @@ export default {
   methods: {
     updatelist(matchedListings) {
       this.matchedListings = matchedListings;
+    },
+    openDetail(id){
+      console.log(id);
+    id = id.toString()
+    this.currentList = this.$store.dispatch('getSingleListing', id)
     },
 
     async getAllListingsDTO() {
