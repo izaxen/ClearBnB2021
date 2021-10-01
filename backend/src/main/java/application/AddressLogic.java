@@ -33,11 +33,12 @@ public class AddressLogic {
 
         Address address = as.convertAddAddressToAddress(dto, listing);
         listing.setAddress(address);
-        return lR.updateListing(listing); //addressRepository.addAddress(address);
+        return listing; //addressRepository.addAddress(address);
     }
 
-    public Address updateAddress(Address adds){
+    public Listing updateAddress(Address adds, Listing listing){
         Address oldlist = addressRepository.findById(adds.getId()).get();
+        //Listing listing = lR.findById(adds.getId()).get();
 
         if(adds.getCity()==null){
             adds.setCity(oldlist.getCity());
@@ -45,18 +46,19 @@ public class AddressLogic {
         if(adds.getAddressListing() == null){
             adds.setAddressListing(oldlist.getAddressListing());
         }
-        System.out.println("adds: " + adds);
         createAddressVersionBackup(oldlist);
 
-        return addressRepository.updateAddress(adds);
+        listing.setAddress(adds);
 
+        return lR.updateListing(listing);
     }
 
     private void createAddressVersionBackup(Address oldlist){
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldlist.getId());
 
-        AddressRevision copyOldAddressList = new AddressRevision(lr, oldlist.getCity(), oldlist.getAddressListing());
-        addressRevisionRepository.addAddressRevision(copyOldAddressList);
+        AddressRevision copyOldAddressList = new AddressRevision(lr.getId(), oldlist.getCity(), oldlist.getAddressListing());
+        lr.setAddressRevision(copyOldAddressList);
+        //listingRevisionRepository.updateListingRevision(lr);
 
     }
 }

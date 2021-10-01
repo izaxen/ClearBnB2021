@@ -25,7 +25,13 @@ export default {
     AvailableLinstings,
     CreateBooking,
   },
-};
+  computed:{
+    user() {
+      return this.$store.state.user;
+    },
+    }
+  };
+  
 </script>
 
 <style scoped>

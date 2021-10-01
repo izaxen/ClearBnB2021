@@ -10,7 +10,7 @@ import org.hibernate.annotations.Proxy;
 public class Amenities {
 
     @Id
-    @Column(name = "listing_ID")
+    @Column(name = "listing_id")
     private Integer id;
 
     @Column(name = "bathtub")
@@ -37,7 +37,7 @@ public class Amenities {
     @JsonBackReference
     @OneToOne
     @MapsId
-    @JoinColumn(name = "listing_ID")
+    @JoinColumn(name = "listing_id")
     private Listing listing;
 
     public Amenities(){

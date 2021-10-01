@@ -39,8 +39,6 @@ public class AddressRepository {
 
     public Address updateAddress(Address address){
 
-
-
         try{
             entityManager.getTransaction().begin();
             entityManager.merge(address);

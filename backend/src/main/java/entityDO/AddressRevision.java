@@ -17,15 +17,20 @@ public class AddressRevision {
     @OneToOne
     @MapsId
     @JoinColumn(name="listing_rev_ID")
-    private ListingRevision listingRevision;
+    private ListingRevision listingRevi;
 
     public AddressRevision() {
     }
 
-    public AddressRevision(ListingRevision lr, String city, String address) {
+    public AddressRevision(String city, String address) {
         this.city = city;
         this.address = address;
-        this.listingRevision = lr;
+    }
+
+    public AddressRevision(Integer id, String city, String address) {
+        this.id = id;
+        this.city = city;
+        this.address = address;
     }
 
     public Integer getId() {
@@ -53,10 +58,10 @@ public class AddressRevision {
     }
 
     public ListingRevision getListingRevision() {
-        return listingRevision;
+        return listingRevi;
     }
 
     public void setListingRevision(ListingRevision listingRevision) {
-        this.listingRevision = listingRevision;
+        this.listingRevi = listingRevision;
     }
 }

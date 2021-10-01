@@ -1,5 +1,6 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,7 @@ public class Booking {
     @JoinColumn(name="owner_ID")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
@@ -90,8 +92,6 @@ public class Booking {
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", totalPrice=" + totalPrice +
-                ", user=" + user +
-                ", listing=" + listing +
                 '}';
     }
 }

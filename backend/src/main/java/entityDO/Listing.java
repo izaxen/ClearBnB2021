@@ -25,7 +25,7 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 

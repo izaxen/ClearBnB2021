@@ -27,15 +27,13 @@ public class AddressRoutes {
         });
 
         app.put("/api/address/", (req, res) -> {   //update listing
-
-            //Listing currentListing = req.session("current-Listing");
-
-            Address address = addressLogic.updateAddress(
+            Listing currentListing = req.session("current-Listing");
+            Listing list = addressLogic.updateAddress(
                     as.convertUpdateAddressToAddress(req.body(
-                            UpdateAddressDTO.class))
+                            UpdateAddressDTO.class), currentListing),currentListing
             );
-            System.out.println("in router: " + address);
-            res.json(address);
+            System.out.println("in router: " + list);
+            //res.json();
         });
 
 

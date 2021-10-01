@@ -64,6 +64,7 @@ public class ListingRoutes {
             //User currentUser = req.session(("current-user"));
             int id = parseInt(req.params("id"));
             SingeListingDTO dto = listingLogic.getSingleListing(id);
+
             res.json(dto);
         });
 

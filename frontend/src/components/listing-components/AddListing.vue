@@ -94,7 +94,7 @@
 
 <script>
 import AddImages from "./AddImages.vue";
-
+import router from "../../router";
 export default {
   components: {
     AddImages,
@@ -117,10 +117,16 @@ export default {
       city: null,
       addressListing: null,
       formData: [],
+      userToShow: this.$route.query.user,
     };
   },
 
   computed: {},
+
+  beforeMount() {
+    this.$forceUpdate();
+    this.userToShow = this.$route.query.user;
+  },
 
   methods: {
     async addListing() {
@@ -134,7 +140,7 @@ export default {
       // two thread at same session how to fix?
       // temp workaround : i made them into different methods and create it one by one
       await this.$store.dispatch("addListing", newListing);
-      this.addAddress();
+      setTimeout(this.addAddress(),300);
     },
 
     async addAddress() {
@@ -144,7 +150,7 @@ export default {
         addressListing: this.addressListing,
       };
       await this.$store.dispatch("addAddress", newAddress);
-      this.addAmenity();
+     setTimeout(this.addAmenity(),300);
     },
 
     async addAmenity() {
@@ -158,10 +164,11 @@ export default {
         sauna: this.isSauna,
       };
       await this.$store.dispatch("addAmenity", newAmenity);
-      this.addImages();
+     setTimeout(this.addImages(),300);
     },
     addImages() {
       this.$store.dispatch("uploadFiles", this.formData);
+     // router.push(`/profile_page?user=${this.userToShow}`);
     },
 
     LoadFormData(formData) {

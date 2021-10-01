@@ -29,7 +29,9 @@ public class ListingRevision {
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
-    @OneToOne(mappedBy = "listingRevision")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listingRevi", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private AddressRevision addressRevision;
 
     // HERE........

@@ -19,7 +19,7 @@ public class Image {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name="listing_ID")
+    @JoinColumn(name="listing_id")
     private Listing listing;
 
     public Image(int id, String imageName, Listing listing) {

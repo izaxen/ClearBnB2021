@@ -31,9 +31,12 @@ public class AmenitiesRevision {
     @JoinColumn(name="listing_rev_ID")
     private ListingRevision listingRev;
 
-    public AmenitiesRevision(ListingRevision listingRevision, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
-                             Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.listingRev= listingRevision;
+    public AmenitiesRevision(){
+    }
+
+    public AmenitiesRevision(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                             Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.id = id;
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -42,7 +45,16 @@ public class AmenitiesRevision {
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
     }
-    public AmenitiesRevision(){
+
+    public AmenitiesRevision(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
+                             Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
     }
 
     public Integer getId() {

@@ -38,10 +38,9 @@ public class AmenityLogic {
         return lR.updateListing(listing);
     }
 
-    public Amenities updateAmenties(Amenities ama){
+    public Listing updateAmenties(Amenities ama, Listing listing){
         Amenities oldList = amenitiesRepository.findById(ama.getId()).get();
-        Listing listing = repositories.listingRepository.findById(ama.getId()).get();
-
+        //Listing listing = repositories.listingRepository.findById(ama.getId()).get();
 
         if(ama.getBathTub()== null){
             ama.setBathTub(oldList.getBathTub());
@@ -66,16 +65,18 @@ public class AmenityLogic {
         }
 
         createAmenitiesVersionBackup(oldList);
-
-        return amenitiesRepository.updateAmenities(ama, listing);
+        listing.setAmenities(ama);
+        return lR.updateListing(listing);
     }
         private void createAmenitiesVersionBackup(Amenities oldList){
+
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldList.getId());
 
-            AmenitiesRevision copyOldAmenitiesList = new AmenitiesRevision(lr,oldList.getBathTub(),
+            AmenitiesRevision copyOldAmenitiesList = new AmenitiesRevision(lr.getId(), oldList.getBathTub(),
                     oldList.getParkingLot(), oldList.getStove(), oldList.getDoubleBed(), oldList.getBubblePool(),
                     oldList.getBicycle(), oldList.getSauna());
-            amenitiesRevisionRepository.addAmenitiesRevision(copyOldAmenitiesList);
+            lr.setAmenitiesRevsion(copyOldAmenitiesList);
+            listingRevisionRepository.updateListingRevision(lr);
 
         }
 

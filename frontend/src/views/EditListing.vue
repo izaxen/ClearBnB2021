@@ -33,7 +33,7 @@
       <div class="amen">
         <p>Choose amenities</p>
 
-        <div v-if="initialData.bathTb">
+        <div v-if="initialData.bathTub">
           <input
             type="checkbox"
             checked
@@ -110,7 +110,7 @@
             type="checkbox"
             @change="(ev) => (changedAmenity.bubblePool = ev.target.checked)"
           />
-          <label for="isBathTub">BathTub</label>
+          <label>Bubblepool</label>
         </div>
 
         <div v-if="initialData.bicycle">
@@ -194,7 +194,7 @@ export default {
       changedList: {},
       changedAmenity: {},
       changedAddress: {},
-      formData: [],
+      formData: new FormData,
     };
   },
 
@@ -207,25 +207,27 @@ export default {
   methods: {
     async addListing() {
       await this.$store.dispatch("updateListing",  {...this.changedList, id: this.initialData.id, });
-      this.addAddress();
+      setTimeout(this.addAddress(), 500);
     },
 
     async addAddress() {
       console.log("this adress", this.changedAddress);
       await this.$store.dispatch("updateAddress", {...this.changedAddress, id:this.initialData.id});
-      this.addAmenity();
+      setTimeout(this.addAmenity(),500);
     },
 
     async addAmenity() {
       console.log("this amenty", this.changedAmenity);
       await this.$store.dispatch("updateAmenity",{...this.changedAmenity, id:this.initialData.id});
-      this.addImages();
+      setTimeout(this.addImages(),500);
     },
     addImages() {
       let fd = this.formData.getAll("files");
-      if (fd != null) {
+      if (!!fd.entries().next().value) {
         this.$store.dispatch("uploadFiles", this.formData);
       }
+
+       this.resetPage()
     },
 
     LoadFormData(formData) {

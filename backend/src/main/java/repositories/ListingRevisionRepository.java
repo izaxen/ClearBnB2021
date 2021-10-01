@@ -46,6 +46,20 @@ public class ListingRevisionRepository {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
+        return Optional.empty();
+    }
+
+    public Optional<ListingRevision> updateListingRevision(ListingRevision listingRevision){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.   merge(listingRevision);
+            entityManager.getTransaction().commit();
+            return Optional.of(listingRevision);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        entityManager.clear();
         return Optional.empty();
     }
 }

@@ -10,7 +10,7 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class Address {
     @Id
-    @Column(name = "listing_ID")
+    @Column(name = "listing_id")
     private int id;
     private String city;
     private String addressListing;
@@ -18,7 +18,7 @@ public class Address {
     @JsonBackReference
     @OneToOne
     @MapsId
-    @JoinColumn(name="listing_ID")
+    @JoinColumn(name="listing_id")
     private Listing listing;
 
     public Address(String city, String address) {
@@ -32,10 +32,11 @@ public class Address {
         this.listing = listing;
     }
 
-    public Address(int id, String city, String addressListing) {
+    public Address(int id, String city, String addressListing, Listing listing) {
         this.id = id;
         this.city = city;
         this.addressListing = addressListing;
+        this.listing = listing;
     }
 
     public Address() {

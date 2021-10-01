@@ -94,6 +94,7 @@ public class ListingRepository {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
         return listing;
     }
 
@@ -106,6 +107,7 @@ public class ListingRepository {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
         return listing;
     }
 
