@@ -84,12 +84,15 @@ public class ListingLogic {
         User user = repositories.getUserRep().findUserById(userID);
 
         List <Listing> listingList = listingRepository.findAllListingsFromUser(user);
+        if(listingList.size() == 0){
+            System.out.println("Returned 0");
+            return null;
+        }
 
         ArrayList<GetAllListingsInSummaryFromUserDTO> allListingsDTO = new ArrayList<>();
         listingList.forEach((listing) ->{
             allListingsDTO.add(new GetAllListingsInSummaryFromUserDTO(listing.getId(), listing.getPrice(), listing.getDescription()));
         });
-
 
         return allListingsDTO;
 
