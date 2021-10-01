@@ -11,6 +11,9 @@
       <p>Stars</p>
       <h4>{{ rating.review }}</h4>
       <p>By: {{ rating.reviewer }}, {{ rating.dateWritten }}</p>
+      <p v-if="rating.reviewer === loggedInFullName" @click="deleteComment()">
+        Delete this comment
+      </p>
     </div>
   </div>
 </template>
@@ -23,6 +26,8 @@ export default {
       ratings: [],
       rating: null,
       avgRating: null,
+      loggedInFullName:
+        this.$store.state.user.firstName + " " + this.$store.state.user.surName,
     };
   },
 
@@ -30,6 +35,8 @@ export default {
     this.getAvgRating().then(() => {
       this.getAllRatings();
     });
+
+    console.log(this.loggedInFullName);
 
     this.userID = this.$route.params.id;
   },
@@ -43,6 +50,10 @@ export default {
       let res = await fetch(`/rest/avg-rating/${this.userID}`);
       let x = (await res.json()) + "";
       this.avgRating = x.substring(0, 3);
+    },
+    async deleteComment() {
+      console.log("Deleting!");
+      /* let res = await fetch(); */
     },
   },
 };
