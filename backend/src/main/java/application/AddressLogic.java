@@ -56,9 +56,9 @@ public class AddressLogic {
     private void createAddressVersionBackup(Address oldlist){
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldlist.getId());
 
-        AddressRevision copyOldAddressList = new AddressRevision(lr.getId(), oldlist.getCity(), oldlist.getAddressListing());
+        AddressRevision copyOldAddressList = new AddressRevision(oldlist.getCity(), oldlist.getAddressListing(), lr);
         lr.setAddressRevision(copyOldAddressList);
-        //listingRevisionRepository.updateListingRevision(lr);
+        listingRevisionRepository.updateListingRevision(lr);
 
     }
 }

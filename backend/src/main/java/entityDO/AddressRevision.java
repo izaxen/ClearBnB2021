@@ -22,9 +22,10 @@ public class AddressRevision {
     public AddressRevision() {
     }
 
-    public AddressRevision(String city, String address) {
+    public AddressRevision(String city, String address, ListingRevision listRev) {
         this.city = city;
         this.address = address;
+        this.listingRevi = listRev;
     }
 
     public AddressRevision(Integer id, String city, String address) {

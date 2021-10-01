@@ -66,15 +66,16 @@ public class AmenityLogic {
 
         createAmenitiesVersionBackup(oldList);
         listing.setAmenities(ama);
+        System.out.println(listing.getAmenities());
         return lR.updateListing(listing);
     }
         private void createAmenitiesVersionBackup(Amenities oldList){
 
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldList.getId());
 
-            AmenitiesRevision copyOldAmenitiesList = new AmenitiesRevision(lr.getId(), oldList.getBathTub(),
+            AmenitiesRevision copyOldAmenitiesList = new AmenitiesRevision(oldList.getBathTub(),
                     oldList.getParkingLot(), oldList.getStove(), oldList.getDoubleBed(), oldList.getBubblePool(),
-                    oldList.getBicycle(), oldList.getSauna());
+                    oldList.getBicycle(), oldList.getSauna(), lr);
             lr.setAmenitiesRevsion(copyOldAmenitiesList);
             listingRevisionRepository.updateListingRevision(lr);
 

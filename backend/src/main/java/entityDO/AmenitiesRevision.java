@@ -47,7 +47,7 @@ public class AmenitiesRevision {
     }
 
     public AmenitiesRevision(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
-                             Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+                             Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, ListingRevision listing) {
         this.isBathTub = isBathTub;
         this.isParkingLot = isParkingLot;
         this.isStove = isStove;
@@ -55,6 +55,7 @@ public class AmenitiesRevision {
         this.isBubblePool = isBubblePool;
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
+        this.listingRev = listing;
     }
 
     public Integer getId() {
