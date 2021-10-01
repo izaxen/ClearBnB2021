@@ -29,6 +29,8 @@ public class ChatRoutes {
         app.ws("/websockets", ws -> {
             ws.onConnect(ctx -> {
                 System.out.println("Connected");
+                userUsernameMap.put(ctx,"Yang");
+                System.out.println(userUsernameMap);
                 clients.add(ctx);
             });
 

@@ -55,7 +55,7 @@ export default {
     },
 
     isNotLoggedIn() {
-      return this.$store.state.user == null;
+      return this.$store.state.loggedInUser == null;
     },
   },
 
@@ -77,14 +77,15 @@ export default {
 
       this.socket.onmessage = (event) => {
         console.log("Message from server:", event.data);
-        this.addMsg(
-          this.currentUser.firstName + ": " + JSON.parse(event.data).msg
-        );
+        this.addMsg("Message from server:" + JSON.parse(event.data).msg);
       };
 
       this.socket.onopen = (event) => {
         console.warn("Connected:", event);
-        this.addMsg("Connected: " + JSON.stringify(event));
+        this.addMsg(
+          "Connected "
+          // + JSON.stringify(event)
+        );
         let msg = this.input;
         let userID = this.$store.state.user.id;
         this.socket.send(JSON.stringify({ userID }));
