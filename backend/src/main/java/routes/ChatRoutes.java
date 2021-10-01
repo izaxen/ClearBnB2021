@@ -5,7 +5,10 @@ import chat.SocketMsg;
 import entityDO.User;
 import express.Express;
 import io.javalin.websocket.WsContext;
+import mapper.UserService;
+import org.eclipse.jetty.util.ajax.JSON;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +19,10 @@ public class ChatRoutes {
     Express app;
     List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
+    UserService us;
     private static Map<WsContext, User> userUsernameMap = new ConcurrentHashMap<>();
-    User user;
+
+//    User user;
 
     public ChatRoutes() {
 
@@ -28,27 +33,33 @@ public class ChatRoutes {
 
         app.ws("/websockets/:id", ws -> {
             ws.onConnect(ctx -> {
-                System.out.println("Connected");
 
                 int userID = Integer.parseInt(ctx.pathParam("id"));
-                user = repositories.getUserRepository().findUserById(userID);
+                User user = repositories.getUserRep().findUserById(userID);
                 userUsernameMap.put(ctx,user);
+
                 clients.add(ctx);
+
+                String userFirstName = userUsernameMap.get(ctx).getFirstName();
+
+                System.out.println(userID + " - " + userFirstName + " connected");
+                clients.forEach(client -> client.send(userFirstName + " has joint the chat"));
             });
 
             ws.onMessage(ctx -> {
+                String userFirstName = userUsernameMap.get(ctx).getFirstName();
                 SocketMsg msg = ctx.message(SocketMsg.class); // convert from json
 
-                user = repositories.getUserRepository().findUserById(msg.getUserID());
-                System.out.println(user);
-
-                clients.forEach(client -> client.send(msg)); // convert to json and send back to ALL connected clients
+                clients.forEach(client -> client.send(userFirstName + ": " + msg.getMsg())); // convert to json and send back to ALL connected clients
 //        ctx.send(msg); // convert to json and send back (ONLY to the sender)
             });
 
             ws.onClose(ctx -> {
-                System.out.println("Closed");
                 clients.remove(ctx);
+                String userFirstName = userUsernameMap.get(ctx).getFirstName();
+                int userID = Integer.parseInt(ctx.pathParam("id"));
+                System.out.println(userID + " - " + userFirstName + " disconnected");
+                clients.forEach(client -> client.send(userFirstName + " has left the chat"));
             });
 
             ws.onError(ctx -> {
@@ -56,5 +67,8 @@ public class ChatRoutes {
                 clients.remove(ctx);
             });
         });
+        
     }
+
+
 }

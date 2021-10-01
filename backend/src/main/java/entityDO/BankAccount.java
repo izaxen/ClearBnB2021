@@ -68,7 +68,6 @@ public class BankAccount {
                 "Id=" + Id +
                 ", funds=" + funds +
                 ", bankAddress='" + bankAddress + '\'' +
-                ", user=" + user +
                 '}';
     }
 }

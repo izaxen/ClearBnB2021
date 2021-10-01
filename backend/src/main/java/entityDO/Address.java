@@ -77,7 +77,6 @@ public class Address {
                 "id=" + id +
                 ", city='" + city + '\'' +
                 ", addressListing='" + addressListing + '\'' +
-                ", listing=" + listing +
                 '}';
     }
 }

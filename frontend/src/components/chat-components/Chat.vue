@@ -67,7 +67,7 @@ export default {
     addSocketEventListeners() {
       this.socket.onclose = (event) => {
         console.warn("Disconnected:", event);
-        this.addMsg("Disconnected: " + JSON.stringify(event));
+        // this.addMsg("Disconnected: " + JSON.stringify(event));
       };
 
       this.socket.onerror = (event) => {
@@ -76,16 +76,14 @@ export default {
       };
 
       this.socket.onmessage = (event) => {
-        console.log("Message from server:", event.data);
-        this.addMsg("Message from server:" + JSON.parse(event.data).msg);
+        // console.log("Message from server:", event.data);
+        this.addMsg(event.data);
       };
 
       this.socket.onopen = (event) => {
-        console.warn("Connected:", event);
-        this.addMsg(
-          "Connected "
-          // + JSON.stringify(event)
-        );
+        // console.warn("Connected:", event);
+        // console.log(event.data);
+        // this.addMsg(event.data);
       };
     },
 
@@ -93,7 +91,7 @@ export default {
       if (this.client) return;
 
       this.client = 1;
-      console.log("Connecting...");
+      // console.log("Connecting...");
       this.addMsg("Connecting...");
       this.socket = new WebSocket(
         "ws://localhost:4000/websockets/" + this.$store.state.user.id
@@ -112,16 +110,13 @@ export default {
 
     sendMessage() {
       let msg = this.input;
-      let userID = this.$store.state.user.id;
-      let userFirstName = this.$store.state.user.firstName;
+
       this.input = "";
       console.log("Sending:", msg);
       this.socket.send(
         JSON.stringify({
           msg,
           time_sent: Date.now() / 1000,
-          userID,
-          userFirstName,
         })
       );
       // addMsg(msg); // if locally rendered instead of reliably pushed from server

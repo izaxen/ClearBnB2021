@@ -5,8 +5,6 @@ import java.util.Date;
 public class SocketMsg {
     private String msg;
     private int time_sent;
-    int userID;
-    private String userFirstName;
 
     public SocketMsg() {
     }
@@ -27,17 +25,6 @@ public class SocketMsg {
         this.time_sent = time_sent;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public String getUserFirstName() {
-        return userFirstName;
-    }
 
     @Override
     public String toString() {
