@@ -21,14 +21,16 @@ public class ChatRoutes {
     Repositories repositories;
     UserService us;
     CurrentChat savedChatRoom;
-    List<Integer> usersInSameRoomAsMe = new ArrayList<>();
-    List<WsContext> usersInSameRoomAsMeCTX = new ArrayList<>();
+    ArrayList<Integer> usersInRoomList = new ArrayList<>();
 
     // userUsernameMap is to identify ctx with a user in our DB
-    private static Map<Integer, WsContext> userNameMap = new ConcurrentHashMap<>();
+    // ctx as key, userID as value
+    private static Map<WsContext, Integer> userNameMap = new ConcurrentHashMap<>();
 
+    // UserID as key, roomID array as value
     // chatRoomMap is to deploy USERID to different chat-room ID
-    private static Map<Integer, Integer> chatRoomMap = new ConcurrentHashMap<>();
+    // can not have userID and then chatRoomID because key must be unique
+    private static Map<Integer, ArrayList<Integer>> chatRoomMap = new ConcurrentHashMap<>();
 
 //    // usersInChatRoomMap is to connect chat-room with an arraylist of all users in that room
 //    private static Map<Integer, List<WsContext>> usersInChatRoomMap = new ConcurrentHashMap<>();
@@ -36,6 +38,8 @@ public class ChatRoutes {
     User user;
     User admin;
     int userID;
+    int roomID;
+    Boolean check = false;
 
 
     public ChatRoutes() {
@@ -45,70 +49,88 @@ public class ChatRoutes {
     public ChatRoutes(Express app, Repositories repositories){
         this.repositories = repositories;
         admin = repositories.getUserRep().findUserById(91);
+        List<WsContext> usersInSameRoomAsMeCTX = new ArrayList<>();
 
         app.ws("/websockets/:id", ws -> {
             ws.onConnect(ctx -> {
                 userID = Integer.parseInt(ctx.pathParam("id"));
+                usersInSameRoomAsMeCTX.clear();
+                usersInRoomList.clear();
+                roomID = 0;
 
                 user = repositories.getUserRep().findUserById(userID);
-                // here user gets an identifier, system now knows this ctx belongs to this userID
-                userNameMap.put(userID, ctx);
+                userNameMap.put(ctx, userID);
 
-                // if not admin
-                if (userID != 91){
-                    // if ctx has no chat room
-                    // (chatRoomMap.get(userID) should give a ChatRoom ID
-                    // (!chatRoomMap.containsKey(userID) means if userID does not have a room in our map
-                    if(!chatRoomMap.containsKey(userID)){
-                        // create new chatroom for this ctx.
-                        CurrentChat chatRoom = new CurrentChat();
-                        // calls repo to save the new room in DB
-                        savedChatRoom = repositories.getCurrentChatRepository().addCurrentChat(chatRoom).get();
-                        int roomID = savedChatRoom.getId();
-                        // put this ctx in a room
-
-                        chatRoomMap.put(userID, roomID);
-
-                        // add admin to the room
-                        chatRoomMap.put(91, roomID);
+                if (!chatRoomMap.isEmpty()){
+                    for ( Map.Entry<Integer, ArrayList<Integer>> entry : chatRoomMap.entrySet()) {
+                        check = entry.getValue().contains(userID);
+//                        System.out.println(entry.getValue()); // why would this give me an empty array? i have values in it!!
+//                        System.out.println(entry.getValue().contains(userID));
                     }
+                }
 
-                    else{
-                        // put user in old chat room if log on from other browser
-                        chatRoomMap.put(userID, chatRoomMap.get(userID));
-                        // check if admin is already in your room, if not, add admin
-                        if(!Objects.equals(chatRoomMap.get(userID), chatRoomMap.get(91))){
-                            chatRoomMap.put(91, chatRoomMap.get(userID));
+                    if(!check && userID != 91){
+                        CurrentChat chatRoom = new CurrentChat();
+                        savedChatRoom = repositories.getCurrentChatRepository().addCurrentChat(chatRoom).get();
+                        roomID = savedChatRoom.getId();
+                        usersInRoomList.add(userID);
+                        chatRoomMap.put(roomID, usersInRoomList);
+//                        System.out.println(chatRoomMap);
+                    }
+                    if(userID == 91){
+                        for (Map.Entry<Integer, ArrayList<Integer>> entry : chatRoomMap.entrySet()) {
+                            System.out.println("value: " + entry.getValue());
+                            System.out.println("Keys: " + entry.getKey()); // empty arraylist???
+                            if(!entry.getValue().contains(91)){
+                                usersInRoomList.add(91);
+                                chatRoomMap.put(entry.getKey(), usersInRoomList);
                         }
                     }
-                    // put user in user arraylist
-                    clients.add(ctx);
                 }
+
+
+
+                // put user in user arraylist
+                // like a broadcast
+                clients.add(ctx);
 
                 // testing
                 System.out.println("UserID: " + userID);
-                System.out.println("Is in chat room number: " + chatRoomMap.get(userID));
-                System.out.println("All users in this room: ");
+                System.out.println("Is in chat room number: " + roomID);
+                System.out.println("Users in my room: ");
+//                for (Integer uid: chatRoomMap.get(roomID)
+//                     ) {
+//                    System.out.println("user: " + uid);
+//                }
 
-                System.out.println("userNamemap: " + chatRoomMap.entrySet());
-                // take all userID out from userNameMap, this hashmap contains all users that has logged in
-                for (int uid: chatRoomMap.keySet()
-                ) {
-                    // we get userID here, uid
-                    // get Room id for this userID, and compare it
-                    System.out.println("uid: " + uid);
-                    if (Objects.equals(chatRoomMap.get(uid), chatRoomMap.get(userID))) {
-                        // this will give me a list of all userID in my room.
-                        usersInSameRoomAsMe.add(uid);
-                        // if system finds userID with the same chatroom ID as me, find the paired ctx for that user and add it in a list of CTX
-                        // ignore duplicate and invalid items
-                        // this will be the list for every user in my room (me + admin)
-                        if(userNameMap.get(uid) != null && !usersInSameRoomAsMeCTX.contains(userNameMap.get(uid))){
-                            usersInSameRoomAsMeCTX.add(userNameMap.get(uid));
-                            System.out.println("usersInSameRoom: " + usersInSameRoomAsMeCTX);
-                        }
-                    }
-                }
+
+
+
+
+
+
+//                System.out.println("userNamemap: " + chatRoomMap.entrySet());
+//                // take all userID out from userNameMap, this hashmap contains all users that has logged in
+//                for (int uid: chatRoomMap.keySet()
+//                ) {
+//                    // we get userID here, uid
+//                    // get Room id for this userID, and compare it
+//                    System.out.println("uid: " + uid);
+//                    System.out.println("chatRoom: " + chatRoomMap.get(uid));
+//                    System.out.println("chatRoomEqual: " + chatRoomMap.get(userID));
+//                    if (Objects.equals(chatRoomMap.get(uid), chatRoomMap.get(userID))) {
+//                        // this will give me a list of all userID in my room.
+//                        usersInSameRoomAsMe.add(uid);
+//                        // if system finds userID with the same chatroom ID as me, find the paired ctx for that user and add it in a list of CTX
+//                        // ignore duplicate and invalid items
+//                        // this will be the list for every user in my room (me + admin)
+//                        if((userNameMap.get(uid)) != null && (!usersInSameRoomAsMeCTX.contains(userNameMap.get(uid)))){
+//                            usersInSameRoomAsMeCTX.add(userNameMap.get(uid));
+//                            System.out.println("went in!");
+//                            System.out.println("usersInSameRoom: " + usersInSameRoomAsMeCTX);
+//                        }
+//                    }
+//                }
 
                 // got 2 ctx of admin
 //                System.out.println(usersInSameRoomAsMeCTX);
@@ -121,12 +143,22 @@ public class ChatRoutes {
 
             ws.onMessage(ctx -> {
                 // everytime we send a message, update user
-                for ( Integer uid : userNameMap.keySet()
-                     ) {
-                    if(userNameMap.get(uid).equals(ctx)){
-                        user = repositories.getUserRepository().findUserById(uid);
-                    }
-                }
+//                usersInSameRoomAsMeCTX.clear();
+//                for ( Integer uid : userNameMap.keySet()
+//                     ) {
+//                    if(userNameMap.get(uid).equals(ctx)){
+//                        userID = uid;
+//                        user = repositories.getUserRepository().findUserById(uid);
+//                    }
+//                }
+//                for (int uid: chatRoomMap.keySet()
+//                ) {
+//                    if(chatRoomMap.get(uid) == chatRoomMap.get(userID) && (userNameMap.get(uid)) != null && (!usersInSameRoomAsMeCTX.contains(userNameMap.get(uid)))){
+//                        usersInSameRoomAsMeCTX.add(userNameMap.get(uid));
+//                    }
+//                }
+
+
                 String userFirstName = user.getFirstName();
                 SocketMsg msg = ctx.message(SocketMsg.class); // convert from json
 
