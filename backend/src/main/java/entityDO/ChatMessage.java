@@ -16,8 +16,12 @@ public class ChatMessage {
     private CurrentChat currentChat;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="sender")
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name="receiver")
+    private User receiver;
 
     @Column (name="message")
     private String message;
@@ -25,9 +29,10 @@ public class ChatMessage {
     public ChatMessage() {
     }
 
-    public ChatMessage(CurrentChat currentChat, User user, String message) {
+    public ChatMessage(CurrentChat currentChat, User sender, User receiver, String message) {
         this.currentChat = currentChat;
-        this.user = user;
+        this.sender = sender;
+        this.receiver = receiver;
         this.message = message;
     }
 }

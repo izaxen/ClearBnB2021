@@ -78,6 +78,8 @@ export default {
       this.socket.onmessage = (event) => {
         // console.log("Message from server:", event.data);
         this.addMsg(event.data);
+        // console.log(event.data);
+        // console.log(event);
       };
 
       this.socket.onopen = (event) => {
@@ -92,7 +94,7 @@ export default {
 
       this.client = 1;
       // console.log("Connecting...");
-      this.addMsg("Connecting...");
+      // this.addMsg("Connecting...");
       this.socket = new WebSocket(
         "ws://localhost:4000/websockets/" + this.$store.state.user.id
       );
