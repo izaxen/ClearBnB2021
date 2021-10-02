@@ -196,7 +196,7 @@ export default {
 
   computed: {
     initialData() {
-      return this.$store.state.currentListing;
+    return this.$store.state.listing;
     },
   },
 

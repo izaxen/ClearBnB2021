@@ -48,6 +48,7 @@ EditListing,
       this.listings = await res.json();
     },
     editList(id){
+      console.log("ID i edit list",id);
       id = id.toString()
       this.currentList = this.$store.dispatch('getSingleListing', id)
     },
