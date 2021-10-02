@@ -166,6 +166,7 @@ export default {
      this.addImages();
     },
     addImages() {
+      console.log("Kör images");
       this.$store.dispatch("uploadFiles", this.formData);
       this.$router.push({path: '/'});
     },

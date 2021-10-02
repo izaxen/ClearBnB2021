@@ -5,7 +5,7 @@
     </FilterListings>
     <h1 @click="test">All listings component</h1>
     
-    <div v-if="matchedListings && !currentList" class="filteredListings">
+    <div v-if="matchedListings && !listing" class="filteredListings">
       <li v-for="listing in matchedListings" 
       :key="listing.id" 
       :value="listing"
@@ -39,8 +39,8 @@ export default {
     };
   },
   computed:{
-  currentList(){
-    return this.$store.state.currentListing
+  listing(){
+    return this.$store.state.listing
   }
 
   },

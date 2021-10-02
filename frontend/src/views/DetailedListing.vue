@@ -60,13 +60,13 @@ id:""
     initialData() {
       this.oldVersions = this.$store.state.currentListingOldVersion
       console.log(this.oldVersions);
-      return this.$store.state.currentListing;
+      return this.$store.state.listing;
     },
   },
   methods:{
     close(){
       console.log("Död");
-      this.$store.commit('setCurrentListing', null)
+      this.$store.commit('setListing', null)
     }
   } 
 };

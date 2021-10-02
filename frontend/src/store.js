@@ -10,7 +10,8 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
-      currentListingOldVersion:null,
+      currentListingOldVersion: null,
+      listing:null,
       // allListingsDTO: [],
 
     }
@@ -38,6 +39,9 @@ export const store = createStore({
         setCurrentListingOldVersions(state, listing) {
       state.currentListingOldVersion = listing
     },
+    setListing(state, listing) {
+       state.listing = listing   
+        },
 
 
         // setAllListingsDTO(state, allListingsDTO) {
@@ -95,8 +99,8 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      let currentListingId = await res.json();
-      store.commit('setCurrentListing', currentListingId); // an id
+      //let currentListingId = await res.json();
+      //store.commit('setCurrentListing', currentListingId); // an id
     },
 
     async updateListing(store, listing) {
@@ -168,7 +172,7 @@ export const store = createStore({
     async getSingleListing(store, id) {
       let res = await fetch('/rest/getSingleListing/' + id)
       let a =await  res.json()
-      store.commit('setCurrentListing', a);
+      store.commit('setListing', a);
       console.log(a);
       return a
     },

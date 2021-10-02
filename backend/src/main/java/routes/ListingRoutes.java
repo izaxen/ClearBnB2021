@@ -36,7 +36,7 @@ public class ListingRoutes {
                             currentUser
                     );
             req.session("current-Listing", createdListing);
-            res.json(createdListing.getId());
+            //res.json(createdListing.getId());
         });
 
 
