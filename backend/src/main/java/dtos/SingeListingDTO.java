@@ -1,6 +1,10 @@
 package dtos;
 
+import entityDO.Image;
 import jakarta.persistence.Column;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SingeListingDTO {
 
@@ -18,6 +22,7 @@ public class SingeListingDTO {
     private Boolean isBubblePool;
     private Boolean isBicycle;
     private Boolean isSauna;
+    private ArrayList<String> imageslist;
 
     public SingeListingDTO() {
     }
@@ -42,7 +47,8 @@ public class SingeListingDTO {
     }
 
     public SingeListingDTO(int price, String description, String availableStartDate, String availableEndDate,
-                           String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+                           String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                           Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;
@@ -56,6 +62,31 @@ public class SingeListingDTO {
         this.isBubblePool = isBubblePool;
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
+    }
+
+    public SingeListingDTO(int price, String description, String availableStartDate, String availableEndDate,
+                           String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                           Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna,
+                           ArrayList<String> imageslist) {
+
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.city = city;
+        this.addressListing = addressListing;
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
+        this.imageslist = imageslist;
+    }
+
+    public ArrayList<String> getImageslist() {
+        return imageslist;
     }
 
     public int getId() {

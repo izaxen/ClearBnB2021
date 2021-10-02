@@ -63,17 +63,14 @@ public class ListingRoutes {
         });
 
         app.get("/rest/getSingleListing/:id",(req, res) ->{
-            //User currentUser = req.session(("current-user"));
             int id = parseInt(req.params("id"));
             SingeListingDTO dto = listingLogic.getSingleListing(id);
-
             res.json(dto);
         });
 
         app.get("/rest/getSingleListingVersion/:id",(req, res) ->{
             int id = parseInt(req.params("id"));
             List<SingeListingDTO> dto = listingLogic.getoldVersion(id);
-            System.out.println("Utskrift");
             res.json(dto);
         });
 

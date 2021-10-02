@@ -15,6 +15,10 @@
   <p>ParkingLot: {{initialData.parkingLot}}</p>
   <p>Bicycle: {{initialData.parkingLot}}</p>
   <p>Sauna: {{initialData.sauna}}</p>
+  <div v-for ="(pImg, index) in initialData.imageslist " class="image"
+  :key="index">
+  <img :src="pImg" width="100">   
+  </div>
   
   <button type="button" @click="close">Close</button>
 
@@ -53,19 +57,18 @@ export default {
 data(){
   return{
 oldVersions:"",
-id:""
+id:"",
+
   }
 } ,
   computed: {
     initialData() {
       this.oldVersions = this.$store.state.currentListingOldVersion
-      console.log(this.oldVersions);
       return this.$store.state.listing;
     },
   },
   methods:{
     close(){
-      console.log("Död");
       this.$store.commit('setListing', null)
     }
   } 

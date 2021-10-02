@@ -1,6 +1,7 @@
 package application;
 
 import dtos.*;
+import entityDO.Image;
 import entityDO.Listing;
 import entityDO.User;
 import mapper.ListingService;
@@ -132,10 +133,20 @@ public class ListingLogic {
 
     public SingeListingDTO getSingleListing(int id){
         Listing l =listingRepository.findById(id).get();
-        return new SingeListingDTO(l.getId(), l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
+
+        ArrayList<String> imagelist = new ArrayList<>();
+
+
+        for (Image image:l.getImages()
+             ) {
+            System.out.println(image.getImageName());
+            imagelist.add(image.getImageName());
+        }
+
+        return new SingeListingDTO(l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
                 l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),
                 l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
-                l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna());
+                l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna(),imagelist);
     }
 
     public List<SingeListingDTO> getoldVersion(int id) {

@@ -11,6 +11,7 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_ID")
     private int id;
 
     @Column(name="image_name")
