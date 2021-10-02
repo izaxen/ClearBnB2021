@@ -126,5 +126,16 @@ public class AmenitiesRevision {
         isSauna = sauna;
     }
 
-
+    @Override
+    public String toString() {
+        return "AmenitiesRevision{" +
+                "isBathTub=" + isBathTub +
+                ", isParkingLot=" + isParkingLot +
+                ", isStove=" + isStove +
+                ", isDoubleBed=" + isDoubleBed +
+                ", isBubblePool=" + isBubblePool +
+                ", isBicycle=" + isBicycle +
+                ", isSauna=" + isSauna +
+                '}';
+    }
 }

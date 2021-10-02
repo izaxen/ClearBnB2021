@@ -21,6 +21,7 @@ public class ListingLogic {
     AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
     private ListingService ls;
+    private List<SingeListingDTO> oldVersionListing;
 
     public ListingLogic(Repositories repositories) {
         this.listingRepository = repositories.listingRepository;
@@ -137,12 +138,17 @@ public class ListingLogic {
                 l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna());
     }
 
-    public SingeListingDTO getoldVersion(int id){
-        List<ListingRevision> l =listingRevisionRepository.findAllListingRevisionsByListingID(id);
-        for(ListingRevision ll : l){
-            System.out.println(ll.toString());
+    public List<SingeListingDTO> getoldVersion(int id) {
+        oldVersionListing = new ArrayList<>();
+
+        List<ListingRevision> l = listingRevisionRepository.findAllListingRevisionsByListingID(id);
+        for (ListingRevision ll : l) {
+            oldVersionListing.add(new SingeListingDTO(ll.getPrice(), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
+                    ll.getAddressRevision().getAddress(), ll.getAddressRevision().getAddress(), ll.getAmenitiesRevsion().getBathTub(),
+                    ll.getAmenitiesRevsion().getParkingLot(), ll.getAmenitiesRevsion().getStove(), ll.getAmenitiesRevsion().getDoubleBed(),
+                    ll.getAmenitiesRevsion().getBubblePool(), ll.getAmenitiesRevsion().getBicycle(), ll.getAmenitiesRevsion().getSauna()));
         }
-        System.out.println("  ...");
-        return new SingeListingDTO();}
+        return oldVersionListing;
+    }
 
 }

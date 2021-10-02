@@ -11,6 +11,8 @@ import entityDO.User;
 import dtos.AddListingDTO;
 import mapper.ListingService;
 
+import java.util.List;
+
 import static java.lang.Integer.parseInt;
 
 public class ListingRoutes {
@@ -70,8 +72,8 @@ public class ListingRoutes {
 
         app.get("/rest/getSingleListingVersion/:id",(req, res) ->{
             int id = parseInt(req.params("id"));
-            SingeListingDTO dto = listingLogic.getoldVersion(id);
-
+            List<SingeListingDTO> dto = listingLogic.getoldVersion(id);
+            System.out.println("Utskrift");
             res.json(dto);
         });
 

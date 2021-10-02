@@ -40,6 +40,7 @@ public class ImagesLogic {
 
         for (String file: fileNames){
             int i = Integer.parseInt(id);
+
             repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
         return fileNames;

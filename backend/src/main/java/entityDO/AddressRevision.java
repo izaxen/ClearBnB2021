@@ -65,4 +65,12 @@ public class AddressRevision {
     public void setListingRevision(ListingRevision listingRevision) {
         this.listingRevi = listingRevision;
     }
+
+    @Override
+    public String toString() {
+        return "AddressRevision{" +
+                "city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

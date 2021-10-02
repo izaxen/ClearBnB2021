@@ -36,10 +36,15 @@ export default {
   data() {
     return {
       matchedListings: [],
-      currentList:"",
     };
   },
- 
+  computed:{
+  currentList(){
+    return this.$store.state.currentListing
+  }
+
+  },
+  
   created() {
     this.getAllListingsDTO();
   },
@@ -48,15 +53,18 @@ export default {
     updatelist(matchedListings) {
       this.matchedListings = matchedListings;
     },
-    openDetail(id){
+    async openDetail(id){
       console.log(id);
     id = id.toString()
+    this.$store.dispatch('getSingleListingVersion', id)
     this.currentList = this.$store.dispatch('getSingleListing', id)
+    
     },
 
     async getAllListingsDTO() {
       let res = await fetch("/api/allListings");
       this.matchedListings = await res.json();
+      
     },
   },
 };

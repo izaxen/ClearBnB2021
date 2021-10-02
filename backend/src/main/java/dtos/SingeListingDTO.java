@@ -19,6 +19,9 @@ public class SingeListingDTO {
     private Boolean isBicycle;
     private Boolean isSauna;
 
+    public SingeListingDTO() {
+    }
+
     public SingeListingDTO(int id, int price, String description, String availableStartDate, String availableEndDate,
                            String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
                            Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
@@ -38,7 +41,21 @@ public class SingeListingDTO {
         this.isSauna = isSauna;
     }
 
-    public SingeListingDTO() {
+    public SingeListingDTO(int price, String description, String availableStartDate, String availableEndDate,
+                           String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.price = price;
+        this.description = description;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.city = city;
+        this.addressListing = addressListing;
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
     }
 
     public int getId() {

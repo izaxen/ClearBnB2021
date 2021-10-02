@@ -10,6 +10,7 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
+      currentListingOldVersion:null,
       // allListingsDTO: [],
 
     }
@@ -24,12 +25,18 @@ export const store = createStore({
     setFailedLogin(state, value) {
       state.failedLogIn = value
     },
-    setCurrentListing(state, listing) {
-      state.currentListing = listing
-    },
+  
 
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
+    },
+
+      setCurrentListing(state, listing) {
+      state.currentListing = listing
+    },
+      
+        setCurrentListingOldVersions(state, listing) {
+      state.currentListingOldVersion = listing
     },
 
 
@@ -164,17 +171,15 @@ export const store = createStore({
       store.commit('setCurrentListing', a);
       console.log(a);
       return a
-    }
+    },
 
-      // async getAllListingsDTO(_) {
-    //   let res = await fetch('/rest/getAllListingsDTO', {
-    //     method: 'GET',
-    //     body: JSON.stringify()
-    //   })
-    //   let getAllListingsDTO = await res.json();
-    //   console.log("res ");
-    //   store.commit('setAllListingsDTO', getAllListingsDTO)
-    // },
+    async getSingleListingVersion(store, id) {
+      console.log("Startar get singöle");
+      let res = await fetch('/rest/getSingleListingVersion/' + id)
+      let a = await  res.json()
+      store.commit('setCurrentListingOldVersions', a)
+      return a
+    },
   }
 })
 

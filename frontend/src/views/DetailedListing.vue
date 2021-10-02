@@ -2,25 +2,49 @@
 <div v-if="initialData">
 <h1> Listing</h1>
 
-<p>Price: {{initialData.price}}</p>
-<p>Description: {{initialData.description}}</p>
-<p>Address:  {{initialData.addressListing}}</p>
-<p>City:  {{initialData.city}}</p>
-<p>Start date: {{initialData.availableStartDate}}</p>
-<p>Closing date:  {{initialData.availableEndDate}}</p>
-<p>Doublebed: {{initialData.doubleBed}}</p>
-<p>Bathtub: {{initialData.bathTub}}</p>
-<p>Stove: {{initialData.stove}}</p>
-<p>BubblePool: {{initialData.bubblePool}}</p>
-<p>ParkingLot: {{initialData.parkingLot}}</p>
-<p>Bicycle: {{initialData.parkingLot}}</p>
-<p>Sauna: {{initialData.sauna}}</p>
+  <p>Price: {{initialData.price}}</p>
+  <p>Description: {{initialData.description}}</p>
+  <p>Address:  {{initialData.addressListing}}</p>
+  <p>City:  {{initialData.city}}</p>
+  <p>Start date: {{initialData.availableStartDate}}</p>
+  <p>Closing date:  {{initialData.availableEndDate}}</p>
+  <p>Doublebed: {{initialData.doubleBed}}</p>
+  <p>Bathtub: {{initialData.bathTub}}</p>
+  <p>Stove: {{initialData.stove}}</p>
+  <p>BubblePool: {{initialData.bubblePool}}</p>
+  <p>ParkingLot: {{initialData.parkingLot}}</p>
+  <p>Bicycle: {{initialData.parkingLot}}</p>
+  <p>Sauna: {{initialData.sauna}}</p>
+  
+  <button type="button" @click="close">Close</button>
 
-<button type="button" @click="close">Close</button>
 
+<div v-if="!oldVersions"></div> 
+  <div v-else>
+    <div v-for="version in oldVersions"
+    :key="version.id"
+    :value= "version">
+<br><br>
+  <h2>Old Version</h2>
+    <p>Price: {{version.price}}</p>
+  <p>Description: {{version.description}}</p>
+  <p>Address:  {{version.addressListing}}</p>
+  <p>City:  {{version.city}}</p>
+  <p>Start date: {{version.availableStartDate}}</p>
+  <p>Closing date:  {{version.availableEndDate}}</p>
+  <p>Doublebed: {{version.doubleBed}}</p>
+  <p>Bathtub: {{version.bathTub}}</p>
+  <p>Stove: {{version.stove}}</p>
+  <p>BubblePool: {{version.bubblePool}}</p>
+  <p>ParkingLot: {{version.parkingLot}}</p>
+  <p>Bicycle: {{version.parkingLot}}</p>
+  <p>Sauna: {{version.sauna}}</p>
+<br>
+<br>
+    </div>
+  </div>
+</div>  
 
-
-</div>
 </template>
 
 
@@ -28,18 +52,21 @@
 export default {
 data(){
   return{
-
+oldVersions:"",
+id:""
   }
 } ,
   computed: {
     initialData() {
+      this.oldVersions = this.$store.state.currentListingOldVersion
+      console.log(this.oldVersions);
       return this.$store.state.currentListing;
     },
   },
   methods:{
     close(){
       console.log("Död");
-      //this.$store.commit('setCurrentListing', null)
+      this.$store.commit('setCurrentListing', null)
     }
   } 
 };
