@@ -66,7 +66,7 @@ public class ChatRoutes {
                     if (userNameMap.containsValue(91)) {
                         for (WsContext c : userNameMap.keySet()
                         ) {
-                            if (userNameMap.get(c) == 91) {
+                            if (userNameMap.get(c) == 91 && !chatRoomMap.get(roomID).contains(c)) {
                                 chatRoomMap.get(roomID).add(c);
                                 System.out.println(chatRoomMap.get(roomID));
                             }
@@ -123,8 +123,6 @@ public class ChatRoutes {
             });
 
             ws.onClose(ctx -> {
-                System.out.println("before dc: ");
-                System.out.println(chatRoomMap);
                 userID = userNameMap.get(ctx);
                 String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
                 SocketMsg msg = new SocketMsg(userFirstName + " has left the chat", userID);
@@ -134,8 +132,6 @@ public class ChatRoutes {
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     chatRoomMap.remove(roomID);
-                    System.out.println("after dc: ");
-                    System.out.println(chatRoomMap);
                 } else {
                     clients.forEach(client -> client.send(msg));
                 }
@@ -153,7 +149,6 @@ public class ChatRoutes {
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     chatRoomMap.remove(roomID);
-                    System.out.println(chatRoomMap);
                 } else {
                     clients.forEach(client -> client.send(msg));
                 }
