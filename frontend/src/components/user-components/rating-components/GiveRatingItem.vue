@@ -1,5 +1,5 @@
 <template>
-  <div class="give-rating-item" :v-if="this.$props.booking">
+  <div class="give-rating-item" :v-if="bookingToShow">
     Give a rating to
     {{
       this.$store.state.user.id === this.$props.booking.reviewer
@@ -49,6 +49,7 @@ export default {
 
   Data() {
     return {
+      show: false,
       ratingsToFill: [],
       bookingToShow: this.$props.booking,
       recipient:
@@ -63,9 +64,6 @@ export default {
   },
 
   methods: {
-    print() {
-      console.log(this.rating);
-    },
     async createARating() {
       let rating1 = {
         reviewerID: this.$store.state.user.id,
@@ -82,6 +80,8 @@ export default {
         method: "POST",
         body: JSON.stringify(rating1),
       });
+
+      this.bookingToShow = [];
     },
   },
 };
