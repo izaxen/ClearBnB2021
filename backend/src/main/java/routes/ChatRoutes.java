@@ -29,7 +29,6 @@ public class ChatRoutes {
     User admin;
     int userID;
     int roomID;
-    ArrayList<WsContext> usersInRoomCtxList;
 
 
     public ChatRoutes() {
