@@ -26,6 +26,7 @@ public class Booking {
     @JoinColumn(name="owner_ID")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;

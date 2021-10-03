@@ -1,16 +1,11 @@
 package repositories;
 
-import dtos.FilteredListingDTO;
-import entityDO.Booking;
 import dtos.ListingFilterDTO;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
 import jakarta.persistence.PersistenceException;
-import org.hibernate.Filter;
 import org.hibernate.Session;
-
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +22,11 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-        return entityManager.createQuery("SELECT l FROM Listing l", Listing.class).getResultList();
+
+
+        return entityManager.createQuery("FROM Listing l", Listing.class)
+
+                .getResultList();
     }
 
     public List<Listing> findAllListingsFromUser(int userID){
@@ -99,7 +98,6 @@ public class ListingRepository {
         return matchedListing;
     }
 
-
     public Listing addListing(Listing listing){
 
         try{
@@ -110,6 +108,7 @@ public class ListingRepository {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
         return listing;
     }
 
@@ -122,6 +121,7 @@ public class ListingRepository {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
         return listing;
     }
 

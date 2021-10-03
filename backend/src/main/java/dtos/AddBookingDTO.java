@@ -1,10 +1,5 @@
 package dtos;
 
-import entityDO.Listing;
-import entityDO.User;
-
-import java.util.Date;
-
 public class AddBookingDTO {
 
     private String startDate;

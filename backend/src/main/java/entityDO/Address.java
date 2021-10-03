@@ -2,20 +2,23 @@ package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
 
 
 @Entity
+@Table(name = "address")
+@Proxy(lazy = false)
 public class Address {
     @Id
-    @Column(name = "listing_ID")
-    private Integer id;
+    @Column(name = "listing_id")
+    private int id;
     private String city;
     private String addressListing;
 
     @JsonBackReference
     @OneToOne
     @MapsId
-    @JoinColumn(name="listing_ID")
+    @JoinColumn(name="listing_id")
     private Listing listing;
 
     public Address(String city, String address) {
@@ -29,7 +32,7 @@ public class Address {
         this.listing = listing;
     }
 
-    public Address(Integer id, String city, String addressListing, Listing listing) {
+    public Address(int id, String city, String addressListing, Listing listing) {
         this.id = id;
         this.city = city;
         this.addressListing = addressListing;

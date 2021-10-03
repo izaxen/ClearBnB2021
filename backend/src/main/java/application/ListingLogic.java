@@ -1,9 +1,7 @@
 package application;
 
-import dtos.AddListingDTO;
-import dtos.FilteredListingDTO;
-import dtos.GetAllListingsInSummaryFromUserDTO;
-import dtos.ListingFilterDTO;
+import dtos.*;
+import entityDO.Image;
 import entityDO.Listing;
 import entityDO.User;
 import mapper.ListingService;
@@ -24,6 +22,7 @@ public class ListingLogic {
     AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
     private ListingService ls;
+    private List<SingeListingDTO> oldVersionListing;
 
     public ListingLogic(Repositories repositories) {
         this.listingRepository = repositories.listingRepository;
@@ -54,11 +53,17 @@ public class ListingLogic {
 
     public List<FilteredListingDTO> getAllListingsDTO(){
 
+
+
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
+            //System.out.println("allListing list<Listing>: " + allListings);
             for ( Listing l: allListings
             ) {
+              //  System.out.println("before convert: " + l);
+
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
+                //System.out.println("filteredListingDTO: " + filteredListingDTO);
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;
@@ -103,7 +108,8 @@ public class ListingLogic {
     public Listing updateListing(Listing listing){
         Listing oldList = listingRepository.findById(listing.getId()).get();
 
-        if(listing.getPrice() == null){
+
+        if(listing.getPrice() == 0){
             listing.setPrice(oldList.getPrice());
         }
         if(listing.getDescription() ==(null)){
@@ -116,6 +122,7 @@ public class ListingLogic {
             listing.setAvailableEndDate(oldList.getAvailableEndDate());
         }
 
+
         createListingVersionBackup(oldList);
 
         return listingRepository.updateListing(listing);
@@ -127,8 +134,37 @@ public class ListingLogic {
         listingRevisionRepository.addListingRevision(copyOldList);
 
         return copyOldList;
-
-
-
     }
+
+    public SingeListingDTO getSingleListing(int id){
+        Listing l =listingRepository.findById(id).get();
+
+        ArrayList<String> imagelist = new ArrayList<>();
+
+
+        for (Image image:l.getImages()
+             ) {
+            System.out.println(image.getImageName());
+            imagelist.add(image.getImageName());
+        }
+
+        return new SingeListingDTO(l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
+                l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),
+                l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
+                l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna(),imagelist);
+    }
+
+    public List<SingeListingDTO> getoldVersion(int id) {
+        oldVersionListing = new ArrayList<>();
+
+        List<ListingRevision> l = listingRevisionRepository.findAllListingRevisionsByListingID(id);
+        for (ListingRevision ll : l) {
+            oldVersionListing.add(new SingeListingDTO(ll.getPrice(), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
+                    ll.getAddressRevision().getAddress(), ll.getAddressRevision().getAddress(), ll.getAmenitiesRevsion().getBathTub(),
+                    ll.getAmenitiesRevsion().getParkingLot(), ll.getAmenitiesRevsion().getStove(), ll.getAmenitiesRevsion().getDoubleBed(),
+                    ll.getAmenitiesRevsion().getBubblePool(), ll.getAmenitiesRevsion().getBicycle(), ll.getAmenitiesRevsion().getSauna()));
+        }
+        return oldVersionListing;
+    }
+
 }

@@ -1,7 +1,5 @@
 package dtos;
 
-import java.sql.Timestamp;
-
 public class FilteredListingDTO {
 
     private String description;

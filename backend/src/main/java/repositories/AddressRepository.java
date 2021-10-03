@@ -1,5 +1,6 @@
 package repositories;
 
+import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Address;
 
@@ -31,6 +32,8 @@ public class AddressRepository {
         catch (Exception ex){
             ex.printStackTrace();
         }
+        entityManager.clear();
+
         return address;
     }
 

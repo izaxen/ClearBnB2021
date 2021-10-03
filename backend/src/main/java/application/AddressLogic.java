@@ -4,35 +4,41 @@ import dtos.AddAddressDTO;
 import entityDO.*;
 import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
+import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import mapper.AddressService;
-import mapper.AmenityService;
 
 public class AddressLogic {
 
     AddressRepository addressRepository;
+    ListingRepository lR;
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AddressService as;
+    Repositories repositories;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
+        this.lR= repo.listingRepository;
         this.as = new AddressService();
+        this.repositories = new Repositories();
     }
 
     public AddressLogic() {
     }
 
-    public Address createNewAddress(AddAddressDTO dto, Listing listing){
+    public Listing createNewAddress(AddAddressDTO dto, Listing listing){
 
         Address address = as.convertAddAddressToAddress(dto, listing);
-        return addressRepository.addAddress(address);
+        listing.setAddress(address);
+        return listing; //addressRepository.addAddress(address);
     }
 
-    public Address updateAddress(Address adds){
-        Address oldlist = addressRepository.findById(adds.getListing().getId()).get();
+    public Listing updateAddress(Address adds, Listing listing){
+        Address oldlist = addressRepository.findById(adds.getId()).get();
+        //Listing listing = lR.findById(adds.getId()).get();
 
         if(adds.getCity()==null){
             adds.setCity(oldlist.getCity());
@@ -42,15 +48,17 @@ public class AddressLogic {
         }
         createAddressVersionBackup(oldlist);
 
-        return addressRepository.updateAddress(adds);
+        listing.setAddress(adds);
 
+        return lR.updateListing(listing);
     }
 
     private void createAddressVersionBackup(Address oldlist){
         ListingRevision lr = listingRevisionRepository.findRevIDByID(oldlist.getId());
 
-        AddressRevision copyOldAddressList = new AddressRevision(lr, oldlist.getCity(), oldlist.getAddressListing());
-        addressRevisionRepository.addAddressRevision(copyOldAddressList);
+        AddressRevision copyOldAddressList = new AddressRevision(oldlist.getCity(), oldlist.getAddressListing(), lr);
+        lr.setAddressRevision(copyOldAddressList);
+        listingRevisionRepository.updateListingRevision(lr);
 
     }
 }
