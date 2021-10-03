@@ -1,19 +1,16 @@
 package application;
-
 import entityDO.Image;
 import entityDO.Listing;
 import io.javalin.core.util.FileUtil;
 import io.javalin.http.UploadedFile;
-
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImagesLogic {
     Repositories repositories;
+    private List<Image> newList = new ArrayList<>();
 
     public ImagesLogic(Repositories repositories) {
         this.repositories = repositories;
@@ -28,7 +25,7 @@ public class ImagesLogic {
         saveUploadedImagesToDb(id);
     }
 
-    public String[] saveUploadedImagesToDb (String id){
+    public void saveUploadedImagesToDb (String id){
 
         String[] fileNames;
         File f = new File("backend/src/Static/uploads/" + id + "/");
@@ -44,10 +41,15 @@ public class ImagesLogic {
             }
         }
 
+        int id1 = Integer.parseInt(id);
+        Listing listing = repositories.listingRepository.findById(id1).get();
+        //List<Image> newList = null;
         for (String file: fileNames){
-            int i = Integer.parseInt(id);
-            repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
+            newList.add(new Image(file, listing));
+
+            //repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
-        return fileNames;
+        listing.setImages(newList);
+        repositories.listingRepository.updateListing(listing);
     }
 }

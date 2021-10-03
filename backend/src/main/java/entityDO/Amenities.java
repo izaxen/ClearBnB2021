@@ -2,12 +2,15 @@ package entityDO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
 
 @Entity
+@Proxy(lazy = false)
+@Table(name = "amenities")
 public class Amenities {
 
     @Id
-    @Column(name = "listing_ID")
+    @Column(name = "listing_id")
     private Integer id;
 
     @Column(name = "bathtub")
@@ -34,7 +37,7 @@ public class Amenities {
     @JsonBackReference
     @OneToOne
     @MapsId
-    @JoinColumn(name = "listing_ID")
+    @JoinColumn(name = "listing_id")
     private Listing listing;
 
     public Amenities(){
@@ -63,6 +66,18 @@ public class Amenities {
         this.isBicycle = isBicycle;
         this.isSauna = isSauna;
         this.listing = listing;
+    }
+
+    public Amenities(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
+                     Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
+        this.id = id;
+        this.isBathTub = isBathTub;
+        this.isParkingLot = isParkingLot;
+        this.isStove = isStove;
+        this.isDoubleBed = isDoubleBed;
+        this.isBubblePool = isBubblePool;
+        this.isBicycle = isBicycle;
+        this.isSauna = isSauna;
     }
 
     public Integer getId() {
@@ -135,6 +150,21 @@ public class Amenities {
 
     public void setSauna(Boolean sauna) {
         isSauna = sauna;
+    }
+
+    @Override
+    public String toString() {
+        return "Amenities{" +
+                "id=" + id +
+                ", isBathTub=" + isBathTub +
+                ", isParkingLot=" + isParkingLot +
+                ", isStove=" + isStove +
+                ", isDoubleBed=" + isDoubleBed +
+                ", isBubblePool=" + isBubblePool +
+                ", isBicycle=" + isBicycle +
+                ", isSauna=" + isSauna +
+                ", listing=" + listing +
+                '}';
     }
 }
 

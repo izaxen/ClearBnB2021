@@ -14,7 +14,6 @@ public class BookingRoutes {
     Repositories repositories;
     BookingLogic bookingLogic;
     Express app;
-    BookingService bookingService = new BookingService();
 
     public BookingRoutes(Express app, Repositories repositories) {
         this.app = app;

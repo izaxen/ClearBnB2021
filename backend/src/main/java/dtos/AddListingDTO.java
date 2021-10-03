@@ -1,10 +1,6 @@
 package dtos;
 
 import entityDO.Listing;
-import entityDO.User;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 public class AddListingDTO {
     private int price;

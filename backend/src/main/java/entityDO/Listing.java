@@ -4,25 +4,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import org.hibernate.annotations.*;
-
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-
-    // available_start_date is our column in DB
-    //:availableStartDate is our user input sent from frontend
-
 
 @Entity
 public class Listing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
     private int price;
@@ -35,7 +25,7 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
@@ -197,7 +187,7 @@ public class Listing {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", user=" + user +
+                ", address=" + address +
                 '}';
-}
     }
+}
