@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatRoutes {
 
     Express app;
-    List<WsContext> clients = new ArrayList<>();
+    //List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
     UserService us;
     CurrentChat savedChatRoom;
@@ -70,7 +70,7 @@ public class ChatRoutes {
                         chatRoomMap.put(userID, roomID);
 
                         // add admin to the room
-                        chatRoomMap.put(91, roomID);
+                        //chatRoomMap.put(91, roomID);
                     }
 
                     else{
@@ -82,7 +82,7 @@ public class ChatRoutes {
                         }
                     }
                     // put user in user arraylist
-                    clients.add(ctx);
+      //             clients.add(ctx);
                 }
 
                 // testing
@@ -140,7 +140,7 @@ public class ChatRoutes {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
                 }
-                clients.remove(ctx);
+     //           clients.remove(ctx);
                 usersInSameRoomAsMeCTX.remove(ctx);
 
                 String userFirstName = user.getFirstName();
@@ -155,7 +155,7 @@ public class ChatRoutes {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
                 }
-                clients.remove(ctx);
+      //          clients.remove(ctx);
                 usersInSameRoomAsMeCTX.remove(ctx);
             });
         });
