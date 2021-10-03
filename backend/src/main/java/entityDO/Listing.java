@@ -25,7 +25,8 @@ public class Listing {
     @Column(name="available_end_date")
     private String availableEndDate;
 
-    @JsonManagedReference
+
+    /*@JsonManagedReference*/
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
@@ -179,6 +180,8 @@ public class Listing {
         this.amenities = amenities;
     }
 
+
+
     @Override
     public String toString() {
         return "Listing{" +
@@ -187,7 +190,6 @@ public class Listing {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", address=" + address +
                 '}';
     }
 }

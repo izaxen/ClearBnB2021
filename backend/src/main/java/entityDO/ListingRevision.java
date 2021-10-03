@@ -140,10 +140,6 @@ public class ListingRevision {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", listing=" + listing +
-//                ", addressRevision=" + addressRevision +
-//                ", bookings=" + bookings +
-//                ", user=" + user +
                 '}';
     }
 }

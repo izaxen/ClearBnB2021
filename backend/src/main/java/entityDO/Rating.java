@@ -1,6 +1,12 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name="rating")
@@ -11,6 +17,13 @@ public class Rating {
     @Column (name="rating_ID")
     private Integer ID;
 
+    private Integer rating;
+
+    private String message;
+
+    @Column(name="date_created")
+    private String dateCreated;
+
     @ManyToOne
     @JoinColumn(name="reviewer_ID")
     private User reviewer;
@@ -19,20 +32,22 @@ public class Rating {
     @JoinColumn(name="recipient_ID")
     private User recipient;
 
-    private Integer rating;
-
-    private String message;
-
-    @Column(name="date_created")
-    private String dateCreated;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="booking_ID")
+    private Booking booking;
 
     public Rating(){}
 
-    public Rating(User reviewer, User recipient, Integer rating, String message) {
+    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking) {
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
         this.message = message;
+        this.booking = booking;
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.dateCreated = date.format(myFormatObj);
     }
 
     public Integer getID() {
@@ -59,7 +74,23 @@ public class Rating {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
+    public void String(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "ID=" + ID +
+                ", rating=" + rating +
+                ", message='" + message + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                '}';
     }
 }

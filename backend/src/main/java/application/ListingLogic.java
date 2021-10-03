@@ -88,13 +88,18 @@ public class ListingLogic {
 
         User user = repositories.getUserRep().findUserById(userID);
 
-        List <Listing> listingList = listingRepository.findAllListingsFromUser(user);
+        System.out.println(user.getFirstName());
+
+        List <Listing> listingList = listingRepository.findAllListingsFromUser(user.getId());
+        if(listingList == null){
+            System.out.println("Returned 0");
+            return null;
+        }
 
         ArrayList<GetAllListingsInSummaryFromUserDTO> allListingsDTO = new ArrayList<>();
         listingList.forEach((listing) ->{
             allListingsDTO.add(new GetAllListingsInSummaryFromUserDTO(listing.getId(), listing.getPrice(), listing.getDescription()));
         });
-
 
         return allListingsDTO;
 
@@ -102,7 +107,6 @@ public class ListingLogic {
 
     public Listing updateListing(Listing listing){
         Listing oldList = listingRepository.findById(listing.getId()).get();
-
 
         if(listing.getPrice() == 0){
             listing.setPrice(oldList.getPrice());
@@ -116,7 +120,6 @@ public class ListingLogic {
         if(listing.getAvailableEndDate()==(null)){
             listing.setAvailableEndDate(oldList.getAvailableEndDate());
         }
-
 
         createListingVersionBackup(oldList);
 

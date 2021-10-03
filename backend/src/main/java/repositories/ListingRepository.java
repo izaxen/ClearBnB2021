@@ -1,6 +1,7 @@
 package repositories;
 
 import dtos.ListingFilterDTO;
+import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
@@ -29,20 +30,35 @@ public class ListingRepository {
                 .getResultList();
     }
 
-    public List<Listing> findAllListingsFromUser(User user){
+    public List<Listing> findAllListingsFromUser(int userID){
+        entityManager.clear();
         List<Listing> listingList;
         try {
-            listingList = entityManager.createQuery("SELECT l FROM Listing l WHERE l.user = :user", Listing.class)
-                    .setParameter("user", user)
+            listingList = entityManager.createQuery("FROM Listing l WHERE l.user.id = :user", Listing.class)
+                    .setParameter("user", userID)
                     .getResultList();
             return listingList;
         }catch (PersistenceException e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
-
+        }catch (java.lang.NullPointerException e){
+            System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
+        }catch (org.hibernate.AssertionFailure e){
+            System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
         }
         return null;
     }
 
+    public User findOwnerOfListingWithABooking(Booking booking){
+
+        Listing listing = entityManager.createQuery("SELECT l FROM Listing l WHERE l = :listing", Listing.class)
+                .setParameter("listing", booking.getListing())
+                .getSingleResult();
+
+        User user = listing.getUser();
+
+        return user;
+    }    
+    
     public List<Listing> filterListing(ListingFilterDTO filter){
         Session session = entityManager.unwrap(Session.class);
         String ts1 = filter.getAvailableStartDate();

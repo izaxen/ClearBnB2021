@@ -6,11 +6,11 @@
         <!-- Persistence provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Entity classes -->
-
         <class>entityDO.Address</class>
         <class>entityDO.AddressRevision</class>
-        <class>entityDO.AmenitiesRevision</class>
         <class>entityDO.Amenities</class>
+        <class>entityDO.AddressRevision</class>
+        <class>entityDO.BankAccount</class>
         <class>entityDO.Booking</class>
         <class>entityDO.ChatMessage</class>
         <class>entityDO.CurrentChat</class>

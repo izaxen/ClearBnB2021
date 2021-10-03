@@ -1,12 +1,18 @@
 package repositories;
 
 import entityDO.Listing;
+import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Booking;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +23,36 @@ public class BookingRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Booking> findById(Integer id){
+    public Optional<Booking> findById(int id){
         Booking booking = entityManager.find(Booking.class, id);
         return booking != null ? Optional.of(booking) : Optional.empty();
     }
+
+    public List<Booking> findAGuestsOldBookings(User user){
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = formatter.format(date);
+
+        try {
+            List<Booking> bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
+                    "b.user = :user OR b.listing.user = :user", Booking.class)
+                    .setParameter("date", strDate)
+                    .setParameter("user", user)
+                    .getResultList();
+
+            return bookings;
+
+        }catch (jakarta.persistence.PersistenceException e){
+            System.out.println("Error in findAGuestsOldBookings");
+            System.out.println(e.getMessage());
+        }finally {
+            entityManager.clear();
+        }
+
+        return null;
+    }
+
 
     public boolean checkIfListingIsAlreadyBooked(String startDate, String endDate, Listing listing){
 
@@ -51,7 +83,7 @@ public class BookingRepository {
     }
 
     public List<Booking> findAllBookings(){
-        return entityManager.createQuery("from Booking").getResultList();
+        return entityManager.createQuery("FROM Booking").getResultList();
     }
 
     public Optional<Booking> addBooking(Booking booking){
@@ -65,6 +97,21 @@ public class BookingRepository {
         catch (Exception ex){
            ex.printStackTrace();
         }
+        return Optional.empty();
+    }
+
+    public Optional<Booking> updateBooking(Booking booking){
+
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(booking);
+            entityManager.getTransaction().commit();
+            return Optional.of(booking);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        entityManager.clear();
         return Optional.empty();
     }
 }
