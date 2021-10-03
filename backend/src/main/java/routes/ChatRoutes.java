@@ -66,7 +66,6 @@ public class ChatRoutes {
                         for (WsContext c : userNameMap.keySet()
                         ) {
                             if (userNameMap.get(c) == 91) {
-                                WsContext adminCTX = c;
                                 chatRoomMap.get(roomID).add(c);
                                 System.out.println(chatRoomMap.get(roomID));
                             }
@@ -120,7 +119,9 @@ public class ChatRoutes {
             ws.onClose(ctx -> {
                 System.out.println("before dc: ");
                 System.out.println(chatRoomMap);
-                String userFirstName = user.getFirstName();
+                userID = userNameMap.get(ctx);
+                String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
+
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
@@ -137,7 +138,8 @@ public class ChatRoutes {
             ws.onError(ctx -> {
                 System.out.println("before dc: ");
                 System.out.println(chatRoomMap);
-                String userFirstName = user.getFirstName();
+                userID = userNameMap.get(ctx);
+                String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
