@@ -14,6 +14,12 @@
     >
       send
     </button>
+    <input
+      v-if="this.$store.state.user && this.$store.state.user.id == 91"
+      id="receiver-input"
+      v-model="receiverID"
+      required
+    />
 
     <button id="connect" v-bind:disabled="isNotLoggedIn" @click="connect()">
       connect
@@ -36,6 +42,7 @@ export default {
       div: "",
       input: "",
       socket: "",
+      receiverID: "",
       client: null,
       currentUser: this.$store.state.user,
     };
@@ -119,6 +126,8 @@ export default {
         JSON.stringify({
           msg,
           time_sent: Date.now() / 1000,
+          senderID: this.$store.state.user.id,
+          receiverID: this.receiverID,
         })
       );
       // addMsg(msg); // if locally rendered instead of reliably pushed from server
