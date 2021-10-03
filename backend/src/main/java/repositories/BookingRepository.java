@@ -99,4 +99,19 @@ public class BookingRepository {
         }
         return Optional.empty();
     }
+
+    public Optional<Booking> updateBooking(Booking booking){
+
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(booking);
+            entityManager.getTransaction().commit();
+            return Optional.of(booking);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        entityManager.clear();
+        return Optional.empty();
+    }
 }

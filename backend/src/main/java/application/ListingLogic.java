@@ -108,7 +108,6 @@ public class ListingLogic {
     public Listing updateListing(Listing listing){
         Listing oldList = listingRepository.findById(listing.getId()).get();
 
-
         if(listing.getPrice() == 0){
             listing.setPrice(oldList.getPrice());
         }
@@ -121,7 +120,6 @@ public class ListingLogic {
         if(listing.getAvailableEndDate()==(null)){
             listing.setAvailableEndDate(oldList.getAvailableEndDate());
         }
-
 
         createListingVersionBackup(oldList);
 

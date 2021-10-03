@@ -1,6 +1,7 @@
 package repositories;
 
 import dtos.ListingFilterDTO;
+import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;

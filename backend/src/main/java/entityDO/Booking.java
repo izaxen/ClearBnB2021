@@ -93,6 +93,14 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
+    public List<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(List<Rating> rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +

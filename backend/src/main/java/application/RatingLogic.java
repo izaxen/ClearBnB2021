@@ -16,7 +16,6 @@ public class RatingLogic {
     Repositories repositories;
     RatingMapper ratingMapper = new RatingMapper();
 
-
     public RatingLogic(Repositories repositories) {
         this.repositories = repositories;
     }
@@ -42,13 +41,10 @@ public class RatingLogic {
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 
-    //THIS WAY IS WAY TOO UN-OPTIMIZED (better we had in user a field that was called isLandlord or b). /Mac
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(User user){
-
-        /*List<GiveRatingDTO> bookingsThatMissingLandlordsRating;*/
-        try{
+       try{
             List<Booking> oldBookings = checkIfUserHasAnyOldBookingsAndReturnThem(user);
-            return loopingOldBookingsToCheckIfRatingsIsMissing(oldBookings, user);
+            return getOldBookingsThatMissingTwoRatings(oldBookings, user);
         }catch (java.lang.NullPointerException e){
             System.out.println(e.getMessage());            
         }
@@ -60,11 +56,11 @@ public class RatingLogic {
         return repositories.booking().findAGuestsOldBookings(user);
     }
 
-    public List<GiveRatingDTO> loopingOldBookingsToCheckIfRatingsIsMissing(List<Booking> bookings, User user){
+    public List<GiveRatingDTO> getOldBookingsThatMissingTwoRatings(List<Booking> oldBookings, User user){
 
         List<GiveRatingDTO> bookingsThatUserCanAddARatingToDTO = new ArrayList<>();
 
-        bookings.forEach(booking -> {
+        oldBookings.forEach(booking -> {
             User guest = booking.getUser();
             List<Rating> ratings = repositories.ratingRepository.getRatingsLinkedToBooking(booking);
 
@@ -73,7 +69,9 @@ public class RatingLogic {
                 return;
             }
             if(!ratings.isEmpty()){
-                if(ratings.get(0).getReviewer() == user){
+                System.out.println("Not empty");
+                if(ratings.get(0).getReviewer().getId() == user.getId()){
+                    System.out.println("Returned!");
                     return;
                 }
             }
@@ -86,6 +84,7 @@ public class RatingLogic {
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
         });
+        System.out.println(bookingsThatUserCanAddARatingToDTO.toString());
         return bookingsThatUserCanAddARatingToDTO;
     }
 
@@ -101,12 +100,24 @@ public class RatingLogic {
                 parseInt(createNewRatingFromFrontendDTO.getRating()),
                 createNewRatingFromFrontendDTO.getMessage());
 
-        repositories.ratingRepository.addRating(new Rating(
-                saveRatingToDataBaseDTO.getReviewer(),
+        List<Rating> ratings = new ArrayList<>();
+
+        ratings.add(new Rating(saveRatingToDataBaseDTO.getReviewer(),
                 saveRatingToDataBaseDTO.getRecipient(),
                 saveRatingToDataBaseDTO.getRating(),
                 saveRatingToDataBaseDTO.getReview(),
                 saveRatingToDataBaseDTO.getBooking()));
+
+        booking.setRating(ratings);
+
+        repositories.bookingRepository.updateBooking(booking);
+
+        /*repositories.ratingRepository.addRating(new Rating(
+                saveRatingToDataBaseDTO.getReviewer(),
+                saveRatingToDataBaseDTO.getRecipient(),
+                saveRatingToDataBaseDTO.getRating(),
+                saveRatingToDataBaseDTO.getReview(),
+                saveRatingToDataBaseDTO.getBooking()));*/
     }
 
     public boolean deleteRating(int id){        ;
