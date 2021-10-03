@@ -83,16 +83,21 @@ export default {
       };
 
       this.socket.onmessage = (event) => {
-        // console.log("Message from server:", event.data);
-        this.addMsg(event.data);
-        // console.log(event.data);
-        // console.log(event);
+        let temp = JSON.parse(event.data);
+        let sender = temp.senderID;
+        let firstName = this.addMsg(temp.senderID + ": " + temp.msg);
       };
 
       this.socket.onopen = (event) => {
         // console.warn("Connected:", event);
-        // console.log(event.data);
-        // this.addMsg(event.data);
+        // console.log(event);
+        // consolt.log(msg);
+        // // this.addMsg(event.data);
+        // if (this.$store.state.user.id == 91) {
+        //   this.addMsg(event.data.msg + " " + event.data.senderID);
+        // } else {
+        //   this.addMsg(event.data.msg);
+        // }
       };
     },
 
@@ -121,7 +126,6 @@ export default {
       let msg = this.input;
 
       this.input = "";
-      console.log("Sending:", msg);
       this.socket.send(
         JSON.stringify({
           msg,

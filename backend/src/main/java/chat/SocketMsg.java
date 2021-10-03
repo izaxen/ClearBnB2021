@@ -17,6 +17,12 @@ public class SocketMsg {
         this.chatRoomID = chatRoomID;
     }
 
+
+    public SocketMsg(String msg, int senderID) {
+        this.msg = msg;
+        this.senderID = senderID;
+    }
+
     public String getMsg() {
         return msg;
     }
@@ -55,5 +61,16 @@ public class SocketMsg {
 
     public void setChatRoomID(int chatRoomID) {
         this.chatRoomID = chatRoomID;
+    }
+
+    @Override
+    public String toString() {
+        return "SocketMsg{" +
+                "msg='" + msg + '\'' +
+                ", time_sent=" + time_sent +
+                ", senderID=" + senderID +
+                ", receiverID=" + receiverID +
+                ", chatRoomID=" + chatRoomID +
+                '}';
     }
 }

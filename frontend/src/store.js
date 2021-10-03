@@ -164,6 +164,8 @@ export const store = createStore({
       store.commit('getImageList', fileList)
     },
 
+
+
     // async getAllListingsDTO(_) {
     //   let res = await fetch('/rest/getAllListingsDTO', {
     //     method: 'GET',

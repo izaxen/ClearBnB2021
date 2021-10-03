@@ -22,7 +22,9 @@ public class ChatRoutes {
     Repositories repositories;
     CurrentChat savedChatRoom;
 
+    // chatroom ID as key, list<ctx> as value
     private static Map<Integer, List<WsContext>> chatRoomMap = new ConcurrentHashMap<>();
+    // ctx as key, userID as value
     private static Map<WsContext, Integer> userNameMap = new ConcurrentHashMap<>();
 
     User user;
@@ -74,18 +76,19 @@ public class ChatRoutes {
 
                 clients.add(ctx);
 
-
                 user = repositories.getUserRepository().findUserById(userID);
                 String userFirstName = user.getFirstName();
+                SocketMsg msg = new SocketMsg(userFirstName + " has joint the chat", userID);
                 if (userID != 91) {
-                    chatRoomMap.get(roomID).forEach(client -> client.send(userFirstName + " has joint the chat"));
+                    chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                 } else {
-                    clients.forEach(client -> client.send(userFirstName + " has joint the chat"));
+                    clients.forEach(client -> client.send(msg));
                 }
             });
 
             ws.onMessage(ctx -> {
                 SocketMsg msg = ctx.message(SocketMsg.class);
+                userID = userNameMap.get(ctx);
 
                 if (userID != 91) {
                     for (Integer rid : chatRoomMap.keySet()
@@ -94,6 +97,9 @@ public class ChatRoutes {
                             roomID = rid;
                         }
                     }
+                    System.out.println(roomID);
+                    System.out.println(chatRoomMap);
+                    chatRoomMap.get(roomID);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                 } else {
                     int receiverID = msg.getReceiverID();
@@ -111,6 +117,7 @@ public class ChatRoutes {
                             roomID = rid;
                         }
                     }
+                    chatRoomMap.get(roomID);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                 }
             });
@@ -120,34 +127,35 @@ public class ChatRoutes {
                 System.out.println(chatRoomMap);
                 userID = userNameMap.get(ctx);
                 String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
+                SocketMsg msg = new SocketMsg(userFirstName + " has left the chat", userID);
 
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
-                    chatRoomMap.get(roomID).forEach(client -> client.send(userFirstName + " has left the chat"));
+                    chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     chatRoomMap.remove(roomID);
                     System.out.println("after dc: ");
                     System.out.println(chatRoomMap);
                 } else {
-                    clients.forEach(client -> client.send(userFirstName + " has left the chat"));
+                    clients.forEach(client -> client.send(msg));
                 }
                 clients.remove(ctx);
             });
 
             ws.onError(ctx -> {
-                System.out.println("before dc: ");
                 System.out.println(chatRoomMap);
                 userID = userNameMap.get(ctx);
                 String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
+                SocketMsg msg = new SocketMsg(userFirstName + " has left the chat", userID);
+
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
                     repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
-                    chatRoomMap.get(roomID).forEach(client -> client.send(userFirstName + " has left the chat"));
+                    chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     chatRoomMap.remove(roomID);
-                    System.out.println("after dc: ");
                     System.out.println(chatRoomMap);
                 } else {
-                    clients.forEach(client -> client.send(userFirstName + " has left the chat"));
+                    clients.forEach(client -> client.send(msg));
                 }
                 clients.remove(ctx);
             });
