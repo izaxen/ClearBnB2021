@@ -2,6 +2,7 @@ package routes;
 
 import application.ListingLogic;
 import application.Repositories;
+import com.mongodb.client.model.Filters;
 import dtos.ListingFilterDTO;
 import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
@@ -10,6 +11,8 @@ import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
 import mapper.ListingService;
+import org.bson.Document;
+import utils.DatabaseMongo;
 
 import java.util.List;
 
@@ -20,12 +23,14 @@ public class ListingRoutes {
     private ListingLogic listingLogic;
     private ListingService ls;
     private Express app;
+    private DatabaseMongo dbMongo;
 
     public ListingRoutes(Express app, Repositories repositories) {
 
         listingLogic= new ListingLogic(repositories);
         ls= new ListingService();
         this.app = app;
+        dbMongo = new DatabaseMongo(repositories);
 
         getAllListingsInSummaryFromUser();
 
@@ -41,6 +46,7 @@ public class ListingRoutes {
 
 
         app.get("/api/allListings", (req, res) -> {
+//            dbMongo.getAllListingFromMDB();
             res.json(listingLogic.getAllListingsDTO());
         });
 
