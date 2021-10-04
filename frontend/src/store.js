@@ -220,7 +220,7 @@ export const store = createStore({
     },
 
     async getRatingsToFill() {
-      let res = await fetch("/rest/check-if-there-is-ratings-to-fill/");
+      let res = await fetch("/api/check-if-there-is-ratings-to-fill/");
       return await res.json();
     },
 

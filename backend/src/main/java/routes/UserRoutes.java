@@ -46,7 +46,6 @@ public class UserRoutes {
 
         app.get("/api/logOff",(req,res)->{
             req.session("current-user", null);
-
             res.json(Map.of("Ok", "Logged out"));
         });
 

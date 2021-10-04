@@ -75,7 +75,7 @@ export default {
         message: this.comment,
       };
 
-      let res = await fetch("/rest/createNewRating", {
+      let res = await fetch("/api/createNewRating", {
         method: "POST",
         body: JSON.stringify(rating1),
       });
