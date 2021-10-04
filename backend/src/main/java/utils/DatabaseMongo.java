@@ -38,9 +38,8 @@ public class DatabaseMongo {
     }
 
     private void insertListingIntoDb(){
-        collection.deleteOne(Filters.eq("allListings", "FrontPage"));
+        collection.deleteOne(Filters.eq("query", "newList"));
         Document frontpage = new Document();
-        Document allListings = new Document();
         List<FilteredListingDTO> dto1 = listingLogic.getAllListingsDTO();
         System.out.println(dto1.toString());
             ArrayList<Document> nyLista = new ArrayList<>();
@@ -56,8 +55,8 @@ public class DatabaseMongo {
             nytt.put("listingid", item.getID());
             nyLista.add(nytt);
         }
-            frontpage.append("Frontpage", nyLista);
-            allListings.append("allListings", frontpage);
+        frontpage.append("query", "newList");
+        frontpage.append("allListings", nyLista);
         try{
 
             collection.insertOne(frontpage);
@@ -69,21 +68,13 @@ public class DatabaseMongo {
 
                     ": " + e.getMessage());
         }
-        //getAllListingFromMDB();
+        getAllListingFromMDB();
     }
     public Document getAllListingFromMDB(){
-         //FindIterable<Document> doc = collection.find(Filters.eq("Frontpage",asList("kattafan"))).first();
 
-        //System.out.println(doc.toJson());
-
-        MongoCursor<Document> cursor = collection.find().iterator();
-        try{
-            while(cursor.hasNext()){
-                System.out.println(cursor.next().toJson());
-            }
-        }finally {
-            cursor.close();
-        }
+        Document doc = (Document) collection.find(Filters.eq(
+                "query", "newList")).first();
+        System.out.println(doc.toJson());
 
          return null;
     }
