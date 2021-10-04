@@ -15,7 +15,6 @@ public class RatingRoutes {
     Express app;
     Repositories repositories;
     RatingLogic ratingLogic;
-    RatingMapper ratingMapper = new RatingMapper();
 
     public RatingRoutes(Express app, Repositories repositories) {
         this.app = app;
