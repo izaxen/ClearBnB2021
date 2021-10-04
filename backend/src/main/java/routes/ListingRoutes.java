@@ -44,7 +44,7 @@ public class ListingRoutes {
 
 
         app.get("/api/allListings", (req, res) -> {
-            res.json(listingLogic.transferAllListingMongoDB(collection));
+            res.json(listingLogic.getAllListFromMongoDB(collection));
         });
 
         app.put("/api/listing", (req, res) -> {

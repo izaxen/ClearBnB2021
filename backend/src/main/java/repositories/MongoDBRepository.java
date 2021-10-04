@@ -16,7 +16,6 @@ public class MongoDBRepository {
                 "query", "newList")).first();
     }
 
-
     public void updateAllListingCollection(Document frontpage, MongoCollection collection){
         collection.deleteOne(Filters.eq("query", "newList"));
 

@@ -9,7 +9,7 @@ public class LogicHandler {
     CacheLogic cacheLogic;
     public LogicHandler(Repositories repositories, MongoCollection collection){
 
-        this.listingLogic = new ListingLogic(repositories,collection);
+        this.listingLogic = new ListingLogic(collection,repositories, this);
         this.imagesLogic = new ImagesLogic(repositories, this);
         this.cacheLogic = new CacheLogic(collection, repositories, this);
 

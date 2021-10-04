@@ -29,7 +29,7 @@ public class ImagesLogic {
         }
 
         saveUploadedImagesToDb(id);
-        logicHandler.cacheLogic.updateMongoDBFromSql();
+
 
     }
 
@@ -58,8 +58,9 @@ public class ImagesLogic {
             //repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
         listing.setImages(newList);
-        repositories.listingRepository.updateListing(listing);
+        logicHandler.listingLogic.updateListingAndCreateANewMongoDBCollection(listing);
     }
+
 
 
 

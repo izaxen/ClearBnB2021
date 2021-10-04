@@ -25,6 +25,7 @@ public class ListingLogic {
     AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
     MongoCollection collection;
+    LogicHandler logicHandler;
     private ListingService ls;
     private List<SingeListingDTO> oldVersionListing;
 
@@ -32,13 +33,14 @@ public class ListingLogic {
     public ListingLogic() {
     }
 
-    public ListingLogic(Repositories repositories, MongoCollection collection) {
+    public ListingLogic( MongoCollection collection, Repositories repositories, LogicHandler logicHandler) {
         this.listingRepository = repositories.listingRepository;
         this.bookingRepository = repositories.bookingRepository;
         this.listingRevisionRepository = repositories.listingRevisionRepository;
         this.repositories = repositories;
         this.ls= new ListingService();
         this.collection = collection;
+        this.logicHandler = logicHandler;
     }
 
 
@@ -167,8 +169,13 @@ public class ListingLogic {
         return oldVersionListing;
     }
 
-    public Document transferAllListingMongoDB(MongoCollection collection){
+    public Document getAllListFromMongoDB(MongoCollection collection){
         return repositories.mongoDBRepository.getAllListingFromMDB(collection);
+    }
+
+    public void updateListingAndCreateANewMongoDBCollection(Listing listing){
+        repositories.listingRepository.updateListing(listing);
+        logicHandler.cacheLogic.updateMongoDBFromSql();
     }
 
 
