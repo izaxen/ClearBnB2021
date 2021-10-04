@@ -41,6 +41,7 @@ export default {
   methods: {
     async deleteRating(ratingID) {
       await this.$store.dispatch("deleteRating", ratingID);
+      this.$router.go();
     },
   },
 };
