@@ -1,5 +1,6 @@
 package application;
 
+import com.mongodb.client.MongoCollection;
 import dtos.*;
 import entityDO.Booking;
 import entityDO.Rating;
@@ -14,9 +15,11 @@ public class RatingLogic {
 
     Repositories repositories;
     RatingMapper ratingMapper = new RatingMapper();
+    MongoCollection<?> ratingMongoCollection;
 
-    public RatingLogic(Repositories repositories) {
+    public RatingLogic(Repositories repositories, MongoCollection<?> ratingMongoCollection) {
         this.repositories = repositories;
+        this.ratingMongoCollection = ratingMongoCollection;
     }
 
     public List<GetRatingDTO> getAllRatingsOfUser(int userID){
@@ -110,6 +113,10 @@ public class RatingLogic {
         booking.setRating(ratings);
 
         repositories.bookingRepository.updateBooking(booking);
+
+    }
+
+    public void updateCacheOfRatings(){
 
     }
 
