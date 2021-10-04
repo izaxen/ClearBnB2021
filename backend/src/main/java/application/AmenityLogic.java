@@ -33,7 +33,7 @@ public class AmenityLogic {
     public Listing createNewAmenity(AddAmenityDTO dto, Listing listing){
         Amenities amenities = as.convertAddAmenitiesToAmenities(dto, listing);
         listing.setAmenities(amenities);
-        return lR.updateListing(listing);
+        return listing;
     }
 
     public Listing updateAmenties(Amenities ama, Listing listing){
