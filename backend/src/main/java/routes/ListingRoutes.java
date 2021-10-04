@@ -46,8 +46,7 @@ public class ListingRoutes {
 
 
         app.get("/api/allListings", (req, res) -> {
-//            dbMongo.getAllListingFromMDB();
-            res.json(listingLogic.getAllListingsDTO());
+            res.json(dbMongo.getAllListingFromMDB());
         });
 
         app.put("/api/listing", (req, res) -> {

@@ -3,9 +3,7 @@ package utils;
 import application.ListingLogic;
 import application.Repositories;
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import dtos.FilteredListingDTO;
@@ -28,12 +26,6 @@ public class DatabaseMongo {
     public DatabaseMongo(Repositories repositories){
         this.repositories = repositories;
         this.listingLogic = new ListingLogic(repositories);
-        test();
-    }
-
-    private void test(){
-
-        System.out.println(database.listCollections());
         insertListingIntoDb();
     }
 
@@ -52,7 +44,7 @@ public class DatabaseMongo {
             nytt.put("city", item.getCity());
             nytt.put("address", item.getAddress());
             nytt.put("price", item.getPrice());
-            nytt.put("listingid", item.getID());
+            nytt.put("id", item.getID());
             nyLista.add(nytt);
         }
         frontpage.append("query", "newList");
@@ -76,6 +68,6 @@ public class DatabaseMongo {
                 "query", "newList")).first();
         System.out.println(doc.toJson());
 
-         return null;
+         return doc;
     }
 }
