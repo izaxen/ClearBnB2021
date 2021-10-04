@@ -44,14 +44,14 @@ public class RatingRoutes {
     }
 
     public void checkIfThereIsAnyRatingToFill(){
-        app.get("/rest/check-if-there-is-ratings-to-fill/", (req, res) ->{
+        app.get("/api/check-if-there-is-ratings-to-fill/", (req, res) ->{
             User currentUser = req.session("current-user");
             res.json(ratingLogic.checkIfThereIsAnyRatingToFill(currentUser));
         });
     }
 
     public void createANewRating(){
-        app.post("/rest/createNewRating", (req, res) -> {
+        app.post("/api/createNewRating", (req, res) -> {
             createNewRatingFromFrontendDTO dto = req.body(createNewRatingFromFrontendDTO.class);
             ratingLogic.createNewRating(dto);
         });

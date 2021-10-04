@@ -218,6 +218,12 @@ export const store = createStore({
       store.commit('setCurrentListingOldVersions', a)
       return a
     },
+
+    async getRatingsToFill() {
+      let res = await fetch("/api/check-if-there-is-ratings-to-fill/");
+      return await res.json();
+    },
+
   }
 })
 
