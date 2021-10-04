@@ -217,14 +217,17 @@ export default {
       await this.$store.dispatch("updateAmenity",{...this.changedAmenity, id:this.initialData.id});
       this.addImages();
     },
-    addImages() {
-      let fd = this.formData.getAll("files");
-      if (!!fd.entries().next().value) {
-        this.$store.dispatch("uploadFiles", this.formData);
-      }
+  addImages() {
+    this.files = document.querySelector('input[type=file]').files;
+  let formData = new FormData();
 
-       this.resetPage()
-    },
+    for(let file of this.files) {
+    formData.append('files', file, file.name);}
+
+    this.$store.dispatch("uploadFiles", this.formData);
+    
+    this.resetPage()
+  },
 
     LoadFormData(formData) {
       this.formData = formData;

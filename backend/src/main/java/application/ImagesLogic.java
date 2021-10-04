@@ -19,43 +19,33 @@ public class ImagesLogic {
         this.logicHandler = logicHandler;
         this.repositories = repositories;
     }
-    public void uploadImages(String id, List<UploadedFile> files){
-        Timestamp extraId = new Timestamp(System.currentTimeMillis());
 
-        System.out.println(files.isEmpty());
+    public void uploadImages(List<UploadedFile> files, Listing listing){
 
-        for (UploadedFile file : files) {
-            FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + id + "/" + extraId.getTime()+ file.getFilename());
+        if(files.isEmpty()){
+            listing.setImages(newList);
+            logicHandler.listingLogic.updateListingAndCreateANewMongoDBCollection(listing);
         }
 
-        saveUploadedImagesToDb(id);
-
-
+        Timestamp extraId = new Timestamp(System.currentTimeMillis());
+        for (UploadedFile file : files) {
+            FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + listing.getId().toString() + "/" + extraId.getTime()+ file.getFilename());
+        }
+        saveUploadedImagesToDb(listing);
     }
 
-    public void saveUploadedImagesToDb (String id){
+    public void saveUploadedImagesToDb (Listing listing){
 
         String[] fileNames;
-        File f = new File("backend/src/Static/uploads/" + id + "/");
+        File f = new File("backend/src/Static/uploads/" + listing.getId().toString() + "/");
         fileNames = f.list();
-        if (fileNames == null) {
-            fileNames = new String[1];
-            for (int i = 0; i < 1; i++) {
-                fileNames[i] = "https://borsen.dagbladet.no/images/72078860.jpg?imageId=72078860&x=0.28222013170273&y=0&cropw=93.508936970837&croph=100&width=952&height=572&compression=80";
-            }
-        } else {
-            for (int i = 0; i < fileNames.length; i++) {
-                fileNames[i] = "/uploads/" + id + "/" + fileNames[i];
-            }
-        }
 
-        int id1 = Integer.parseInt(id);
-        Listing listing = repositories.listingRepository.findById(id1).get();
-        //List<Image> newList = null;
+            for (int i = 0; i < fileNames.length; i++) {
+                fileNames[i] = "/uploads/" + listing.getId().toString() + "/" + fileNames[i];
+            }
+
         for (String file: fileNames){
             newList.add(new Image(file, listing));
-
-            //repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
         listing.setImages(newList);
         logicHandler.listingLogic.updateListingAndCreateANewMongoDBCollection(listing);

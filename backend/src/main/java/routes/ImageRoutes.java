@@ -23,10 +23,10 @@ public class ImageRoutes {
         this.app = app;
 
         app.post("/api/uploads/", (req, res) -> { //Uploading files
-            Listing listing = req.session("current-Listing");
+            Listing currentlisting = req.session("current-Listing");
             List<UploadedFile> files = req.formDataFiles("files");
 
-            imagesLogic.uploadImages(listing.getId().toString(), files);
+            imagesLogic.uploadImages(files, currentlisting);
 
 
             res.send("Imagesuploaded");
