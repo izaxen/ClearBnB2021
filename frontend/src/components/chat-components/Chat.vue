@@ -84,8 +84,12 @@ export default {
 
       this.socket.onmessage = (event) => {
         let temp = JSON.parse(event.data);
-        let sender = temp.senderID;
-        let firstName = this.addMsg(temp.senderID + ": " + temp.msg);
+        console.log(event.data);
+        if (temp.senderID == 0) {
+          this.addMsg(temp.message);
+        } else {
+          this.addMsg(temp.senderID + ": " + temp.message);
+        }
       };
 
       this.socket.onopen = (event) => {
@@ -123,13 +127,18 @@ export default {
     },
 
     sendMessage() {
-      let msg = this.input;
+      if (this.receiverID == 91) {
+        alert("You can't send message to yourself, fool!");
+        return;
+      }
+
+      let message = this.input;
 
       this.input = "";
       this.socket.send(
         JSON.stringify({
-          msg,
-          time_sent: Date.now() / 1000,
+          message,
+          // time_sent: Date.now() / 1000,
           senderID: this.$store.state.user.id,
           receiverID: this.receiverID,
         })

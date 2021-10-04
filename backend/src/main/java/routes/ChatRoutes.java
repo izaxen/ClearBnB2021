@@ -1,23 +1,20 @@
 package routes;
 
+import application.ChatMessageLogic;
 import application.Repositories;
-import chat.SocketMsg;
+import dtos.ChatMessageDTO;
 import entityDO.CurrentChat;
 import entityDO.User;
 import express.Express;
 import io.javalin.websocket.WsContext;
-import mapper.UserService;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatRoutes {
 
     Express app;
+    ChatMessageLogic chatMessageLogic;
     List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
     CurrentChat savedChatRoom;
@@ -39,6 +36,7 @@ public class ChatRoutes {
 
     public ChatRoutes(Express app, Repositories repositories) {
         this.repositories = repositories;
+        chatMessageLogic = new ChatMessageLogic(repositories);
         admin = repositories.getUserRep().findUserById(91);
 
         app.ws("/websockets/:id", ws -> {
@@ -78,16 +76,53 @@ public class ChatRoutes {
 
                 user = repositories.getUserRepository().findUserById(userID);
                 String userFirstName = user.getFirstName();
-                SocketMsg msg = new SocketMsg(userFirstName + " has joint the chat", userID);
+                ChatMessageDTO msg = new ChatMessageDTO(userFirstName + " has joint the chat", userID);
                 if (userID != 91) {
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
+                    // print out all history in DB is not admin
+                    List<ChatMessageDTO> cmDTOs = chatMessageLogic.getChatMessageDTOOfUser(userID, 91);
+                    if(cmDTOs.size()>0){
+                        ChatMessageDTO historyStart = new ChatMessageDTO("===Chat History Start===");
+                        ctx.send(historyStart);
+                        for ( ChatMessageDTO cmDTO: cmDTOs)
+                        {
+                            ctx.send(cmDTO);
+                        }
+                        ChatMessageDTO historyEnd = new ChatMessageDTO("===Chat History End===");
+                        ctx.send(historyEnd);
+                    }
                 } else {
                     clients.forEach(client -> client.send(msg));
+                    if(clients.size()>1){
+                        List<Integer> uids = new ArrayList<>();
+                        for (WsContext c: clients) {
+                            if(userNameMap.get(c)!=userID){
+                                uids.add(userNameMap.get(c));
+                            }
+                        }
+                        Set<Integer> set = new HashSet<>(uids);
+                        uids.clear();
+                        uids.addAll(set);
+                        ChatMessageDTO onlineUidStart = new ChatMessageDTO("===Online Users===");
+                        ctx.send(onlineUidStart);
+                        for ( Integer uid: uids) {
+                            ChatMessageDTO tempMess = new ChatMessageDTO(""+uid);
+                            ctx.send(tempMess);
+                        }
+                        ChatMessageDTO onlineUidEnd = new ChatMessageDTO("================");
+                        ctx.send(onlineUidEnd);
+                    }
                 }
             });
 
             ws.onMessage(ctx -> {
-                SocketMsg msg = ctx.message(SocketMsg.class);
+                ChatMessageDTO msg = ctx.message(ChatMessageDTO.class);
+
+                // if message is not from admin, set receiverID to admin
+                if(msg.getReceiverID() == 0) {
+                    msg.setReceiverID(91);
+                }
+
                 userID = userNameMap.get(ctx);
 
                 if (userID != 91) {
@@ -97,9 +132,9 @@ public class ChatRoutes {
                             roomID = rid;
                         }
                     }
-                    System.out.println(roomID);
-                    System.out.println(chatRoomMap);
-                    chatRoomMap.get(roomID);
+
+                    // set room id for this message
+                    chatMessageLogic.createNewMessage(msg, roomID);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                 } else {
                     int receiverID = msg.getReceiverID();
@@ -117,7 +152,7 @@ public class ChatRoutes {
                             roomID = rid;
                         }
                     }
-                    chatRoomMap.get(roomID);
+                    chatMessageLogic.createNewMessage(msg, roomID);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                 }
             });
@@ -125,7 +160,7 @@ public class ChatRoutes {
             ws.onClose(ctx -> {
                 userID = userNameMap.get(ctx);
                 String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
-                SocketMsg msg = new SocketMsg(userFirstName + " has left the chat", userID);
+                ChatMessageDTO msg = new ChatMessageDTO(userFirstName + " has left the chat", userID);
 
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
@@ -142,7 +177,7 @@ public class ChatRoutes {
                 System.out.println(chatRoomMap);
                 userID = userNameMap.get(ctx);
                 String userFirstName = repositories.getUserRepository().findUserById(userID).getFirstName();
-                SocketMsg msg = new SocketMsg(userFirstName + " has left the chat", userID);
+                ChatMessageDTO msg = new ChatMessageDTO(userFirstName + " has left the chat", userID);
 
                 if (userID != 91) {
                     savedChatRoom.setClosed(true);
