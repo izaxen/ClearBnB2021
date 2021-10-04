@@ -60,8 +60,8 @@ public class DatabaseMongo {
 
                     ": " + e.getMessage());
         }
-        getAllListingFromMDB();
     }
+
     public Document getAllListingFromMDB(){
 
         Document doc = (Document) collection.find(Filters.eq(
