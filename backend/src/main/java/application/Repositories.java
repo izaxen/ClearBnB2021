@@ -27,6 +27,16 @@ public class Repositories {
     ImageRepository imageRepository = new ImageRepository(new EntityManagerCopy().getEntityManager());
     BankRepository bankRepository = new BankRepository(new EntityManagerCopy().getEntityManager());
 
+    public BankRepository getBankRepository() {
+        return bankRepository;
+    }
+
+    public MongoDBRepository getMongoDBRepository() {
+        return mongoDBRepository;
+    }
+
+    MongoDBRepository mongoDBRepository = new MongoDBRepository(new EntityManagerCopy().getEntityManager());
+
     public AddressRevisionRepository getAddressRevisionRepository() {
         return addressRevisionRepository;
     }

@@ -1,14 +1,17 @@
 package application;
 
+import com.mongodb.client.MongoCollection;
 import dtos.*;
 import entityDO.Image;
 import entityDO.Listing;
 import entityDO.User;
 import mapper.ListingService;
+import org.bson.Document;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import entityDO.ListingRevision;
+import repositories.MongoDBRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +24,24 @@ public class ListingLogic {
     FilteredListingDTO filteredListingDTO;
     AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
+    MongoCollection collection;
     private ListingService ls;
     private List<SingeListingDTO> oldVersionListing;
 
-    public ListingLogic(Repositories repositories) {
-        this.listingRepository = repositories.listingRepository;
-        this.bookingRepository = repositories.bookingRepository;
-         this.listingRevisionRepository = repositories.listingRevisionRepository;
-        this.repositories = repositories;
-        this.ls= new ListingService();
-    }
 
     public ListingLogic() {
     }
+
+    public ListingLogic(Repositories repositories, MongoCollection collection) {
+        this.listingRepository = repositories.listingRepository;
+        this.bookingRepository = repositories.bookingRepository;
+        this.listingRevisionRepository = repositories.listingRevisionRepository;
+        this.repositories = repositories;
+        this.ls= new ListingService();
+        this.collection = collection;
+    }
+
+
 
     public Listing createNewListing(AddListingDTO dto, User user) {
         Listing newListing = ls.convertAddListingToListing(dto, user);
@@ -55,13 +63,9 @@ public class ListingLogic {
 
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
-            //System.out.println("allListing list<Listing>: " + allListings);
             for ( Listing l: allListings
             ) {
-              //  System.out.println("before convert: " + l);
-
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
-                //System.out.println("filteredListingDTO: " + filteredListingDTO);
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;
@@ -162,6 +166,11 @@ public class ListingLogic {
         }
         return oldVersionListing;
     }
+
+    public Document transferAllListingMongoDB(MongoCollection collection){
+        return repositories.mongoDBRepository.getAllListingFromMDB(collection);
+    }
+
 
 
 

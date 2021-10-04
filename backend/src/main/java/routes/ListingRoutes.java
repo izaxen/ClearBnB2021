@@ -1,7 +1,9 @@
 package routes;
 
 import application.ListingLogic;
+import application.LogicHandler;
 import application.Repositories;
+import com.mongodb.client.MongoCollection;
 import dtos.ListingFilterDTO;
 import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
@@ -10,7 +12,6 @@ import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
 import mapper.ListingService;
-import repositories.mongoDB.DatabaseMongo;
 
 import java.util.List;
 
@@ -21,14 +22,14 @@ public class ListingRoutes {
     private ListingLogic listingLogic;
     private ListingService ls;
     private Express app;
-    private DatabaseMongo dbMongo;
 
-    public ListingRoutes(Express app, Repositories repositories) {
+    public ListingRoutes(Express app, Repositories repositories, MongoCollection collection , LogicHandler logicHandler) {
 
-        listingLogic= new ListingLogic(repositories);
+
+        listingLogic= logicHandler.getListingLogic(repositories, collection);
         ls= new ListingService();
         this.app = app;
-        this.dbMongo = new DatabaseMongo(repositories);
+
 
         getAllListingsInSummaryFromUser();
 
@@ -43,7 +44,7 @@ public class ListingRoutes {
 
 
         app.get("/api/allListings", (req, res) -> {
-            res.json(dbMongo.getAllListingFromMDB());
+            res.json(listingLogic.transferAllListingMongoDB(collection));
         });
 
         app.put("/api/listing", (req, res) -> {

@@ -1,14 +1,16 @@
 package repositories;
 
 import application.Repositories;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import dtos.ListingFilterDTO;
 import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
 import jakarta.persistence.PersistenceException;
+import org.bson.Document;
 import org.hibernate.Session;
-import repositories.mongoDB.DatabaseMongo;
 
 import java.util.List;
 import java.util.Optional;
@@ -123,10 +125,9 @@ public class ListingRepository {
             ex.printStackTrace();
         }
         entityManager.clear();
-        mongoDB.insertListingIntoDb(rep);
+
         return listing;
     }
-
 
 
 

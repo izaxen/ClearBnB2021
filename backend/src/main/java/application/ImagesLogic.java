@@ -3,6 +3,7 @@ import entityDO.Image;
 import entityDO.Listing;
 import io.javalin.core.util.FileUtil;
 import io.javalin.http.UploadedFile;
+
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.List;
 
 public class ImagesLogic {
     Repositories repositories;
+    LogicHandler logicHandler;
     private List<Image> newList = new ArrayList<>();
 
-    public ImagesLogic(Repositories repositories) {
+    public ImagesLogic(Repositories repositories,LogicHandler logicHandler)
+    {
+        this.logicHandler = logicHandler;
         this.repositories = repositories;
     }
     public void uploadImages(String id, List<UploadedFile> files){
@@ -25,6 +29,8 @@ public class ImagesLogic {
         }
 
         saveUploadedImagesToDb(id);
+        logicHandler.cacheLogic.updateMongoDBFromSql();
+
     }
 
     public void saveUploadedImagesToDb (String id){
@@ -52,7 +58,9 @@ public class ImagesLogic {
             //repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
         listing.setImages(newList);
-
         repositories.listingRepository.updateListing(listing);
     }
+
+
+
 }
