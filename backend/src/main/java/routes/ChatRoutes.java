@@ -42,6 +42,8 @@ public class ChatRoutes {
         app.ws("/websockets/:id", ws -> {
             ws.onConnect(ctx -> {
                 userID = Integer.parseInt(ctx.pathParam("id"));
+                // Check if user is admin (91)
+                // If yes, add admin to all chatRooms
                 if (userID == 91) {
                     userNameMap.put(ctx, userID);
                     for (Integer rid : chatRoomMap.keySet()
