@@ -6,7 +6,7 @@
     <h1 @click="test">All listings component</h1>
     
     <div v-if="matchedListings && !listing" class="filteredListings">
-      <li v-for="listing in matchedListings.allListings" 
+      <li v-for="listing in matchedListings" 
       :key="listing.id" 
       :value="listing"
       @click="openDetail(listing.id)">
@@ -49,9 +49,10 @@ export default {
   },
 
   methods: {
-    updatelist(matchedListings) {
-      console.log('matched', matchedListings);
-      this.matchedListings = matchedListings;
+    updatelist(filteredListings) {
+      console.log('matched', filteredListings);
+      this.matchedListings = filteredListings;
+      console.log(this.matchedListings);
     },
     async openDetail(id){
       console.log(id);
@@ -63,8 +64,9 @@ export default {
 
     async getAllListingsDTO() {
       let res = await fetch("/api/allListings");
-      this.matchedListings = await res.json();
-      console.log('this.matchedListing', this.matchedListings.allListings);
+      let allList = await res.json();
+    this.matchedListings = allList.allListings
+      console.log('this.matchedListing', this.matchedListings);
       
     },
   },
