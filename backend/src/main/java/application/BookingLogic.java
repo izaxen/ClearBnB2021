@@ -35,8 +35,8 @@ public class BookingLogic {
         }
 
         Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate(),dto.getTotalPrice());
-        repositories.booking().addBooking(booking);
         paymentProcess(user, totalPrice, owner);
+        repositories.booking().addBooking(booking);
 
         return "Successfully booked!";
     }
@@ -59,7 +59,7 @@ public class BookingLogic {
         if(user.getId() != owner.getId()) {
             System.out.println(owner.getBankAccount().getFunds());
             System.out.println("totalPrice: " + totalPrice);
-            User admin = repositories.userRepository.findUserById(5);
+            User admin = repositories.userRepository.findUserById(91);
             System.out.println("admin: " + admin.getBankAccount().getFunds());
             System.out.println("User before: " + user.getBankAccount().getFunds());
             user.getBankAccount().setFunds(user.getBankAccount().getFunds() - totalPrice);

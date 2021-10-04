@@ -51,6 +51,12 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankAccount bankAccount;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<ChatMessage> sentMessage = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<ChatMessage> receivedMessage = new ArrayList<>();
+
     public User() {
     }
 
@@ -171,6 +177,22 @@ public class User {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public List<ChatMessage> getSentMessage() {
+        return sentMessage;
+    }
+
+    public void setSentMessage(List<ChatMessage> sentMessage) {
+        this.sentMessage = sentMessage;
+    }
+
+    public List<ChatMessage> getReceivedMessage() {
+        return receivedMessage;
+    }
+
+    public void setReceivedMessage(List<ChatMessage> receivedMessage) {
+        this.receivedMessage = receivedMessage;
     }
 
     @Override

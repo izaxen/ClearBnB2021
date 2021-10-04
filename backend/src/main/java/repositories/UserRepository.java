@@ -134,6 +134,7 @@ public class UserRepository {
         entityManager.getTransaction().commit();
     }
 
+
 //    public User updateUserFirstName(String firstName, String lastName){
 //        return entityManager.createNamedQuery("User.updateUser2", User.class)
 //                .setParameter("firstName", firstName)

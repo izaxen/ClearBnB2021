@@ -30,4 +30,16 @@ public class CurrentChatRepository {
         return Optional.empty();
     }
 
+    public Optional<CurrentChat> updateCurrentChat(CurrentChat currentChat){
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(currentChat);
+            entityManager.getTransaction().commit();
+            return Optional.of(currentChat);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
 }

@@ -107,8 +107,6 @@ export default {
         sauna: this.isSauna,
       };
 
-      console.log(newFilter);
-
       // if ((this.price = 99999)) {
       //   this.price = null;
       // }

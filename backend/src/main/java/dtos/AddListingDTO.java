@@ -33,13 +33,6 @@ public class AddListingDTO {
 
     }
 
-//    public AddListingDTO(Listing listing, String forBooking){
-//        this.price = listing.getPrice();
-//        this.description = listing.getDescription();
-//        this.listingID = listing.getId();
-////        System.out.println("we are in constructor B");
-//    }
-
     public AddListingDTO(Integer price, String description, String availableStartDate, String availableEndDate) {
         this.price = price;
         this.description = description;
