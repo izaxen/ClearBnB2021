@@ -10,8 +10,7 @@ public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-
-
+    
     private int funds = 10000;
 
     @Column(name="bank_address")

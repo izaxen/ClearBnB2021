@@ -1,6 +1,11 @@
 package entityDO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Booking {
@@ -21,9 +26,14 @@ public class Booking {
     @JoinColumn(name="owner_ID")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="listing_ID")
     private Listing listing;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<Rating> rating = new ArrayList<>();
 
     public Booking(){}
 
@@ -81,6 +91,14 @@ public class Booking {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public List<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(List<Rating> rating) {
+        this.rating = rating;
     }
 
     @Override

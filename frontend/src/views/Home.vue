@@ -28,7 +28,13 @@ export default {
     CreateBooking,
     Chat,
   },
-};
+  computed:{
+    user() {
+      return this.$store.state.user;
+    },
+    }
+  };
+  
 </script>
 
 <style scoped>

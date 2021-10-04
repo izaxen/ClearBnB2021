@@ -3,12 +3,15 @@ package routes;
 import application.ListingLogic;
 import application.Repositories;
 import dtos.ListingFilterDTO;
+import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
 import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
 import mapper.ListingService;
+
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -35,7 +38,7 @@ public class ListingRoutes {
                             currentUser
                     );
             req.session("current-Listing", createdListing);
-            res.json(createdListing.getId());
+            //res.json(createdListing.getId());
         });
 
 
@@ -60,6 +63,19 @@ public class ListingRoutes {
             res.json(listingLogic.getFilteredListings(
                     (req.body(ListingFilterDTO.class))));
         });
+
+        app.get("/rest/getSingleListing/:id",(req, res) ->{
+            int id = parseInt(req.params("id"));
+            SingeListingDTO dto = listingLogic.getSingleListing(id);
+            res.json(dto);
+        });
+
+        app.get("/rest/getSingleListingVersion/:id",(req, res) ->{
+            int id = parseInt(req.params("id"));
+            List<SingeListingDTO> dto = listingLogic.getoldVersion(id);
+            res.json(dto);
+        });
+
 
     }
     private void getAllListingsInSummaryFromUser() {

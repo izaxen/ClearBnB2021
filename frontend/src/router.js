@@ -32,7 +32,11 @@ export default createRouter({
       component: ProfilePage,
       name: ProfilePage,
     },
-
+    {
+      path: '/profile_page/:id',
+      component: ProfilePage,
+      name: ProfilePage,
+    },
 
 
   ]

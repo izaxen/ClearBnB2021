@@ -1,5 +1,6 @@
 package repositories;
 
+import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
@@ -31,6 +32,20 @@ public class RatingRepository {
         return Optional.empty();
     }
 
+    public List<Rating> getRatingsLinkedToBooking(Booking booking){
+        List<Rating> getRatingsToFill;
+
+        try {
+            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking", Rating.class)
+                    .setParameter("booking", booking)
+                    .getResultList();
+            return getRatingsToFill;
+        }catch (PersistenceException e){
+            System.out.println("ERROR IN getRatingsToFill (repository) ----------------: \n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public List<Rating> getRatingOfUser(User user){
 
@@ -56,6 +71,19 @@ public class RatingRepository {
             return 0;
         }
 
+    }
+
+    public boolean deleteRating(int id){
+        try{
+            Rating rating = entityManager.find(Rating.class, id);
+            entityManager.getTransaction().begin();
+            entityManager.remove(rating);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            System.out.println("Error in deleteRating Repository");
+        }
+        return false;
     }
 
 }

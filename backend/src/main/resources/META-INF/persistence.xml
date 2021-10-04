@@ -6,8 +6,19 @@
         <!-- Persistence provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Entity classes -->
-        <class>entityDO.User</class>
+        <class>entityDO.Address</class>
+        <class>entityDO.AddressRevision</class>
+        <class>entityDO.Amenities</class>
+        <class>entityDO.AddressRevision</class>
+        <class>entityDO.BankAccount</class>
+        <class>entityDO.Booking</class>
+        <class>entityDO.ChatMessage</class>
+        <class>entityDO.CurrentChat</class>
+        <class>entityDO.Image</class>
         <class>entityDO.Listing</class>
+        <class>entityDO.ListingRevision</class>
+        <class>entityDO.Rating</class>
+        <class>entityDO.User</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
@@ -17,7 +28,7 @@
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
             <property name="hibernate.show_sql" value="false" />
-            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
 
         </properties>
     </persistence-unit>

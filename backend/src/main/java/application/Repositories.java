@@ -13,19 +13,19 @@ public class Repositories {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ClearBnB2021");
     jakarta.persistence.EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    ListingRepository listingRepository = new ListingRepository(entityManager);
+    ListingRepository listingRepository = new ListingRepository(new EntityManagerCopy().getEntityManager());
     UserRepository userRepository = new UserRepository(new EntityManagerCopy().getEntityManager());
-    AmenitiesRepository amenitiesRepository = new AmenitiesRepository(entityManager);
-    CurrentChatRepository currentChatRepository = new CurrentChatRepository(entityManager);
-    ChatMessageRepository chatMessageRepository = new ChatMessageRepository(entityManager);
+    AmenitiesRepository amenitiesRepository = new AmenitiesRepository(new EntityManagerCopy().getEntityManager());
+    CurrentChatRepository currentChatRepository = new CurrentChatRepository(new EntityManagerCopy().getEntityManager());
+    ChatMessageRepository chatMessageRepository = new ChatMessageRepository(new EntityManagerCopy().getEntityManager());
     RatingRepository ratingRepository = new RatingRepository(new EntityManagerCopy().getEntityManager());
-    AddressRepository addressRepository = new AddressRepository(entityManager);
-    BookingRepository bookingRepository = new BookingRepository(entityManager);
-    AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(entityManager);
-    ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManager);
-    AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManager);
-    ImageRepository imageRepository = new ImageRepository(entityManager);
-    BankRepository bankRepository = new BankRepository(entityManager);
+    AddressRepository addressRepository = new AddressRepository(new EntityManagerCopy().getEntityManager());
+    BookingRepository bookingRepository = new BookingRepository(new EntityManagerCopy().getEntityManager());
+    AmenitiesRevisionRepository amenitiesRevisionRepository = new AmenitiesRevisionRepository(new EntityManagerCopy().getEntityManager());
+    ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(new EntityManagerCopy().getEntityManager());
+    AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(new EntityManagerCopy().getEntityManager());
+    ImageRepository imageRepository = new ImageRepository(new EntityManagerCopy().getEntityManager());
+    BankRepository bankRepository = new BankRepository(new EntityManagerCopy().getEntityManager());
 
     public AddressRevisionRepository getAddressRevisionRepository() {
         return addressRevisionRepository;

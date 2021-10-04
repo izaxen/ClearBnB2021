@@ -1,10 +1,6 @@
 package dtos;
 
 import entityDO.Listing;
-import entityDO.User;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 public class AddListingDTO {
     private int price;
@@ -28,7 +24,7 @@ public class AddListingDTO {
         this.description = listing.getDescription();
         this.availableStartDate = listing.getAvailableStartDate();
         this.availableEndDate = listing.getAvailableEndDate();
-        this.userID = listing.getUser().getID();
+        this.userID = listing.getUser().getId();
         this.userEmail = listing.getUser().getEmail();
         this.firstName = listing.getUser().getFirstName();
         this.city = listing.getAddress().getCity();

@@ -5,41 +5,81 @@
     </div>
 
     <div class="search-user-container">
-      <h3>Go to user (user id)</h3>
-      <input v-model="userToShow" placeholder="Search user (user ID)" />
-      <button @click="goTo">Show</button>
+      <div class="go-to-rating"><h3 @click="goToRating">Give rating</h3></div>
+      <div>
+        <h3>Go to user (user id)</h3>
+        <input v-model="userToShow" placeholder="Search user (user ID)" />
+        <button @click="goToUser">Show</button>
+      </div>
     </div>
 
-    <ShowRating />
-    <ListingsOfAUser />
+    <ShowRating v-bind:ratings="ratings" v-bind:avgRating="avgRating" />
+    <ListingsOfAUser v-bind:listingsInSummary="listingsInSummary" />
+    <GiveRating />
   </div>
 </template>
 
 <script>
 import ListingsOfAUser from "../components/listing-components/ListingsOfAUser.vue";
-import ShowRating from "../components/user-components/ShowRating.vue";
+import ShowRating from "../components/user-components/rating-components/ShowRating.vue";
 import router from "../router.js";
+import GiveRating from "../components/user-components/rating-components/GiveRating.vue";
 
 export default {
   data() {
     return {
-      userToShow: this.$route.query.user,
+      userToShow: this.$route.params.id,
+      ratings: [],
+      rating: null,
+      avgRating: null,
+      listingsInSummary: [],
+      loggedInFullName:
+        this.$store.state.user.firstName + " " + this.$store.state.user.surName,
     };
   },
 
   beforeMount() {
-    this.$forceUpdate();
-    this.userToShow = this.$route.query.user;
+    this.getAvgRating()
+      .then(() => {
+        this.getAllRatings();
+      })
+      .then(() => {
+        this.getListingsInSummary();
+      });
   },
 
   components: {
     ShowRating,
     ListingsOfAUser,
+    GiveRating,
   },
 
   methods: {
-    goTo() {
-      router.push(`/profile_page?user=${this.userToShow}`);
+    goToUser() {
+      router.push(`/profile_page/${this.userToShow}`);
+    },
+
+    async getAllRatings() {
+      this.ratings = await this.$store.dispatch(
+        "getAllRatings",
+        this.$route.params.id
+      );
+    },
+    async getAvgRating() {
+      this.avgRating = await this.$store.dispatch(
+        "getAvgRating",
+        this.$route.params.id
+      );
+    },
+    async deleteRating(ratingID) {
+      await this.$store.dispatch("deleteRating", ratingID);
+    },
+
+    async getListingsInSummary() {
+      this.listingsInSummary = await this.$store.dispatch(
+        "getListingsInSummary",
+        this.$route.params.id
+      );
     },
   },
 };
@@ -71,6 +111,7 @@ export default {
   background-color: chocolate;
   border-radius: 0px 10px 10px 0px;
   margin-right: 10px;
+  justify-content: space-around;
 }
 
 .rating input {
@@ -80,5 +121,9 @@ export default {
 
 button {
   margin-right: 10px;
+}
+
+h3 {
+  margin-left: 10px;
 }
 </style>

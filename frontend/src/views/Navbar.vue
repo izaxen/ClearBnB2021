@@ -14,8 +14,7 @@
         <router-link to="/reg-list">Lägg till ny bostad</router-link>
         <router-link
           :to="{
-            path: 'profile_page',
-            query: { user: this.$store.state.user.id },
+            path: `/profile_page/${this.$store.state.user.id}`,
           }"
           >My pages</router-link
         >

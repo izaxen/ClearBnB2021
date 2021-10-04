@@ -29,7 +29,9 @@ public class ListingRevision {
     @JoinColumn(name="listing_ID")
     private Listing listing;
 
-    @OneToOne(mappedBy = "listingRevision")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "listingRevi", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private AddressRevision addressRevision;
 
     // HERE........
@@ -138,10 +140,6 @@ public class ListingRevision {
                 ", description='" + description + '\'' +
                 ", availableStartDate='" + availableStartDate + '\'' +
                 ", availableEndDate='" + availableEndDate + '\'' +
-                ", listing=" + listing +
-//                ", addressRevision=" + addressRevision +
-//                ", bookings=" + bookings +
-//                ", user=" + user +
                 '}';
     }
 }

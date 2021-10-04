@@ -1,8 +1,10 @@
 package application;
 
+import entityDO.Rating;
 import express.Express;
 import routes.Routes;
 
+import java.util.List;
 import java.nio.file.Paths;
 
 public class Application {

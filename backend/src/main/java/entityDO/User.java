@@ -21,7 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private int ID;
+    private int id;
     @Column (name = "first_name")
     private String firstName;
     @Column (name = "sur_name")
@@ -86,12 +86,12 @@ public class User {
         this.pw = pw;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -198,16 +198,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "ID=" + ID +
+                "ID=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", pw='" + pw + '\'' +
-                ", dateCreated=" + dateCreated +
-                ", listings=" + listings +
-                ", bookings=" + bookings +
-                ", reviews=" + reviews +
-                ", rating=" + rating +
                 '}';
     }
 }

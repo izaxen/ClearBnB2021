@@ -10,6 +10,8 @@ export const store = createStore({
       failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
+      currentListingOldVersion: null,
+      listing: null,
       // allListingsDTO: [],
 
     }
@@ -24,13 +26,23 @@ export const store = createStore({
     setFailedLogin(state, value) {
       state.failedLogIn = value
     },
-    setCurrentListing(state, listing) {
-      state.currentListing = listing
-    },
+
 
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
     },
+
+    setCurrentListing(state, listing) {
+      state.currentListing = listing
+    },
+
+    setCurrentListingOldVersions(state, listing) {
+      state.currentListingOldVersion = listing
+    },
+    setListing(state, listing) {
+      state.listing = listing
+    },
+
 
     // setAllListingsDTO(state, allListingsDTO) {
     //   state.allListingsDTO = allListingsDTO;
@@ -87,8 +99,8 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      let currentListingId = await res.json();
-      store.commit('setCurrentListing', currentListingId); // an id
+      //let currentListingId = await res.json();
+      //store.commit('setCurrentListing', currentListingId); // an id
     },
 
     async updateListing(store, listing) {
@@ -157,11 +169,35 @@ export const store = createStore({
       })
     },
 
-    async getFileUrl(store, id) {
-      let loadPath = '/api/uploads/' + id
-      let res = await fetch(loadPath)
-      let fileList = await res.json()
-      store.commit('getImageList', fileList)
+    async getSingleListing(store, id) {
+      let res = await fetch('/rest/getSingleListing/' + id)
+      let a = await res.json()
+      store.commit('setListing', a);
+      console.log(a);
+      return a
+    },
+
+    async getAllRatings(store, userID) {
+      let res = await fetch(`/rest/rating/` + userID);
+      return await res.json();
+    },
+
+    async getAvgRating(store, userID) {
+      let res = await fetch(`/rest/avg-rating/` + userID);
+      let x = (await res.json()) + "";
+      return x.substring(0, 3);
+    },
+
+    async deleteRating(store, ratingID) {
+      let res = await fetch(`/api/delete-rating`, {
+        method: "DELETE",
+        body: JSON.stringify({ id: ratingID }),
+      });
+    },
+
+    async getListingsInSummary(store, userID) {
+      let res = await fetch(`/rest/${userID}/listings`);
+      return await res.json();
     },
 
 
@@ -175,6 +211,13 @@ export const store = createStore({
     //   console.log("res ");
     //   store.commit('setAllListingsDTO', getAllListingsDTO)
     // },
+    async getSingleListingVersion(store, id) {
+      console.log("Startar get singöle");
+      let res = await fetch('/rest/getSingleListingVersion/' + id)
+      let a = await res.json()
+      store.commit('setCurrentListingOldVersions', a)
+      return a
+    },
   }
 })
 

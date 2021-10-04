@@ -1,8 +1,10 @@
 package repositories;
 
+import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Image;
 
+import java.util.List;
 import java.util.Optional;
 
 public class   ImageRepository {
@@ -11,6 +13,12 @@ public class   ImageRepository {
 
     public ImageRepository(EntityManager entityManager){
         this.entityManager = entityManager;
+    }
+
+    public List<Image> findAllImages(int listID){
+        return entityManager.createQuery("Select im FROM Image im ", Image.class)
+                //.setParameter("listID", listID)
+                .getResultList();
     }
 
     public Optional<Image> addImage(Image image){
