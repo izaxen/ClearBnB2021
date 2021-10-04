@@ -1,5 +1,5 @@
 <template>
-  <div class="give-rating-item" :v-if="bookingToShow">
+  <div class="give-rating-item" v-if="this.$props.booking">
     Give a rating to
     {{
       this.$store.state.user.id === this.$props.booking.reviewer
@@ -11,7 +11,7 @@
         ? "as your guest"
         : "as your host"
     }}
-    <form action="" name="{{this.$props.booking.id}}" @submit.prevent>
+    <form action="" name="{{this.$props.booking.id}}" >
       <div class="radio">
         <input type="radio" id="1" name="rating" value="1" v-model="rating" />
         <label for="1">1</label>
@@ -49,9 +49,8 @@ export default {
 
   Data() {
     return {
-      show: false,
+      
       ratingsToFill: [],
-      bookingToShow: this.$props.booking,
       recipient:
         this.$store.state.user.id === this.$props.booking.guest
           ? this.$props.booking.landlordID
@@ -81,7 +80,8 @@ export default {
         body: JSON.stringify(rating1),
       });
 
-      this.bookingToShow = [];
+ 
+      
     },
   },
 };
@@ -97,5 +97,9 @@ export default {
   border-radius: 15px;
   margin-bottom: 5px;
   padding: 10px;
+}
+
+.active{
+  display: none;
 }
 </style>

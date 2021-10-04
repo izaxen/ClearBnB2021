@@ -34,8 +34,7 @@ export default {
       avgRating: null,
       listingsInSummary: [],
       ratingsToFill: [],
-      loggedInFullName:
-        this.$store.state.user.firstName + " " + this.$store.state.user.surName,
+      
     };
   },
 
