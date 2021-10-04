@@ -76,9 +76,8 @@ public class ListingRoutes {
             List<SingeListingDTO> dto = listingLogic.getoldVersion(id);
             res.json(dto);
         });
-
-
     }
+
     private void getAllListingsInSummaryFromUser() {
         app.get("/rest/:userID/listings", (req, res) -> {
             int userID = parseInt(req.params("userID"));

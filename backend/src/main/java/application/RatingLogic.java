@@ -5,7 +5,6 @@ import entityDO.Booking;
 import entityDO.Rating;
 import entityDO.User;
 import mapper.RatingMapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class RatingLogic {
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
         });
-        System.out.println(bookingsThatUserCanAddARatingToDTO.toString());
+
         return bookingsThatUserCanAddARatingToDTO;
     }
 
@@ -112,12 +111,6 @@ public class RatingLogic {
 
         repositories.bookingRepository.updateBooking(booking);
 
-        /*repositories.ratingRepository.addRating(new Rating(
-                saveRatingToDataBaseDTO.getReviewer(),
-                saveRatingToDataBaseDTO.getRecipient(),
-                saveRatingToDataBaseDTO.getRating(),
-                saveRatingToDataBaseDTO.getReview(),
-                saveRatingToDataBaseDTO.getBooking()));*/
     }
 
     public boolean deleteRating(int id){        ;

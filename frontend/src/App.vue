@@ -6,7 +6,7 @@
     <header>
       <Navbar />
     </header>
-    <main>
+    <main v-if="hasLoaded">
       <router-view :key="$route.fullPath" />
     </main>
   </div>
@@ -20,8 +20,16 @@ export default {
   components: {
     Navbar,
   },
+
+  data(){
+    return{
+      hasLoaded: false,
+    }
+  },
+
   async created() {
-    this.$store.dispatch("whoAmI");
+    await this.$store.dispatch("whoAmI");
+    this.hasLoaded = true;
   },
 };
 </script>

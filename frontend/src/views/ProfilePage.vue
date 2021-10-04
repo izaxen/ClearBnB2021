@@ -15,7 +15,7 @@
 
     <ShowRating v-bind:ratings="ratings" v-bind:avgRating="avgRating" />
     <ListingsOfAUser v-bind:listingsInSummary="listingsInSummary" />
-    <GiveRating />
+    <GiveRating v-bind:ratingsToFill="ratingsToFill" />
   </div>
 </template>
 
@@ -33,18 +33,22 @@ export default {
       rating: null,
       avgRating: null,
       listingsInSummary: [],
-      loggedInFullName:
-        this.$store.state.user.firstName + " " + this.$store.state.user.surName,
+      ratingsToFill: [],
+      
     };
   },
 
   beforeMount() {
+    //All .then methods are a desperate fix to get Hibernate to work more reliable... //Mac
     this.getAvgRating()
       .then(() => {
         this.getAllRatings();
       })
       .then(() => {
         this.getListingsInSummary();
+      })
+      .then(() => {
+        this.getRatingsToFill();
       });
   },
 
@@ -80,6 +84,9 @@ export default {
         "getListingsInSummary",
         this.$route.params.id
       );
+    },
+    async getRatingsToFill() {
+      this.ratingsToFill = await this.$store.dispatch("getRatingsToFill");
     },
   },
 };

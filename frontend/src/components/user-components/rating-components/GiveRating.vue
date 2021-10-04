@@ -1,5 +1,5 @@
 <template>
-  <div class="give-rating-container" v-if="ratingsToFill">
+  <div class="give-rating-container" :v-if="ratingsToFill">
     <h1>Give rating:</h1>
     <GiveRatingItem
       v-for="booking in ratingsToFill"
@@ -13,28 +13,17 @@
 import GiveRatingItem from "./GiveRatingItem.vue";
 
 export default {
+  props: ["ratingsToFill"],
+
   data() {
-    return {
-      ratingsToFill: [],
-      user: this.$store.state.user,
-    };
+    return {};
   },
 
   components: {
     GiveRatingItem,
   },
 
-  beforeMount() {
-    this.getRatingsToFill();
-  },
-
-  methods: {
-    async getRatingsToFill() {
-      let res = await fetch("/rest/check-if-there-is-ratings-to-fill/");
-      this.ratingsToFill = await res.json();
-      console.log(this.ratingsToFill);
-    },
-  },
+  methods: {},
 };
 </script>
 
