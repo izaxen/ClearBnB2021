@@ -1,6 +1,6 @@
 <template>
 <div v-if="initialData">
-<h1> Listing</h1>
+<h1> Detailed Listing</h1>
 
   <p>Price: {{initialData.price}}</p>
   <p>Description: {{initialData.description}}</p>

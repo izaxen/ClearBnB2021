@@ -1,6 +1,6 @@
  <template>
   <div class="navi">
-    <router-link to="/">Home</router-link>
+    <router-link @click.native ="reset" to="/">Home</router-link>
 
     <div v-if="!user" class="reg-login">
       <div class="createU">
@@ -51,6 +51,9 @@ export default {
       this.$store.dispatch("logOff");
       router.push("/");
     },
+    reset(){
+      this.$store.commit('setListing', null);
+    }
   },
 };
 </script>
