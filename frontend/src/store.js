@@ -104,6 +104,7 @@ export const store = createStore({
     },
 
     async updateListing(store, listing) {
+      console.log('updatelisting', listing);
       await fetch('/api/listing', {
         method: 'PUT',
         body: JSON.stringify(listing)
@@ -118,6 +119,7 @@ export const store = createStore({
     },
 
     async updateAddress(store, address) {
+      console.log('Update adress',address );
       await fetch('/api/address', {
         method: 'PUT',
         body: JSON.stringify(address)
@@ -131,6 +133,7 @@ export const store = createStore({
       })
     },
     async updateAmenity(store, amenity) {
+      console.log("Update Amenti", amenity)
       await fetch('/api/amenity', {
         method: 'PUT',
         body: JSON.stringify(amenity)

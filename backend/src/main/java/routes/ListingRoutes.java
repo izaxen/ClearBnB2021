@@ -2,7 +2,6 @@ package routes;
 
 import application.ListingLogic;
 import application.Repositories;
-import com.mongodb.client.model.Filters;
 import dtos.ListingFilterDTO;
 import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
@@ -11,8 +10,7 @@ import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
 import mapper.ListingService;
-import org.bson.Document;
-import utils.DatabaseMongo;
+import repositories.mongoDB.DatabaseMongo;
 
 import java.util.List;
 
@@ -30,19 +28,17 @@ public class ListingRoutes {
         listingLogic= new ListingLogic(repositories);
         ls= new ListingService();
         this.app = app;
-        dbMongo = new DatabaseMongo(repositories);
-
+        this.dbMongo = new DatabaseMongo(repositories);
 
         getAllListingsInSummaryFromUser();
 
         app.post("/api/listing", (req, res) -> {
-            currentUser = req.session("current-user");
+            User currentUser = req.session("current-user");
             Listing createdListing = listingLogic.createNewListing(
                             req.body(AddListingDTO.class),
                             currentUser
                     );
             req.session("current-Listing", createdListing);
-            //res.json(createdListing.getId());
         });
 
 
@@ -51,7 +47,7 @@ public class ListingRoutes {
         });
 
         app.put("/api/listing", (req, res) -> {
-            currentUser = req.session("current-user");
+            User currentUser = req.session("current-user");
             Listing updatedListing = listingLogic.updateListing(
                     ls.convertupdateListingToListing(
                             req.body(UpdateListingDTO.class),
@@ -87,9 +83,5 @@ public class ListingRoutes {
             int userID = parseInt(req.params("userID"));
             res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
         });
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
     }
 }

@@ -1,4 +1,4 @@
-package utils;
+package repositories.mongoDB;
 
 import application.ListingLogic;
 import application.Repositories;
@@ -8,9 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import dtos.FilteredListingDTO;
 import org.bson.Document;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 
@@ -21,20 +19,18 @@ public class DatabaseMongo {
     public MongoCollection collection = database.getCollection("cache");
 
     ListingLogic listingLogic;
-    Repositories repositories;
 
     public DatabaseMongo(Repositories repositories){
-        this.repositories = repositories;
         this.listingLogic = new ListingLogic(repositories);
         insertListingIntoDb();
     }
 
-    private void insertListingIntoDb(){
+
+    public void insertListingIntoDb(){
         collection.deleteOne(Filters.eq("query", "newList"));
         Document frontpage = new Document();
         List<FilteredListingDTO> dto1 = listingLogic.getAllListingsDTO();
-        System.out.println(dto1.toString());
-            ArrayList<Document> nyLista = new ArrayList<>();
+        ArrayList<Document> nyLista = new ArrayList<>();
 
 
         for (FilteredListingDTO item:dto1
@@ -63,11 +59,8 @@ public class DatabaseMongo {
     }
 
     public Document getAllListingFromMDB(){
-
         Document doc = (Document) collection.find(Filters.eq(
                 "query", "newList")).first();
-        System.out.println(doc.toJson());
-
          return doc;
     }
 }

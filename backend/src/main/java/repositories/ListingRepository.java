@@ -1,5 +1,6 @@
 package repositories;
 
+import application.Repositories;
 import dtos.ListingFilterDTO;
 import entityDO.Booking;
 import entityDO.User;
@@ -7,6 +8,8 @@ import jakarta.persistence.EntityManager;
 import entityDO.Listing;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
+import repositories.mongoDB.DatabaseMongo;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +26,7 @@ public class ListingRepository {
     }
 
     public List<Listing> findAllListings(){
-
-
         return entityManager.createQuery("FROM Listing l", Listing.class)
-
                 .getResultList();
     }
 
@@ -123,6 +123,7 @@ public class ListingRepository {
             ex.printStackTrace();
         }
         entityManager.clear();
+        mongoDB.insertListingIntoDb(rep);
         return listing;
     }
 

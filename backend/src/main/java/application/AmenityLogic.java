@@ -17,7 +17,6 @@ public class AmenityLogic {
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AmenityService as;
-    Repositories repositories;
 
     public AmenityLogic(Repositories repos) {
 
@@ -26,7 +25,6 @@ public class AmenityLogic {
         this.listingRevisionRepository = repos.listingRevisionRepository;
         this.lR = repos.listingRepository;
         this.as = new AmenityService();
-        repositories = new Repositories();
     }
 
     public AmenityLogic() {

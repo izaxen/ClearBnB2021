@@ -15,7 +15,6 @@ public class AddressLogic {
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AddressService as;
-    Repositories repositories;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
@@ -23,7 +22,6 @@ public class AddressLogic {
         this.listingRevisionRepository = repo.listingRevisionRepository;
         this.lR= repo.listingRepository;
         this.as = new AddressService();
-        this.repositories = new Repositories();
     }
 
     public AddressLogic() {

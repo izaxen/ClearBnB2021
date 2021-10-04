@@ -18,6 +18,8 @@ public class ImagesLogic {
     public void uploadImages(String id, List<UploadedFile> files){
         Timestamp extraId = new Timestamp(System.currentTimeMillis());
 
+        System.out.println(files.isEmpty());
+
         for (UploadedFile file : files) {
             FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + id + "/" + extraId.getTime()+ file.getFilename());
         }
@@ -50,6 +52,7 @@ public class ImagesLogic {
             //repositories.imageRepository.addImage(new Image(file,repositories.listingRepository.findById(i).get()));
                     }
         listing.setImages(newList);
+
         repositories.listingRepository.updateListing(listing);
     }
 }
