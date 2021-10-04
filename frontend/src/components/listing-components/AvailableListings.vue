@@ -6,7 +6,7 @@
     <h1 @click="test">All listings component</h1>
     
     <div v-if="matchedListings && !listing" class="filteredListings">
-      <li v-for="listing in matchedListings" 
+      <li v-for="listing in matchedListings.allListings" 
       :key="listing.id" 
       :value="listing"
       @click="openDetail(listing.id)">
@@ -64,6 +64,7 @@ export default {
     async getAllListingsDTO() {
       let res = await fetch("/api/allListings");
       this.matchedListings = await res.json();
+      console.log('this.matchedListing', this.matchedListings.allListings);
       
     },
   },

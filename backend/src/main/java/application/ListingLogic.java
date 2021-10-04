@@ -53,8 +53,6 @@ public class ListingLogic {
 
     public List<FilteredListingDTO> getAllListingsDTO(){
 
-
-
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
             //System.out.println("allListing list<Listing>: " + allListings);
@@ -164,5 +162,7 @@ public class ListingLogic {
         }
         return oldVersionListing;
     }
+
+
 
 }
