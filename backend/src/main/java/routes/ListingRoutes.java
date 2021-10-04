@@ -20,6 +20,7 @@ public class ListingRoutes {
     private ListingLogic listingLogic;
     private ListingService ls;
     private Express app;
+    private User currentUser;
 
     public ListingRoutes(Express app, Repositories repositories) {
 
@@ -27,10 +28,11 @@ public class ListingRoutes {
         ls= new ListingService();
         this.app = app;
 
+
         getAllListingsInSummaryFromUser();
 
         app.post("/api/listing", (req, res) -> {
-            User currentUser = req.session("current-user");
+            currentUser = req.session("current-user");
             Listing createdListing = listingLogic.createNewListing(
                             req.body(AddListingDTO.class),
                             currentUser
@@ -45,7 +47,7 @@ public class ListingRoutes {
         });
 
         app.put("/api/listing", (req, res) -> {
-            User currentUser = req.session("current-user");
+            currentUser = req.session("current-user");
             Listing updatedListing = listingLogic.updateListing(
                     ls.convertupdateListingToListing(
                             req.body(UpdateListingDTO.class),
@@ -80,5 +82,9 @@ public class ListingRoutes {
             int userID = parseInt(req.params("userID"));
             res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
         });
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }

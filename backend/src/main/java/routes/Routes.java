@@ -17,5 +17,6 @@ public class Routes {
         new RatingRoutes(app, repositories);
         new ImageRoutes(app, repositories);
         new BankRoutes(app, repositories);
+        new ChatRoutes(app, repositories);
     }
 }

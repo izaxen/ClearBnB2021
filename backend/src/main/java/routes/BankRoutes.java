@@ -25,10 +25,8 @@ public class BankRoutes {
 
         app.post("api/bank",(req, res) -> {
             User currentUser = req.session("current-user");
-            System.out.println(currentUser);
             BankAccount userBank = (bankLogic.createNewBank(req.body(AddBankDTO.class), currentUser));
             User userWithBankAcc = userBank.getUser();
-            System.out.println("user with bank: " + userWithBankAcc);
             req.session("current-user", userWithBankAcc);
         });
 
