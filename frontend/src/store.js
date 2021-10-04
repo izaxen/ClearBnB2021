@@ -70,7 +70,6 @@ export const store = createStore({
         this.state.failedLogIn = true;
         return
       }
-      console.log("Login active", loggedInUser);
       store.commit('setUser', loggedInUser)
 
     },
@@ -91,8 +90,6 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      //let currentListingId = await res.json();
-      //store.commit('setCurrentListing', currentListingId); // an id
     },
 
     async updateListing(store, listing) {
@@ -153,7 +150,7 @@ export const store = createStore({
       })
       let matchedListings = await res.json();
       console.log(matchedListings);
-      
+
       return matchedListings;
     },
 
@@ -197,17 +194,6 @@ export const store = createStore({
       return await res.json();
     },
 
-
-
-    // async getAllListingsDTO(_) {
-    //   let res = await fetch('/rest/getAllListingsDTO', {
-    //     method: 'GET',
-    //     body: JSON.stringify()
-    //   })
-    //   let getAllListingsDTO = await res.json();
-    //   console.log("res ");
-    //   store.commit('setAllListingsDTO', getAllListingsDTO)
-    // },
     async getSingleListingVersion(store, id) {
       console.log("Startar get singöle");
       let res = await fetch('/rest/getSingleListingVersion/' + id)
