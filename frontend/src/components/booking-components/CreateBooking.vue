@@ -19,6 +19,7 @@
         v-model="startDate"
         required
         type="date"
+        :min="new Date().toISOString().split('T')[0]"
         placeholder="Startdatum"
       />
 
