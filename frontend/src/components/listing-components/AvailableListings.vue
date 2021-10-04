@@ -44,13 +44,13 @@ export default {
   }
 
   },
-  
   created() {
     this.getAllListingsDTO();
   },
 
   methods: {
     updatelist(matchedListings) {
+      console.log('matched', matchedListings);
       this.matchedListings = matchedListings;
     },
     async openDetail(id){

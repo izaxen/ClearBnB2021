@@ -90,9 +90,6 @@ export default {
 
   methods: {
     async filterListings() {
-      // if (this.price === null) {
-      //   this.price = 99999;
-      // }
 
       let newFilter = {
         price: this.price,

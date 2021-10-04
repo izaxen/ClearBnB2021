@@ -42,15 +42,7 @@ export const store = createStore({
     setListing(state, listing) {
       state.listing = listing
     },
-
-
-    // setAllListingsDTO(state, allListingsDTO) {
-    //   state.allListingsDTO = allListingsDTO;
-    // }
   },
-
-  //async methods that will trigger a mutation
-  // this.$store.dispatch('nameOfAction')
   actions: {
 
     async registerUser(store, user) {
@@ -160,6 +152,8 @@ export const store = createStore({
         body: JSON.stringify(filters)
       })
       let matchedListings = await res.json();
+      console.log(matchedListings);
+      
       return matchedListings;
     },
 

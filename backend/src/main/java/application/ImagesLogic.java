@@ -25,6 +25,7 @@ public class ImagesLogic {
         if(files.isEmpty()){
             listing.setImages(newList);
             logicHandler.listingLogic.updateListingAndCreateANewMongoDBCollection(listing);
+            return;
         }
 
         Timestamp extraId = new Timestamp(System.currentTimeMillis());
