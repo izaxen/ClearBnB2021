@@ -89,7 +89,7 @@ export const store = createStore({
     },
 
     async logOff(store) {
-      let res = await fetch('/api/logOff')
+      let res = await fetch('/rest/logOff')
       store.commit('setUser', null)
       let userResponse = await res.json()
     },

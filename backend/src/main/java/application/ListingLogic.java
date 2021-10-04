@@ -146,7 +146,7 @@ public class ListingLogic {
             imagelist.add(image.getImageName());
         }
 
-        return new SingeListingDTO(l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
+        return new SingeListingDTO((int) Math.ceil(l.getPrice()*1.15),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
                 l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),
                 l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
                 l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna(),imagelist);
@@ -157,7 +157,7 @@ public class ListingLogic {
 
         List<ListingRevision> l = listingRevisionRepository.findAllListingRevisionsByListingID(id);
         for (ListingRevision ll : l) {
-            oldVersionListing.add(new SingeListingDTO(ll.getPrice(), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
+            oldVersionListing.add(new SingeListingDTO((int) Math.ceil(ll.getPrice()*1.15), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
                     ll.getAddressRevision().getAddress(), ll.getAddressRevision().getAddress(), ll.getAmenitiesRevsion().getBathTub(),
                     ll.getAmenitiesRevsion().getParkingLot(), ll.getAmenitiesRevsion().getStove(), ll.getAmenitiesRevsion().getDoubleBed(),
                     ll.getAmenitiesRevsion().getBubblePool(), ll.getAmenitiesRevsion().getBicycle(), ll.getAmenitiesRevsion().getSauna()));
