@@ -33,7 +33,8 @@ public class ChatMessageRepository {
                 "(m.sender.id = :senderID " +
                         "AND m.receiver.id = :receiverID) " +
                         "OR (m.sender.id = :receiverID " +
-                        "AND m.receiver.id = :senderID)", ChatMessage.class)
+                        "AND m.receiver.id = :senderID) " +
+                        "ORDER BY m.dateCreated", ChatMessage.class)
                 .setParameter("senderID", senderID)
                 .setParameter("receiverID", receiverID)
                 .getResultList();

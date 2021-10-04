@@ -2,6 +2,9 @@ package entityDO;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Table(name="chat_msg")
 public class ChatMessage {
@@ -26,6 +29,9 @@ public class ChatMessage {
     @Column (name="message")
     private String message;
 
+    @Column(name="date_created")
+    private String dateCreated;
+
     public ChatMessage() {
     }
 
@@ -34,6 +40,9 @@ public class ChatMessage {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.dateCreated = date.format(myFormatObj);
     }
 
     public ChatMessage(String message, User sender) {
@@ -75,5 +84,13 @@ public class ChatMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

@@ -83,6 +83,7 @@ public class ChatRoutes {
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     // print out all history in DB is not admin
                     List<ChatMessageDTO> cmDTOs = chatMessageLogic.getChatMessageDTOOfUser(userID, 91);
+//                    Collections.reverse(cmDTOs)
                     if(cmDTOs.size()>0){
                         ChatMessageDTO historyStart = new ChatMessageDTO("===Chat History Start===");
                         ctx.send(historyStart);

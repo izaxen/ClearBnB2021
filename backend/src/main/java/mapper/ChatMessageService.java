@@ -18,7 +18,7 @@ public class ChatMessageService {
         List<ChatMessageDTO> cmDTOs = new ArrayList<>();
         for ( ChatMessage cm: chatMessages
              ) {
-            ChatMessageDTO cmDTO = new ChatMessageDTO(cm.getMessage(), cm.getSender().getID());
+            ChatMessageDTO cmDTO = new ChatMessageDTO(cm.getMessage(), cm.getSender().getId());
             cmDTOs.add(cmDTO);
         }
         return cmDTOs;
