@@ -48,7 +48,7 @@ public class AddressLogic {
 
         listing.setAddress(adds);
 
-        return lR.updateListing(listing);
+        return listing;
     }
 
     private void createAddressVersionBackup(Address oldlist){
