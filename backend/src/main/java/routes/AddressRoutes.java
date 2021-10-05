@@ -6,7 +6,6 @@ import dtos.AddAddressDTO;
 import dtos.UpdateAddressDTO;
 import entityDO.Listing;
 import express.Express;
-import entityDO.Address;
 import mapper.AddressService;
 
 public class AddressRoutes {
@@ -20,20 +19,19 @@ public class AddressRoutes {
         addressLogic= new AddressLogic(repo);
         as = new AddressService();
 
-        app.post("/api/address", (req, res) -> {   //Create listing
+        app.post("/api/address", (req, res) -> {
             Listing currentListing = req.session("current-Listing");
             res.json(addressLogic.createNewAddress((req.body(
                     AddAddressDTO.class)), currentListing));
         });
 
-        app.put("/api/address/", (req, res) -> {   //update listing
+        app.put("/api/address/", (req, res) -> {
             Listing currentListing = req.session("current-Listing");
             Listing list = addressLogic.updateAddress(
                     as.convertUpdateAddressToAddress(req.body(
                             UpdateAddressDTO.class), currentListing),currentListing
             );
             System.out.println("in router: " + list);
-            //res.json();
         });
 
 

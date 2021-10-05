@@ -5,8 +5,6 @@ import entityDO.ChatMessage;
 import entityDO.CurrentChat;
 import entityDO.User;
 import mapper.ChatMessageService;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class ChatMessageLogic {

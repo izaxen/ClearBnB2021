@@ -21,21 +21,6 @@ public class AmenitiesRepository {
         return amenities != null ? Optional.of(amenities) : Optional.empty();
     }
 
-
-    public Amenities addAmenities(Amenities amenities){
-        EntityManager em = emf.createEntityManager();
-        try{
-            em.getTransaction().begin();
-            em.persist(amenities);
-            em.getTransaction().commit();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        em.close();
-        return amenities;
-    }
-
     public Amenities updateAmenities(Amenities amenities, Listing listing){
         EntityManager em = emf.createEntityManager();
         try{

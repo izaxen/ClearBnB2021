@@ -6,7 +6,6 @@ import express.Express;
 import application.Repositories;
 
 public class Routes {
-    Repositories repositories;
 
     public Routes(Express app, Repositories repositories, MongoCollection collection) {
 

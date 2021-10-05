@@ -1,12 +1,9 @@
 package application;
 
 import dtos.AddBankDTO;
-import dtos.AddListingDTO;
 import entityDO.BankAccount;
-import entityDO.Listing;
 import entityDO.User;
 import mapper.BankService;
-import repositories.BankRepository;
 
 public class BankLogic {
 

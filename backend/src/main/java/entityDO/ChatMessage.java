@@ -45,11 +45,6 @@ public class ChatMessage {
         this.dateCreated = date.format(myFormatObj);
     }
 
-    public ChatMessage(String message, User sender) {
-        this.message = message;
-        this.sender = sender;
-    }
-
     public Integer getID() {
         return ID;
     }
