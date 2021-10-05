@@ -24,7 +24,7 @@ public class ChatLogic {
     public ChatLogic(Repositories repositories) {
         this.repositories = repositories;
         chatMessageLogic = new ChatMessageLogic(repositories);
-        admin = repositories.getUserRep().findUserById(91);
+        admin = repositories.getUserRepository().findUserById(91);
     }
 
     public void connectToServer(WsContext ctx) {
