@@ -1,12 +1,12 @@
 package routes;
 
+import application.LogicHandler;
 import application.UserLogic;
 import dtos.LoginUserDTO;
 import dtos.RegisterUserDTO;
 import entityDO.User;
 import express.Express;
 import mapper.UserMapper;
-import repositories.UserRepository;
 
 import java.util.Map;
 
@@ -16,10 +16,10 @@ public class UserRoutes {
     UserMapper userMapper;
     Express app;
 
-    public UserRoutes(Express app, UserRepository userRepository) {
+    public UserRoutes(Express app, LogicHandler logicHandler) {
 
-        userAccess = new UserLogic(userRepository);
-        userMapper = new UserMapper();
+        this.userAccess = logicHandler.getUserLogic();
+        this.userMapper = new UserMapper();
         this.app = app;
         createNewUser();
         loginUser();

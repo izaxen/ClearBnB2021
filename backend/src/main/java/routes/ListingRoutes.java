@@ -20,9 +20,9 @@ public class ListingRoutes {
     private final ListingLogic listingLogic;
     private final Express app;
 
-    public ListingRoutes(Express app, Repositories repositories, MongoCollection collection, LogicHandler logicHandler) {
+    public ListingRoutes(Express app, MongoCollection collection, LogicHandler logicHandler) {
 
-        listingLogic = logicHandler.getListingLogic(repositories, collection);
+        this.listingLogic = logicHandler.getListingLogic();
         this.app = app;
 
         getAllListingsInSummaryFromUser();
