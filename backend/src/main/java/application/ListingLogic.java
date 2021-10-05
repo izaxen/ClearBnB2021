@@ -139,16 +139,17 @@ public class ListingLogic {
     }
 
     public SingeListingDTO getSingleListing(int id){
-        Listing l =listingRepository.findById(id).get();
+        Listing l = listingRepository.findById(id).get();
 
         ArrayList<String> imagelist = new ArrayList<>();
 
-
-        for (Image image:l.getImages()
-             ) {
-            System.out.println(image.getImageName());
-            imagelist.add(image.getImageName());
+        if(!l.getImages().isEmpty() ){
+            for (Image image:l.getImages()
+            ) {
+                imagelist.add(image.getImageName());
+            }
         }
+
 
         return new SingeListingDTO(l.getId (),(int) Math.ceil(l.getPrice()*1.15),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
                 l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),

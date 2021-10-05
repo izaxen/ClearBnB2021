@@ -4,53 +4,52 @@ import entityDO.Listing;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Booking;
+import jakarta.persistence.EntityManagerFactory;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 public class BookingRepository {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public BookingRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+
+    public BookingRepository(EntityManagerFactory emf){
+        this.emf = emf;
     }
 
     public Optional<Booking> findById(int id){
-        Booking booking = entityManager.find(Booking.class, id);
+        EntityManager em= emf.createEntityManager();
+        Booking booking = em.find(Booking.class, id);
+        em.close();
         return booking != null ? Optional.of(booking) : Optional.empty();
     }
 
     public List<Booking> findAGuestsOldBookings(User user){
 
+        EntityManager em= emf.createEntityManager();
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = formatter.format(date);
+        List<Booking> bookings = new ArrayList<>();
 
         try {
-            List<Booking> bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
+            bookings = em.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
                     "b.user = :user OR b.listing.user = :user", Booking.class)
                     .setParameter("date", strDate)
                     .setParameter("user", user)
                     .getResultList();
 
-            return bookings;
 
         }catch (jakarta.persistence.PersistenceException e){
             System.out.println("Error in findAGuestsOldBookings");
             System.out.println(e.getMessage());
-        }finally {
-            entityManager.clear();
         }
 
-        return null;
+        em.close();
+
+        return bookings;
     }
 
 
@@ -60,7 +59,9 @@ public class BookingRepository {
         // then new booking's start date is between old booking's start and end date
         // then new booking's end date is between old booking's start and end date
 
-        List bookings = entityManager.createQuery("SELECT b FROM Booking b WHERE b.listing = :listing " +
+        EntityManager em= emf.createEntityManager();
+
+        List bookings = em.createQuery("SELECT b FROM Booking b WHERE b.listing = :listing " +
                 "AND (b.startDate between :sDate AND :eDate " +
                         "OR b.endDate between :sDate AND :eDate)", Booking.class)
                 .setParameter("listing", listing)
@@ -68,50 +69,64 @@ public class BookingRepository {
                 .setParameter("eDate", endDate)
                 .getResultList();
 
+        em.close();
+
         return bookings.size() > 0;
     }
 
     public boolean checkListingAvailableDates(String startDate, String endDate, Listing listing){
-        List bookings = entityManager.createQuery("FROM Listing as l WHERE l.id = :listing " +
+        EntityManager em= emf.createEntityManager();
+        List bookings = em.createQuery("FROM Listing as l WHERE l.id = :listing " +
                 "AND (:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
                 "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate)", Listing.class)
                 .setParameter("listing", listing.getId())
                 .setParameter("selectedStartDate", startDate)
                 .setParameter("selectedEndDate", endDate)
                 .getResultList();
+
+        em.close();
         return bookings.size() > 0;
     }
 
     public List<Booking> findAllBookings(){
-        return entityManager.createQuery("FROM Booking").getResultList();
+        EntityManager em= emf.createEntityManager();
+        em.close();
+        return em.createQuery("FROM Booking").getResultList();
     }
 
     public Optional<Booking> addBooking(Booking booking){
 
+        EntityManager em= emf.createEntityManager();
+
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(booking);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(booking);
+            em.getTransaction().commit();
+            em.close();
             return Optional.of(booking);
         }
         catch (Exception ex){
            ex.printStackTrace();
         }
+        em.close();
         return Optional.empty();
     }
 
     public Optional<Booking> updateBooking(Booking booking){
 
+        EntityManager em= emf.createEntityManager();
+
         try{
-            entityManager.getTransaction().begin();
-            entityManager.merge(booking);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.merge(booking);
+            em.getTransaction().commit();
+            em.close();
             return Optional.of(booking);
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
-        entityManager.clear();
+        em.close();
         return Optional.empty();
     }
 }

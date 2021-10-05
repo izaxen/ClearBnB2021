@@ -45,7 +45,7 @@ public class Listing {
     private Amenities amenities;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Image> images = new ArrayList<>();
 
     @JsonBackReference
@@ -179,8 +179,6 @@ public class Listing {
     public void setAmenities(Amenities amenities) {
         this.amenities = amenities;
     }
-
-
 
     @Override
     public String toString() {

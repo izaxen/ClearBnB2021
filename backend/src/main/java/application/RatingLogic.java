@@ -41,17 +41,18 @@ public class RatingLogic {
     }
 
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(User user){
+
        try{
             List<Booking> oldBookings = checkIfUserHasAnyOldBookingsAndReturnThem(user);
-            return getOldBookingsThatMissingTwoRatings(oldBookings, user);
+            return oldBookings.isEmpty() ? null : getOldBookingsThatMissingTwoRatings(oldBookings, user);
         }catch (java.lang.NullPointerException e){
             System.out.println(e.getMessage());            
         }
-        return null;
+       return null;
     }
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
-        repositories.entityManager.clear();
+        /*repositories.entityManager.clear();*/
         return repositories.booking().findAGuestsOldBookings(user);
     }
 

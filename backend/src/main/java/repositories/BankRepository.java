@@ -4,25 +4,29 @@ import application.Repositories;
 import entityDO.Address;
 import entityDO.BankAccount;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 public class BankRepository {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public BankRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+
+    public BankRepository(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     public BankAccount addBank(BankAccount bank){
+        EntityManager em= emf.createEntityManager();
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(bank);
-            entityManager.getTransaction().commit();
-            entityManager.clear();
+            em.getTransaction().begin();
+            em.persist(bank);
+            em.getTransaction().commit();
+            em.close();
 
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
+        em.close();
         return bank;
     }
 }

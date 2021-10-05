@@ -2,13 +2,13 @@ package repositories;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.bson.Document;
 
 public class MongoDBRepository {
-    EntityManager entityManager;
 
-    public MongoDBRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+    public MongoDBRepository(){
+
     }
 
     public Document getAllListingFromMDB(MongoCollection collection){
