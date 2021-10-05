@@ -15,9 +15,9 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name="rating_ID")
-    private Integer ID;
+    private int ID;
 
-    private Integer rating;
+    private int rating;
 
     private String message;
 
@@ -39,7 +39,7 @@ public class Rating {
 
     public Rating(){}
 
-    public Rating(User reviewer, User recipient, Integer rating, String message, Booking booking) {
+    public Rating(User reviewer, User recipient, int rating, String message, Booking booking) {
         this.reviewer = reviewer;
         this.recipient = recipient;
         this.rating = rating;
@@ -50,7 +50,7 @@ public class Rating {
         this.dateCreated = date.format(myFormatObj);
     }
 
-    public Integer getID() {
+    public int getID() {
         return ID;
     }
 
@@ -62,7 +62,7 @@ public class Rating {
         return recipient;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 

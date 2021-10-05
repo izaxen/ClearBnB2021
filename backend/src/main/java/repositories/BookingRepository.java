@@ -25,7 +25,7 @@ public class BookingRepository {
         return booking != null ? Optional.of(booking) : Optional.empty();
     }
 
-    public List<Booking> findAGuestsOldBookings(User user){
+    public List<Booking> findAUsersOldBookings(User user){
 
         EntityManager em= emf.createEntityManager();
 
@@ -36,15 +36,14 @@ public class BookingRepository {
 
         try {
             bookings = em.createQuery("SELECT b FROM Booking b WHERE b.endDate < :date AND " +
-                    "b.user = :user OR b.listing.user = :user", Booking.class)
+                    "b.user = :user OR (b.endDate < :date AND b.listing.user = :user)", Booking.class)
                     .setParameter("date", strDate)
                     .setParameter("user", user)
                     .getResultList();
 
 
         }catch (jakarta.persistence.PersistenceException e){
-            System.out.println("Error in findAGuestsOldBookings");
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         em.close();

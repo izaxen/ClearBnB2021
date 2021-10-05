@@ -48,7 +48,6 @@ public class RatingRepository {
             em.close();
             return getRatingsToFill;
         }catch (PersistenceException e){
-            System.out.println("ERROR IN getRatingsToFill (repository) ----------------: \n" + e.getMessage());
             e.printStackTrace();
         }
         em.close();
@@ -66,7 +65,6 @@ public class RatingRepository {
             em.close();
             return ratingList;
         }catch (PersistenceException e){
-            System.out.println("ERROR IN getRatingOfUser (repository) ----------------: \n" + e.getMessage());
             e.printStackTrace();
         }
         em.close();
@@ -77,12 +75,15 @@ public class RatingRepository {
         EntityManager em = emf.createEntityManager();
         double avg = 0;
         try{
-            avg = (double) em.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
+            double average = (double) em.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
                     .setParameter("user", user)
                     .getSingleResult();
 
-        }catch (Exception e){
-            System.out.println("Error in calcAvgRatingOfUser");
+            if(average > 0){
+                avg = average;
+            }
+
+        }catch (Exception ignored){
         }
         em.close();
         return avg;

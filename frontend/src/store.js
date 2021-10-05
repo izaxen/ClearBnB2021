@@ -183,7 +183,7 @@ export const store = createStore({
     },
 
     async deleteRating(store, ratingID) {
-      let res = await fetch(`/api/delete-rating`, {
+      let res = await fetch(`/rest/delete-rating`, {
         method: "DELETE",
         body: JSON.stringify({ id: ratingID }),
       });

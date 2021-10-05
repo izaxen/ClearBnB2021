@@ -19,30 +19,11 @@ public class BookingRoutes {
         this.repositories = repositories;
         this.bookingLogic = new BookingLogic(repositories);
 
-        routeCreateBooking();
-        routeCreateBookingREST();
+        createBookingRoute();
     }
 
-    private void routeCreateBooking(){
 
-        // TODO NOT WORKING CODE
-        /*app.post("/api/createBooking1/:listingID", ((req, res) -> {
-
-            User currentUser = req.session("current-user");
-            if(currentUser == null){
-                return;
-            }
-
-            int listingID = parseInt(req.params("listingID"));
-
-            Booking createdBooking = bookingLogic.createNewBooking1(
-                    currentUser,bookingService.convertBookingDTOIntoBooking(req.body(AddBookingDTO.class),
-                            repositories.getListingRepository().findById(listingID).get());
-
-        }));*/
-    }
-
-    private void routeCreateBookingREST(){
+    private void createBookingRoute(){
         app.post("/api/createBooking", ((req, res) -> {
 
             User currentUser = req.session("current-user");

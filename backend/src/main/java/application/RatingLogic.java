@@ -53,7 +53,7 @@ public class RatingLogic {
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
         /*repositories.entityManager.clear();*/
-        return repositories.booking().findAGuestsOldBookings(user);
+        return repositories.booking().findAUsersOldBookings(user);
     }
 
     public List<GiveRatingDTO> getOldBookingsThatMissingTwoRatings(List<Booking> oldBookings, User user){
@@ -69,47 +69,42 @@ public class RatingLogic {
                 return;
             }
             if(!ratings.isEmpty()){
-                System.out.println("Not empty");
                 if(ratings.get(0).getReviewer().getId() == user.getId()){
-                    System.out.println("Returned!");
                     return;
                 }
+
             }
 
             //booking.getUser = "guest (owner_ID in booking entity in DB)"
             if(user.getId() != booking.getUser().getId()){
-                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getStartDate() ));
-            }else if(user.getId() == booking.getUser().getId()){
-                User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
-                bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
+                bookingsThatUserCanAddARatingToDTO.add(
+                        new GiveRatingDTO(booking.getId(), 0, "", user, guest, booking.getStartDate() ));
+
             }
+            else if(user.getId() == booking.getUser().getId()){
+                User owner = repositories.getListingRepository().findOwnerOfListingWithABooking(booking);
+                bookingsThatUserCanAddARatingToDTO.add(
+                        new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
+            }
+
         });
 
         return bookingsThatUserCanAddARatingToDTO;
     }
 
-    public void createNewRating(createNewRatingFromFrontendDTO createNewRatingFromFrontendDTO){
-        User reviewer = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getReviewerID());
-        User recipient = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getRecipientID());
-        Booking booking = repositories.booking().findById(createNewRatingFromFrontendDTO.getBookingID()).get();
-
-        SaveRatingToDatabaseDTO saveRatingToDataBaseDTO = new SaveRatingToDatabaseDTO(
-                booking,
-                reviewer,
-                recipient,
-                parseInt(createNewRatingFromFrontendDTO.getRating()),
-                createNewRatingFromFrontendDTO.getMessage());
+    public void createNewRating(createNewRatingFromFrontendDTO dto){
+        User reviewer = repositories.userRepository.findUserById(dto.getReviewerID());
+        User recipient = repositories.userRepository.findUserById(dto.getRecipientID());
+        Booking booking = repositories.booking().findById(dto.getBookingID()).get();
 
         List<Rating> ratings = new ArrayList<>();
 
-        ratings.add(new Rating(saveRatingToDataBaseDTO.getReviewer(),
-                saveRatingToDataBaseDTO.getRecipient(),
-                saveRatingToDataBaseDTO.getRating(),
-                saveRatingToDataBaseDTO.getReview(),
-                saveRatingToDataBaseDTO.getBooking()));
+        Rating rating = ratingMapper.createNewRatingFromDTO(reviewer, recipient,
+                parseInt(dto.getRating()
+                ), dto.getMessage(), booking);
 
+        ratings.add(rating);
         booking.setRating(ratings);
-
         repositories.bookingRepository.updateBooking(booking);
 
     }

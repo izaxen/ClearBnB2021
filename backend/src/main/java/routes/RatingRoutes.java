@@ -15,7 +15,6 @@ public class RatingRoutes {
     Express app;
     Repositories repositories;
     RatingLogic ratingLogic;
-    RatingMapper ratingMapper = new RatingMapper();
 
     public RatingRoutes(Express app, Repositories repositories) {
         this.app = app;
@@ -31,7 +30,6 @@ public class RatingRoutes {
     public void getAllRatingsOfUser(){
         app.get("/rest/rating/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
-            System.out.println(userID);
             res.json(ratingLogic.getAllRatingsOfUser(userID));
         });
     }
@@ -52,14 +50,13 @@ public class RatingRoutes {
 
     public void createANewRating(){
         app.post("/api/createNewRating", (req, res) -> {
-            createNewRatingFromFrontendDTO dto = req.body(createNewRatingFromFrontendDTO.class);
-            ratingLogic.createNewRating(dto);
+            ratingLogic.createNewRating(req.body(createNewRatingFromFrontendDTO.class));
         });
     }
 
     //Maybe this should update all rating fields to "deleted" instead of deleting the whole row? //Mac
     public void deleteRating(){
-        app.delete("/api/delete-rating", (req, res) -> {
+        app.delete("/rest/delete-rating", (req, res) -> {
             DeleteRatingDTO dto = req.body(DeleteRatingDTO.class);
             res.json(ratingLogic.deleteRating(dto.getId()));
         });
