@@ -5,11 +5,13 @@ public class AddBookingDTO {
     private String startDate;
     private String endDate;
     private int totalPrice;
+    private int listingID;
 
     public AddBookingDTO() {
     }
 
-    public AddBookingDTO(String startDate, String endDate, int totalPrice) {
+    public AddBookingDTO(String startDate, String endDate, int totalPrice, int listingID) {
+        this.listingID = listingID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalPrice = totalPrice;
@@ -37,5 +39,9 @@ public class AddBookingDTO {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public int getListingID() {
+        return listingID;
     }
 }

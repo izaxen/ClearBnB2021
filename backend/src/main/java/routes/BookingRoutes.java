@@ -5,7 +5,6 @@ import application.Repositories;
 import dtos.AddBookingDTO;
 import entityDO.User;
 import express.Express;
-import mapper.BookingService;
 
 import static java.lang.Integer.parseInt;
 
@@ -44,7 +43,7 @@ public class BookingRoutes {
     }
 
     private void routeCreateBookingREST(){
-        app.get("/rest/createBooking/:listingID/:startDate/:endDate/:price", ((req, res) -> {
+        app.post("/api/createBooking", ((req, res) -> {
 
             User currentUser = req.session("current-user");
             if(currentUser == null){
@@ -52,13 +51,7 @@ public class BookingRoutes {
                 return;
             }
 
-            int listingID = parseInt(req.params("listingID"));
-            String startDate = req.params("startDate");
-            String endDate = req.params("endDate");
-            int price = parseInt(req.params("price"));
-
-            AddBookingDTO dto = new AddBookingDTO(startDate, endDate, price);
-            res.json(bookingLogic.createNewBooking(currentUser, dto, listingID));
+            res.json(bookingLogic.createNewBooking(currentUser, req.body(AddBookingDTO.class)));
 
         }));
     }
