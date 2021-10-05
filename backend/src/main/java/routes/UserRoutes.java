@@ -3,52 +3,62 @@ package routes;
 import application.UserLogic;
 import dtos.LoginUserDTO;
 import dtos.RegisterUserDTO;
-import express.Express;
 import entityDO.User;
-import repositories.UserRepository;
+import express.Express;
 import mapper.UserMapper;
+import repositories.UserRepository;
 
 import java.util.Map;
 
 public class UserRoutes {
 
-    private UserLogic userAccess;
-    private UserMapper userMapper;
+    UserLogic userAccess;
+    UserMapper userMapper;
+    Express app;
 
     public UserRoutes(Express app, UserRepository userRepository) {
 
         userAccess = new UserLogic(userRepository);
         userMapper = new UserMapper();
+        this.app = app;
+        createNewUser();
+        loginUser();
+        whoAmI();
+        logOutUser();
+    }
 
+    private void createNewUser() {
         app.post("/api/registerUser", (req, res) -> {   //Create user
-            User user = userAccess.createNewUser(userMapper.convertRegisterUser(req.body(RegisterUserDTO.class)));
+            User user = userAccess.createNewUser(req.body(RegisterUserDTO.class));
             req.session("current-user", user);
             res.json(userMapper.noPwUser(user));
         });
+    }
 
+    private void loginUser() {
         app.post("/api/login", (req, res) -> {
-            User user = userAccess.loginUser(
-                    userMapper.convertLoginUserToUser(
-                    req.body(LoginUserDTO.class)));
+            User user = userAccess.loginUser(req.body(LoginUserDTO.class));
 
-            if( user != null) {
+            if (user != null) {
                 req.session("current-user", user);
                 res.json(userMapper.noPwUser(user));
+            } else {
+                res.json(Map.of("Error", "Logindetails failed"));
             }
-            else{
-                res.json(Map.of("Error", "Logindetails failed"));}
         });
+    }
 
-        app.get("/api/whoAmI", (req, res)-> {   //Control logged in user
-
+    private void whoAmI() {
+        app.get("/api/whoAmI", (req, res) -> {   //Control logged in user
             res.json(userMapper.noPwUser(req.session("current-user")));
         });
+    }
 
-        app.get("/rest/logOff",(req,res)->{
+    private void logOutUser() {
+        app.get("/rest/logOff", (req, res) -> {
 
             req.session("current-user", null);
             res.json(Map.of("Ok", "Logged out"));
         });
-
     }
 }
