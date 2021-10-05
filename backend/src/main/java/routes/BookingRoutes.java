@@ -1,6 +1,7 @@
 package routes;
 
 import application.BookingLogic;
+import application.LogicHandler;
 import application.Repositories;
 import dtos.AddBookingDTO;
 import entityDO.User;
@@ -10,14 +11,12 @@ import static java.lang.Integer.parseInt;
 
 public class BookingRoutes {
 
-    Repositories repositories;
-    BookingLogic bookingLogic;
+    LogicHandler logicHandler;
     Express app;
 
-    public BookingRoutes(Express app, Repositories repositories) {
+    public BookingRoutes(Express app, LogicHandler logicHandler) {
         this.app = app;
-        this.repositories = repositories;
-        this.bookingLogic = new BookingLogic(repositories);
+        this.logicHandler = logicHandler;
 
         createBookingRoute();
     }
@@ -32,7 +31,7 @@ public class BookingRoutes {
                 return;
             }
 
-            res.json(bookingLogic.createNewBooking(currentUser, req.body(AddBookingDTO.class)));
+            res.json(logicHandler.getBookingLogic().createNewBooking(currentUser, req.body(AddBookingDTO.class)));
 
         }));
     }

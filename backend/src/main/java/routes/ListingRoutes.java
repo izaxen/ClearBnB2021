@@ -24,11 +24,9 @@ public class ListingRoutes {
 
     public ListingRoutes(Express app, Repositories repositories, MongoCollection collection , LogicHandler logicHandler) {
 
-
         listingLogic= logicHandler.getListingLogic(repositories, collection);
         ls= new ListingMapper();
         this.app = app;
-
 
         getAllListingsInSummaryFromUser();
 
@@ -57,7 +55,6 @@ public class ListingRoutes {
             req.session("current-Listing", updatedListing);
             res.json(updatedListing.getId());
         });
-
 
         app.post("/api/filteredListings", (req, res) ->{
             res.json(listingLogic.getFilteredListings(
