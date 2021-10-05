@@ -10,9 +10,9 @@ public class Routes {
     public Routes(Express app, Repositories repositories, MongoCollection collection) {
 
         LogicHandler logicHandler = new LogicHandler(repositories, collection);
-        new UserRoutes(app, repositories.getUserRepository());
+        new UserRoutes(app, logicHandler);
         new BookingRoutes(app, logicHandler);
-        new ListingRoutes(app, repositories,collection, logicHandler);
+        new ListingRoutes(app, collection, logicHandler);
         new AddressRoutes(app, logicHandler);
         new AmenityRoutes(app, logicHandler);
         new RatingRoutes(app, logicHandler);

@@ -28,11 +28,6 @@ public class AddressRevision {
         this.listingRevi = listRev;
     }
 
-    public AddressRevision(Integer id, String city, String address) {
-        this.id = id;
-        this.city = city;
-        this.address = address;
-    }
 
     public Integer getId() {
         return id;
