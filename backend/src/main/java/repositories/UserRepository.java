@@ -52,7 +52,6 @@ public class UserRepository {
                 .getSingleResult();}
 
         catch (NoResultException e){
-            e.printStackTrace();
         }
         em.close();
         return user != null ? Optional.of(user) : Optional.empty();
