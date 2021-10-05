@@ -196,7 +196,6 @@ public class ChatLogic {
 
     public void adminMessage(ChatMessageDTO msg){
         int receiverID = msg.getReceiverID();
-        System.out.println("ReceiverID: " + receiverID);
         WsContext tempC = null;
         // Run in two separate for loop to avoid messing in my head
         // Find every ctx that belongs to receiver's ID
@@ -204,7 +203,6 @@ public class ChatLogic {
         ) {
             if (userNameMap.get(c) == receiverID) {
                 tempC = c;
-                System.out.println("tempc: " + tempC);
             }
         }
 
@@ -213,7 +211,6 @@ public class ChatLogic {
         ) {
             if (chatRoomMap.get(rid).contains(tempC)) {
                 roomID = rid;
-                System.out.println("roomID: " + roomID);
             }
         }
         chatMessageLogic.createNewMessage(msg, roomID);
