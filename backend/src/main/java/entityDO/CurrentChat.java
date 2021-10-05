@@ -28,20 +28,8 @@ public class CurrentChat {
         this.id = id;
     }
 
-    public Boolean getClosed() {
-        return isClosed;
-    }
-
     public void setClosed(Boolean closed) {
         isClosed = closed;
-    }
-
-    public List<ChatMessage> getChatMessages() {
-        return chatMessages;
-    }
-
-    public void setChatMessages(List<ChatMessage> chatMessages) {
-        this.chatMessages = chatMessages;
     }
 
     @Override

@@ -52,20 +52,15 @@ public class BookingLogic {
     }
 
     public boolean checkIfUserCanPay(User user, int totalPrice){
-        System.out.println("User: " + user);
-        System.out.println("Bank: " + user.getBankAccount());
         return user.getBankAccount().getFunds() >= totalPrice;
     }
 
     public void paymentProcess(User user, int totalPrice, User owner){
         if(user.getId() != owner.getId()) {
-            System.out.println(owner.getBankAccount().getFunds());
-            System.out.println("totalPrice: " + totalPrice);
+
             User admin = repositories.userRepository.findUserById(91);
-            System.out.println("admin: " + admin.getBankAccount().getFunds());
-            System.out.println("User before: " + user.getBankAccount().getFunds());
+
             user.getBankAccount().setFunds(user.getBankAccount().getFunds() - totalPrice);
-            System.out.println("User: " + user.getBankAccount().getFunds());
 
             int ownerShare = (int) (totalPrice / 1.15);
             int clearBNB = totalPrice - ownerShare;
@@ -76,10 +71,6 @@ public class BookingLogic {
             repositories.userRepository.update(owner);
             repositories.userRepository.update(admin);
 
-            System.out.println(owner.getBankAccount().getFunds());
-            System.out.println("Guest paid: " + totalPrice);
-            System.out.println("Owner gets: " + ownerShare);
-            System.out.println("ClearBnB gets: " + clearBNB);
         }
         else{
             System.out.println("You can't book on your own listing!");

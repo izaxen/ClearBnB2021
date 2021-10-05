@@ -7,13 +7,16 @@ import express.Express;
 
 public class ChatRoutes {
 
-    public ChatRoutes() {
-
-    }
+    private Express app;
+    private LogicHandler logicHandler;
 
     public ChatRoutes(Express app, LogicHandler logicHandler) {
+        this.app = app;
+        this.logicHandler = logicHandler;
+        webSocket();
+    }
 
-
+    public void webSocket(){
         app.ws("/websockets/:id", ws -> {
             ws.onConnect(ctx -> {
                 logicHandler.getChatLogic().connectToServer(ctx);

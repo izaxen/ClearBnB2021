@@ -23,6 +23,7 @@ public class Repositories {
     AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManagerFactory);
     ImageRepository imageRepository = new ImageRepository(entityManagerFactory);
     MongoDBRepository mongoDBRepository = new MongoDBRepository();
+    BankRepository bankRepository = new BankRepository(entityManagerFactory);
 
     public MongoDBRepository getMongoDBRepository() {
         return mongoDBRepository;
@@ -79,5 +80,9 @@ public class Repositories {
 
     public AddressRepository getAddressRepository() {
         return addressRepository;
+    }
+
+    public BankRepository getBankRepository() {
+        return bankRepository;
     }
 }

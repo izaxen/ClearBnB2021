@@ -55,6 +55,7 @@ public class ChatLogic {
             removeRoomAndSetCloseInDB(msg, ctx);
         } else {
             clients.forEach(client -> client.send(msg));
+            userNameMap.remove(ctx);
         }
         clients.remove(ctx);
     }
@@ -176,20 +177,37 @@ public class ChatLogic {
 
     public void adminMessage(ChatMessageDTO msg){
         int receiverID = msg.getReceiverID();
-        System.out.println("receiver ID: " + msg.getReceiverID());
         WsContext tempC = null;
+        System.out.println("NEW ");
+        System.out.println(userNameMap.size());
         for (WsContext c : userNameMap.keySet()
         ) {
+            System.out.println("----");
+            System.out.println(userNameMap.get(c));
+            System.out.println(msg.getReceiverID());
+            System.out.println("----");
             if (userNameMap.get(c) == receiverID) {
                 tempC = c;
+                System.out.println("TEMP it's true");
+            }
+            else{
+                System.out.println("Temp false");
             }
         }
 
         for (Integer rid : chatRoomMap.keySet()
         ) {
+            System.out.println("----");
+            System.out.println(chatRoomMap.get(rid));
+            System.out.println(tempC);
+            System.out.println("----");
+            System.out.println("array size " + chatRoomMap.get(rid));
             if (chatRoomMap.get(rid).contains(tempC)) {
                 roomID = rid;
-                System.out.println("roomID in: " + roomID);
+                System.out.println("ROOM it's true");
+            }
+            else{
+                System.out.println("Room false");
             }
         }
         System.out.println("roomID out: " + roomID);
@@ -199,10 +217,11 @@ public class ChatLogic {
 
     public void removeRoomAndSetCloseInDB(ChatMessageDTO msg, WsContext ctx){
         roomID = findUserRoomID(ctx);
-        savedChatRoom.setClosed(true);
         repositories.getCurrentChatRepository().updateCurrentChat(savedChatRoom);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
+        savedChatRoom.setClosed(true);
         chatRoomMap.remove(roomID);
+        userNameMap.remove(ctx);
     }
 
     public Integer findUserRoomID(WsContext ctx){

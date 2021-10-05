@@ -1,6 +1,7 @@
 package application;
 
 import dtos.AddAmenityDTO;
+import dtos.UpdateAmenityDTO;
 import entityDO.Amenities;
 import entityDO.AmenitiesRevision;
 import entityDO.Listing;
@@ -16,7 +17,7 @@ public class AmenityLogic {
     AmenitiesRepository amenitiesRepository;
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
-    AmenityMapper as;
+    AmenityMapper amper;
 
     public AmenityLogic(Repositories repos) {
 
@@ -24,21 +25,21 @@ public class AmenityLogic {
         this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
         this.listingRevisionRepository = repos.listingRevisionRepository;
         this.lR = repos.listingRepository;
-        this.as = new AmenityMapper();
+        this.amper = new AmenityMapper();
     }
 
     public AmenityLogic() {
     }
 
     public Listing createNewAmenity(AddAmenityDTO dto, Listing listing){
-        Amenities amenities = as.convertAddAmenitiesToAmenities(dto, listing);
+        Amenities amenities = amper.convertAddAmenitiesToAmenities(dto, listing);
         listing.setAmenities(amenities);
         return listing;
     }
 
-    public Listing updateAmenties(Amenities ama, Listing listing){
-        Amenities oldList = amenitiesRepository.findById(ama.getId()).get();
-        //Listing listing = repositories.listingRepository.findById(ama.getId()).get();
+    public Listing updateAmenities(UpdateAmenityDTO dto, Listing listing){
+        Amenities oldList = amenitiesRepository.findById(dto.getId()).get();
+        Amenities ama = amper.convertUpdateAmenitiesToAmenities(dto, listing);
 
         if(ama.getBathTub()== null){
             ama.setBathTub(oldList.getBathTub());

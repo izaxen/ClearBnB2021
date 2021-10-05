@@ -45,47 +45,11 @@ public class ChatMessage {
         this.dateCreated = date.format(myFormatObj);
     }
 
-    public Integer getID() {
-        return ID;
-    }
-
-    public CurrentChat getCurrentChat() {
-        return currentChat;
-    }
-
-    public void setCurrentChat(CurrentChat currentChat) {
-        this.currentChat = currentChat;
-    }
-
     public User getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }

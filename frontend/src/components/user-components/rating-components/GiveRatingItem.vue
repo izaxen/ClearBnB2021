@@ -54,7 +54,12 @@
         />
         <label for="5">5</label>
       </div>
-      <input type="text" placeholder="Comment" v-model="this.comment" />
+      <input
+        type="text"
+        placeholder="Comment"
+        v-model="this.comment"
+        required
+      />
 
       <button @click="this.createARating()">Send rating</button>
     </form>
