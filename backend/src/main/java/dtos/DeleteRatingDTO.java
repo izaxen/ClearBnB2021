@@ -15,10 +15,4 @@ public class DeleteRatingDTO {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "DeleteRatingDTO{" +
-                "id=" + id +
-                '}';
-    }
 }

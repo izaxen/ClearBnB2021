@@ -22,18 +22,6 @@ public class GetRatingDTO {
         return rating;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public String getReviewer() {
-        return reviewer;
-    }
-
-    public String getDateWritten() {
-        return dateWritten;
-    }
-
     public int getId() {
         return id;
     }

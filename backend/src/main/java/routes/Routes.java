@@ -11,11 +11,11 @@ public class Routes {
 
         LogicHandler logicHandler = new LogicHandler(repositories, collection);
         new UserRoutes(app, logicHandler);
-        new BookingRoutes(app, repositories);
+        new BookingRoutes(app, logicHandler);
         new ListingRoutes(app, collection, logicHandler);
         new AddressRoutes(app, logicHandler);
         new AmenityRoutes(app, logicHandler);
-        new RatingRoutes(app, repositories);
+        new RatingRoutes(app, logicHandler);
         new ImageRoutes(app, repositories, logicHandler);
         new BankRoutes(app, logicHandler);
         new ChatRoutes(app, logicHandler);

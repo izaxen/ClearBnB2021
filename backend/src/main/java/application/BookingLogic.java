@@ -4,10 +4,12 @@ import dtos.AddBookingDTO;
 import entityDO.Booking;
 import entityDO.Listing;
 import entityDO.User;
+import mapper.BookingMapper;
 
 public class BookingLogic {
 
     Repositories repositories;
+    BookingMapper bookingMapper = new BookingMapper();
 
     public BookingLogic() {
     }
@@ -16,10 +18,10 @@ public class BookingLogic {
         this.repositories = repositories;
     }
 
-    public String createNewBooking(User user, AddBookingDTO dto, int listingID){
-        Listing listing = repositories.listingRepository.findById(listingID).get();
+    public String createNewBooking(User user, AddBookingDTO dto){
+
+        Listing listing = repositories.listingRepository.findById(dto.getListingID()).get();
         User owner = listing.getUser();
-        int totalPrice = dto.getTotalPrice();
 
         if(listing.getUser().getId() == user.getId()){
             return "You can't book on your own listing.";
@@ -30,13 +32,13 @@ public class BookingLogic {
         if(checkIfListingAlreadyIsBooked(dto, listing)){
             return "Already booked";
         }
-        if(!checkIfUserCanPay(user, totalPrice)){
+        if(!checkIfUserCanPay(user, dto.getTotalPrice())){
             return "Not enough funds";
         }
 
-        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate(),dto.getTotalPrice());
-        paymentProcess(user, totalPrice, owner);
-        repositories.booking().addBooking(booking);
+        Booking booking = bookingMapper.convertBookingDTOIntoBooking(dto, user, listing);
+        paymentProcess(user, dto.getTotalPrice(), owner);
+        repositories.getBookingRepository().addBooking(booking);
 
         return "Successfully booked!";
     }
@@ -50,20 +52,15 @@ public class BookingLogic {
     }
 
     public boolean checkIfUserCanPay(User user, int totalPrice){
-        System.out.println("User: " + user);
-        System.out.println("Bank: " + user.getBankAccount());
         return user.getBankAccount().getFunds() >= totalPrice;
     }
 
     public void paymentProcess(User user, int totalPrice, User owner){
         if(user.getId() != owner.getId()) {
-            System.out.println(owner.getBankAccount().getFunds());
-            System.out.println("totalPrice: " + totalPrice);
+
             User admin = repositories.userRepository.findUserById(91);
-            System.out.println("admin: " + admin.getBankAccount().getFunds());
-            System.out.println("User before: " + user.getBankAccount().getFunds());
+
             user.getBankAccount().setFunds(user.getBankAccount().getFunds() - totalPrice);
-            System.out.println("User: " + user.getBankAccount().getFunds());
 
             int ownerShare = (int) (totalPrice / 1.15);
             int clearBNB = totalPrice - ownerShare;
@@ -74,10 +71,6 @@ public class BookingLogic {
             repositories.userRepository.update(owner);
             repositories.userRepository.update(admin);
 
-            System.out.println(owner.getBankAccount().getFunds());
-            System.out.println("Guest paid: " + totalPrice);
-            System.out.println("Owner gets: " + ownerShare);
-            System.out.println("ClearBnB gets: " + clearBNB);
         }
         else{
             System.out.println("You can't book on your own listing!");

@@ -67,7 +67,6 @@ public class Amenities {
         this.listing = listing;
     }
 
-
     public Integer getId() {
         return id;
     }

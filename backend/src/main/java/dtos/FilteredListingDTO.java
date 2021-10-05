@@ -24,16 +24,8 @@ public class FilteredListingDTO {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getAddress() {
@@ -54,10 +46,6 @@ public class FilteredListingDTO {
 
     public int getID() {
         return listingID;
-    }
-
-    public void setID(int ID) {
-        this.listingID = ID;
     }
 
 

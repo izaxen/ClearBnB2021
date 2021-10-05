@@ -14,8 +14,4 @@ public class AddBankDTO {
     public String getBankAddress() {
         return bankAddress;
     }
-
-    public void setBankAddress(String bankAddress) {
-        this.bankAddress = bankAddress;
-    }
 }

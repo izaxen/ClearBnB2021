@@ -203,6 +203,7 @@ public class User {
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", pw='" + pw + '\'' +
+                ", bank='" + bankAccount + '\'' +
                 '}';
     }
 }
