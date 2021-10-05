@@ -8,17 +8,6 @@ public class AddAddressDTO {
     private String city;
     private Listing listing;
 
-    public AddAddressDTO (String city, String addressListing) {
-        this.addressListing = addressListing;
-        this.city = city;
-    }
-
-    public AddAddressDTO(String addressListing, String city, Listing listing) {
-        this.addressListing = addressListing;
-        this.city = city;
-        this.listing = listing;
-    }
-
     public AddAddressDTO() {
     }
 

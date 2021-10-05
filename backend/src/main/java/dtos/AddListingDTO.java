@@ -1,7 +1,5 @@
 package dtos;
 
-import entityDO.Listing;
-
 public class AddListingDTO {
     private int price;
     private String description;
@@ -18,28 +16,6 @@ public class AddListingDTO {
 
     public AddListingDTO() {
     }
-
-    public AddListingDTO(Listing listing) {
-        this.price = (int) Math.ceil(listing.getPrice() * 1.15);
-        this.description = listing.getDescription();
-        this.availableStartDate = listing.getAvailableStartDate();
-        this.availableEndDate = listing.getAvailableEndDate();
-        this.userID = listing.getUser().getId();
-        this.userEmail = listing.getUser().getEmail();
-        this.firstName = listing.getUser().getFirstName();
-        this.city = listing.getAddress().getCity();
-        this.address = listing.getAddress().getAddressListing();
-        this.listingID = listing.getId();
-
-    }
-
-    public AddListingDTO(Integer price, String description, String availableStartDate, String availableEndDate) {
-        this.price = price;
-        this.description = description;
-        this.availableStartDate = availableStartDate;
-        this.availableEndDate = availableEndDate;
-    }
-
 
     public int getUserID() {
         return userID;

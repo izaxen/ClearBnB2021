@@ -5,7 +5,7 @@ import dtos.UpdateAmenityDTO;
 import entityDO.Amenities;
 import entityDO.Listing;
 
-public class AmenityService {
+public class AmenityMapper {
 
     public Amenities convertAddAmenitiesToAmenities(AddAmenityDTO add, Listing listing){
         //Check if incoming is null convert to false

@@ -22,12 +22,7 @@ public class Repositories {
     ListingRevisionRepository listingRevisionRepository = new ListingRevisionRepository(entityManagerFactory);
     AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(entityManagerFactory);
     ImageRepository imageRepository = new ImageRepository(entityManagerFactory);
-    BankRepository bankRepository = new BankRepository(entityManagerFactory);
     MongoDBRepository mongoDBRepository = new MongoDBRepository();
-
-    public BankRepository getBankRepository() {
-        return bankRepository;
-    }
 
     public MongoDBRepository getMongoDBRepository() {
         return mongoDBRepository;

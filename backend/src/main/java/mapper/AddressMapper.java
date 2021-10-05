@@ -5,7 +5,7 @@ import entityDO.Address;
 import entityDO.Listing;
 
 
-public class AddressService {
+public class AddressMapper {
 
 
     public Address convertAddAddressToAddress(AddAddressDTO dto, Listing listing) {

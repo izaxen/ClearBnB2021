@@ -9,14 +9,14 @@ import repositories.AmenitiesRepository;
 import repositories.AmenitiesRevisionRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
-import mapper.AmenityService;
+import mapper.AmenityMapper;
 
 public class AmenityLogic {
     ListingRepository lR;
     AmenitiesRepository amenitiesRepository;
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
-    AmenityService as;
+    AmenityMapper as;
 
     public AmenityLogic(Repositories repos) {
 
@@ -24,7 +24,7 @@ public class AmenityLogic {
         this.amenitiesRevisionRepository = repos.amenitiesRevisionRepository;
         this.listingRevisionRepository = repos.listingRevisionRepository;
         this.lR = repos.listingRepository;
-        this.as = new AmenityService();
+        this.as = new AmenityMapper();
     }
 
     public AmenityLogic() {
@@ -65,7 +65,6 @@ public class AmenityLogic {
         createAmenitiesVersionBackup(oldList);
         listing.setAmenities(ama);
         return listing;
-        //return lR.updateListing(listing);
     }
         private void createAmenitiesVersionBackup(Amenities oldList){
 

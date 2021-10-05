@@ -4,18 +4,16 @@ import dtos.ChatMessageDTO;
 import entityDO.ChatMessage;
 import entityDO.CurrentChat;
 import entityDO.User;
-import mapper.ChatMessageService;
-
-import javax.persistence.criteria.CriteriaBuilder;
+import mapper.ChatMessageMapper;
 import java.util.List;
 
 public class ChatMessageLogic {
     Repositories repositories;
-    private ChatMessageService ms;
+    private ChatMessageMapper ms;
 
     public ChatMessageLogic(Repositories repositories) {
         this.repositories = repositories;
-        this.ms = new ChatMessageService();
+        this.ms = new ChatMessageMapper();
     }
 
     public ChatMessageLogic() {

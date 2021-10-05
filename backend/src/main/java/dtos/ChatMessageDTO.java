@@ -8,12 +8,6 @@ public class ChatMessageDTO {
     public ChatMessageDTO() {
     }
 
-    public ChatMessageDTO(int senderID, int receiverID, String message) {
-        this.message = message;
-        this.senderID = senderID;
-        this.receiverID = receiverID;
-    }
-
     public ChatMessageDTO(String message, int senderID) {
         this.message = message;
         this.senderID = senderID;

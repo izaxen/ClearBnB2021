@@ -1,21 +1,18 @@
 package application;
 
 import dtos.AddBankDTO;
-import dtos.AddListingDTO;
 import entityDO.BankAccount;
-import entityDO.Listing;
 import entityDO.User;
-import mapper.BankService;
-import repositories.BankRepository;
+import mapper.BankMapper;
 
 public class BankLogic {
 
     Repositories repositories;
-    private BankService bs;
+    private BankMapper bs;
 
     public BankLogic(Repositories repositories) {
         this.repositories = repositories;
-        this.bs = new BankService();
+        this.bs = new BankMapper();
     }
 
     public BankAccount createNewBank(AddBankDTO dto, User user) {

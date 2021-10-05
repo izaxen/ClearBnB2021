@@ -6,7 +6,7 @@ import dtos.RegisterUserDTO;
 import entityDO.User;
 
 
-public class UserService {   // Serverar Application med ett nytt userobjekt med rätt info Klassen blir som en validering.
+public class UserMapper {   // Serverar Application med ett nytt userobjekt med rätt info Klassen blir som en validering.
 
     // Service turns DTO into a fake object
     public User convertLoginUserToUser(LoginUserDTO userDTO){

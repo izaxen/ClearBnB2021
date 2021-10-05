@@ -108,7 +108,7 @@ export const store = createStore({
     },
 
     async updateAddress(store, address) {
-      console.log('Update adress',address );
+      console.log('Update adress', address);
       await fetch('/api/address', {
         method: 'PUT',
         body: JSON.stringify(address)
@@ -183,7 +183,7 @@ export const store = createStore({
     },
 
     async deleteRating(store, ratingID) {
-      let res = await fetch(`/api/delete-rating`, {
+      let res = await fetch(`/rest/delete-rating`, {
         method: "DELETE",
         body: JSON.stringify({ id: ratingID }),
       });
@@ -204,6 +204,14 @@ export const store = createStore({
 
     async getRatingsToFill() {
       let res = await fetch("/api/check-if-there-is-ratings-to-fill/");
+      return await res.json();
+    },
+
+    async postNewBooking(store, booking) {
+      let res = await fetch(`/api/createBooking/`, {
+        method: 'POST',
+        body: JSON.stringify(booking)
+      });
       return await res.json();
     },
 

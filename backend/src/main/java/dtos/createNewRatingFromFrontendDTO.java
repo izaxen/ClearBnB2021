@@ -1,7 +1,5 @@
 package dtos;
 
-import static java.lang.Integer.parseInt;
-
 public class createNewRatingFromFrontendDTO {
 
     int reviewerID;

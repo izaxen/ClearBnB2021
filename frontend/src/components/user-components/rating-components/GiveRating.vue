@@ -1,6 +1,6 @@
 <template>
   <div class="give-rating-container" :v-if="ratingsToFill">
-    <h1>Give rating:</h1>
+    <h1>Give a rating to your old bookings:</h1>
     <GiveRatingItem
       v-for="booking in ratingsToFill"
       :key="booking.id"
