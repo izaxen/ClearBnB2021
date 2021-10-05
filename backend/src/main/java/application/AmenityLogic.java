@@ -65,7 +65,6 @@ public class AmenityLogic {
         createAmenitiesVersionBackup(oldList);
         listing.setAmenities(ama);
         return listing;
-        //return lR.updateListing(listing);
     }
         private void createAmenitiesVersionBackup(Amenities oldList){
 
