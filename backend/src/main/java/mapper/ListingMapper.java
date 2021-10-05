@@ -7,7 +7,7 @@ import dtos.FilteredListingDTO;
 import entityDO.Listing;
 import entityDO.User;
 
-public class ListingService {
+public class ListingMapper {
 
     // this converts DTO into a fake
     public Listing convertAddListingToListing(AddListingDTO dto, User owner) {

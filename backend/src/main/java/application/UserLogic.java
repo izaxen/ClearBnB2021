@@ -8,11 +8,11 @@ import utils.HashPassword;
 import java.util.Optional;
 
 
-public class UserAccess {
+public class UserLogic {
 
     UserRepository userRepository;
 
-    public UserAccess(UserRepository userRepository){
+    public UserLogic(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 

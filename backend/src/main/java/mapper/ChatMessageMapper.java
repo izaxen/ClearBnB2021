@@ -8,7 +8,7 @@ import entityDO.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatMessageService {
+public class ChatMessageMapper {
 
     public ChatMessage convertDTOToMessage(ChatMessageDTO dto, User sender, User receiver, CurrentChat chatRoom){
         return new ChatMessage(chatRoom, sender, receiver,dto.getMessage());

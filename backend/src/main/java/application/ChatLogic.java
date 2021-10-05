@@ -4,26 +4,23 @@ import dtos.ChatMessageDTO;
 import entityDO.CurrentChat;
 import entityDO.User;
 import io.javalin.websocket.WsContext;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatLogic {
     Repositories repositories;
-    ChatMessageLogic chatMessageLogic;
     List<WsContext> clients = new ArrayList<>();
     CurrentChat savedChatRoom;
+    LogicHandler logicHandler;
     User admin;
     int userID;
     int roomID;
-    // chatroom ID as key, list<ctx> as value
     private static Map<Integer, List<WsContext>> chatRoomMap = new ConcurrentHashMap<>();
-    // ctx as key, userID as value
     private static Map<WsContext, Integer> userNameMap = new ConcurrentHashMap<>();
 
-    public ChatLogic(Repositories repositories) {
+    public ChatLogic(Repositories repositories, LogicHandler logicHandler) {
         this.repositories = repositories;
-        chatMessageLogic = new ChatMessageLogic(repositories);
+        this.logicHandler = logicHandler;
         admin = repositories.getUserRepository().findUserById(91);
     }
 
@@ -35,20 +32,15 @@ public class ChatLogic {
     }
 
     public void onMessage(WsContext ctx, ChatMessageDTO msg) {
-        // if message is not from admin, set receiverID to admin
         if (msg.getReceiverID() == 0) {
             msg.setReceiverID(91);
         }
         userID = userNameMap.get(ctx);
-
-        // if user is not admin, loop through every chat room to find the room i am in.
-        // ( to update roomID, else roomID would be the last connected user's roomID )
-        // save message to DB, send back to client
+        // UserID 91 is hard coded admin
         if (userID != 91) {
             userMessage(ctx, msg);
         }
 
-        // if admin, find the receiver's chat room, and send message to that room
         else {
             adminMessage(msg);
         }
@@ -75,16 +67,11 @@ public class ChatLogic {
     public void registerAndDeployCTXToRoom(WsContext ctx) {
         userID = Integer.parseInt(ctx.pathParam("id"));
         userNameMap.put(ctx, userID);
-        // Check if user is admin (91)
-        // If yes, register ctx together with this userID
-        // Add admin to all existing
+        // Check if user is admin ( hard coded userID 91)
         if (userID == 91) {
             registerAdminToRoom(ctx);
         }
 
-        // If not, create new room.
-        // Register this ctx to this userID
-        // and put user in new chat room
         else {
             registerUserToRoom(ctx);
         }
@@ -103,7 +90,6 @@ public class ChatLogic {
 
     public void registerUserToRoom(WsContext ctx) {
         roomID = createNewRoomAndRegister(ctx);
-        // If user logged in after admin log in, admin won't be in same room, thus when they log in we need to run a check
         if (userNameMap.containsValue(91)) {
             for (WsContext c : userNameMap.keySet()
             ) {
@@ -131,16 +117,10 @@ public class ChatLogic {
 
     public void historyAndOnlineUsers(WsContext ctx, String userFirstName) {
         ChatMessageDTO msg = new ChatMessageDTO(userFirstName + " has joint the chat", userID);
-        // If user is not admin
-        // Broadcast to everyone IN MY ROOM i'm online
-        // Get all chat history between me and admin in our DB and send chat history
+        // If user is not admin (hardcoded admin userID 91)
         if (userID != 91) {
             getAndPrintChatHistory(ctx, msg);
         }
-        // If admin, tell everyone IN THE SERVER that i am connected
-        // loop to get all userID currently connected to server
-        // Delete duplicate and admin userID
-        // Send current users online to admin
         else {
             getAndPrintOnlineUsers(ctx, msg);
         }
@@ -148,7 +128,7 @@ public class ChatLogic {
 
     public void getAndPrintChatHistory(WsContext ctx, ChatMessageDTO msg) {
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
-        List<ChatMessageDTO> cmDTOs = chatMessageLogic.getChatMessageDTOOfUser(userID, 91);
+        List<ChatMessageDTO> cmDTOs = logicHandler.getChatMessageLogic().getChatMessageDTOOfUser(userID, 91);
         if (cmDTOs.size() > 0) {
             ChatMessageDTO historyStart = new ChatMessageDTO("===Chat History Start===");
             ctx.send(historyStart);
@@ -190,33 +170,30 @@ public class ChatLogic {
                 roomID = rid;
             }
         }
-        chatMessageLogic.createNewMessage(msg, roomID);
+        logicHandler.getChatMessageLogic().createNewMessage(msg, roomID);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
     }
 
     public void adminMessage(ChatMessageDTO msg){
         int receiverID = msg.getReceiverID();
-        System.out.println("ReceiverID: " + receiverID);
+        System.out.println("receiver ID: " + msg.getReceiverID());
         WsContext tempC = null;
-        // Run in two separate for loop to avoid messing in my head
-        // Find every ctx that belongs to receiver's ID
         for (WsContext c : userNameMap.keySet()
         ) {
             if (userNameMap.get(c) == receiverID) {
                 tempC = c;
-                System.out.println("tempc: " + tempC);
             }
         }
 
-        // Find chatRoom belongs to that ID
         for (Integer rid : chatRoomMap.keySet()
         ) {
             if (chatRoomMap.get(rid).contains(tempC)) {
                 roomID = rid;
-                System.out.println("roomID: " + roomID);
+                System.out.println("roomID in: " + roomID);
             }
         }
-        chatMessageLogic.createNewMessage(msg, roomID);
+        System.out.println("roomID out: " + roomID);
+        logicHandler.getChatMessageLogic().createNewMessage(msg, roomID);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
     }
 
