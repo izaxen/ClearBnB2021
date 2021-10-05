@@ -34,7 +34,6 @@ export default {
       avgRating: null,
       listingsInSummary: [],
       ratingsToFill: [],
-      
     };
   },
 
@@ -87,6 +86,8 @@ export default {
     },
     async getRatingsToFill() {
       this.ratingsToFill = await this.$store.dispatch("getRatingsToFill");
+      console.log(this.ratingsToFill);
+      console.log(this.$store.dispatch("getRatingsToFill"));
     },
   },
 };
