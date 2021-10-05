@@ -6,7 +6,6 @@ import express.Express;
 import application.Repositories;
 
 public class Routes {
-    Repositories repositories;
 
     public Routes(Express app, Repositories repositories, MongoCollection collection) {
 
@@ -14,12 +13,12 @@ public class Routes {
         new UserRoutes(app, repositories.getUserRepository());
         new BookingRoutes(app, repositories);
         new ListingRoutes(app, repositories,collection, logicHandler);
-        new AddressRoutes(app, repositories);
-        new AmenityRoutes(app, repositories);
+        new AddressRoutes(app, logicHandler);
+        new AmenityRoutes(app, logicHandler);
         new RatingRoutes(app, repositories);
         new ImageRoutes(app, repositories, logicHandler);
-        new BankRoutes(app, repositories);
-        new ChatRoutes(app, repositories);
+        new BankRoutes(app, logicHandler);
+        new ChatRoutes(app, logicHandler);
 
     }
 }

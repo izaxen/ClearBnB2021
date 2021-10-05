@@ -10,16 +10,6 @@ public class AddAmenityDTO {
     private Boolean isBicycle;
     private Boolean isSauna;
 
-    public AddAmenityDTO(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.isBathTub = isBathTub;
-        this.isParkingLot = isParkingLot;
-        this.isStove = isStove;
-        this.isDoubleBed = isDoubleBed;
-        this.isBubblePool = isBubblePool;
-        this.isBicycle = isBicycle;
-        this.isSauna = isSauna;
-    }
-
     public AddAmenityDTO() {
 
     }

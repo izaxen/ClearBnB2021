@@ -5,13 +5,12 @@ import dtos.*;
 import entityDO.Image;
 import entityDO.Listing;
 import entityDO.User;
-import mapper.ListingService;
+import mapper.ListingMapper;
 import org.bson.Document;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import entityDO.ListingRevision;
-import repositories.MongoDBRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,10 @@ public class ListingLogic {
     BookingRepository bookingRepository;
     Repositories repositories;
     FilteredListingDTO filteredListingDTO;
-    AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
     MongoCollection collection;
     LogicHandler logicHandler;
-    private ListingService ls;
+    private ListingMapper ls;
     private List<SingeListingDTO> oldVersionListing;
 
 
@@ -38,27 +36,14 @@ public class ListingLogic {
         this.bookingRepository = repositories.bookingRepository;
         this.listingRevisionRepository = repositories.listingRevisionRepository;
         this.repositories = repositories;
-        this.ls= new ListingService();
+        this.ls= new ListingMapper();
         this.collection = collection;
         this.logicHandler = logicHandler;
     }
 
-
-
     public Listing createNewListing(AddListingDTO dto, User user) {
         Listing newListing = ls.convertAddListingToListing(dto, user);
         return listingRepository.addListing(newListing);
-    }
-
-    public List<AddListingDTO> getAllListings(){
-        List<Listing> allListings = listingRepository.findAllListings();
-        List<AddListingDTO> allListingsDTOForBooking = new ArrayList<>();
-        for ( Listing l: allListings
-        ) {
-            addListingDTOForBooking = new AddListingDTO(l);
-            allListingsDTOForBooking.add(addListingDTOForBooking);
-        }
-        return allListingsDTOForBooking;
     }
 
     public List<FilteredListingDTO> getAllListingsDTO(){

@@ -6,7 +6,7 @@ import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
-import mapper.AddressService;
+import mapper.AddressMapper;
 
 public class AddressLogic {
 
@@ -14,14 +14,14 @@ public class AddressLogic {
     ListingRepository lR;
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
-    AddressService as;
+    AddressMapper as;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
         this.lR= repo.listingRepository;
-        this.as = new AddressService();
+        this.as = new AddressMapper();
     }
 
     public AddressLogic() {
