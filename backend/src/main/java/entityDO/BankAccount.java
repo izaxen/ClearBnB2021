@@ -53,6 +53,14 @@ public class BankAccount {
         this.user = user;
     }
 
+    public String getBankAddress() {
+        return bankAddress;
+    }
+
+    public void setBankAddress(String bankAddress) {
+        this.bankAddress = bankAddress;
+    }
+
     @Override
     public String toString() {
         return "BankAccount{" +

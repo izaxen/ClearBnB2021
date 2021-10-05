@@ -139,6 +139,8 @@ public class Amenities {
         isSauna = sauna;
     }
 
+
+
     @Override
     public String toString() {
         return "Amenities{" +

@@ -89,6 +89,7 @@ public class UpdateAmenityDTO {
         isSauna = sauna;
     }
 
+
     @Override
     public String toString() {
         return "UpdateAmenityDTO{" +

@@ -26,6 +26,38 @@ public class GetRatingDTO {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public String getDateWritten() {
+        return dateWritten;
+    }
+
+    public void setDateWritten(String dateWritten) {
+        this.dateWritten = dateWritten;
+    }
+
     @Override
     public String toString() {
         return "GetRatingDTO{" +

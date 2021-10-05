@@ -32,6 +32,18 @@ public class CurrentChat {
         isClosed = closed;
     }
 
+    public Boolean getClosed() {
+        return isClosed;
+    }
+
+    public List<ChatMessage> getChatMessages() {
+        return chatMessages;
+    }
+
+    public void setChatMessages(List<ChatMessage> chatMessages) {
+        this.chatMessages = chatMessages;
+    }
+
     @Override
     public String toString() {
         return "CurrentChat{" +

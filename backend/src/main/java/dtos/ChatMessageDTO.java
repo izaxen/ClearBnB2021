@@ -32,4 +32,12 @@ public class ChatMessageDTO {
     public void setReceiverID(int receiverID) {
         this.receiverID = receiverID;
     }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setSenderID(int senderID) {
+        this.senderID = senderID;
+    }
 }
