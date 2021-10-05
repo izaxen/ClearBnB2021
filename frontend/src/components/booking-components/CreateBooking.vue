@@ -112,7 +112,9 @@ export default {
 
     async getAllListings() {
       let res = await fetch("/api/allListings");
-      this.allListings = await res.json();
+      let updatedList = await res.json();
+      this.allListings = updatedList.allListings;
+
       // this should have been rest /rest/listing   since we don't send id we are sending everything, thus no need for listingS
       // await this.$store.dispatch("getAllListingsDTO");
       // this.allListings = this.$store.state.allListingsDTO;
