@@ -12,7 +12,12 @@
       <h4>{{ rating.review }}</h4>
       <p>By: {{ rating.reviewer }}, {{ rating.dateWritten }}</p>
       <p
-        v-if="rating.reviewer === loggedInFullName"
+        v-if="
+          rating.reviewer ===
+          this.$store.state.user.firstName +
+            ' ' +
+            this.$store.state.user.surName
+        "
         @click="deleteRating(rating.id)"
       >
         Delete this rating
@@ -36,6 +41,7 @@ export default {
   methods: {
     async deleteRating(ratingID) {
       await this.$store.dispatch("deleteRating", ratingID);
+      this.$router.go();
     },
   },
 };

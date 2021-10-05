@@ -150,7 +150,7 @@
         <div class="start">
           <label for="startDate">Select Start Date</label>
           <input
-           
+            :min="new Date().toISOString().split('T')[0]"
             type="date"
             @change="(ev) => (changedList.availableStartDate = ev.target.value)"
           />
@@ -203,28 +203,31 @@ export default {
   methods: {
     async addListing() {
       await this.$store.dispatch("updateListing",  {...this.changedList, id: this.initialData.id, });
-      setTimeout(this.addAddress(), 500);
+      this.addAddress();
     },
 
     async addAddress() {
       console.log("this adress", this.changedAddress);
       await this.$store.dispatch("updateAddress", {...this.changedAddress, id:this.initialData.id});
-      setTimeout(this.addAmenity(),500);
+      this.addAmenity();
     },
 
     async addAmenity() {
       console.log("this amenty", this.changedAmenity);
       await this.$store.dispatch("updateAmenity",{...this.changedAmenity, id:this.initialData.id});
-      setTimeout(this.addImages(),500);
+      this.addImages();
     },
-    addImages() {
-      let fd = this.formData.getAll("files");
-      if (!!fd.entries().next().value) {
-        this.$store.dispatch("uploadFiles", this.formData);
-      }
+  addImages() {
+    this.files = document.querySelector('input[type=file]').files;
+  let formData = new FormData();
 
-       this.resetPage()
-    },
+    for(let file of this.files) {
+    formData.append('files', file, file.name);}
+
+    this.$store.dispatch("uploadFiles", this.formData);
+    
+    this.resetPage()
+  },
 
     LoadFormData(formData) {
       this.formData = formData;

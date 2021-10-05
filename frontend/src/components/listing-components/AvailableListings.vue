@@ -44,14 +44,15 @@ export default {
   }
 
   },
-  
   created() {
     this.getAllListingsDTO();
   },
 
   methods: {
-    updatelist(matchedListings) {
-      this.matchedListings = matchedListings;
+    updatelist(filteredListings) {
+      console.log('matched', filteredListings);
+      this.matchedListings = filteredListings;
+      console.log(this.matchedListings);
     },
     async openDetail(id){
       console.log(id);
@@ -63,7 +64,9 @@ export default {
 
     async getAllListingsDTO() {
       let res = await fetch("/api/allListings");
-      this.matchedListings = await res.json();
+      let allList = await res.json();
+    this.matchedListings = allList.allListings
+      console.log('this.matchedListing', this.matchedListings);
       
     },
   },

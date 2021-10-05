@@ -1,43 +1,52 @@
 package repositories;
 
+import application.Repositories;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import dtos.ListingFilterDTO;
 import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Listing;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
+import org.bson.Document;
 import org.hibernate.Session;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ListingRepository {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public ListingRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+    public ListingRepository(EntityManagerFactory emf){
+        this.emf = emf;
     }
 
     public Optional<Listing> findById (Integer id){
-        Listing listing = entityManager.find(Listing.class, id);
+        EntityManager em = emf.createEntityManager();
+        Listing listing = em.find(Listing.class, id);
+        em.close();
         return listing != null ? Optional.of(listing) : Optional.empty();
     }
 
     public List<Listing> findAllListings(){
-
-
-        return entityManager.createQuery("FROM Listing l", Listing.class)
-
+        EntityManager em = emf.createEntityManager();
+        List<Listing> findAllListings = em.createQuery("FROM Listing l", Listing.class)
                 .getResultList();
+        em.close();
+        return findAllListings;
     }
 
     public List<Listing> findAllListingsFromUser(int userID){
-        entityManager.clear();
-        List<Listing> listingList;
+        EntityManager em = emf.createEntityManager();
+        List<Listing> listingList = new ArrayList<>();
+
         try {
-            listingList = entityManager.createQuery("FROM Listing l WHERE l.user.id = :user", Listing.class)
+            listingList = em.createQuery("FROM Listing l WHERE l.user.id = :user", Listing.class)
                     .setParameter("user", userID)
                     .getResultList();
-            return listingList;
         }catch (PersistenceException e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
         }catch (java.lang.NullPointerException e){
@@ -45,22 +54,29 @@ public class ListingRepository {
         }catch (org.hibernate.AssertionFailure e){
             System.out.println("ERROR IN findAllListingsFromUser (repository) ----------------: \n" + e.getMessage());
         }
-        return null;
+
+        em.close();
+        return listingList;
     }
 
     public User findOwnerOfListingWithABooking(Booking booking){
 
-        Listing listing = entityManager.createQuery("SELECT l FROM Listing l WHERE l = :listing", Listing.class)
+        EntityManager em = emf.createEntityManager();
+
+        Listing listing = em.createQuery("SELECT l FROM Listing l WHERE l = :listing", Listing.class)
                 .setParameter("listing", booking.getListing())
                 .getSingleResult();
 
         User user = listing.getUser();
 
+        em.close();
         return user;
     }    
     
     public List<Listing> filterListing(ListingFilterDTO filter){
-        Session session = entityManager.unwrap(Session.class);
+        EntityManager em = emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
         String ts1 = filter.getAvailableStartDate();
         String ts2 = filter.getAvailableEndDate();
         Boolean isBathTub = filter.getBathTub();
@@ -96,36 +112,39 @@ public class ListingRepository {
                 .setParameter("maxPrice", maxPrice)
                 .list();
 
+        em.close();
         return matchedListing;
     }
 
     public Listing addListing(Listing listing){
+        EntityManager em = emf.createEntityManager();
 
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(listing);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(listing);
+            em.getTransaction().commit();
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        entityManager.clear();
+
+        em.close();
         return listing;
     }
 
     public Listing updateListing(Listing listing){
 
+        EntityManager em = emf.createEntityManager();
         try{
-            entityManager.getTransaction().begin();
-            entityManager.merge(listing);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.merge(listing);
+            em.getTransaction().commit();
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        entityManager.clear();
+        em.close();
         return listing;
     }
-
 
 
 

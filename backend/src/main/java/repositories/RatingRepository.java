@@ -4,6 +4,7 @@ import entityDO.Booking;
 import entityDO.User;
 import jakarta.persistence.EntityManager;
 import entityDO.Rating;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
 
 import java.sql.ResultSet;
@@ -13,77 +14,96 @@ import java.util.Optional;
 
 public class RatingRepository {
 
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public RatingRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+    public RatingRepository(EntityManagerFactory emf){
+        this.emf = emf;
     }
 
     public Optional<Rating> addRating(Rating rating){
+        EntityManager em = emf.createEntityManager();
+
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(rating);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(rating);
+            em.getTransaction().commit();
+            em.close();
             return Optional.of(rating);
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
+        em.close();
         return Optional.empty();
     }
 
     public List<Rating> getRatingsLinkedToBooking(Booking booking){
-        List<Rating> getRatingsToFill;
+        EntityManager em = emf.createEntityManager();
 
+        List<Rating> getRatingsToFill;
         try {
-            getRatingsToFill = entityManager.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking", Rating.class)
+            getRatingsToFill = em.createQuery("SELECT r FROM Rating r WHERE r.booking = :booking", Rating.class)
                     .setParameter("booking", booking)
                     .getResultList();
+            em.close();
             return getRatingsToFill;
         }catch (PersistenceException e){
             System.out.println("ERROR IN getRatingsToFill (repository) ----------------: \n" + e.getMessage());
             e.printStackTrace();
         }
+        em.close();
         return null;
     }
 
     public List<Rating> getRatingOfUser(User user){
+        EntityManager em = emf.createEntityManager();
 
         List<Rating> ratingList;
         try {
-            ratingList = entityManager.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
+            ratingList = em.createQuery("SELECT r FROM Rating r WHERE r.recipient = :user", Rating.class)
                     .setParameter("user", user)
                     .getResultList();
+            em.close();
             return ratingList;
         }catch (PersistenceException e){
             System.out.println("ERROR IN getRatingOfUser (repository) ----------------: \n" + e.getMessage());
             e.printStackTrace();
         }
+        em.close();
         return null;
     }
 
     public double calcAvgRatingOfUser(User user){
+        EntityManager em = emf.createEntityManager();
+        double avg = 0;
         try{
-            return (double) entityManager.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
+            avg = (double) em.createQuery("SELECT avg(r.rating) FROM Rating r WHERE r.recipient = :user")
                     .setParameter("user", user)
                     .getSingleResult();
+
         }catch (Exception e){
-            return 0;
+            System.out.println("Error in calcAvgRatingOfUser");
         }
+        em.close();
+        return avg;
 
     }
 
     public boolean deleteRating(int id){
+        EntityManager em = emf.createEntityManager();
+        boolean didDelete = false;
         try{
-            Rating rating = entityManager.find(Rating.class, id);
-            entityManager.getTransaction().begin();
-            entityManager.remove(rating);
-            entityManager.getTransaction().commit();
-            return true;
+            Rating rating = em.find(Rating.class, id);
+            em.getTransaction().begin();
+            em.remove(rating);
+            em.getTransaction().commit();
+            didDelete = true;
         }catch (Exception e){
             System.out.println("Error in deleteRating Repository");
         }
-        return false;
+
+        em.close();
+        return didDelete;
     }
 
 }

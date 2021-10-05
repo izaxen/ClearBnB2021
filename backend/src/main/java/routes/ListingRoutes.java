@@ -1,7 +1,9 @@
 package routes;
 
 import application.ListingLogic;
+import application.LogicHandler;
 import application.Repositories;
+import com.mongodb.client.MongoCollection;
 import dtos.ListingFilterDTO;
 import dtos.SingeListingDTO;
 import dtos.UpdateListingDTO;
@@ -20,11 +22,11 @@ public class ListingRoutes {
     private ListingLogic listingLogic;
     private ListingService ls;
     private Express app;
-    private User currentUser;
 
-    public ListingRoutes(Express app, Repositories repositories) {
+    public ListingRoutes(Express app, Repositories repositories, MongoCollection collection , LogicHandler logicHandler) {
 
-        listingLogic= new ListingLogic(repositories);
+
+        listingLogic= logicHandler.getListingLogic(repositories, collection);
         ls= new ListingService();
         this.app = app;
 
@@ -32,22 +34,21 @@ public class ListingRoutes {
         getAllListingsInSummaryFromUser();
 
         app.post("/api/listing", (req, res) -> {
-            currentUser = req.session("current-user");
+            User currentUser = req.session("current-user");
             Listing createdListing = listingLogic.createNewListing(
                             req.body(AddListingDTO.class),
                             currentUser
                     );
             req.session("current-Listing", createdListing);
-            //res.json(createdListing.getId());
         });
 
 
         app.get("/api/allListings", (req, res) -> {
-            res.json(listingLogic.getAllListingsDTO());
+            res.json(listingLogic.getAllListFromMongoDB(collection));
         });
 
         app.put("/api/listing", (req, res) -> {
-            currentUser = req.session("current-user");
+            User currentUser = req.session("current-user");
             Listing updatedListing = listingLogic.updateListing(
                     ls.convertupdateListingToListing(
                             req.body(UpdateListingDTO.class),
@@ -75,17 +76,12 @@ public class ListingRoutes {
             List<SingeListingDTO> dto = listingLogic.getoldVersion(id);
             res.json(dto);
         });
-
-
     }
+
     private void getAllListingsInSummaryFromUser() {
         app.get("/rest/:userID/listings", (req, res) -> {
             int userID = parseInt(req.params("userID"));
             res.json(listingLogic.getAllListingsInSummaryFromUser(userID));
         });
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
     }
 }

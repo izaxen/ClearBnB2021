@@ -44,9 +44,9 @@ public class UserRoutes {
             res.json(userService.noPwUser(req.session("current-user")));
         });
 
-        app.get("/api/logOff",(req,res)->{
-            req.session("current-user", null);
+        app.get("/rest/logOff",(req,res)->{
 
+            req.session("current-user", null);
             res.json(Map.of("Ok", "Logged out"));
         });
 

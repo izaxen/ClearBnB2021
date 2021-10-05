@@ -42,15 +42,7 @@ export const store = createStore({
     setListing(state, listing) {
       state.listing = listing
     },
-
-
-    // setAllListingsDTO(state, allListingsDTO) {
-    //   state.allListingsDTO = allListingsDTO;
-    // }
   },
-
-  //async methods that will trigger a mutation
-  // this.$store.dispatch('nameOfAction')
   actions: {
 
     async registerUser(store, user) {
@@ -78,7 +70,6 @@ export const store = createStore({
         this.state.failedLogIn = true;
         return
       }
-      console.log("Login active", loggedInUser);
       store.commit('setUser', loggedInUser)
 
     },
@@ -89,7 +80,7 @@ export const store = createStore({
     },
 
     async logOff(store) {
-      let res = await fetch('/api/logOff')
+      let res = await fetch('/rest/logOff')
       store.commit('setUser', null)
       let userResponse = await res.json()
     },
@@ -99,11 +90,10 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(listing)
       });
-      //let currentListingId = await res.json();
-      //store.commit('setCurrentListing', currentListingId); // an id
     },
 
     async updateListing(store, listing) {
+      console.log('updatelisting', listing);
       await fetch('/api/listing', {
         method: 'PUT',
         body: JSON.stringify(listing)
@@ -118,6 +108,7 @@ export const store = createStore({
     },
 
     async updateAddress(store, address) {
+      console.log('Update adress',address );
       await fetch('/api/address', {
         method: 'PUT',
         body: JSON.stringify(address)
@@ -131,6 +122,7 @@ export const store = createStore({
       })
     },
     async updateAmenity(store, amenity) {
+      console.log("Update Amenti", amenity)
       await fetch('/api/amenity', {
         method: 'PUT',
         body: JSON.stringify(amenity)
@@ -157,6 +149,8 @@ export const store = createStore({
         body: JSON.stringify(filters)
       })
       let matchedListings = await res.json();
+      console.log(matchedListings);
+
       return matchedListings;
     },
 
@@ -200,17 +194,6 @@ export const store = createStore({
       return await res.json();
     },
 
-
-
-    // async getAllListingsDTO(_) {
-    //   let res = await fetch('/rest/getAllListingsDTO', {
-    //     method: 'GET',
-    //     body: JSON.stringify()
-    //   })
-    //   let getAllListingsDTO = await res.json();
-    //   console.log("res ");
-    //   store.commit('setAllListingsDTO', getAllListingsDTO)
-    // },
     async getSingleListingVersion(store, id) {
       console.log("Startar get singöle");
       let res = await fetch('/rest/getSingleListingVersion/' + id)
@@ -218,6 +201,12 @@ export const store = createStore({
       store.commit('setCurrentListingOldVersions', a)
       return a
     },
+
+    async getRatingsToFill() {
+      let res = await fetch("/api/check-if-there-is-ratings-to-fill/");
+      return await res.json();
+    },
+
   }
 })
 

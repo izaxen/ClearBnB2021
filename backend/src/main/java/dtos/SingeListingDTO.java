@@ -64,11 +64,11 @@ public class SingeListingDTO {
         this.isSauna = isSauna;
     }
 
-    public SingeListingDTO(int price, String description, String availableStartDate, String availableEndDate,
+    public SingeListingDTO(int id, int price, String description, String availableStartDate, String availableEndDate,
                            String city, String addressListing, Boolean isBathTub, Boolean isParkingLot, Boolean isStove,
                            Boolean isDoubleBed, Boolean isBubblePool, Boolean isBicycle, Boolean isSauna,
                            ArrayList<String> imageslist) {
-
+        this.id = id;
         this.price = price;
         this.description = description;
         this.availableStartDate = availableStartDate;

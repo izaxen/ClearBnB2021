@@ -7,7 +7,7 @@ import org.hibernate.annotations.Proxy;
 
 @Entity
 @Table(name = "address")
-@Proxy(lazy = false)
+
 public class Address {
     @Id
     @Column(name = "listing_id")

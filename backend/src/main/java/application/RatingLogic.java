@@ -5,7 +5,6 @@ import entityDO.Booking;
 import entityDO.Rating;
 import entityDO.User;
 import mapper.RatingMapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class RatingLogic {
 
     public List<GetRatingDTO> getAllRatingsOfUser(int userID){
 
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
         List<Rating> listOfRatings = repositories.ratingRepository.getRatingOfUser(user);
 
         ArrayList<GetRatingDTO> listOfRatingDTO = new ArrayList<>();
@@ -37,22 +36,23 @@ public class RatingLogic {
     }
 
     public double getAvgRatingsOfUser(int userID){
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 
     public List<GiveRatingDTO> checkIfThereIsAnyRatingToFill(User user){
+
        try{
             List<Booking> oldBookings = checkIfUserHasAnyOldBookingsAndReturnThem(user);
-            return getOldBookingsThatMissingTwoRatings(oldBookings, user);
+            return oldBookings.isEmpty() ? null : getOldBookingsThatMissingTwoRatings(oldBookings, user);
         }catch (java.lang.NullPointerException e){
             System.out.println(e.getMessage());            
         }
-        return null;
+       return null;
     }
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
-        repositories.entityManager.clear();
+        /*repositories.entityManager.clear();*/
         return repositories.booking().findAGuestsOldBookings(user);
     }
 
@@ -84,7 +84,7 @@ public class RatingLogic {
                 bookingsThatUserCanAddARatingToDTO.add(new GiveRatingDTO(booking.getId(), 0, "", owner , user, booking.getStartDate() ));
             }
         });
-        System.out.println(bookingsThatUserCanAddARatingToDTO.toString());
+
         return bookingsThatUserCanAddARatingToDTO;
     }
 
@@ -112,12 +112,6 @@ public class RatingLogic {
 
         repositories.bookingRepository.updateBooking(booking);
 
-        /*repositories.ratingRepository.addRating(new Rating(
-                saveRatingToDataBaseDTO.getReviewer(),
-                saveRatingToDataBaseDTO.getRecipient(),
-                saveRatingToDataBaseDTO.getRating(),
-                saveRatingToDataBaseDTO.getReview(),
-                saveRatingToDataBaseDTO.getBooking()));*/
     }
 
     public boolean deleteRating(int id){        ;

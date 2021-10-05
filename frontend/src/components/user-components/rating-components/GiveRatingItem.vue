@@ -1,5 +1,5 @@
 <template>
-  <div class="give-rating-item" :v-if="this.$props.booking">
+  <div class="give-rating-item" v-if="this.$props.booking">
     Give a rating to
     {{
       this.$store.state.user.id === this.$props.booking.reviewer
@@ -11,20 +11,50 @@
         ? "as your guest"
         : "as your host"
     }}
-    <form action="" name="{{this.$props.booking.id}}" @submit.prevent>
+    <form action="" name="{{this.$props.booking.id}}">
       <div class="radio">
-        <input type="radio" id="1" name="rating" value="1" v-model="rating" />
+        <input
+          type="radio"
+          id="1"
+          name="rating"
+          value="1"
+          v-model="this.rating"
+        />
         <label for="1">1</label>
-        <input type="radio" id="2" name="rating" value="2" v-model="rating" />
+        <input
+          type="radio"
+          id="2"
+          name="rating"
+          value="2"
+          v-model="this.rating"
+        />
         <label for="2">2</label>
-        <input type="radio" id="3" name="rating" value="3" v-model="rating" />
+        <input
+          type="radio"
+          id="3"
+          name="rating"
+          value="3"
+          v-model="this.rating"
+        />
         <label for="3">3</label>
-        <input type="radio" id="4" name="rating" value="4" v-model="rating" />
+        <input
+          type="radio"
+          id="4"
+          name="rating"
+          value="4"
+          v-model="this.rating"
+        />
         <label for="4">4</label>
-        <input type="radio" id="5" name="rating" value="5" v-model="rating" />
+        <input
+          type="radio"
+          id="5"
+          name="rating"
+          value="5"
+          v-model="this.rating"
+        />
         <label for="5">5</label>
       </div>
-      <input type="text" placeholder="Comment" v-model="comment" />
+      <input type="text" placeholder="Comment" v-model="this.comment" />
 
       <button @click="this.createARating()">Send rating</button>
     </form>
@@ -47,15 +77,14 @@
 export default {
   props: ["booking"],
 
-  Data() {
+  data() {
     return {
       ratingsToFill: [],
-      bookingToShow: this.$props.booking,
       recipient:
         this.$store.state.user.id === this.$props.booking.guest
           ? this.$props.booking.landlordID
           : this.$props.booking.guestID,
-      rating: null,
+      rating: 1,
       comment: null,
       bookingID: this.$props.booking.bookingID,
       dateVisited: this.$props.booking.dateVisited,
@@ -63,9 +92,6 @@ export default {
   },
 
   methods: {
-    print() {
-      console.log(this.rating);
-    },
     async createARating() {
       let rating1 = {
         reviewerID: this.$store.state.user.id,
@@ -78,7 +104,7 @@ export default {
         message: this.comment,
       };
 
-      let res = await fetch("/rest/createNewRating", {
+      let res = await fetch("/api/createNewRating", {
         method: "POST",
         body: JSON.stringify(rating1),
       });
@@ -97,5 +123,9 @@ export default {
   border-radius: 15px;
   margin-bottom: 5px;
   padding: 10px;
+}
+
+.active {
+  display: none;
 }
 </style>

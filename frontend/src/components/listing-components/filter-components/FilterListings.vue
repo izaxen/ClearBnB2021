@@ -90,9 +90,6 @@ export default {
 
   methods: {
     async filterListings() {
-      // if (this.price === null) {
-      //   this.price = 99999;
-      // }
 
       let newFilter = {
         price: this.price,
@@ -106,10 +103,6 @@ export default {
         bicycle: this.isBicycle,
         sauna: this.isSauna,
       };
-
-      // if ((this.price = 99999)) {
-      //   this.price = null;
-      // }
 
       this.matchedListings = await this.$store.dispatch(
         "getFilteredListing",

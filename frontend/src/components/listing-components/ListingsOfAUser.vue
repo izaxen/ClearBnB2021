@@ -47,7 +47,6 @@ export default {
     }, */
 
     editList(id) {
-      console.log("ID i edit list", id);
       id = id.toString();
       this.currentList = this.$store.dispatch("getSingleListing", id);
     },
