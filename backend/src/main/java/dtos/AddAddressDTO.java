@@ -15,16 +15,8 @@ public class AddAddressDTO {
         return addressListing;
     }
 
-    public void setAddressListing(String addressListing) {
-        this.addressListing = addressListing;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public Listing getListing() {

@@ -1,6 +1,7 @@
 package application;
 
 import dtos.AddAddressDTO;
+import dtos.UpdateAddressDTO;
 import entityDO.*;
 import repositories.AddressRepository;
 import repositories.AddressRevisionRepository;
@@ -14,14 +15,14 @@ public class AddressLogic {
     ListingRepository lR;
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
-    AddressMapper as;
+    AddressMapper addMaps;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
         this.addressRevisionRepository = repo.addressRevisionRepository;
         this.listingRevisionRepository = repo.listingRevisionRepository;
         this.lR= repo.listingRepository;
-        this.as = new AddressMapper();
+        this.addMaps = new AddressMapper();
     }
 
     public AddressLogic() {
@@ -29,12 +30,13 @@ public class AddressLogic {
 
     public Listing createNewAddress(AddAddressDTO dto, Listing listing){
 
-        Address address = as.convertAddAddressToAddress(dto, listing);
+        Address address = addMaps.convertAddAddressToAddress(dto, listing);
         listing.setAddress(address);
         return listing;
     }
 
-    public Listing updateAddress(Address adds, Listing listing){
+    public Listing updateAddress(UpdateAddressDTO dto, Listing listing){
+        Address adds = addMaps.convertUpdateAddressToAddress(dto, listing);
         Address oldlist = addressRepository.findById(adds.getId()).get();
 
         if(adds.getCity()==null){
