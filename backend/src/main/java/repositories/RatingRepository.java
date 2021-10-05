@@ -20,23 +20,6 @@ public class RatingRepository {
         this.emf = emf;
     }
 
-    public Optional<Rating> addRating(Rating rating){
-        EntityManager em = emf.createEntityManager();
-
-        try{
-            em.getTransaction().begin();
-            em.persist(rating);
-            em.getTransaction().commit();
-            em.close();
-            return Optional.of(rating);
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-        em.close();
-        return Optional.empty();
-    }
-
     public List<Rating> getRatingsLinkedToBooking(Booking booking){
         EntityManager em = emf.createEntityManager();
 

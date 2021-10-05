@@ -1,9 +1,5 @@
 package dtos;
 
-import entityDO.Rating;
-
-import static java.lang.Integer.parseInt;
-
 public class createNewRatingFromFrontendDTO {
 
     int reviewerID;

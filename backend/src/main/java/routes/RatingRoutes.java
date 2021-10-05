@@ -54,7 +54,6 @@ public class RatingRoutes {
         });
     }
 
-    //Maybe this should update all rating fields to "deleted" instead of deleting the whole row? //Mac
     public void deleteRating(){
         app.delete("/rest/delete-rating", (req, res) -> {
             DeleteRatingDTO dto = req.body(DeleteRatingDTO.class);

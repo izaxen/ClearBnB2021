@@ -52,7 +52,6 @@ public class RatingLogic {
     }
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
-        /*repositories.entityManager.clear();*/
         return repositories.booking().findAUsersOldBookings(user);
     }
 
@@ -72,7 +71,6 @@ public class RatingLogic {
                 if(ratings.get(0).getReviewer().getId() == user.getId()){
                     return;
                 }
-
             }
 
             //booking.getUser = "guest (owner_ID in booking entity in DB)"
