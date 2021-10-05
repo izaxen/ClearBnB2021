@@ -1,5 +1,6 @@
 package routes;
 
+import application.ChatLogic;
 import application.ChatMessageLogic;
 import application.Repositories;
 import dtos.ChatMessageDTO;
@@ -15,6 +16,7 @@ public class ChatRoutes {
 
     Express app;
     ChatMessageLogic chatMessageLogic;
+    ChatLogic chatLogic;
     List<WsContext> clients = new ArrayList<>();
     Repositories repositories;
     CurrentChat savedChatRoom;
@@ -36,6 +38,7 @@ public class ChatRoutes {
 
     public ChatRoutes(Express app, Repositories repositories) {
         this.repositories = repositories;
+        chatLogic = new ChatLogic(repositories);
         chatMessageLogic = new ChatMessageLogic(repositories);
         admin = repositories.getUserRep().findUserById(91);
 
