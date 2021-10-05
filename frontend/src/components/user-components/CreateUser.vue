@@ -56,7 +56,6 @@ export default {
         bankAddress: this.bankAddress,
       };
 
-      console.log(newBank);
       await this.$store.dispatch("addBank", newBank);
       this.reset();
     },
