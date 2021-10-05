@@ -30,13 +30,13 @@ public class ImagesLogic {
 
         Timestamp extraId = new Timestamp(System.currentTimeMillis());
         for (UploadedFile file : files) {
-            FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + listing.getId().toString() + "/" + extraId.getTime()+ file.getFilename());
+            FileUtil.streamToFile(file.getContent(), "backend/src/Static/uploads/" + listing.getId().toString() +
+                    "/" + extraId.getTime()+ file.getFilename());
         }
         saveUploadedImagesToDb(listing);
     }
 
     public void saveUploadedImagesToDb (Listing listing){
-
         String[] fileNames;
         File f = new File("backend/src/Static/uploads/" + listing.getId().toString() + "/");
         fileNames = f.list();
