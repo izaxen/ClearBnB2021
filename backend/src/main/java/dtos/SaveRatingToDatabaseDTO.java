@@ -9,7 +9,7 @@ public class SaveRatingToDatabaseDTO {
     User reviewer;
     User recipient;
     int rating;
-    String review; //(message)
+    String review;
     String dateVisited;
 
     public SaveRatingToDatabaseDTO(Booking booking, User reviewer, User recipient, int rating, String review) {

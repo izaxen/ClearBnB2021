@@ -34,7 +34,6 @@ public class ListingRevision {
     @PrimaryKeyJoinColumn
     private AddressRevision addressRevision;
 
-    // HERE........
     @JsonManagedReference
     @OneToOne(mappedBy = "listingRev", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
@@ -64,10 +63,6 @@ public class ListingRevision {
         return id;
     }
 
-    public ListingRevision(Listing listing) {
-        this.listing = listing;
-    }
-
     public Integer getPrice() {
         return price;
     }
@@ -80,24 +75,12 @@ public class ListingRevision {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getAvailableStartDate() {
         return availableStartDate;
     }
 
-    public void setAvailableStartDate(String availableStartDate) {
-        this.availableStartDate = availableStartDate;
-    }
-
     public String getAvailableEndDate() {
         return availableEndDate;
-    }
-
-    public void setAvailableEndDate(String availableEndDate) {
-        this.availableEndDate = availableEndDate;
     }
 
     public Listing getListing() {

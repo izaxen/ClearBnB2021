@@ -8,7 +8,6 @@ import entityDO.Listing;
 public class AmenityMapper {
 
     public Amenities convertAddAmenitiesToAmenities(AddAmenityDTO add, Listing listing){
-        //Check if incoming is null convert to false
         if(add.getBathTub() == null){
             add.setBathTub(false);
         }

@@ -34,18 +34,6 @@ public class AmenitiesRevision {
     public AmenitiesRevision(){
     }
 
-    public AmenitiesRevision(Integer id, Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
-                             Boolean isBubblePool, Boolean isBicycle, Boolean isSauna) {
-        this.id = id;
-        this.isBathTub = isBathTub;
-        this.isParkingLot = isParkingLot;
-        this.isStove = isStove;
-        this.isDoubleBed = isDoubleBed;
-        this.isBubblePool = isBubblePool;
-        this.isBicycle = isBicycle;
-        this.isSauna = isSauna;
-    }
-
     public AmenitiesRevision(Boolean isBathTub, Boolean isParkingLot, Boolean isStove, Boolean isDoubleBed,
                              Boolean isBubblePool, Boolean isBicycle, Boolean isSauna, ListingRevision listing) {
         this.isBathTub = isBathTub;
@@ -66,65 +54,40 @@ public class AmenitiesRevision {
         this.id = id;
     }
 
-    public ListingRevision getListingRev() {
-        return listingRev;
-    }
 
     public Boolean getBathTub() {
         return isBathTub;
     }
 
-    public void setBathTub(Boolean bathTub) {
-        isBathTub = bathTub;
-    }
 
     public Boolean getParkingLot() {
         return isParkingLot;
     }
 
-    public void setParkingLot(Boolean parkingLot) {
-        isParkingLot = parkingLot;
-    }
 
     public Boolean getStove() {
         return isStove;
     }
 
-    public void setStove(Boolean stove) {
-        isStove = stove;
-    }
 
     public Boolean getDoubleBed() {
         return isDoubleBed;
     }
 
-    public void setDoubleBed(Boolean doubleBed) {
-        isDoubleBed = doubleBed;
-    }
 
     public Boolean getBubblePool() {
         return isBubblePool;
     }
 
-    public void setBubblePool(Boolean bubblePool) {
-        isBubblePool = bubblePool;
-    }
 
     public Boolean getBicycle() {
         return isBicycle;
-    }
-
-    public void setBicycle(Boolean bicycle) {
-        isBicycle = bicycle;
     }
 
     public Boolean getSauna() {
         return isSauna;
     }
 
-    public void setSauna(Boolean sauna) {
-        isSauna = sauna;
-    }
 
     @Override
     public String toString() {

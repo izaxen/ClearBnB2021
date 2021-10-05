@@ -38,7 +38,6 @@ public class AmenityLogic {
 
     public Listing updateAmenties(Amenities ama, Listing listing){
         Amenities oldList = amenitiesRepository.findById(ama.getId()).get();
-        //Listing listing = repositories.listingRepository.findById(ama.getId()).get();
 
         if(ama.getBathTub()== null){
             ama.setBathTub(oldList.getBathTub());

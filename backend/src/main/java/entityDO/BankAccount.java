@@ -49,10 +49,6 @@ public class BankAccount {
         return bankAddress;
     }
 
-    public void setBankAddress(String bankAddress) {
-        this.bankAddress = bankAddress;
-    }
-
     public User getUser() {
         return user;
     }
