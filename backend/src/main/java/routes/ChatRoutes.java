@@ -43,7 +43,8 @@ public class ChatRoutes {
             ws.onConnect(ctx -> {
                 userID = Integer.parseInt(ctx.pathParam("id"));
                 // Check if user is admin (91)
-                // If yes, add admin to all chatRooms
+                // If yes, register ctx together with this userID
+                // Add admin to all existing
                 if (userID == 91) {
                     userNameMap.put(ctx, userID);
                     for (Integer rid : chatRoomMap.keySet()
@@ -52,7 +53,12 @@ public class ChatRoutes {
                             chatRoomMap.get(rid).add(ctx);
                         }
                     }
-                } else {
+                }
+
+                // If not, create new room.
+                // Register this ctx to this userID
+                // and put user in new chat room
+                else {
                     CurrentChat newChatRoom = new CurrentChat();
                     savedChatRoom = repositories.getCurrentChatRepository().addCurrentChat(newChatRoom).get();
                     roomID = savedChatRoom.getId();
@@ -62,7 +68,7 @@ public class ChatRoutes {
                     userNameMap.put(ctx, userID);
                     chatRoomMap.put(roomID, userCtxInRoom);
 
-                    // if user logged in after admin, admin won't be in same room, thus when they log in we need to run a check
+                    // If user logged in after admin log in, admin won't be in same room, thus when they log in we need to run a check
                     if (userNameMap.containsValue(91)) {
                         for (WsContext c : userNameMap.keySet()
                         ) {
@@ -76,14 +82,17 @@ public class ChatRoutes {
 
                 clients.add(ctx);
 
+
                 user = repositories.getUserRepository().findUserById(userID);
                 String userFirstName = user.getFirstName();
                 ChatMessageDTO msg = new ChatMessageDTO(userFirstName + " has joint the chat", userID);
+                // If user is not admin
+                // Broadcast to everyone IN MY ROOM i'm online
+                // Get all chat history between me and admin in our DB and send chat history
                 if (userID != 91) {
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
                     // print out all history in DB is not admin
                     List<ChatMessageDTO> cmDTOs = chatMessageLogic.getChatMessageDTOOfUser(userID, 91);
-//                    Collections.reverse(cmDTOs)
                     if(cmDTOs.size()>0){
                         ChatMessageDTO historyStart = new ChatMessageDTO("===Chat History Start===");
                         ctx.send(historyStart);
@@ -94,7 +103,12 @@ public class ChatRoutes {
                         ChatMessageDTO historyEnd = new ChatMessageDTO("===Chat History End===");
                         ctx.send(historyEnd);
                     }
-                } else {
+                }
+                // If admin, tell everyone IN THE SERVER that i am connected
+                // loop to get all userID currently connected to server
+                // Delete duplicate and admin userID
+                // Send current users online to admin
+                else {
                     clients.forEach(client -> client.send(msg));
                     if(clients.size()>1){
                         List<Integer> uids = new ArrayList<>();
@@ -128,6 +142,9 @@ public class ChatRoutes {
 
                 userID = userNameMap.get(ctx);
 
+                // if user is not admin, loop through every chat room to find the room i am in.
+                // ( to update roomID, else roomID would be the last connected user's roomID )
+                // save message to DB, send back to client
                 if (userID != 91) {
                     for (Integer rid : chatRoomMap.keySet()
                     ) {
@@ -135,13 +152,17 @@ public class ChatRoutes {
                             roomID = rid;
                         }
                     }
-
-                    // set room id for this message
                     chatMessageLogic.createNewMessage(msg, roomID);
                     chatRoomMap.get(roomID).forEach(client -> client.send(msg));
-                } else {
+                }
+
+                // if admin, find the receiver's chat room, update roomID, and send message to that room
+                else {
                     int receiverID = msg.getReceiverID();
                     WsContext tempC = null;
+
+                    // Run in two separate for loop to avoid messing in my head
+                    // Find every ctx that belongs to receiver's ID
                     for (WsContext c : userNameMap.keySet()
                     ) {
                         if (userNameMap.get(c) == receiverID) {
@@ -149,6 +170,7 @@ public class ChatRoutes {
                         }
                     }
 
+                    // Find chatRoom belongs to that ID
                     for (Integer rid : chatRoomMap.keySet()
                     ) {
                         if (chatRoomMap.get(rid).contains(tempC)) {
