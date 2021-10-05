@@ -15,10 +15,11 @@ public class BankLogic {
         this.bs = new BankMapper();
     }
 
-    public BankAccount createNewBank(AddBankDTO dto, User user) {
+    public User createNewBank(AddBankDTO dto, User user) {
         BankAccount newBank = bs.convertAddBankDTOToBank(dto, user);
         user.setBankAccount(newBank);
         repositories.userRepository.update(user);
-        return newBank;
+        User updatedUser = repositories.getUserRepository().findUserById(user.getId());
+        return updatedUser;
     }
 }

@@ -59,18 +59,20 @@ public class BookingLogic {
 
     public void paymentProcess(User user, int totalPrice, User owner){
         if(user.getId() != owner.getId()) {
-            System.out.println(owner.getBankAccount().getFunds());
-            System.out.println("totalPrice: " + totalPrice);
+
             User admin = repositories.userRepository.findUserById(91);
-            System.out.println("admin: " + admin.getBankAccount().getFunds());
-            System.out.println("User before: " + user.getBankAccount().getFunds());
+
             user.getBankAccount().setFunds(user.getBankAccount().getFunds() - totalPrice);
-            System.out.println("User: " + user.getBankAccount().getFunds());
+
 
             int ownerShare = (int) (totalPrice / 1.15);
             int clearBNB = totalPrice - ownerShare;
             owner.getBankAccount().setFunds(owner.getBankAccount().getFunds() + ownerShare);
             admin.getBankAccount().setFunds(admin.getBankAccount().getFunds() + clearBNB);
+
+            System.out.println("User: " + user);
+            System.out.println("Owner: " + owner);
+            System.out.println("admin: " + admin);
 
             repositories.userRepository.update(user);
             repositories.userRepository.update(owner);
