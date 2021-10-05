@@ -104,10 +104,6 @@ export default {
         sauna: this.isSauna,
       };
 
-      // if ((this.price = 99999)) {
-      //   this.price = null;
-      // }
-
       this.matchedListings = await this.$store.dispatch(
         "getFilteredListing",
         newFilter

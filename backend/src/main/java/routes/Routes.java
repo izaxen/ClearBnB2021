@@ -11,7 +11,7 @@ public class Routes {
     public Routes(Express app, Repositories repositories, MongoCollection collection) {
 
         LogicHandler logicHandler = new LogicHandler(repositories, collection);
-        new UserRoutes(app, repositories.getUserRep());
+        new UserRoutes(app, repositories.getUserRepository());
         new BookingRoutes(app, repositories);
         new ListingRoutes(app, repositories,collection, logicHandler);
         new AddressRoutes(app, repositories);

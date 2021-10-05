@@ -23,7 +23,10 @@
         placeholder="Startdatum"
       />
 
-      <input v-model="endDate" required type="date" placeholder="Slut Datum" />
+      <input v-model="endDate" 
+      required type="date"
+      placeholder="Slut Datum" 
+      :min="new Date().toISOString().split('T')[0]"/>
 
       <div v-if="calculatedays <= 0">
         <button type="button" disabled>Create new booking</button>

@@ -26,6 +26,7 @@ public class Repositories {
     AddressRevisionRepository addressRevisionRepository = new AddressRevisionRepository(new EntityManagerCopy().getEntityManager());
     ImageRepository imageRepository = new ImageRepository(new EntityManagerCopy().getEntityManager());
     BankRepository bankRepository = new BankRepository(new EntityManagerCopy().getEntityManager());
+    MongoDBRepository mongoDBRepository = new MongoDBRepository(new EntityManagerCopy().getEntityManager());
 
     public BankRepository getBankRepository() {
         return bankRepository;
@@ -34,8 +35,6 @@ public class Repositories {
     public MongoDBRepository getMongoDBRepository() {
         return mongoDBRepository;
     }
-
-    MongoDBRepository mongoDBRepository = new MongoDBRepository(new EntityManagerCopy().getEntityManager());
 
     public AddressRevisionRepository getAddressRevisionRepository() {
         return addressRevisionRepository;
@@ -69,9 +68,6 @@ public class Repositories {
         return listingRepository;
     }
 
-    public UserRepository getUserRep() {
-        return userRepository;
-    }
 
     public AmenitiesRepository getAmenitiesRepository() {
         return amenitiesRepository;

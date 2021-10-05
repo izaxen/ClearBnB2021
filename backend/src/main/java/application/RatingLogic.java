@@ -21,7 +21,7 @@ public class RatingLogic {
 
     public List<GetRatingDTO> getAllRatingsOfUser(int userID){
 
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
         List<Rating> listOfRatings = repositories.ratingRepository.getRatingOfUser(user);
 
         ArrayList<GetRatingDTO> listOfRatingDTO = new ArrayList<>();
@@ -36,7 +36,7 @@ public class RatingLogic {
     }
 
     public double getAvgRatingsOfUser(int userID){
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
         return repositories.ratingRepository.calcAvgRatingOfUser(user);
     }
 

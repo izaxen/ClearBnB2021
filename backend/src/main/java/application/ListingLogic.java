@@ -90,7 +90,7 @@ public class ListingLogic {
 
     public List<GetAllListingsInSummaryFromUserDTO> getAllListingsInSummaryFromUser(int userID){
 
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
 
         System.out.println(user.getFirstName());
 

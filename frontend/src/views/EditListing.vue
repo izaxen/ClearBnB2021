@@ -150,7 +150,7 @@
         <div class="start">
           <label for="startDate">Select Start Date</label>
           <input
-           
+            :min="new Date().toISOString().split('T')[0]"
             type="date"
             @change="(ev) => (changedList.availableStartDate = ev.target.value)"
           />
