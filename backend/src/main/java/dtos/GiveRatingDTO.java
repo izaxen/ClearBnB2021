@@ -24,36 +24,8 @@ public class GiveRatingDTO {
         this.dateVisited = dateVisited;
     }
 
-    public int getBookingID() {
-        return bookingID;
-    }
-
     public int getRating() {
         return rating;
-    }
-
-    public String getReview() {
-        return review;
-    }
-
-    public int getReviewer() {
-        return reviewer;
-    }
-
-    public int getRecipient() {
-        return recipient;
-    }
-
-    public String getReviewerName() {
-        return reviewerName;
-    }
-
-    public String getRecipientName() {
-        return recipientName;
-    }
-
-    public String getDateVisited() {
-        return dateVisited;
     }
 
     @Override
