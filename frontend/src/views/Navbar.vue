@@ -47,10 +47,10 @@ export default {
     //},
   },
   methods: {
-    logoff() {
+    async logoff() {
       this.$store.dispatch("logOff");
-      router.push("/");
-      this.$router.go();
+      await router.push("/");
+      this.$router.go("/");
     },
     reset() {
       this.$store.commit("setListing", null);
