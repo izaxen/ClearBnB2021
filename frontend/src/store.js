@@ -224,6 +224,14 @@ export const store = createStore({
       return await res.json();
     },
 
+    async postNewBooking(store, booking) {
+      let res = await fetch(`/rest/createBooking/`, {
+        method: 'POST',
+        body: JSON.stringify(booking)
+      });
+      return await res.json();
+    },
+
   }
 })
 

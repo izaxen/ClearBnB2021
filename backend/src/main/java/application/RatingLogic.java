@@ -52,7 +52,7 @@ public class RatingLogic {
 
     public List<Booking> checkIfUserHasAnyOldBookingsAndReturnThem(User user){
         repositories.entityManager.clear();
-        return repositories.booking().findAGuestsOldBookings(user);
+        return repositories.getBookingRepository().findAGuestsOldBookings(user);
     }
 
     public List<GiveRatingDTO> getOldBookingsThatMissingTwoRatings(List<Booking> oldBookings, User user){
@@ -90,7 +90,7 @@ public class RatingLogic {
     public void createNewRating(createNewRatingFromFrontendDTO createNewRatingFromFrontendDTO){
         User reviewer = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getReviewerID());
         User recipient = repositories.userRepository.findUserById(createNewRatingFromFrontendDTO.getRecipientID());
-        Booking booking = repositories.booking().findById(createNewRatingFromFrontendDTO.getBookingID()).get();
+        Booking booking = repositories.getBookingRepository().findById(createNewRatingFromFrontendDTO.getBookingID()).get();
 
         SaveRatingToDatabaseDTO saveRatingToDataBaseDTO = new SaveRatingToDatabaseDTO(
                 booking,

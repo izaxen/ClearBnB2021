@@ -4,10 +4,12 @@ import dtos.AddBookingDTO;
 import entityDO.Booking;
 import entityDO.Listing;
 import entityDO.User;
+import mapper.BookingMapper;
 
 public class BookingLogic {
 
     Repositories repositories;
+    BookingMapper bookingMapper = new BookingMapper();
 
     public BookingLogic() {
     }
@@ -16,8 +18,9 @@ public class BookingLogic {
         this.repositories = repositories;
     }
 
-    public String createNewBooking(User user, AddBookingDTO dto, int listingID){
-        Listing listing = repositories.listingRepository.findById(listingID).get();
+    public String createNewBooking(User user, AddBookingDTO dto){
+
+        Listing listing = repositories.listingRepository.findById(dto.getListingID()).get();
         User owner = listing.getUser();
         int totalPrice = dto.getTotalPrice();
 
@@ -34,15 +37,15 @@ public class BookingLogic {
             return "Not enough funds";
         }
 
-        Booking booking = new Booking(user, listing, dto.getStartDate(), dto.getEndDate(),dto.getTotalPrice());
+        Booking booking = bookingMapper.convertDTOIntoBooking(dto, user, listing);
         paymentProcess(user, totalPrice, owner);
-        repositories.booking().addBooking(booking);
+        repositories.getBookingRepository().addBooking(booking);
 
         return "Successfully booked!";
     }
 
     public boolean checkIfListingAlreadyIsBooked(AddBookingDTO dto, Listing listing){
-        return repositories.booking().checkIfListingIsAlreadyBooked(dto.getStartDate(), dto.getEndDate(), listing);
+        return repositories.getBookingRepository().checkIfListingIsAlreadyBooked(dto.getStartDate(), dto.getEndDate(), listing);
     }
 
     public boolean checkIfListingHasAvailableDates(AddBookingDTO dto, Listing listing){

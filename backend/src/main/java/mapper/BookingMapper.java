@@ -5,9 +5,9 @@ import entityDO.Booking;
 import entityDO.Listing;
 import entityDO.User;
 
-public class BookingService {
+public class BookingMapper {
 
-    public Booking convertBookingDTOIntoBooking(AddBookingDTO dto, User owner, Listing listing) {
+    public Booking convertDTOIntoBooking(AddBookingDTO dto, User owner, Listing listing) {
         return new Booking(owner, listing, dto.getStartDate(), dto.getEndDate(),dto.getTotalPrice());
     }
 

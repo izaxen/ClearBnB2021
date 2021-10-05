@@ -85,7 +85,6 @@ export default {
 
     createBooking() {
       let newBooking = {
-        user: this.$store.state.user,
         listing: this.selected,
         startDate: this.startDate,
         endDate: this.endDate,
@@ -94,16 +93,10 @@ export default {
       this.postNewBooking(newBooking);
     },
 
-    async postNewBooking() {
-      let res = await fetch(
-        `/rest/createBooking/${this.selected.id}/${this.startDate}/${this.endDate}/${this.totalPrice}`
-      );
-
-      // you wrote post but we are not doing post here.
-      // method name sort of lied
-      // this is not the way to do it.
-      // POST to  /rest/booking  with req.body
-      console.log(await res.json());
+    async postNewBooking(newBooking) {
+      console.log(newBooking);
+      let res = await this.$store.dispatch("postNewBooking", newBooking);
+      console.log(await res);
     },
 
     async getAllListings() {

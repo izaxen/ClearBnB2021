@@ -39,10 +39,6 @@ public class Repositories {
         return userRepository;
     }
 
-    public BookingRepository getBookingRepository() {
-        return bookingRepository;
-    }
-
     public AmenitiesRevisionRepository getAmenitiesRevisionRepository() {
         return amenitiesRevisionRepository;
     }
@@ -51,7 +47,7 @@ public class Repositories {
         return listingRevisionRepository;
     }
 
-    public BookingRepository booking() {
+    public BookingRepository getBookingRepository() {
         return bookingRepository;
     }
 
