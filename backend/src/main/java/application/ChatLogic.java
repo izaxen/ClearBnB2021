@@ -9,18 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatLogic {
     Repositories repositories;
-    ChatMessageLogic chatMessageLogic;
     List<WsContext> clients = new ArrayList<>();
     CurrentChat savedChatRoom;
+    LogicHandler logicHandler;
     User admin;
     int userID;
     int roomID;
     private static Map<Integer, List<WsContext>> chatRoomMap = new ConcurrentHashMap<>();
     private static Map<WsContext, Integer> userNameMap = new ConcurrentHashMap<>();
 
-    public ChatLogic(Repositories repositories) {
+    public ChatLogic(Repositories repositories, LogicHandler logicHandler) {
         this.repositories = repositories;
-        chatMessageLogic = new ChatMessageLogic(repositories);
+        this.logicHandler = logicHandler;
         admin = repositories.getUserRepository().findUserById(91);
     }
 
@@ -128,7 +128,7 @@ public class ChatLogic {
 
     public void getAndPrintChatHistory(WsContext ctx, ChatMessageDTO msg) {
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
-        List<ChatMessageDTO> cmDTOs = chatMessageLogic.getChatMessageDTOOfUser(userID, 91);
+        List<ChatMessageDTO> cmDTOs = logicHandler.getChatMessageLogic().getChatMessageDTOOfUser(userID, 91);
         if (cmDTOs.size() > 0) {
             ChatMessageDTO historyStart = new ChatMessageDTO("===Chat History Start===");
             ctx.send(historyStart);
@@ -170,12 +170,13 @@ public class ChatLogic {
                 roomID = rid;
             }
         }
-        chatMessageLogic.createNewMessage(msg, roomID);
+        logicHandler.getChatMessageLogic().createNewMessage(msg, roomID);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
     }
 
     public void adminMessage(ChatMessageDTO msg){
         int receiverID = msg.getReceiverID();
+        System.out.println("receiver ID: " + msg.getReceiverID());
         WsContext tempC = null;
         for (WsContext c : userNameMap.keySet()
         ) {
@@ -188,9 +189,11 @@ public class ChatLogic {
         ) {
             if (chatRoomMap.get(rid).contains(tempC)) {
                 roomID = rid;
+                System.out.println("roomID in: " + roomID);
             }
         }
-        chatMessageLogic.createNewMessage(msg, roomID);
+        System.out.println("roomID out: " + roomID);
+        logicHandler.getChatMessageLogic().createNewMessage(msg, roomID);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
     }
 

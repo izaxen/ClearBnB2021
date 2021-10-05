@@ -11,7 +11,7 @@ import express.Express;
 import entityDO.Listing;
 import entityDO.User;
 import dtos.AddListingDTO;
-import mapper.ListingService;
+import mapper.ListingMapper;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -19,14 +19,14 @@ import static java.lang.Integer.parseInt;
 public class ListingRoutes {
 
     private ListingLogic listingLogic;
-    private ListingService ls;
+    private ListingMapper ls;
     private Express app;
 
     public ListingRoutes(Express app, Repositories repositories, MongoCollection collection , LogicHandler logicHandler) {
 
 
         listingLogic= logicHandler.getListingLogic(repositories, collection);
-        ls= new ListingService();
+        ls= new ListingMapper();
         this.app = app;
 
 

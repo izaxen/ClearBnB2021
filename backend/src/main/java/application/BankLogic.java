@@ -3,16 +3,16 @@ package application;
 import dtos.AddBankDTO;
 import entityDO.BankAccount;
 import entityDO.User;
-import mapper.BankService;
+import mapper.BankMapper;
 
 public class BankLogic {
 
     Repositories repositories;
-    private BankService bs;
+    private BankMapper bs;
 
     public BankLogic(Repositories repositories) {
         this.repositories = repositories;
-        this.bs = new BankService();
+        this.bs = new BankMapper();
     }
 
     public BankAccount createNewBank(AddBankDTO dto, User user) {

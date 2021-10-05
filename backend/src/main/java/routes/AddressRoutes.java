@@ -1,33 +1,31 @@
 package routes;
 
 import application.AddressLogic;
+import application.LogicHandler;
 import application.Repositories;
 import dtos.AddAddressDTO;
 import dtos.UpdateAddressDTO;
 import entityDO.Listing;
 import express.Express;
-import mapper.AddressService;
+import mapper.AddressMapper;
 
 public class AddressRoutes {
 
-    private AddressLogic addressLogic;
-    private AddressService as;
+    private AddressMapper as;
 
 
-    public AddressRoutes(Express app, Repositories repo) {
-
-        addressLogic= new AddressLogic(repo);
-        as = new AddressService();
+    public AddressRoutes(Express app, LogicHandler logicHandler) {
+        as = new AddressMapper();
 
         app.post("/api/address", (req, res) -> {
             Listing currentListing = req.session("current-Listing");
-            res.json(addressLogic.createNewAddress((req.body(
+            res.json(logicHandler.getAddressLogic().createNewAddress((req.body(
                     AddAddressDTO.class)), currentListing));
         });
 
         app.put("/api/address/", (req, res) -> {
             Listing currentListing = req.session("current-Listing");
-            Listing list = addressLogic.updateAddress(
+            Listing list = logicHandler.getAddressLogic().updateAddress(
                     as.convertUpdateAddressToAddress(req.body(
                             UpdateAddressDTO.class), currentListing),currentListing
             );
