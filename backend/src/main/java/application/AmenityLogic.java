@@ -17,7 +17,6 @@ public class AmenityLogic {
     AmenitiesRevisionRepository amenitiesRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AmenityService as;
-    Repositories repositories;
 
     public AmenityLogic(Repositories repos) {
 
@@ -26,7 +25,6 @@ public class AmenityLogic {
         this.listingRevisionRepository = repos.listingRevisionRepository;
         this.lR = repos.listingRepository;
         this.as = new AmenityService();
-        repositories = new Repositories();
     }
 
     public AmenityLogic() {
@@ -35,7 +33,7 @@ public class AmenityLogic {
     public Listing createNewAmenity(AddAmenityDTO dto, Listing listing){
         Amenities amenities = as.convertAddAmenitiesToAmenities(dto, listing);
         listing.setAmenities(amenities);
-        return lR.updateListing(listing);
+        return listing;
     }
 
     public Listing updateAmenties(Amenities ama, Listing listing){

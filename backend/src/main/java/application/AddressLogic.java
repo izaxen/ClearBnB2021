@@ -15,7 +15,6 @@ public class AddressLogic {
     AddressRevisionRepository addressRevisionRepository;
     ListingRevisionRepository listingRevisionRepository;
     AddressService as;
-    Repositories repositories;
 
     public AddressLogic(Repositories repo) {
         this.addressRepository = repo.addressRepository;
@@ -23,7 +22,6 @@ public class AddressLogic {
         this.listingRevisionRepository = repo.listingRevisionRepository;
         this.lR= repo.listingRepository;
         this.as = new AddressService();
-        this.repositories = new Repositories();
     }
 
     public AddressLogic() {
@@ -33,12 +31,11 @@ public class AddressLogic {
 
         Address address = as.convertAddAddressToAddress(dto, listing);
         listing.setAddress(address);
-        return listing; //addressRepository.addAddress(address);
+        return listing;
     }
 
     public Listing updateAddress(Address adds, Listing listing){
         Address oldlist = addressRepository.findById(adds.getId()).get();
-        //Listing listing = lR.findById(adds.getId()).get();
 
         if(adds.getCity()==null){
             adds.setCity(oldlist.getCity());
@@ -47,10 +44,8 @@ public class AddressLogic {
             adds.setAddressListing(oldlist.getAddressListing());
         }
         createAddressVersionBackup(oldlist);
-
         listing.setAddress(adds);
-
-        return lR.updateListing(listing);
+        return listing;
     }
 
     private void createAddressVersionBackup(Address oldlist){

@@ -19,10 +19,14 @@
         v-model="startDate"
         required
         type="date"
+        :min="new Date().toISOString().split('T')[0]"
         placeholder="Startdatum"
       />
 
-      <input v-model="endDate" required type="date" placeholder="Slut Datum" />
+      <input v-model="endDate" 
+      required type="date"
+      placeholder="Slut Datum" 
+      :min="new Date().toISOString().split('T')[0]"/>
 
       <div v-if="calculatedays <= 0">
         <button type="button" disabled>Create new booking</button>
@@ -108,7 +112,9 @@ export default {
 
     async getAllListings() {
       let res = await fetch("/api/allListings");
-      this.allListings = await res.json();
+      let updatedList = await res.json();
+      this.allListings = updatedList.allListings;
+
       // this should have been rest /rest/listing   since we don't send id we are sending everything, thus no need for listingS
       // await this.$store.dispatch("getAllListingsDTO");
       // this.allListings = this.$store.state.allListingsDTO;

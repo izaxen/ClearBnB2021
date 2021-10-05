@@ -66,7 +66,7 @@
             required
             type="date"
             placeholder="Start Date"
-            min="date()"
+            :min="new Date().toISOString().split('T')[0]"
           />
         </div>
         <div class="end">
@@ -77,7 +77,7 @@
             required
             type="date"
             placeholder="End Date"
-            min="date()"
+            :min="new Date().toISOString().split('T')[0]"
           />
         </div>
       </div>

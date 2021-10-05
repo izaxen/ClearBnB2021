@@ -1,14 +1,17 @@
 package application;
 
+import com.mongodb.client.MongoCollection;
 import dtos.*;
 import entityDO.Image;
 import entityDO.Listing;
 import entityDO.User;
 import mapper.ListingService;
+import org.bson.Document;
 import repositories.BookingRepository;
 import repositories.ListingRepository;
 import repositories.ListingRevisionRepository;
 import entityDO.ListingRevision;
+import repositories.MongoDBRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +24,26 @@ public class ListingLogic {
     FilteredListingDTO filteredListingDTO;
     AddListingDTO addListingDTOForBooking;
     ListingRevisionRepository listingRevisionRepository;
+    MongoCollection collection;
+    LogicHandler logicHandler;
     private ListingService ls;
     private List<SingeListingDTO> oldVersionListing;
 
-    public ListingLogic(Repositories repositories) {
-        this.listingRepository = repositories.listingRepository;
-        this.bookingRepository = repositories.bookingRepository;
-         this.listingRevisionRepository = repositories.listingRevisionRepository;
-        this.repositories = repositories;
-        this.ls= new ListingService();
-    }
 
     public ListingLogic() {
     }
+
+    public ListingLogic( MongoCollection collection, Repositories repositories, LogicHandler logicHandler) {
+        this.listingRepository = repositories.listingRepository;
+        this.bookingRepository = repositories.bookingRepository;
+        this.listingRevisionRepository = repositories.listingRevisionRepository;
+        this.repositories = repositories;
+        this.ls= new ListingService();
+        this.collection = collection;
+        this.logicHandler = logicHandler;
+    }
+
+
 
     public Listing createNewListing(AddListingDTO dto, User user) {
         Listing newListing = ls.convertAddListingToListing(dto, user);
@@ -53,17 +63,11 @@ public class ListingLogic {
 
     public List<FilteredListingDTO> getAllListingsDTO(){
 
-
-
             List<Listing> allListings = listingRepository.findAllListings();
             List<FilteredListingDTO> allListingsDTO = new ArrayList<>();
-            //System.out.println("allListing list<Listing>: " + allListings);
             for ( Listing l: allListings
             ) {
-              //  System.out.println("before convert: " + l);
-
                 filteredListingDTO = ls.convertListingToFilteredDTO(l);
-                //System.out.println("filteredListingDTO: " + filteredListingDTO);
                 allListingsDTO.add(filteredListingDTO);
             }
             return allListingsDTO;
@@ -86,7 +90,7 @@ public class ListingLogic {
 
     public List<GetAllListingsInSummaryFromUserDTO> getAllListingsInSummaryFromUser(int userID){
 
-        User user = repositories.getUserRep().findUserById(userID);
+        User user = repositories.getUserRepository().findUserById(userID);
 
         System.out.println(user.getFirstName());
 
@@ -135,18 +139,19 @@ public class ListingLogic {
     }
 
     public SingeListingDTO getSingleListing(int id){
-        Listing l =listingRepository.findById(id).get();
+        Listing l = listingRepository.findById(id).get();
 
         ArrayList<String> imagelist = new ArrayList<>();
 
-
-        for (Image image:l.getImages()
-             ) {
-            System.out.println(image.getImageName());
-            imagelist.add(image.getImageName());
+        if(!l.getImages().isEmpty() ){
+            for (Image image:l.getImages()
+            ) {
+                imagelist.add(image.getImageName());
+            }
         }
 
-        return new SingeListingDTO(l.getPrice(),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
+
+        return new SingeListingDTO(l.getId (),(int) Math.ceil(l.getPrice()*1.15),l.getDescription(), l.getAvailableStartDate(), l.getAvailableEndDate(),
                 l.getAddress().getCity(),l.getAddress().getAddressListing(), l.getAmenities().getBathTub(),
                 l.getAmenities().getParkingLot(), l.getAmenities().getStove(),l.getAmenities().getDoubleBed(),
                 l.getAmenities().getBubblePool(), l.getAmenities().getBicycle(), l.getAmenities().getSauna(),imagelist);
@@ -157,12 +162,24 @@ public class ListingLogic {
 
         List<ListingRevision> l = listingRevisionRepository.findAllListingRevisionsByListingID(id);
         for (ListingRevision ll : l) {
-            oldVersionListing.add(new SingeListingDTO(ll.getPrice(), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
+            oldVersionListing.add(new SingeListingDTO(ll.getId(),(int) Math.ceil(ll.getPrice()*1.15), ll.getDescription(), ll.getAvailableStartDate(), ll.getAvailableEndDate(),
                     ll.getAddressRevision().getAddress(), ll.getAddressRevision().getAddress(), ll.getAmenitiesRevsion().getBathTub(),
                     ll.getAmenitiesRevsion().getParkingLot(), ll.getAmenitiesRevsion().getStove(), ll.getAmenitiesRevsion().getDoubleBed(),
                     ll.getAmenitiesRevsion().getBubblePool(), ll.getAmenitiesRevsion().getBicycle(), ll.getAmenitiesRevsion().getSauna()));
         }
         return oldVersionListing;
     }
+
+    public Document getAllListFromMongoDB(MongoCollection collection){
+        return repositories.mongoDBRepository.getAllListingFromMDB(collection);
+    }
+
+    public void updateListingAndCreateANewMongoDBCollection(Listing listing){
+        repositories.listingRepository.updateListing(listing);
+        logicHandler.cacheLogic.updateMongoDBFromSql();
+    }
+
+
+
 
 }

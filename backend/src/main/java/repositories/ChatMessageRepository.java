@@ -2,6 +2,7 @@ package repositories;
 
 import jakarta.persistence.EntityManager;
 import entityDO.ChatMessage;
+import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.Session;
 
 
@@ -9,27 +10,32 @@ import java.util.List;
 import java.util.Optional;
 
 public class ChatMessageRepository {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public ChatMessageRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+
+    public ChatMessageRepository(EntityManagerFactory emf){
+        this.emf = emf;
     }
 
     public Optional<ChatMessage> addChatMessage(ChatMessage chatMessage){
+        EntityManager em = emf.createEntityManager();
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(chatMessage);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(chatMessage);
+            em.getTransaction().commit();
+            em.close();
             return Optional.of(chatMessage);
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        em.close();
         return Optional.empty();
     }
 
     public List<ChatMessage> findMessagesBySenderID(int senderID, int receiverID){
-        Session session = entityManager.unwrap(Session.class);
-        return session.createQuery("Select m FROM ChatMessage m WHERE " +
+        EntityManager em= emf.createEntityManager();
+        Session session = em.unwrap(Session.class);
+        List<ChatMessage> list =  session.createQuery("Select m FROM ChatMessage m WHERE " +
                 "(m.sender.id = :senderID " +
                         "AND m.receiver.id = :receiverID) " +
                         "OR (m.sender.id = :receiverID " +
@@ -38,5 +44,7 @@ public class ChatMessageRepository {
                 .setParameter("senderID", senderID)
                 .setParameter("receiverID", receiverID)
                 .getResultList();
+        em.close();
+        return list;
     }
 }

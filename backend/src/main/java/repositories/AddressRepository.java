@@ -3,50 +3,60 @@ package repositories;
 import entityDO.Listing;
 import jakarta.persistence.EntityManager;
 import entityDO.Address;
+import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 import java.util.Optional;
 
 public class AddressRepository {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public AddressRepository(EntityManager entityManager){
-        this.entityManager = entityManager;
+
+    public AddressRepository(EntityManagerFactory emf){
+        this.emf = emf;
     }
 
     public Optional<Address> findById(Integer id){
-        Address address = entityManager.find(Address.class, id);
+        EntityManager em= emf.createEntityManager();
+        Address address = em.find(Address.class, id);
         return address != null ? Optional.of(address) : Optional.empty();
     }
 
     public List<Address> findAllAddresses(){
-        return entityManager.createQuery("from Address").getResultList();
+        EntityManager em= emf.createEntityManager();
+        List<Address> list = em.createQuery("from Address").getResultList();
+
+        return list;
     }
 
     public Address addAddress(Address address){
+        EntityManager em= emf.createEntityManager();
         try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(address);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(address);
+            em.getTransaction().commit();
+            em.close();
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
-        entityManager.clear();
-
+        em.close();
         return address;
     }
 
     public Address updateAddress(Address address){
+        EntityManager em= emf.createEntityManager();
 
         try{
-            entityManager.getTransaction().begin();
-            entityManager.merge(address);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.merge(address);
+            em.getTransaction().commit();
+            em.close();
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
+        em.close();
         return address;
     }
 }

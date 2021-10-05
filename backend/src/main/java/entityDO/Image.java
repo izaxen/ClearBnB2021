@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Proxy(lazy = false)
+
 @Table(name = "image")
 public class Image {
 
