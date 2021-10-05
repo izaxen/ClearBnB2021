@@ -111,6 +111,26 @@ public class ListingRevision {
         return amenitiesRevision;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public AmenitiesRevision getAmenitiesRevision() {
+        return amenitiesRevision;
+    }
+
+    public void setAmenitiesRevision(AmenitiesRevision amenitiesRevision) {
+        this.amenitiesRevision = amenitiesRevision;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     public void setAmenitiesRevsion(AmenitiesRevision amenitiesRevision) {
         this.amenitiesRevision = amenitiesRevision;
     }

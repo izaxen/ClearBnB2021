@@ -68,6 +68,8 @@ public class SaveRatingToDatabaseDTO {
         this.dateVisited = dateVisited;
     }
 
+
+
     @Override
     public String toString() {
         return "SaveRatingToDataBaseDTO{" +

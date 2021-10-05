@@ -69,4 +69,6 @@ public class CreateRatingDTO {
     public void setDateVisited(String dateVisited) {
         this.dateVisited = dateVisited;
     }
+
+
 }

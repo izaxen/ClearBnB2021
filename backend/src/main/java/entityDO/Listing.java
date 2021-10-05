@@ -180,6 +180,14 @@ public class Listing {
         this.amenities = amenities;
     }
 
+    public List<ListingRevision> getListingRevisions() {
+        return listingRevisions;
+    }
+
+    public void setListingRevisions(List<ListingRevision> listingRevisions) {
+        this.listingRevisions = listingRevisions;
+    }
+
     @Override
     public String toString() {
         return "Listing{" +

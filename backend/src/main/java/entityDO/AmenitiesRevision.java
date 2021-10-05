@@ -89,6 +89,10 @@ public class AmenitiesRevision {
     }
 
 
+    public void setListingRev(ListingRevision listingRev) {
+        this.listingRev = listingRev;
+    }
+
     @Override
     public String toString() {
         return "AmenitiesRevision{" +

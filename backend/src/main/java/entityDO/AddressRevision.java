@@ -61,6 +61,14 @@ public class AddressRevision {
         this.listingRevi = listingRevision;
     }
 
+    public ListingRevision getListingRevi() {
+        return listingRevi;
+    }
+
+    public void setListingRevi(ListingRevision listingRevi) {
+        this.listingRevi = listingRevi;
+    }
+
     @Override
     public String toString() {
         return "AddressRevision{" +

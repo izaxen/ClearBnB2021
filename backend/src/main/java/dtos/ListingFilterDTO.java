@@ -44,6 +44,45 @@ public class ListingFilterDTO {
         return isSauna;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setAvailableStartDate(String availableStartDate) {
+        this.availableStartDate = availableStartDate;
+    }
+
+    public void setAvailableEndDate(String availableEndDate) {
+        this.availableEndDate = availableEndDate;
+    }
+
+    public void setBathTub(Boolean bathTub) {
+        isBathTub = bathTub;
+    }
+
+    public void setParkingLot(Boolean parkingLot) {
+        isParkingLot = parkingLot;
+    }
+
+    public void setStove(Boolean stove) {
+        isStove = stove;
+    }
+
+    public void setDoubleBed(Boolean doubleBed) {
+        isDoubleBed = doubleBed;
+    }
+
+    public void setBubblePool(Boolean bubblePool) {
+        isBubblePool = bubblePool;
+    }
+
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
+    }
+
+    public void setSauna(Boolean sauna) {
+        isSauna = sauna;
+    }
 
     @Override
     public String toString() {

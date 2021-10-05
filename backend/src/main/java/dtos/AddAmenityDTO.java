@@ -69,4 +69,6 @@ public class AddAmenityDTO {
     public void setSauna(Boolean sauna) {
         isSauna = sauna;
     }
+
+
 }

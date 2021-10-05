@@ -145,6 +145,66 @@ public class SingeListingDTO {
         return isSauna;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAvailableStartDate(String availableStartDate) {
+        this.availableStartDate = availableStartDate;
+    }
+
+    public void setAvailableEndDate(String availableEndDate) {
+        this.availableEndDate = availableEndDate;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAddressListing(String addressListing) {
+        this.addressListing = addressListing;
+    }
+
+    public void setBathTub(Boolean bathTub) {
+        isBathTub = bathTub;
+    }
+
+    public void setParkingLot(Boolean parkingLot) {
+        isParkingLot = parkingLot;
+    }
+
+    public void setStove(Boolean stove) {
+        isStove = stove;
+    }
+
+    public void setDoubleBed(Boolean doubleBed) {
+        isDoubleBed = doubleBed;
+    }
+
+    public void setBubblePool(Boolean bubblePool) {
+        isBubblePool = bubblePool;
+    }
+
+    public void setBicycle(Boolean bicycle) {
+        isBicycle = bicycle;
+    }
+
+    public void setSauna(Boolean sauna) {
+        isSauna = sauna;
+    }
+
+    public void setImageslist(ArrayList<String> imageslist) {
+        this.imageslist = imageslist;
+    }
+
     @Override
     public String toString() {
         return "SingeListingDTO{" +
