@@ -18,46 +18,32 @@ public class ListingFilterDTO {
     public int getPrice() {
         return price;
     }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public String getAvailableStartDate() {
         return availableStartDate;
     }
-
-    public String getAvailableEndDate() {
-        return availableEndDate;
-    }
-
+    public String getAvailableEndDate() {return availableEndDate;}
     public Boolean getBathTub() {
         return isBathTub;
     }
-
     public Boolean getParkingLot() {
         return isParkingLot;
     }
-
     public Boolean getStove() {
         return isStove;
     }
-
     public Boolean getDoubleBed() {
         return isDoubleBed;
     }
-
     public Boolean getBubblePool() {
         return isBubblePool;
     }
-
     public Boolean getBicycle() {
         return isBicycle;
     }
-
     public Boolean getSauna() {
         return isSauna;
     }
+
 
     @Override
     public String toString() {

@@ -27,6 +27,10 @@ public class RatingMapper {
         return new CreateRatingDTO(reviewer, recipient, rating, message, booking, dateVisited);
     }
 
+    public Rating createNewRatingFromDTO(User reviewer, User recipient, Integer rating, String message, Booking booking){
+        return new Rating(reviewer, recipient, rating, message, booking);
+    }
+
     public DeleteRatingDTO deleteRatingDTO(int id){
         return new DeleteRatingDTO(id);
     }

@@ -1,5 +1,6 @@
 package routes;
 
+import application.LogicHandler;
 import application.RatingLogic;
 import application.Repositories;
 import dtos.DeleteRatingDTO;
@@ -13,14 +14,11 @@ import static java.lang.Integer.parseInt;
 public class RatingRoutes {
 
     Express app;
-    Repositories repositories;
-    RatingLogic ratingLogic;
-    RatingMapper ratingMapper = new RatingMapper();
+    LogicHandler logicHandler;
 
-    public RatingRoutes(Express app, Repositories repositories) {
+    public RatingRoutes(Express app, LogicHandler logicHandler) {
         this.app = app;
-        this.repositories = repositories;
-        this.ratingLogic = new RatingLogic(repositories);
+        this.logicHandler = logicHandler;
         getAllRatingsOfUser();
         getAvgRatingOfUser();
         checkIfThereIsAnyRatingToFill();
@@ -31,37 +29,34 @@ public class RatingRoutes {
     public void getAllRatingsOfUser(){
         app.get("/rest/rating/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
-            System.out.println(userID);
-            res.json(ratingLogic.getAllRatingsOfUser(userID));
+            res.json(logicHandler.getRatingLogic().getAllRatingsOfUser(userID));
         });
     }
 
     public void getAvgRatingOfUser(){
         app.get("/rest/avg-rating/:userID", (req, res) ->{
             int userID = parseInt(req.params("userID"));
-            res.json(ratingLogic.getAvgRatingsOfUser(userID));
+            res.json(logicHandler.getRatingLogic().getAvgRatingsOfUser(userID));
         });
     }
 
     public void checkIfThereIsAnyRatingToFill(){
         app.get("/api/check-if-there-is-ratings-to-fill/", (req, res) ->{
             User currentUser = req.session("current-user");
-            res.json(ratingLogic.checkIfThereIsAnyRatingToFill(currentUser));
+            res.json(logicHandler.getRatingLogic().checkIfThereIsAnyRatingToFill(currentUser));
         });
     }
 
     public void createANewRating(){
         app.post("/api/createNewRating", (req, res) -> {
-            createNewRatingFromFrontendDTO dto = req.body(createNewRatingFromFrontendDTO.class);
-            ratingLogic.createNewRating(dto);
+            logicHandler.getRatingLogic().createNewRating(req.body(createNewRatingFromFrontendDTO.class));
         });
     }
 
-    //Maybe this should update all rating fields to "deleted" instead of deleting the whole row? //Mac
     public void deleteRating(){
-        app.delete("/api/delete-rating", (req, res) -> {
+        app.delete("/rest/delete-rating", (req, res) -> {
             DeleteRatingDTO dto = req.body(DeleteRatingDTO.class);
-            res.json(ratingLogic.deleteRating(dto.getId()));
+            res.json(logicHandler.getRatingLogic().deleteRating(dto.getId()));
         });
     }
 }
