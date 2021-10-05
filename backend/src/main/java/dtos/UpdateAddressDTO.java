@@ -49,4 +49,5 @@ public class UpdateAddressDTO {
     public void setListing(Listing listing) {
         this.listing = listing;
     }
+
 }

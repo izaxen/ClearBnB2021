@@ -73,6 +73,10 @@ public class Address {
         this.addressListing = address;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Address{" +

@@ -82,7 +82,33 @@ public class Rating {
         return booking;
     }
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setReviewer(User reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public void setRecipient(User recipient) {
+        this.recipient = recipient;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 
     @Override
     public String toString() {

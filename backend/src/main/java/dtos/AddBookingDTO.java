@@ -44,4 +44,8 @@ public class AddBookingDTO {
     public int getListingID() {
         return listingID;
     }
+
+    public void setListingID(int listingID) {
+        this.listingID = listingID;
+    }
 }

@@ -47,6 +47,7 @@ public class UpdateListingDTO {
         this.availableEndDate = availableEndDate;
     }
 
+
     public UpdateListingDTO(){
 
     }

@@ -194,7 +194,7 @@ public class User {
     public void setReceivedMessage(List<ChatMessage> receivedMessage) {
         this.receivedMessage = receivedMessage;
     }
-
+    
     @Override
     public String toString() {
         return "User{" +

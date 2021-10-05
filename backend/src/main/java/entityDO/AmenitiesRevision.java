@@ -126,6 +126,10 @@ public class AmenitiesRevision {
         isSauna = sauna;
     }
 
+    public void setListingRev(ListingRevision listingRev) {
+        this.listingRev = listingRev;
+    }
+
     @Override
     public String toString() {
         return "AmenitiesRevision{" +

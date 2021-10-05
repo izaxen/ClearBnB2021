@@ -48,6 +48,21 @@ public class FilteredListingDTO {
         return listingID;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getListingID() {
+        return listingID;
+    }
+
+    public void setListingID(int listingID) {
+        this.listingID = listingID;
+    }
 
     @Override
     public String toString() {

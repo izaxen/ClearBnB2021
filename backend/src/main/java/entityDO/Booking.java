@@ -101,6 +101,7 @@ public class Booking {
         this.rating = rating;
     }
 
+
     @Override
     public String toString() {
         return "Booking{" +
