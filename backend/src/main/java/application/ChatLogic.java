@@ -178,39 +178,19 @@ public class ChatLogic {
     public void adminMessage(ChatMessageDTO msg){
         int receiverID = msg.getReceiverID();
         WsContext tempC = null;
-        System.out.println("NEW ");
-        System.out.println(userNameMap.size());
         for (WsContext c : userNameMap.keySet()
         ) {
-            System.out.println("----");
-            System.out.println(userNameMap.get(c));
-            System.out.println(msg.getReceiverID());
-            System.out.println("----");
             if (userNameMap.get(c) == receiverID) {
                 tempC = c;
-                System.out.println("TEMP it's true");
-            }
-            else{
-                System.out.println("Temp false");
             }
         }
 
         for (Integer rid : chatRoomMap.keySet()
         ) {
-            System.out.println("----");
-            System.out.println(chatRoomMap.get(rid));
-            System.out.println(tempC);
-            System.out.println("----");
-            System.out.println("array size " + chatRoomMap.get(rid));
             if (chatRoomMap.get(rid).contains(tempC)) {
                 roomID = rid;
-                System.out.println("ROOM it's true");
-            }
-            else{
-                System.out.println("Room false");
             }
         }
-        System.out.println("roomID out: " + roomID);
         logicHandler.getChatMessageLogic().createNewMessage(msg, roomID);
         chatRoomMap.get(roomID).forEach(client -> client.send(msg));
     }

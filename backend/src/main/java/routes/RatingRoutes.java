@@ -44,7 +44,6 @@ public class RatingRoutes {
         app.get("/api/check-if-there-is-ratings-to-fill/", (req, res) ->{
             User currentUser = req.session("current-user");
             res.json(logicHandler.getRatingLogic().checkIfThereIsAnyRatingToFill(currentUser));
-            System.out.println(logicHandler.getRatingLogic().checkIfThereIsAnyRatingToFill(currentUser));
         });
     }
 
