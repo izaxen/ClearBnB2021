@@ -34,6 +34,7 @@ export default {
       avgRating: null,
       listingsInSummary: [],
       ratingsToFill: [],
+      userid: "",
     };
   },
 

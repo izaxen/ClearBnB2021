@@ -22,8 +22,10 @@ public class ImageRoutes {
     private void uploadImages() {
         app.post("/api/uploads/", (req, res) -> {
             Listing currentlisting = req.session("current-Listing");
-            List<UploadedFile> files = req.formDataFiles("files");
-            imagesLogic.uploadImages(files, currentlisting);
+            if(currentlisting != null) {
+                List<UploadedFile> files = req.formDataFiles("files");
+                imagesLogic.uploadImages(files, currentlisting);
+            }
         });
     }
 }

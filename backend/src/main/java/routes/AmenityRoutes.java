@@ -32,8 +32,10 @@ public class AmenityRoutes {
     public void updateAmenity() {
         app.put("api/amenity", (req, res) -> {
             Listing currentListing = req.session("current-Listing");
-            logicHandler.getAmenityLogic().updateAmenities((
-                            req.body(UpdateAmenityDTO.class)), currentListing);
+            if(currentListing != null) {
+                logicHandler.getAmenityLogic().updateAmenities((
+                        req.body(UpdateAmenityDTO.class)), currentListing);
+            }
 
         });
     }
