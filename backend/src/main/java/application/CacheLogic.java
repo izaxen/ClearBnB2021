@@ -18,6 +18,7 @@ public class CacheLogic {
         this.collection = collection;
         this.logicHandler = logicHandler;
         this.repositories = repositories;
+        updateMongoDBFromSql();
 
     }
 
