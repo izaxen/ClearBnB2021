@@ -14,7 +14,7 @@
       </div>
     </div>
     <div v-else>
-      <EditListing @closeEdit="closeEdit" />
+      <EditListing  @closeEdit="closeEdit" />
     </div>
   </div>
 </template>
@@ -35,20 +35,12 @@ export default {
     };
   },
 
-  beforeMount() {
-    /* this.userToShow = this.$route.params.id; */
-    /* this.getListingsInSum(); */
-  },
-
-  methods: {
-    /*    async getListingsInSum() {
-      let res = await fetch(`/rest/${this.userToShow}/listings`);
-      this.listings = await res.json();
-    }, */
-
+   methods: {
+ 
     editList(id) {
+      if(this.$route.params.id == this.$store.state.user.id){
       id = id.toString();
-      this.currentList = this.$store.dispatch("getSingleListing", id);
+      this.currentList = this.$store.dispatch("getSingleListing", id);}
     },
     closeEdit(closeEdit) {
       if (closeEdit) {

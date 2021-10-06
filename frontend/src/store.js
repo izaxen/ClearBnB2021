@@ -2,12 +2,9 @@ import { createStore } from 'vuex'
 
 export const store = createStore({
 
-  // state is where we store reactive variables
-  // this.$store.state.nameOfVariable
   state() {
     return {
       user: null,
-      failedLogIn: false,
       currentListing: null,
       loggedInUser: false,
       currentListingOldVersion: null,
@@ -23,11 +20,7 @@ export const store = createStore({
       state.user = user
       state.setUserLoggedIn = true
     },
-    setFailedLogin(state, value) {
-      state.failedLogIn = value
-    },
-
-
+    
     setUserLoggedIn(state, status) {
       state.loggedInUser = status
     },
@@ -50,10 +43,9 @@ export const store = createStore({
         method: 'POST',
         body: JSON.stringify(user),
       })
-      let loggedInUser = await res.json()
-      if (loggedInUser === null) {
+      let newUser = await res.json()
+      if (newUser=== null) {
         console.log("Failed to register account email not valid");
-        this.state.failedLogIn = true
         return
       }
       store.commit('setUser', loggedInUser)
@@ -67,7 +59,6 @@ export const store = createStore({
       let loggedInUser = await res.json()
       if ('Error' in loggedInUser) {
         console.log("Login failed");
-        this.state.failedLogIn = true;
         return
       }
       store.commit('setUser', loggedInUser)
@@ -214,7 +205,6 @@ export const store = createStore({
       });
       return await res.json();
     },
-
   }
 })
 
