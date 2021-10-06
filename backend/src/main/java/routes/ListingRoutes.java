@@ -65,7 +65,7 @@ public class ListingRoutes {
                     req.body(UpdateListingDTO.class),
                     currentUser);
             req.session("current-Listing", updatedListing);
-            res.json(updatedListing.getId());
+
         });
     }
 

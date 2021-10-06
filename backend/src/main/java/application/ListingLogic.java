@@ -89,25 +89,30 @@ public class ListingLogic {
     }
 
     public Listing updateListing(UpdateListingDTO dto, User user) {
+
         Listing oldList = listingRepository.findById(dto.getId()).get();
-        Listing listing = listMap.convertUpdateListingToListing(dto, user);
+        if(oldList.getUser().getId() == user.getId()) {
 
-        if (listing.getPrice() == 0) {
-            listing.setPrice(oldList.getPrice());
-        }
-        if (listing.getDescription() == (null)) {
-            listing.setDescription(oldList.getDescription());
-        }
-        if (listing.getAvailableStartDate() == (null)) {
-            listing.setAvailableStartDate(oldList.getAvailableStartDate());
-        }
-        if (listing.getAvailableEndDate() == (null)) {
-            listing.setAvailableEndDate(oldList.getAvailableEndDate());
-        }
+            Listing listing = listMap.convertUpdateListingToListing(dto, user);
 
-        createListingVersionBackup(oldList);
+            if (listing.getPrice() == 0) {
+                listing.setPrice(oldList.getPrice());
+            }
+            if (listing.getDescription() == (null)) {
+                listing.setDescription(oldList.getDescription());
+            }
+            if (listing.getAvailableStartDate() == (null)) {
+                listing.setAvailableStartDate(oldList.getAvailableStartDate());
+            }
+            if (listing.getAvailableEndDate() == (null)) {
+                listing.setAvailableEndDate(oldList.getAvailableEndDate());
+            }
+            createListingVersionBackup(oldList);
 
-        return listingRepository.updateListing(listing);
+            return listingRepository.updateListing(listing);
+        }
+        return null;
+
     }
 
     private void createListingVersionBackup(Listing oldList) {

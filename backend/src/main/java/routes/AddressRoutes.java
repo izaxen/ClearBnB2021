@@ -33,8 +33,10 @@ public class AddressRoutes {
         public void updateAddress() {
             app.put("/api/address/", (req, res) -> {
                 Listing currentListing = req.session("current-Listing");
+                if(currentListing!=null){
                 logicHandler.getAddressLogic().updateAddress(req.body(UpdateAddressDTO.class), currentListing);
-            });
+            }});
+
         }
     }
 
