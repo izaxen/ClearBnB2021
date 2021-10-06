@@ -84,7 +84,6 @@ public class ListingRepository {
         Boolean isSauna = filter.getSauna();
         int maxPrice = filter.getPrice();
 
-
         List<Listing> matchedListing = session.createQuery("FROM Listing as l WHERE " +
                         "(:selectedStartDate IS NULL or l.availableStartDate <= :selectedStartDate) AND " +
                         "(:selectedEndDate IS NULL or l.availableEndDate >= :selectedEndDate) AND " +
@@ -95,7 +94,7 @@ public class ListingRepository {
                         "(:isBubblePool IS NULL or :isBubblePool IS FALSE or  l.amenities.isBubblePool IS :isBubblePool) AND " +
                         "(:isBicycle IS NULL or :isBicycle IS FALSE or l.amenities.isBicycle IS :isBicycle) AND " +
                         "(:isSauna IS NULL or :isSauna IS FALSE or  l.amenities.isSauna IS :isSauna) AND " +
-                        "(:maxPrice = 0 or l.price <= :maxPrice)", Listing.class)
+                        "(:maxPrice = 0 or l.price*1.15 <= :maxPrice)", Listing.class)
                 .setParameter("selectedStartDate", ts1)
                 .setParameter("selectedEndDate", ts2)
                 .setParameter("isBathTub", isBathTub)
