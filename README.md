@@ -1,2 +1,4 @@
 # ClearBnB2021
-A school project including MongoDB, MySQL, Java, Vue.js
+Schoolproject
+Focusing on the API structure with DDD and connection to MySQL and using MongoDB as cache
+
